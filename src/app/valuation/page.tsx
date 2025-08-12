@@ -16,7 +16,7 @@ export default function ValuationPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (field: keyof ValuationInput, value: any) => {
+  const handleInputChange = (field: keyof ValuationInput, value: string | number) => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
@@ -263,7 +263,7 @@ export default function ValuationPage() {
 
             {!result && !loading && (
               <div className="text-center text-gray-500 py-8">
-                <p>Enter your parameters and click "Calculate Valuation" to see results</p>
+                <p>Enter your parameters and click &quot;Calculate Valuation&quot; to see results</p>
               </div>
             )}
           </div>
