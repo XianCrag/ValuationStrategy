@@ -17,6 +17,12 @@ export default function Home() {
               >
                 DCF Calculator
               </Link>
+              <Link
+                href="/strategy"
+                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+              >
+                Strategy Backtesting
+              </Link>
             </div>
           </div>
         </div>
@@ -95,7 +101,7 @@ export default function Home() {
                 </div>
                 <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Real-time Calculations</p>
                 <p className="mt-2 ml-16 text-base text-gray-500">
-                  Instant results with detailed year-by-year breakdowns and comprehensive financial metrics.
+                  Instant results with detailed year-by-year breakdowns and comprehensive financial metricsList.
                 </p>
               </div>
 
