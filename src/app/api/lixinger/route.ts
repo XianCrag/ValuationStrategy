@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNonFinancialData, getIndexFundamentalData, getDateRangeForYears, LixingerNonFinancialData, isStockCode } from '@/lib/lixinger';
+import { getNonFinancialData, getIndexFundamentalData, getDateRangeForYears, LixingerNonFinancialData } from '@/lib/lixinger';
 
 export interface LixingerApiRequest {
   stockCodes: string[];
+  codeTypeMap?: Record<string, string>; // code 到 type 的映射，type 可以是 'stock' 或 'index'
   years?: number;
   metricsList?: string[];
 }
@@ -10,7 +11,7 @@ export interface LixingerApiRequest {
 export async function POST(request: NextRequest) {
   try {
     const body: LixingerApiRequest = await request.json();
-    const { stockCodes, years = 10, metricsList = ['pe_ttm.y10.mcw.cvpos'] } = body;
+    const { stockCodes, codeTypeMap = {}, years = 10, metricsList = ['pe_ttm.y10.mcw.cvpos'] } = body;
 
     if (!stockCodes || stockCodes.length === 0) {
       return NextResponse.json(
@@ -21,9 +22,15 @@ export async function POST(request: NextRequest) {
 
     const { startDate, endDate } = getDateRangeForYears(years);
     
-    // 根据代码格式判断是股票还是指数
-    const stockCodeList = stockCodes.filter(code => isStockCode(code));
-    const indexCodeList = stockCodes.filter(code => !isStockCode(code));
+    // 根据 type 字段判断是股票还是指数
+    const stockCodeList = stockCodes.filter(code => {
+      const type = codeTypeMap[code] || 'stock';
+      return type !== 'index';
+    });
+    const indexCodeList = stockCodes.filter(code => {
+      const type = codeTypeMap[code] || 'stock';
+      return type === 'index';
+    });
     
     let data: LixingerNonFinancialData[] = [];
     
