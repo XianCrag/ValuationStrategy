@@ -1,6 +1,7 @@
 import { StockData, ControlGroupResult, StockPosition } from '../../types';
 import { runNetWorth } from './base';
 import moment from 'moment';
+import { CSI300_FUND_CODE } from '../../constants';
 
 type NetWorth = {
   stockValue: Array<{
@@ -35,7 +36,7 @@ export function calculateControlGroup2(
       yearlyDetails: [],
     };
   }
-
+  
   const monthlyInvestment = initialCapital / dcaMonths;
   const startDate = new Date(stockData[0].date);
   // const dcaEndDate = new Date(startDate);
@@ -45,7 +46,7 @@ export function calculateControlGroup2(
   // 初始化净值：全部为现金，创建一个虚拟的沪深300持仓（份额为0）
   const initialNetWorth: NetWorth = {
     stockValue: [{
-      code: '000300',
+      code: CSI300_FUND_CODE,
       shares: 0,
       shareValue: stockData[0].cp || 0,
     }],
@@ -56,11 +57,9 @@ export function calculateControlGroup2(
 
   // 追踪上次定投的月份
   let lastInvestmentMonth = '';
-  let totalInvested = 0;
 
   // 定投策略函数
   const dcaStrategy = (netWorth: NetWorth): NetWorth => {
-    const currentDate = new Date(netWorth.date || '');
     const currentMonth = moment(netWorth.date).format('YYYY-MM');
 
     // 检查是否需要定投
@@ -73,8 +72,8 @@ export function calculateControlGroup2(
     // 计算本次定投金额
     const investmentAmount = Math.min(monthlyInvestment, netWorth.cash);
 
-    // 获取沪深300当前价格（从更新后的 shareValue 获取）
-    const csi300 = netWorth.stockValue.find(s => s.code === '000300');
+    // 获取沪深300基金当前价格（从更新后的 shareValue 获取）
+    const csi300 = netWorth.stockValue.find(s => s.code === CSI300_FUND_CODE);
     const currentPrice = csi300?.shareValue || 0;
 
     // 计算买入份额
@@ -82,7 +81,7 @@ export function calculateControlGroup2(
 
     // 更新持仓
     const newStockValue = netWorth.stockValue.map(stock => {
-      if (stock.code === '000300') {
+      if (stock.code === CSI300_FUND_CODE) {
         return {
           ...stock,
           shares: stock.shares + sharesToBuy,
@@ -98,7 +97,6 @@ export function calculateControlGroup2(
     }, 0);
 
     lastInvestmentMonth = currentMonth;
-    totalInvested += investmentAmount;
 
     return {
       ...netWorth,
@@ -150,10 +148,10 @@ export function calculateControlGroup2(
     startStockPositions?: StockPosition[];
     endStockPositions?: StockPosition[];
   }> = [];
-
+  
   for (let year = startYear; year <= endYear; year++) {
     // 找到该年的第一天和最后一天的净值
-    let yearStartNetWorth = netWorthTimeLine.find(nw => {
+    const yearStartNetWorth = netWorthTimeLine.find(nw => {
       const nwDate = new Date(nw.date || '');
       return nwDate.getFullYear() === year;
     });
@@ -208,7 +206,7 @@ export function calculateControlGroup2(
         value: stock.shares * stock.shareValue,
         price: stock.shareValue,
       }));
-
+    
     yearlyDetails.push({
       year: year.toString(),
       startValue: yearStartValue,

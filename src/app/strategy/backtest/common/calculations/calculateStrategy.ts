@@ -2,7 +2,7 @@ import {
   StockData,
   BondData,
   StrategyResult,
-} from '../types';
+} from '../../types';
 import {
   REVIEW_INTERVAL_MONTHS,
   REBALANCE_THRESHOLD,

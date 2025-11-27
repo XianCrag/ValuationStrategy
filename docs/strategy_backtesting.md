@@ -7,6 +7,33 @@
 * API - list
     * 获取股票数据： https://open.lixinger.com/api/cn/company/fundamental/non_financial
     * 获取指数数据：https://open.lixinger.com/api/cn/index/fundamental
+    * 指数基金数据: https://open.lixinger.com/api/cn/fund/net-value-of-dividend-reinvestment
+        * req
+        ```
+        {
+	"token": "3c8a2837-984b-4a1c-a2fc-f93775868abf",
+	"startDate": "2025-11-25",
+	"endDate": "2025-11-27",
+	"stockCode": "510300"
+}
+```
+        * res
+            ```
+            {
+  "code": 1,
+  "message": "success",
+  "data": [
+    {
+      "date": "2025-11-26T00:00:00+08:00",
+      "netValue": 2.103
+    },
+    {
+      "date": "2025-11-25T00:00:00+08:00",
+      "netValue": 2.09
+    }
+  ]
+}
+            ```
     * 获取ETF基金净值数据：https://open.lixinger.com/api/cn/fund/net-value-of-dividend-reinvestment
     * 国债接口： https://open.lixinger.com/api/macro/national-debt
         * token, startDate, endDate, areaCode(cn, hk, us), metricsList
@@ -16,8 +43,13 @@
     * ✅ 数据展示页面 (`/strategy`)
 
 ### 我关注的标的
-1. A股: 沪深300指数 (代码: 000300)
+1. A股: 沪深300指数基金 (代码: 510300) - 使用基金复权净值数据
 2. 10年期国债 (代码: tcm_y10)
+
+### 为什么使用基金而不是指数？
+- **复权净值**：基金的复权净值已经考虑了分红再投资，更准确反映实际投资收益
+- **可交易性**：指数基金（ETF）是可以实际交易的产品，更贴近真实投资场景
+- **费用考虑**：基金净值已包含管理费等成本，更接近真实收益
 
 ### 我关注的指标
  * [市值, mc]

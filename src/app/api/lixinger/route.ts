@@ -1,12 +1,95 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNonFinancialData, getIndexFundamentalData, getNationalDebtData, getDateRangeForYears, LixingerNonFinancialData, LixingerInterestRatesData } from '@/lib/lixinger';
+import { 
+  getNonFinancialData, 
+  getIndexFundamentalData, 
+  getNationalDebtData, 
+  getFundData,
+  getDateRangeForYears, 
+  LixingerNonFinancialData, 
+  LixingerInterestRatesData,
+  LixingerFundData 
+} from '@/lib/lixinger';
 
 export interface LixingerApiRequest {
   stockCodes?: string[];
-  codeTypeMap?: Record<string, string>; // code 到 type 的映射，type 可以是 'stock' 或 'index'
+  codeTypeMap?: Record<string, string>; // code 到 type 的映射，type 可以是 'stock', 'index' 或 'fund'
   nationalDebtCodes?: string[]; // 国债代码列表，如 ['tcm_y10']
   years?: number;
   metricsList?: string[];
+}
+
+/**
+ * 分批获取股票、指数或基金数据
+ * 当请求年份超过 MAX_YEARS_PER_REQUEST 时，自动分批请求并合并结果
+ */
+async function fetchDataInBatches(
+  codes: string[],
+  years: number,
+  maxYearsPerRequest: number,
+  startDate: string,
+  endDate: string,
+  metricsList: string[],
+  type: 'stock' | 'index' | 'fund'
+): Promise<(LixingerNonFinancialData | LixingerFundData)[]> {
+  const allBatches: (LixingerNonFinancialData | LixingerFundData)[] = [];
+  const totalBatches = Math.ceil(years / maxYearsPerRequest);
+  const endDateObj = new Date(endDate);
+  const startDateObj = new Date(startDate);
+  
+  for (let i = 0; i < totalBatches; i++) {
+    // 计算当前批次的日期范围（从最新日期往前推）
+    const batchEndDateObj = new Date(endDateObj);
+    batchEndDateObj.setFullYear(batchEndDateObj.getFullYear() - i * maxYearsPerRequest);
+    const batchEndDate = i === 0 ? endDate : batchEndDateObj.toISOString().split('T')[0];
+    
+    // 计算开始日期
+    const batchStartDateObj = new Date(batchEndDateObj);
+    batchStartDateObj.setFullYear(batchStartDateObj.getFullYear() - maxYearsPerRequest);
+    // 对于最后一批，使用原始的startDate（确保不超出范围）
+    const batchStartDate = batchStartDateObj < startDateObj 
+      ? startDate 
+      : batchStartDateObj.toISOString().split('T')[0];
+    
+    console.log(`${type}数据 - 获取第 ${i + 1}/${totalBatches} 批: ${batchStartDate} 到 ${batchEndDate}`);
+    
+    try {
+      let batchData: (LixingerNonFinancialData | LixingerFundData)[];
+      
+      if (type === 'fund') {
+        batchData = await getFundData(codes, batchStartDate, batchEndDate);
+      } else if (type === 'stock') {
+        batchData = await getNonFinancialData(codes, batchStartDate, batchEndDate, metricsList);
+      } else {
+        batchData = await getIndexFundamentalData(codes, batchStartDate, batchEndDate, metricsList);
+      }
+      
+      allBatches.push(...batchData);
+      console.log(`  获取到 ${batchData.length} 条数据`);
+      
+      // 避免请求过快，在批次之间稍作延迟
+      if (i < totalBatches - 1) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    } catch (error) {
+      console.error(`获取第 ${i + 1} 批${type}数据失败:`, error);
+      // 继续获取其他批次，不中断整个流程
+    }
+  }
+  
+  // 去重并排序（按日期+股票代码去重，保留最新的）
+  const uniqueDataMap = new Map<string, LixingerNonFinancialData | LixingerFundData>();
+  allBatches.forEach(item => {
+    const dateKey = `${item.date.split('T')[0]}-${item.stockCode}`; // 使用日期+代码作为key去重
+    if (!uniqueDataMap.has(dateKey) || new Date(item.date) > new Date(uniqueDataMap.get(dateKey)!.date)) {
+      uniqueDataMap.set(dateKey, item);
+    }
+  });
+  
+  const uniqueData = Array.from(uniqueDataMap.values())
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  
+  console.log(`${type}数据分批获取完成，共 ${uniqueData.length} 条数据`);
+  return uniqueData;
 }
 
 export async function POST(request: NextRequest) {
@@ -23,30 +106,86 @@ export async function POST(request: NextRequest) {
 
     const { startDate, endDate } = getDateRangeForYears(years);
     
-    let data: (LixingerNonFinancialData | LixingerInterestRatesData)[] = [];
+    let data: (LixingerNonFinancialData | LixingerInterestRatesData | LixingerFundData)[] = [];
     
-    // 获取股票和指数数据
+    // 如果年份超过10年，需要分批获取所有数据
+    const MAX_YEARS_PER_REQUEST = 10;
+    const needsBatching = years > MAX_YEARS_PER_REQUEST;
+    
+    // 获取股票、指数和基金数据
     if (stockCodes.length > 0) {
-      // 根据 type 字段判断是股票还是指数
+      // 根据 type 字段判断是股票、指数还是基金
       const stockCodeList = stockCodes.filter(code => {
         const type = codeTypeMap[code] || 'stock';
-        return type !== 'index';
+        return type === 'stock';
       });
       const indexCodeList = stockCodes.filter(code => {
         const type = codeTypeMap[code] || 'stock';
         return type === 'index';
       });
+      const fundCodeList = stockCodes.filter(code => {
+        const type = codeTypeMap[code] || 'stock';
+        return type === 'fund';
+      });
       
       // 获取股票数据
       if (stockCodeList.length > 0) {
-        const stockData = await getNonFinancialData(stockCodeList, startDate, endDate, metricsList);
-        data = [...data, ...stockData];
+        if (needsBatching) {
+          console.log(`股票数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
+          const stockData = await fetchDataInBatches(
+            stockCodeList,
+            years,
+            MAX_YEARS_PER_REQUEST,
+            startDate,
+            endDate,
+            metricsList,
+            'stock'
+          );
+          data = [...data, ...stockData];
+        } else {
+          const stockData = await getNonFinancialData(stockCodeList, startDate, endDate, metricsList);
+          data = [...data, ...stockData];
+        }
       }
       
       // 获取指数数据
       if (indexCodeList.length > 0) {
-        const indexData = await getIndexFundamentalData(indexCodeList, startDate, endDate, metricsList);
-        data = [...data, ...indexData];
+        if (needsBatching) {
+          console.log(`指数数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
+          const indexData = await fetchDataInBatches(
+            indexCodeList,
+            years,
+            MAX_YEARS_PER_REQUEST,
+            startDate,
+            endDate,
+            metricsList,
+            'index'
+          );
+          data = [...data, ...indexData];
+        } else {
+          const indexData = await getIndexFundamentalData(indexCodeList, startDate, endDate, metricsList);
+          data = [...data, ...indexData];
+        }
+      }
+      
+      // 获取基金数据
+      if (fundCodeList.length > 0) {
+        if (needsBatching) {
+          console.log(`基金数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
+          const fundData = await fetchDataInBatches(
+            fundCodeList,
+            years,
+            MAX_YEARS_PER_REQUEST,
+            startDate,
+            endDate,
+            [], // 基金API不需要metricsList
+            'fund'
+          );
+          data = [...data, ...fundData];
+        } else {
+          const fundData = await getFundData(fundCodeList, startDate, endDate);
+          data = [...data, ...fundData];
+        }
       }
     }
     
@@ -123,10 +262,10 @@ export async function POST(request: NextRequest) {
     }
 
     // 映射 API 返回的字段名到前端使用的字段名
-    // mc -> marketValue (市值) - 仅对股票数据有效
+    // mc -> marketValue (市值) - 仅对股票/指数数据有效，基金数据没有mc字段
     const mappedData = data.map(item => ({
       ...item,
-      marketValue: item.mc,
+      marketValue: ('mc' in item) ? item.mc : undefined,
     }));
 
     return NextResponse.json({

@@ -96,7 +96,7 @@ export function calculateControlGroup1(
 
   for (let year = startYear; year <= endYear; year++) {
     // 找到该年的第一天和最后一天的净值
-    let yearStartNetWorth = netWorthTimeLine.find(nw => {
+    const yearStartNetWorth = netWorthTimeLine.find(nw => {
       const nwDate = new Date(nw.date || '');
       return nwDate.getFullYear() === year;
     });

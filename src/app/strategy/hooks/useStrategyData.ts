@@ -26,6 +26,7 @@ export function useStrategyData(selectedMetric: MetricType) {
         nationalDebtCodes = NATIONAL_DEBT_STOCKS.map(s => s.code);
       }
       
+      // 获取20年数据（服务器端自动处理分批请求）
       const response = await fetch('/api/lixinger', {
         method: 'POST',
         headers: {
@@ -35,7 +36,7 @@ export function useStrategyData(selectedMetric: MetricType) {
           stockCodes: stockCodes.length > 0 ? stockCodes : undefined,
           nationalDebtCodes: nationalDebtCodes.length > 0 ? nationalDebtCodes : undefined,
           codeTypeMap,
-          years: 10,
+          years: 20,
           metricsList: selectedMetric === 'index' ? ['pe_ttm.mcw', 'mc'] : undefined, // 指数：PE按市值加权、总市值；国债：使用默认指标
         }),
       });

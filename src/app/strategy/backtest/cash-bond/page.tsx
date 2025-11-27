@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { BondData, ApiResponse, ControlGroupResult } from '../types';
-import { INITIAL_CAPITAL } from '../constants';
+import { INITIAL_CAPITAL, TCM_Y10_CODE, DATA_YEARS } from '../constants';
 import { calculateControlGroup1 } from '../common/calculations';
 import { formatNumber, formatDate, formatDateShort } from '../../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetailsTable';
@@ -36,12 +36,13 @@ export default function CashBondPage() {
     setError(null);
 
     try {
+      // 获取20年国债数据（服务器端自动处理分批请求）
       const bondResponse = await fetch('/api/lixinger', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nationalDebtCodes: ['tcm_y10'],
-          years: 10,
+          nationalDebtCodes: [TCM_Y10_CODE],
+          years: DATA_YEARS,
         }),
       });
 

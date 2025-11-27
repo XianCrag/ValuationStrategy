@@ -15,10 +15,13 @@ export type {
   LixingerInterestRatesRequest,
 } from './types';
 
+export type { LixingerFundData } from './fund';
+
 // 导出 API 函数
 export { getNonFinancialData } from './non-financial';
 export { getIndexFundamentalData } from './index-fundamental';
 export { getNationalDebtData } from './national-debt';
+export { getFundData } from './fund';
 
 // 导出工具函数
 export { getDateRangeForYears, getLixingerToken } from './utils';

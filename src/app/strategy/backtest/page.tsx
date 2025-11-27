@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { StockData, BondData, ApiResponse, StrategyResult } from './types';
-import { INITIAL_CAPITAL } from './constants';
+import { INITIAL_CAPITAL, CSI300_FUND_CODE, TCM_Y10_CODE, DATA_YEARS } from './constants';
 import { calculateStrategy } from './common/calculations';
 import { formatNumber, formatDate, formatDateShort } from '../utils';
 
@@ -36,25 +36,27 @@ export default function BacktestPage() {
     setError(null);
 
     try {
-      const stockResponse = await fetch('/api/lixinger', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          stockCodes: ['000300'],
-          codeTypeMap: { '000300': 'index' },
-          years: 10,
-          metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
+      // 并行获取20年基金和国债数据（服务器端自动处理分批请求）
+      const [stockResponse, bondResponse] = await Promise.all([
+        fetch('/api/lixinger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            stockCodes: [CSI300_FUND_CODE],
+            codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
+            years: DATA_YEARS,
+            metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
+          }),
         }),
-      });
-
-      const bondResponse = await fetch('/api/lixinger', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nationalDebtCodes: ['tcm_y10'],
-          years: 10,
-        }),
-      });
+        fetch('/api/lixinger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nationalDebtCodes: [TCM_Y10_CODE],
+            years: DATA_YEARS,
+          }),
+        })
+      ]);
 
       const stockResult: ApiResponse = await stockResponse.json();
       const bondResult: ApiResponse = await bondResponse.json();
@@ -281,25 +283,25 @@ export default function BacktestPage() {
                             <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endStockValue)}</td>
                             <td className="px-4 py-3 text-sm">
                               <div className="space-y-1">
-                                {(year.stockBuyAmount > 0 || year.stockSellAmount > 0) && (
+                                {((year.stockBuyAmount || 0) > 0 || (year.stockSellAmount || 0) > 0) && (
                                   <div>
-                                    {year.stockBuyAmount - year.stockSellAmount > 0 ? (
-                                      <span className="text-blue-600">+{formatNumber(year.stockBuyAmount - year.stockSellAmount)}</span>
-                                    ) : year.stockBuyAmount - year.stockSellAmount < 0 ? (
-                                      <span className="text-orange-600">{formatNumber(year.stockBuyAmount - year.stockSellAmount)}</span>
+                                    {(year.stockBuyAmount || 0) - (year.stockSellAmount || 0) > 0 ? (
+                                      <span className="text-blue-600">+{formatNumber((year.stockBuyAmount || 0) - (year.stockSellAmount || 0))}</span>
+                                    ) : (year.stockBuyAmount || 0) - (year.stockSellAmount || 0) < 0 ? (
+                                      <span className="text-orange-600">{formatNumber((year.stockBuyAmount || 0) - (year.stockSellAmount || 0))}</span>
                                     ) : (
                                       <span className="text-gray-400">-</span>
                                     )}
                                   </div>
                                 )}
-                                {year.startIndexPrice > 0 && year.endIndexPrice > 0 && (
+                                {(year.startIndexPrice || 0) > 0 && (year.endIndexPrice || 0) > 0 && (
                                   <div className="text-xs">
                                     <div className="text-gray-600">
-                                      {year.startIndexPrice.toFixed(2)} → {year.endIndexPrice.toFixed(2)}
+                                      {year.startIndexPrice?.toFixed(2)} → {year.endIndexPrice?.toFixed(2)}
                                     </div>
-                                    <span className={year.endIndexPrice >= year.startIndexPrice ? 'text-green-600' : 'text-red-600'}>
-                                      ({year.endIndexPrice >= year.startIndexPrice ? '+' : ''}
-                                      {((year.endIndexPrice - year.startIndexPrice) / year.startIndexPrice * 100).toFixed(2)}%)
+                                    <span className={(year.endIndexPrice || 0) >= (year.startIndexPrice || 0) ? 'text-green-600' : 'text-red-600'}>
+                                      ({(year.endIndexPrice || 0) >= (year.startIndexPrice || 0) ? '+' : ''}
+                                      {(((year.endIndexPrice || 0) - (year.startIndexPrice || 0)) / (year.startIndexPrice || 1) * 100).toFixed(2)}%)
                                     </span>
                                   </div>
                                 )}
@@ -308,19 +310,19 @@ export default function BacktestPage() {
                             <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endBondValue)}</td>
                             <td className="px-4 py-3 text-sm">
                               <div className="space-y-1">
-                                {(year.bondBuyAmount > 0 || year.bondSellAmount > 0) && (
+                                {((year.bondBuyAmount || 0) > 0 || (year.bondSellAmount || 0) > 0) && (
                                   <div>
-                                    {year.bondBuyAmount - year.bondSellAmount > 0 ? (
-                                      <span className="text-blue-600">+{formatNumber(year.bondBuyAmount - year.bondSellAmount)}</span>
-                                    ) : year.bondBuyAmount - year.bondSellAmount < 0 ? (
-                                      <span className="text-orange-600">{formatNumber(year.bondBuyAmount - year.bondSellAmount)}</span>
+                                    {(year.bondBuyAmount || 0) - (year.bondSellAmount || 0) > 0 ? (
+                                      <span className="text-blue-600">+{formatNumber((year.bondBuyAmount || 0) - (year.bondSellAmount || 0))}</span>
+                                    ) : (year.bondBuyAmount || 0) - (year.bondSellAmount || 0) < 0 ? (
+                                      <span className="text-orange-600">{formatNumber((year.bondBuyAmount || 0) - (year.bondSellAmount || 0))}</span>
                                     ) : (
                                       <span className="text-gray-400">-</span>
                                     )}
                                   </div>
                                 )}
-                                {year.bondInterest > 0 && (
-                                  <div className="text-green-600 text-xs">+{formatNumber(year.bondInterest)}</div>
+                                {(year.bondInterest || 0) > 0 && (
+                                  <div className="text-green-600 text-xs">+{formatNumber(year.bondInterest || 0)}</div>
                                 )}
                               </div>
                             </td>
