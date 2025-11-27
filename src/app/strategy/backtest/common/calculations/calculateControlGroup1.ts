@@ -1,7 +1,26 @@
 import {
   BondData,
   ControlGroupResult,
-} from '../types';
+  StockData,
+} from '../../types';
+import { runNetWorth } from './base';
+
+type NetWorth = {
+  stockValue: Array<{
+    code: string;
+    shares: number;
+    shareValue: number;
+  }>;
+  cash: number;
+  cashInterest?: number;
+  totalValue: number;
+  date?: string;
+  cashChange?: number;
+  stockChange?: Array<{
+    code: string;
+    changeShares: number;
+  }>;
+};
 
 // 对照组1：现金国债
 export function calculateControlGroup1(
@@ -10,88 +29,60 @@ export function calculateControlGroup1(
   initialCapital: number,
   bondData: BondData[]
 ): ControlGroupResult {
-  const dailyValues: Array<{ date: string; value: number; changePercent: number }> = [];
-  let currentValue = initialCapital;
+  // 将 bondData 转换为 stockData 格式（用于 runNetWorth）
+  // 对于现金国债策略，不需要股票数据，只需要日期序列
+  const stockData: StockData[] = [];
+  
+  // 生成日期序列
+  const currentDate = new Date(startDate);
+  while (currentDate <= endDate) {
+    stockData.push({
+      date: currentDate.toISOString().split('T')[0],
+      cp: 0, // 现金国债策略不持有股票
+    });
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  // 初始化净值：全部为现金，无股票
+  const initialNetWorth: NetWorth = {
+    stockValue: [],
+    cash: initialCapital,
+    totalValue: initialCapital,
+    date: startDate.toISOString().split('T')[0],
+  };
+
+  // 仓位调整函数：保持全部现金，不做任何操作
+  const noChangeStrategy = (netWorth: NetWorth): NetWorth => {
+    return { ...netWorth };
+  };
+
+  // 调用 runNetWorth 计算净值时间线
+  const netWorthTimeLine = runNetWorth(stockData, initialNetWorth, noChangeStrategy);
+
+  // 转换为 dailyValues 格式
+  const dailyValues = netWorthTimeLine.map((netWorth) => ({
+    date: netWorth.date || '',
+    value: netWorth.totalValue,
+    changePercent: ((netWorth.totalValue / initialCapital) - 1) * 100,
+  }));
+
+  // 计算最大回撤
   let maxValue = initialCapital;
   let maxDrawdown = 0;
   
-  const startYear = startDate.getFullYear();
-  const endYear = endDate.getFullYear();
-  
-  const yearValues: Map<number, number> = new Map();
-  const yearRates: Map<number, number> = new Map();
-  let yearValue = initialCapital;
-  
-  for (let year = startYear; year <= endYear; year++) {
-    const yearData = bondData.filter(item => {
-      const itemDate = new Date(item.date);
-      return itemDate.getFullYear() === year && item.tcm_y10 !== undefined && item.tcm_y10 !== null;
-    });
-    
-    let bondRate = 0.03;
-    
-    if (yearData.length > 0) {
-      const rates = yearData.map(item => item.tcm_y10!);
-      const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
-      bondRate = avgRate;
-    } else if (year > startYear) {
-      bondRate = yearRates.get(year - 1) || 0.03;
+  netWorthTimeLine.forEach((netWorth) => {
+    if (netWorth.totalValue > maxValue) {
+      maxValue = netWorth.totalValue;
     }
-    
-    yearRates.set(year, bondRate);
-    yearValue = yearValue * (1 + bondRate);
-    yearValues.set(year, yearValue);
-  }
-  
-  const lastYearStart = new Date(endYear, 0, 1);
-  const daysInLastYear = Math.floor((endDate.getTime() - lastYearStart.getTime()) / (1000 * 60 * 60 * 24));
-  const lastYearValue = yearValues.get(endYear - 1) || initialCapital;
-  const lastYearRate = yearRates.get(endYear) || 0.03;
-  const finalValue = lastYearValue * (1 + lastYearRate * (daysInLastYear / 365));
-  
-  const currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    const currentYear = currentDate.getFullYear();
-    const yearStart = new Date(currentYear, 0, 1);
-    const yearEnd = new Date(currentYear, 11, 31);
-    const daysInYear = Math.floor((yearEnd.getTime() - yearStart.getTime()) / (1000 * 60 * 60 * 24));
-    const daysFromYearStart = Math.floor((currentDate.getTime() - yearStart.getTime()) / (1000 * 60 * 60 * 24));
-    
-    const yearStartValue = currentYear === startYear ? initialCapital : (yearValues.get(currentYear - 1) || initialCapital);
-    const yearEndValue = yearValues.get(currentYear) || initialCapital;
-    
-    currentValue = yearStartValue + (yearEndValue - yearStartValue) * (daysFromYearStart / daysInYear);
-    
-    if (currentYear === endYear && currentDate >= lastYearStart) {
-      const daysFromLastYearStart = Math.floor((currentDate.getTime() - lastYearStart.getTime()) / (1000 * 60 * 60 * 24));
-      const lastYearStartValue = yearValues.get(endYear - 1) || initialCapital;
-      if (daysInLastYear > 0) {
-        currentValue = lastYearStartValue + (finalValue - lastYearStartValue) * (daysFromLastYearStart / daysInLastYear);
-      }
-    }
-    
-    const dateStr = currentDate.toISOString().split('T')[0];
-    const changePercent = ((currentValue / initialCapital) - 1) * 100;
-    dailyValues.push({
-      date: dateStr,
-      value: currentValue,
-      changePercent,
-    });
-    
-    if (currentValue > maxValue) {
-      maxValue = currentValue;
-    }
-    const drawdown = ((maxValue - currentValue) / maxValue) * 100;
+    const drawdown = ((maxValue - netWorth.totalValue) / maxValue) * 100;
     if (drawdown > maxDrawdown) {
       maxDrawdown = drawdown;
     }
-    
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-  
-  const daysSinceStart = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-  const annualizedReturn = daysSinceStart > 0 ? ((finalValue / initialCapital) ** (365 / daysSinceStart) - 1) * 100 : 0;
-  
+  });
+
+  // 计算年度详情
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
   const yearlyDetails: Array<{
     year: string;
     startValue: number;
@@ -99,20 +90,29 @@ export function calculateControlGroup1(
     return: number;
     interest?: number;
   }> = [];
-  
+
   for (let year = startYear; year <= endYear; year++) {
-    const yearStartValue = year === startYear ? initialCapital : (yearValues.get(year - 1) || initialCapital);
-    let yearEndValue: number;
-    let interest: number;
-    
-    if (year === endYear) {
-      yearEndValue = finalValue;
-      interest = yearEndValue - yearStartValue;
-    } else {
-      yearEndValue = yearValues.get(year) || initialCapital;
-      interest = yearEndValue - yearStartValue;
+    // 找到该年的第一天和最后一天的净值
+    let yearStartNetWorth = netWorthTimeLine.find(nw => {
+      const nwDate = new Date(nw.date || '');
+      return nwDate.getFullYear() === year;
+    });
+
+    let yearEndNetWorth: typeof yearStartNetWorth = undefined;
+    // 从后往前找该年的最后一天
+    for (let i = netWorthTimeLine.length - 1; i >= 0; i--) {
+      const nw = netWorthTimeLine[i];
+      const nwDate = new Date(nw.date || '');
+      if (nwDate.getFullYear() === year) {
+        yearEndNetWorth = nw;
+        break;
+      }
     }
-    
+
+    const yearStartValue = yearStartNetWorth?.totalValue || initialCapital;
+    const yearEndValue = yearEndNetWorth?.totalValue || initialCapital;
+    const interest = yearEndValue - yearStartValue;
+
     yearlyDetails.push({
       year: year.toString(),
       startValue: yearStartValue,
@@ -121,7 +121,17 @@ export function calculateControlGroup1(
       interest,
     });
   }
+
+  // 计算最终价值和年化收益
+  const finalValue = netWorthTimeLine.length > 0 
+    ? netWorthTimeLine[netWorthTimeLine.length - 1].totalValue 
+    : initialCapital;
   
+  const daysSinceStart = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const annualizedReturn = daysSinceStart > 0 
+    ? ((finalValue / initialCapital) ** (365 / daysSinceStart) - 1) * 100 
+    : 0;
+
   return {
     finalValue,
     totalReturn: ((finalValue / initialCapital) - 1) * 100,
@@ -131,4 +141,3 @@ export function calculateControlGroup1(
     yearlyDetails,
   };
 }
-
