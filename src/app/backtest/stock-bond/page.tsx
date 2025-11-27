@@ -24,7 +24,7 @@ export default function BacktestPage() {
   const [error, setError] = useState<string | null>(null);
   const [strategyResult, setStrategyResult] = useState<StrategyResult | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedYears, setSelectedYears] = useState<number>(20);
+  const [selectedYears, setSelectedYears] = useState<number>(10);
 
   useEffect(() => {
     fetchData();
@@ -36,33 +36,65 @@ export default function BacktestPage() {
     setError(null);
 
     try {
-      // 获取沪深300基金数据（服务器端自动处理分批请求）
+      // 获取沪深300指数数据（包含PE）和基金数据（包含价格）
       // 策略使用本地 national-debt.json 的利率数据，无需请求国债数据
-      const stockResponse = await fetch('/api/lixinger', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          stockCodes: [CSI300_FUND_CODE],
-          codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
-          years: selectedYears,
-          metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
+      const [indexResponse, fundResponse] = await Promise.all([
+        // 获取指数PE数据
+        fetch('/api/lixinger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            stockCodes: ['000300'], // 沪深300指数
+            codeTypeMap: { '000300': 'index' },
+            years: selectedYears,
+            metricsList: ['pe_ttm.mcw'],
+          }),
         }),
-      });
+        // 获取基金价格数据
+        fetch('/api/lixinger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            stockCodes: [CSI300_FUND_CODE],
+            codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
+            years: selectedYears,
+            metricsList: ['cp'],
+          }),
+        }),
+      ]);
 
-      const stockResult: ApiResponse = await stockResponse.json();
+      const indexResult: ApiResponse = await indexResponse.json();
+      const fundResult: ApiResponse = await fundResponse.json();
 
-      if (!stockResult.success) {
-        throw new Error(stockResult.error || 'Failed to fetch data');
+      if (!indexResult.success || !fundResult.success) {
+        throw new Error(indexResult.error || fundResult.error || 'Failed to fetch data');
       }
 
-      const stocks = (stockResult.data as StockData[]).sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
+      // 合并指数PE和基金价格数据
+      const indexData = indexResult.data as StockData[];
+      const fundData = fundResult.data as StockData[];
+      
+      // 创建日期到PE的映射
+      const peMap = new Map<string, number>();
+      indexData.forEach(item => {
+        if (item['pe_ttm.mcw']) {
+          peMap.set(item.date, item['pe_ttm.mcw']);
+        }
+      });
 
-      setStockData(stocks);
+      // 合并数据：使用基金价格 + 指数PE
+      const mergedData = fundData
+        .map(fundItem => ({
+          ...fundItem,
+          'pe_ttm.mcw': peMap.get(fundItem.date),
+        }))
+        .filter(item => item['pe_ttm.mcw'] !== undefined) // 过滤掉没有PE数据的日期
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      setStockData(mergedData);
 
       // 计算策略结果（使用本地 national-debt.json 的利率数据）
-      const result = calculateStrategy(stocks, INITIAL_CAPITAL);
+      const result = calculateStrategy(mergedData, INITIAL_CAPITAL);
       setStrategyResult(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');

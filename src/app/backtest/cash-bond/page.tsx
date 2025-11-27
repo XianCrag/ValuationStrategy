@@ -25,7 +25,7 @@ export default function CashBondPage() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ControlGroupResult | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedYears, setSelectedYears] = useState<number>(20);
+  const [selectedYears, setSelectedYears] = useState<number>(10);
 
   useEffect(() => {
     fetchData();
