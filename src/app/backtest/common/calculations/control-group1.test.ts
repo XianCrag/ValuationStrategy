@@ -3,7 +3,7 @@
  * 运行方式：npm test -- calculateControlGroup1.test.ts
  */
 
-import { calculateControlGroup1 } from './calculateControlGroup1';
+import { calculateControlGroup1 } from './control-group1';
 
 describe('calculateControlGroup1 (重构版)', () => {
   const initialCapital = 1000000;

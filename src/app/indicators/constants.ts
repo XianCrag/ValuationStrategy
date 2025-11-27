@@ -1,5 +1,5 @@
 import { StockConfig } from './types';
-import { CSI300_FUND_CODE, TCM_Y10_CODE } from './backtest/constants';
+import { CSI300_FUND_CODE, TCM_Y10_CODE } from '../backtest/constants';
 
 // 关注的标的配置
 export const WATCHED_STOCKS: StockConfig[] = [
@@ -12,6 +12,6 @@ export const NATIONAL_DEBT_STOCKS: StockConfig[] = [
 ];
 
 // 重新导出常量，方便其他地方使用
-export { CSI300_FUND_CODE, TCM_Y10_CODE } from './backtest/constants';
+export { CSI300_FUND_CODE, TCM_Y10_CODE } from '../backtest/constants';
 
 

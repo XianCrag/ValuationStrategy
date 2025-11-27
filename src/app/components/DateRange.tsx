@@ -1,4 +1,4 @@
-import { formatDate } from '../utils';
+import { formatDate } from '../indicators/utils';
 
 interface DateRangeDisplayProps {
   dateRange: { startDate: string; endDate: string };

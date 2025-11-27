@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import {
   LineChart,
   Line,
@@ -16,11 +14,11 @@ import {
 import { BondData, ApiResponse, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, TCM_Y10_CODE, DATA_YEARS } from '../constants';
 import { calculateControlGroup1 } from '../common/calculations';
-import { formatNumber, formatDate, formatDateShort } from '../../utils';
-import { YearlyDetailsTable } from '../../components/YearlyDetailsTable';
+import { formatNumber, formatDate, formatDateShort } from '../utils';
+import { YearlyDetailsTable } from '../../components/YearlyDetails';
+import StrategyLayout from '../../components/Layout';
 
 export default function CashBondPage() {
-  const pathname = usePathname();
   const [bondData, setBondData] = useState<BondData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,61 +71,19 @@ export default function CashBondPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-center mb-8 border-b border-gray-200">
-          <Link
-            href="/strategy"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            数据展示
-          </Link>
-          <Link
-            href="/strategy/backtest"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            策略回测
-          </Link>
-          <Link
-            href="/strategy/backtest/cash-bond"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest/cash-bond'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            现金国债
-          </Link>
-          <Link
-            href="/strategy/backtest/dca-csi300"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest/dca-csi300'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            定投沪深300
-          </Link>
-        </div>
+    <StrategyLayout>
+      <div className="py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              对照组1：现金国债
+            </h1>
+            <p className="text-lg text-gray-600">
+              全部资金持有现金国债，每年根据当年国债利率计算利息
+            </p>
+          </div>
 
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            对照组1：现金国债
-          </h1>
-          <p className="text-lg text-gray-600">
-            全部资金持有现金国债，每年根据当年国债利率计算利息
-          </p>
-        </div>
-
-        {error && (
+          {error && (
           <div className="bg-red-50 border border-red-200 rounded-md p-6 mb-6">
             <h3 className="text-lg font-semibold text-red-800 mb-2">错误</h3>
             <p className="text-red-700">{error}</p>
@@ -253,6 +209,7 @@ export default function CashBondPage() {
         )}
       </div>
     </div>
+    </StrategyLayout>
   );
 }
 

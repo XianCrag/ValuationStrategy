@@ -1,139 +1,231 @@
-# Valuation Strategy - DCF Calculator
+# 估值策略平台 - Valuation Strategy Platform
 
-A professional-grade Discounted Cash Flow (DCF) valuation calculator built with Next.js, featuring a modern web interface and robust server-side calculations.
+一个专业的投资策略分析和回测平台，提供指标数据查看、策略回测等功能。
 
-## Features
+## 功能特性
 
-- **DCF Valuation Engine**: Advanced financial modeling with customizable parameters
-- **Real-time Calculations**: Instant results with detailed year-by-year breakdowns
-- **Professional UI**: Modern, responsive design built with Tailwind CSS
-- **TypeScript**: Full type safety and better development experience
-- **API Routes**: Server-side calculation endpoints for secure financial analysis
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **查看指标** (`/indicators`): 查看沪深300等指数的历史数据和指标
+- **策略回测** (`/backtest`): 
+  - 沪深300平衡策略回测
+  - 现金国债对照组
+  - 定投沪深300对照组
+- **数据可视化**: 使用 Recharts 提供专业的数据图表展示
+- **响应式布局**: 左侧菜单 + 右侧内容的现代化界面
 
-## Technology Stack
+## 技术栈
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **Backend**: Next.js API Routes (Node.js)
-- **Development**: ESLint, PostCSS, Autoprefixer
+- **前端**: Next.js 15, React 19, TypeScript
+- **样式**: Tailwind CSS 4
+- **图表**: Recharts
+- **后端**: Next.js API Routes (Node.js)
+- **数据源**: 理杏仁 (Lixinger) API
+- **测试**: Jest
+- **开发工具**: ESLint, PostCSS, Autoprefixer
 
-## Getting Started
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
 - Node.js 18+ 
-- npm or yarn
+- npm 或 yarn
 
-### Installation
+### 安装
 
-1. Clone the repository:
+1. 克隆仓库：
 ```bash
 git clone <repository-url>
 cd ValuationStrategy
 ```
 
-2. Install dependencies:
+2. 安装依赖：
 ```bash
 npm install
 ```
 
-3. Run the development server:
+3. 配置环境变量：
+创建 `.env.local` 文件并添加理杏仁 API token：
+```
+LIXINGER_TOKEN=your_token_here
+```
+
+4. 运行开发服务器：
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. 在浏览器中打开 [http://localhost:3000](http://localhost:3000) (自动重定向到 `/indicators`)
 
-### Available Scripts
+### 可用脚本
 
-- `npm run dev` - Start development server with Turbopack
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `npm run dev` - 启动开发服务器（使用 Turbopack）
+- `npm run build` - 构建生产版本
+- `npm run start` - 启动生产服务器
+- `npm run lint` - 运行 ESLint
+- `npm test` - 运行测试
 
-## Project Structure
+## 项目结构
 
 ```
 src/
 ├── app/
 │   ├── api/
-│   │   └── valuation/
-│   │       └── route.ts          # DCF calculation API endpoint
-│   ├── valuation/
-│   │   └── page.tsx              # Valuation calculator page
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Landing page
-├── components/                    # Reusable components (future)
-└── lib/                          # Utility functions (future)
+│   │   └── lixinger/
+│   │       ├── route.ts              # 理杏仁数据 API
+│   │       └── __tests__/
+│   ├── components/                   # 全局共享组件
+│   │   ├── Sidebar.tsx               # 左侧导航菜单
+│   │   ├── StrategyLayout.tsx        # 布局组件
+│   │   ├── DateRangeDisplay.tsx
+│   │   ├── ErrorDisplay.tsx
+│   │   ├── LoadingSpinner.tsx
+│   │   ├── MetricSelector.tsx
+│   │   ├── RefreshButton.tsx
+│   │   ├── IndexDataDisplay.tsx
+│   │   ├── NationalDebtDataDisplay.tsx
+│   │   └── YearlyDetailsTable.tsx
+│   ├── indicators/                   # 查看指标模块
+│   │   ├── page.tsx                  # 指标查看页面
+│   │   ├── hooks/
+│   │   │   └── useStrategyData.ts
+│   │   ├── constants.ts
+│   │   ├── types.ts
+│   │   └── utils.ts
+│   ├── backtest/                     # 策略回测模块
+│   │   ├── page.tsx                  # 主策略回测页面
+│   │   ├── cash-bond/
+│   │   │   └── page.tsx              # 现金国债对照组
+│   │   ├── dca-csi300/
+│   │   │   └── page.tsx              # 定投沪深300对照组
+│   │   ├── common/
+│   │   │   └── calculations/         # 策略计算逻辑
+│   │   │       ├── base.ts           # 基础计算函数
+│   │   │       ├── calculateStrategy.ts
+│   │   │       ├── calculateControlGroup1.ts
+│   │   │       ├── calculateControlGroup2.ts
+│   │   │       └── index.ts
+│   │   ├── constants.ts
+│   │   ├── types.ts
+│   │   └── utils.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx                      # 根页面（重定向到 /indicators）
+├── data/
+│   ├── national-debt.json            # 国债数据
+│   └── types.ts
+└── lib/
+    └── lixinger/                     # 理杏仁 API 客户端
 ```
 
-## API Endpoints
+## 页面路由
 
-### POST /api/valuation
+### 查看指标 (`/indicators`)
+- 展示沪深300、上证50等指数数据
+- 查看国债收益率等指标
+- 切换指标类型查看不同维度数据
 
-Calculate DCF valuation with the following parameters:
+### 策略回测 (`/backtest`)
 
-**Request Body:**
+#### 主策略回测 (`/backtest`)
+- 沪深300平衡策略
+- 根据PE估值动态调整股债比例
+- 每6个月检查一次估值
+- 根据股债利差计算目标仓位
+
+#### 现金国债 (`/backtest/cash-bond`)
+- 对照组1：纯现金国债策略
+- 按月计算利息（基于国债收益率）
+- 用于对比策略的基准收益
+
+#### 定投沪深300 (`/backtest/dca-csi300`)
+- 对照组2：48个月定期定额投资
+- 每月定投固定金额
+- 展示定投策略效果
+- 对比基金净值走势
+
+## API 端点
+
+### POST /api/lixinger
+
+获取理杏仁数据，支持以下参数：
+
+**请求体：**
 ```typescript
 {
-  freeCashFlow: number[];        // Base year cash flows
-  growthRate: number;            // Annual growth rate (0.05 = 5%)
-  discountRate: number;          // Discount rate (0.10 = 10%)
-  terminalGrowthRate: number;    // Terminal growth rate (0.02 = 2%)
-  years: number;                 // Projection period
+  stockCodes?: string[];              // 股票/基金代码
+  nationalDebtCodes?: string[];       // 国债代码
+  codeTypeMap?: Record<string, string>; // 代码类型映射
+  years?: number;                     // 获取年限
+  metricsList?: string[];             // 指标列表
 }
 ```
 
-**Response:**
+**响应：**
 ```typescript
 {
-  presentValue: number;          // PV of projected cash flows
-  terminalValue: number;         // PV of terminal value
-  totalValue: number;            // Total enterprise value
-  yearByYear: Array<{           // Year-by-year breakdown
-    year: number;
-    fcf: number;
-    presentValue: number;
-  }>;
+  success: boolean;
+  data: Array<StockData | BondData>;
+  dateRange: {
+    startDate: string;
+    endDate: string;
+  };
+  error?: string;
 }
 ```
 
-## Usage
+## 策略说明
 
-1. **Navigate to the Valuation Page**: Click "DCF Calculator" from the main navigation
-2. **Input Parameters**: 
-   - Enter base year free cash flows
-   - Set growth rate, discount rate, and terminal growth rate
-   - Choose projection period
-3. **Calculate**: Click "Calculate Valuation" to see results
-4. **Review Results**: View total enterprise value, breakdowns, and year-by-year analysis
+### 主策略：沪深300平衡策略
+- 基于PE估值动态调整股债比例
+- 每6个月检查一次估值
+- 根据股债利差计算目标仓位
+- 超过阈值时进行再平衡
 
-## Financial Model Details
+### 对照组1：现金国债
+- 全部资金持有现金
+- 按月计算利息（基于国债收益率）
+- 用于对比策略的基准收益
 
-The DCF calculator implements the following methodology:
+### 对照组2：定投沪深300
+- 48个月定期定额投资
+- 每月定投固定金额
+- 展示定投策略效果
 
-1. **Projected Cash Flows**: Apply growth rate to base year cash flows
-2. **Present Value Calculation**: Discount each year's cash flow using the discount rate
-3. **Terminal Value**: Calculate perpetuity value beyond projection period
-4. **Total Valuation**: Sum of present values plus terminal value
+## 开发指南
 
-## Contributing
+### 添加新策略
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+1. 在 `src/app/backtest/` 下创建新目录
+2. 实现计算逻辑在 `common/calculations/`
+3. 在 `Sidebar.tsx` 中添加菜单项
+4. 创建页面组件并使用 `StrategyLayout`
 
-## License
+### 运行测试
 
-This project is licensed under the ISC License.
+```bash
+# 运行所有测试
+npm test
 
-## Support
+# 运行特定测试
+npm test -- calculateControlGroup2.test.ts
+```
 
-For questions or support, please open an issue in the repository.
+测试文件位于各模块的 `__tests__` 目录中。
+
+## 贡献
+
+1. Fork 本仓库
+2. 创建功能分支
+3. 提交更改
+4. 添加测试（如适用）
+5. 提交 Pull Request
+
+## 许可证
+
+本项目使用 ISC 许可证。
+
+## 支持
+
+如有问题或需要支持，请在仓库中提交 issue。
 
 ---
 

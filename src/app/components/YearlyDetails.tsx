@@ -1,5 +1,5 @@
 import { YearlyDetail, StockPosition } from '../backtest/types';
-import { formatNumber } from '../utils';
+import { formatNumber } from '../backtest/utils';
 
 interface YearlyDetailsTableProps {
   yearlyDetails: YearlyDetail[];

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { StockData, ApiResponse, MetricType } from '../types';
 import { WATCHED_STOCKS, NATIONAL_DEBT_STOCKS } from '../constants';
 
-export function useStrategyData(selectedMetric: MetricType) {
+export function useData(selectedMetric: MetricType) {
   const [data, setData] = useState<Record<string, StockData[]>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

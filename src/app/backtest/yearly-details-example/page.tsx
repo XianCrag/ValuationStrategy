@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { YearlyDetailsTable } from '@/app/strategy/components/YearlyDetailsTable';
-import { YearlyDetail } from '@/app/strategy/backtest/types';
+import { YearlyDetailsTable } from '@/app/components/YearlyDetails';
+import { YearlyDetail } from '@/app/backtest/types';
 
 /**
  * 年度详情表格使用示例

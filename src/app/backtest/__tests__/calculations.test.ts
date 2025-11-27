@@ -13,7 +13,7 @@ import path from 'path';
 
 // 加载真实测试数据
 function loadRealTestData(): { stockData: StockData[]; bondData: BondData[] } {
-  const testDataFile = path.join(process.cwd(), 'src/app/strategy/backtest/test-data.json');
+  const testDataFile = path.join(process.cwd(), 'src/app/backtest/test-data.json');
   
   if (!fs.existsSync(testDataFile)) {
     throw new Error(

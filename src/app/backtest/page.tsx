@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import {
   LineChart,
   Line,
@@ -16,10 +14,10 @@ import {
 import { StockData, BondData, ApiResponse, StrategyResult } from './types';
 import { INITIAL_CAPITAL, CSI300_FUND_CODE, TCM_Y10_CODE, DATA_YEARS } from './constants';
 import { calculateStrategy } from './common/calculations';
-import { formatNumber, formatDate, formatDateShort } from '../utils';
+import { formatNumber, formatDateShort } from './utils';
+import StrategyLayout from '../components/Layout';
 
 export default function BacktestPage() {
-  const pathname = usePathname();
   const [stockData, setStockData] = useState<StockData[]>([]);
   const [bondData, setBondData] = useState<BondData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -135,55 +133,13 @@ export default function BacktestPage() {
   const marketCapUnit = useTrillion ? '万亿' : '亿';
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-center mb-8 border-b border-gray-200">
-          <Link
-            href="/strategy"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            数据展示
-          </Link>
-          <Link
-            href="/strategy/backtest"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            策略回测
-          </Link>
-          <Link
-            href="/strategy/backtest/cash-bond"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest/cash-bond'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            现金国债
-          </Link>
-          <Link
-            href="/strategy/backtest/dca-csi300"
-            className={`px-6 py-3 font-medium transition-colors ${
-              pathname === '/strategy/backtest/dca-csi300'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            定投沪深300
-          </Link>
-        </div>
-
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            沪深300平衡策略回测
-          </h1>
+    <StrategyLayout>
+      <div className="py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              沪深300平衡策略回测
+            </h1>
           <p className="text-lg text-gray-600">
             PE范围11-16，每6个月review一次，股票仓位与目标仓位超过10%时进行股债平衡
           </p>
@@ -478,5 +434,6 @@ export default function BacktestPage() {
         )}
       </div>
     </div>
+    </StrategyLayout>
   );
 }

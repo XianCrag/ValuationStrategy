@@ -10,8 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { StockData, StockConfig } from '../types';
-import { formatNumber, formatDate, formatDateShort } from '../utils';
+import { StockData, StockConfig } from '../indicators/types';
+import { formatNumber, formatDate, formatDateShort } from '../indicators/utils';
 
 interface IndexDataDisplayProps {
   stock: StockConfig;

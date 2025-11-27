@@ -3,7 +3,7 @@
  * 运行方式：npm test -- calculateControlGroup2.test.ts
  */
 
-import { calculateControlGroup2 } from './calculateControlGroup2';
+import { calculateControlGroup2 } from './control-group2';
 import { StockData } from '../../types';
 
 describe('calculateControlGroup2 (重构版)', () => {

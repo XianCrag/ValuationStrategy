@@ -1,4 +1,4 @@
-import { MetricType } from '../types';
+import { MetricType } from '../indicators/types';
 
 interface MetricSelectorProps {
   selectedMetric: MetricType;
