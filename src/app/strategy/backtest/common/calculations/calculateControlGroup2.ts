@@ -1,4 +1,4 @@
-import { StockData, ControlGroupResult } from '../../types';
+import { StockData, ControlGroupResult, StockPosition } from '../../types';
 import { runNetWorth } from './base';
 import moment from 'moment';
 
@@ -38,8 +38,9 @@ export function calculateControlGroup2(
 
   const monthlyInvestment = initialCapital / dcaMonths;
   const startDate = new Date(stockData[0].date);
-  const dcaEndDate = new Date(startDate);
-  dcaEndDate.setMonth(dcaEndDate.getMonth() + dcaMonths);
+  // const dcaEndDate = new Date(startDate);
+  // dcaEndDate.setMonth(dcaEndDate.getMonth() + dcaMonths);
+
 
   // 初始化净值：全部为现金，创建一个虚拟的沪深300持仓（份额为0）
   const initialNetWorth: NetWorth = {
@@ -63,30 +64,18 @@ export function calculateControlGroup2(
     const currentMonth = moment(netWorth.date).format('YYYY-MM');
 
     // 检查是否需要定投
-    const shouldInvest = 
-      currentDate < dcaEndDate && 
-      currentMonth !== lastInvestmentMonth && 
-      totalInvested < initialCapital;
+    const shouldInvest = currentMonth !== lastInvestmentMonth;
 
-    if (!shouldInvest) {
+    if (!shouldInvest || netWorth.cash === 0) {
       return { ...netWorth };
     }
 
     // 计算本次定投金额
-    const remainingCapital = initialCapital - totalInvested;
-    const investmentAmount = Math.min(monthlyInvestment, remainingCapital);
-
-    if (investmentAmount <= 0 || netWorth.cash < investmentAmount) {
-      return { ...netWorth };
-    }
+    const investmentAmount = Math.min(monthlyInvestment, netWorth.cash);
 
     // 获取沪深300当前价格（从更新后的 shareValue 获取）
     const csi300 = netWorth.stockValue.find(s => s.code === '000300');
     const currentPrice = csi300?.shareValue || 0;
-
-    if (currentPrice === 0) {
-      return { ...netWorth };
-    }
 
     // 计算买入份额
     const sharesToBuy = investmentAmount / currentPrice;
@@ -154,7 +143,12 @@ export function calculateControlGroup2(
     stockValue?: number;
     return: number;
     investedAmount?: number;
-    finalValue?: number;
+    startStockValue?: number;
+    endStockValue?: number;
+    startCash?: number;
+    endCash?: number;
+    startStockPositions?: StockPosition[];
+    endStockPositions?: StockPosition[];
   }> = [];
 
   for (let year = startYear; year <= endYear; year++) {
@@ -187,19 +181,47 @@ export function calculateControlGroup2(
     const yearEndCashInvested = initialCapital - yearEndNetWorth.cash;
     const yearInvestedAmount = yearEndCashInvested - yearStartCashInvested;
 
-    // 计算股票价值
-    const stockValue = yearEndNetWorth.stockValue.reduce((sum, stock) => {
+    // 计算股票价值和持仓
+    const startStockValue = yearStartNetWorth.stockValue.reduce((sum, stock) => {
       return sum + stock.shares * stock.shareValue;
     }, 0);
+    
+    const endStockValue = yearEndNetWorth.stockValue.reduce((sum, stock) => {
+      return sum + stock.shares * stock.shareValue;
+    }, 0);
+
+    // 提取股票持仓详情
+    const startStockPositions: StockPosition[] = yearStartNetWorth.stockValue
+      .filter(stock => stock.shares > 0)
+      .map(stock => ({
+        code: stock.code,
+        shares: stock.shares,
+        value: stock.shares * stock.shareValue,
+        price: stock.shareValue,
+      }));
+
+    const endStockPositions: StockPosition[] = yearEndNetWorth.stockValue
+      .filter(stock => stock.shares > 0)
+      .map(stock => ({
+        code: stock.code,
+        shares: stock.shares,
+        value: stock.shares * stock.shareValue,
+        price: stock.shareValue,
+      }));
 
     yearlyDetails.push({
       year: year.toString(),
       startValue: yearStartValue,
       endValue: yearEndValue,
-      stockValue,
+      stockValue: endStockValue, // 保持向后兼容
       return: yearStartValue > 0 ? ((yearEndValue / yearStartValue) - 1) * 100 : 0,
       investedAmount: Math.max(0, yearInvestedAmount),
-      finalValue: yearEndValue,
+      startStockValue,
+      endStockValue,
+      startCash: yearStartNetWorth.cash,
+      endCash: yearEndNetWorth.cash,
+      startStockPositions,
+      endStockPositions,
     });
   }
 

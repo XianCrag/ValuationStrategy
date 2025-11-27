@@ -17,6 +17,7 @@ import { BondData, ApiResponse, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL } from '../constants';
 import { calculateControlGroup1 } from '../common/calculations';
 import { formatNumber, formatDate, formatDateShort } from '../../utils';
+import { YearlyDetailsTable } from '../../components/YearlyDetailsTable';
 
 export default function CashBondPage() {
   const pathname = usePathname();
@@ -240,34 +241,10 @@ export default function CashBondPage() {
               {showDetails && (
                 <div className="mt-4">
                   <h3 className="text-lg font-semibold mb-2">年度详情</h3>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">年份</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">年末总价值</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">利息</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">收益率</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {result.yearlyDetails.map((year, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-sm font-medium text-gray-900">{year.year}</td>
-                            <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endValue)}</td>
-                            <td className="px-4 py-3 text-sm text-green-600">
-                              {year.interest ? `+${formatNumber(year.interest)}` : '-'}
-                            </td>
-                            <td className="px-4 py-3 text-sm">
-                              <span className={year.return >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {year.return >= 0 ? '+' : ''}{year.return.toFixed(2)}%
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <YearlyDetailsTable
+                    yearlyDetails={result.yearlyDetails}
+                    strategyType="cash-bond"
+                  />
                 </div>
               )}
             </div>

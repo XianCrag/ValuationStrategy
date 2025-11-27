@@ -89,6 +89,9 @@ export function calculateControlGroup1(
     endValue: number;
     return: number;
     interest?: number;
+    startCash?: number;
+    endCash?: number;
+    cashInterest?: number;
   }> = [];
 
   for (let year = startYear; year <= endYear; year++) {
@@ -113,12 +116,20 @@ export function calculateControlGroup1(
     const yearEndValue = yearEndNetWorth?.totalValue || initialCapital;
     const interest = yearEndValue - yearStartValue;
 
+    // 现金数据（全部为现金，无股票）
+    const startCash = yearStartNetWorth?.cash || initialCapital;
+    const endCash = yearEndNetWorth?.cash || initialCapital;
+    const cashInterest = endCash - startCash;
+
     yearlyDetails.push({
       year: year.toString(),
       startValue: yearStartValue,
       endValue: yearEndValue,
       return: yearStartValue > 0 ? ((yearEndValue / yearStartValue) - 1) * 100 : 0,
       interest,
+      startCash,
+      endCash,
+      cashInterest,
     });
   }
 
