@@ -26,7 +26,7 @@ export function YearlyDetailsTable({
   const formatStockPositions = (positions?: StockPosition[]) => {
     if (!positions || positions.length === 0) return '-';
     return positions.map(p => 
-      `${p.code}: ${p.shares.toFixed(4)}份 (${formatNumber(p.value)})`
+      `${p.code}: ${p.shares.toFixed(0)}份 (${formatNumber(p.value)})`
     ).join(', ');
   };
 
@@ -204,8 +204,8 @@ export function YearlyDetailsTable({
                       : '-'}
                   </td>
                   <td className="px-4 py-3 text-sm text-right text-green-600">
-                    {(year.cashInterest || year.interest) !== undefined
-                      ? `+${formatNumber(year.cashInterest || year.interest!)}`
+                    {year.cashInterest !== undefined
+                      ? `+${formatNumber(year.cashInterest)}`
                       : '-'}
                   </td>
                 </>

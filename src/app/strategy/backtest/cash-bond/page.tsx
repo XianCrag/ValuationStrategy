@@ -61,7 +61,7 @@ export default function CashBondPage() {
       if (bonds.length > 0) {
         const startDate = new Date(bonds[0].date);
         const endDate = new Date(bonds[bonds.length - 1].date);
-        const calcResult = calculateControlGroup1(startDate, endDate, INITIAL_CAPITAL, bonds);
+        const calcResult = calculateControlGroup1(startDate, endDate, INITIAL_CAPITAL);
         setResult(calcResult);
       }
     } catch (err) {

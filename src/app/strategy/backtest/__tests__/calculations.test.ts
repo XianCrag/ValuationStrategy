@@ -145,7 +145,7 @@ describe('策略计算函数', () => {
     it('应该返回有效的结果', () => {
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       expect(result).toBeDefined();
       expect(result.finalValue).toBeGreaterThan(0);
@@ -157,7 +157,7 @@ describe('策略计算函数', () => {
     it('应该包含每日价值数据', () => {
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       expect(result.dailyValues).toBeDefined();
       expect(result.dailyValues.length).toBeGreaterThan(0);
@@ -172,7 +172,7 @@ describe('策略计算函数', () => {
     it('应该包含年度详情', () => {
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       expect(result.yearlyDetails).toBeDefined();
       expect(result.yearlyDetails.length).toBeGreaterThan(0);
@@ -182,8 +182,8 @@ describe('策略计算函数', () => {
         expect(year.startValue).toBeGreaterThan(0);
         expect(year.endValue).toBeGreaterThan(0);
         expect(year.return).toBeDefined();
-        if (year.interest !== undefined) {
-          expect(year.interest).toBeGreaterThanOrEqual(0);
+        if (year.cashInterest !== undefined) {
+          expect(year.cashInterest).toBeGreaterThanOrEqual(0);
         }
       });
     });
@@ -191,7 +191,7 @@ describe('策略计算函数', () => {
     it('最终价值应该大于初始资金（因为有复利）', () => {
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       // 如果时间跨度足够长，最终价值应该大于初始资金
       const daysDiff = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
@@ -203,7 +203,7 @@ describe('策略计算函数', () => {
     it('年度详情应该按年份排序', () => {
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       for (let i = 1; i < result.yearlyDetails.length; i++) {
         const prevYear = parseInt(result.yearlyDetails[i - 1].year);
@@ -302,7 +302,7 @@ describe('策略计算函数', () => {
     it('calculateControlGroup1 应该处理空债券数据', () => {
       const startDate = new Date('2020-01-01');
       const endDate = new Date('2021-01-01');
-      const result = calculateControlGroup1(startDate, endDate, initialCapital, []);
+      const result = calculateControlGroup1(startDate, endDate, initialCapital);
       
       // 应该使用默认利率
       expect(result.finalValue).toBeGreaterThan(0);
@@ -312,7 +312,7 @@ describe('策略计算函数', () => {
       const strategyResult = calculateStrategy(stockData, bondData, initialCapital);
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
-      const control1Result = calculateControlGroup1(startDate, endDate, initialCapital, bondData);
+      const control1Result = calculateControlGroup1(startDate, endDate, initialCapital);
       const control2Result = calculateControlGroup2(stockData, initialCapital, 48);
       
       // 年化收益率应该在合理范围内（-100% 到 1000%）

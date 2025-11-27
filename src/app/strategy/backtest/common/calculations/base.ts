@@ -114,3 +114,223 @@ export function runNetWorth(stockData: StockData[], currentNetWorth: NetWorth, c
   
   return netWorthTimeLine;
 }
+
+export type StockPosition = {
+  code: string;
+  shares: number;
+  value: number;
+  price: number;
+};
+
+export type YearlyDetailOptions = {
+  includeStockPositions?: boolean; // 是否包含股票持仓详情
+  includeCashData?: boolean; // 是否包含现金数据
+  includeInvestedAmount?: boolean; // 是否计算定投金额
+  initialCapital?: number; // 初始资金（用于计算定投金额）
+};
+
+/**
+ * 通用函数：从 netWorthTimeLine 计算结果数据
+ * @param netWorthTimeLine 净值时间线
+ * @param initialCapital 初始资金
+ * @param options 可选配置
+ */
+export function calculateResultFromNetWorth(
+  netWorthTimeLine: NetWorth[],
+  initialCapital: number,
+  options: YearlyDetailOptions = {}
+) {
+  // 从 netWorthTimeLine 中获取开始和结束日期
+  if (netWorthTimeLine.length === 0) {
+    throw new Error('netWorthTimeLine cannot be empty');
+  }
+  
+  const startDate = new Date(netWorthTimeLine[0].date || '');
+  const endDate = new Date(netWorthTimeLine[netWorthTimeLine.length - 1].date || '');
+  const {
+    includeStockPositions = false,
+    includeCashData = false,
+    includeInvestedAmount = false,
+  } = options;
+
+  // 转换为 dailyValues 格式
+  const dailyValues = netWorthTimeLine.map((netWorth) => ({
+    date: netWorth.date || '',
+    value: netWorth.totalValue,
+    changePercent: ((netWorth.totalValue / initialCapital) - 1) * 100,
+  }));
+
+  // 计算最大回撤
+  let maxValue = initialCapital;
+  let maxDrawdown = 0;
+
+  netWorthTimeLine.forEach((netWorth) => {
+    if (netWorth.totalValue > maxValue) {
+      maxValue = netWorth.totalValue;
+    }
+    const drawdown = maxValue > 0 ? ((maxValue - netWorth.totalValue) / maxValue) * 100 : 0;
+    if (drawdown > maxDrawdown) {
+      maxDrawdown = drawdown;
+    }
+  });
+
+  // 计算年度详情
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
+  const yearlyDetails: Array<{
+    year: string;
+    startValue: number;
+    endValue: number;
+    stockValue?: number;
+    return: number;
+    investedAmount?: number;
+    startStockValue?: number;
+    endStockValue?: number;
+    startCash?: number;
+    endCash?: number;
+    startStockPositions?: StockPosition[];
+    endStockPositions?: StockPosition[];
+    interest?: number;
+    cashInterest?: number;
+  }> = [];
+  
+  for (let year = startYear; year <= endYear; year++) {
+    // 找到该年的第一天和最后一天的净值
+    const yearStartNetWorth = netWorthTimeLine.find(nw => {
+      const nwDate = new Date(nw.date || '');
+      return nwDate.getFullYear() === year;
+    });
+
+    let yearEndNetWorth: typeof yearStartNetWorth = undefined;
+    // 从后往前找该年的最后一天
+    for (let i = netWorthTimeLine.length - 1; i >= 0; i--) {
+      const nw = netWorthTimeLine[i];
+      const nwDate = new Date(nw.date || '');
+      if (nwDate.getFullYear() === year) {
+        yearEndNetWorth = nw;
+        break;
+      }
+    }
+
+    if (!yearStartNetWorth || !yearEndNetWorth) {
+      continue;
+    }
+
+    const yearStartValue = yearStartNetWorth.totalValue;
+    const yearEndValue = yearEndNetWorth.totalValue;
+
+    const yearDetail: {
+      year: string;
+      startValue: number;
+      endValue: number;
+      stockValue?: number;
+      return: number;
+      investedAmount?: number;
+      startStockValue?: number;
+      endStockValue?: number;
+      startCash?: number;
+      endCash?: number;
+      startStockPositions?: StockPosition[];
+      endStockPositions?: StockPosition[];
+      interest?: number;
+      cashInterest?: number;
+    } = {
+      year: year.toString(),
+      startValue: yearStartValue,
+      endValue: yearEndValue,
+      return: yearStartValue > 0 ? ((yearEndValue / yearStartValue) - 1) * 100 : 0,
+    };
+
+    // 计算股票价值
+    const startStockValue = yearStartNetWorth.stockValue.reduce((sum, stock) => {
+      return sum + stock.shares * stock.shareValue;
+    }, 0);
+    
+    const endStockValue = yearEndNetWorth.stockValue.reduce((sum, stock) => {
+      return sum + stock.shares * stock.shareValue;
+    }, 0);
+
+    yearDetail.startStockValue = startStockValue;
+    yearDetail.endStockValue = endStockValue;
+    yearDetail.stockValue = endStockValue; // 保持向后兼容
+
+    // 如果需要股票持仓详情
+    if (includeStockPositions) {
+      const startStockPositions: StockPosition[] = yearStartNetWorth.stockValue
+        .filter(stock => stock.shares > 0)
+        .map(stock => ({
+          code: stock.code,
+          shares: stock.shares,
+          value: stock.shares * stock.shareValue,
+          price: stock.shareValue,
+        }));
+
+      const endStockPositions: StockPosition[] = yearEndNetWorth.stockValue
+        .filter(stock => stock.shares > 0)
+        .map(stock => ({
+          code: stock.code,
+          shares: stock.shares,
+          value: stock.shares * stock.shareValue,
+          price: stock.shareValue,
+        }));
+
+      yearDetail.startStockPositions = startStockPositions;
+      yearDetail.endStockPositions = endStockPositions;
+    }
+
+    // 如果需要现金数据
+    if (includeCashData) {
+      yearDetail.startCash = yearStartNetWorth.cash;
+      yearDetail.endCash = yearEndNetWorth.cash;
+      
+      // 计算该年度累计的现金利息（从 netWorthTimeLine 中累加该年的所有 cashInterest）
+      const yearStartIndex = netWorthTimeLine.findIndex(nw => {
+        const nwDate = new Date(nw.date || '');
+        return nwDate.getFullYear() === year;
+      });
+      
+      const yearEndIndex = netWorthTimeLine.length - 1 - [...netWorthTimeLine].reverse().findIndex(nw => {
+        const nwDate = new Date(nw.date || '');
+        return nwDate.getFullYear() === year;
+      });
+      
+      let yearCashInterest = 0;
+      for (let i = yearStartIndex; i <= yearEndIndex && i >= 0; i++) {
+        if (netWorthTimeLine[i].cashInterest !== undefined) {
+          yearCashInterest += netWorthTimeLine[i].cashInterest!;
+        }
+      }
+      
+      yearDetail.cashInterest = yearCashInterest;
+    }
+
+    // 如果需要计算定投金额
+    if (includeInvestedAmount && initialCapital !== undefined) {
+      const yearStartCashInvested = initialCapital - yearStartNetWorth.cash;
+      const yearEndCashInvested = initialCapital - yearEndNetWorth.cash;
+      const yearInvestedAmount = yearEndCashInvested - yearStartCashInvested;
+      yearDetail.investedAmount = Math.max(0, yearInvestedAmount);
+    }
+    
+    yearlyDetails.push(yearDetail);
+  }
+
+  // 计算最终价值和年化收益
+  const finalValue = netWorthTimeLine.length > 0
+    ? netWorthTimeLine[netWorthTimeLine.length - 1].totalValue
+    : initialCapital;
+
+  const daysSinceStart = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const annualizedReturn = daysSinceStart > 0
+    ? ((finalValue / initialCapital) ** (365 / daysSinceStart) - 1) * 100
+    : 0;
+
+  return {
+    finalValue,
+    totalReturn: ((finalValue / initialCapital) - 1) * 100,
+    annualizedReturn,
+    maxDrawdown,
+    dailyValues,
+    yearlyDetails,
+  };
+}

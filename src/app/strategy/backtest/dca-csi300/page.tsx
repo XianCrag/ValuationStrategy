@@ -83,7 +83,7 @@ export default function DcaCsi300Page() {
       date: daily.date,
       dateShort: formatDateShort(daily.date),
       strategyValue: daily.value,
-      fundValue: (fundPrice / initialFundPrice) * INITIAL_CAPITAL, // 基金净值按初始投入归一化
+      fundValue: fundPrice, // 基金净值
     };
   }) : [];
 
@@ -220,7 +220,7 @@ export default function DcaCsi300Page() {
               <ResponsiveContainer width="100%" height={400}>
                 <LineChart
                   data={chartData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
+                  margin={{ top: 5, right: 60, left: 20, bottom: 60 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
@@ -232,18 +232,29 @@ export default function DcaCsi300Page() {
                     tickFormatter={(value) => formatDateShort(value)}
                   />
                   <YAxis
-                    label={{ value: '价值（元）', angle: -90, position: 'insideLeft' }}
+                    yAxisId="left"
+                    label={{ value: '定投策略价值（元）', angle: -90, position: 'insideLeft' }}
                     tickFormatter={(value) => `${(value / 10000).toFixed(0)}万`}
+                  />
+                  <YAxis
+                    yAxisId="right"
+                    orientation="right"
+                    label={{ value: '基金净值', angle: 90, position: 'insideRight' }}
+                    tickFormatter={(value) => value.toFixed(2)}
                   />
                   <Tooltip
                     formatter={(value: number, name: string) => {
                       const numValue = typeof value === 'number' ? value : 0;
-                      return [formatNumber(numValue), name === 'strategyValue' ? '定投策略' : '一次性买入'];
+                      return [
+                        name === 'strategyValue' ? formatNumber(numValue) : numValue.toFixed(4), 
+                        name === 'strategyValue' ? '定投策略' : '沪深300净值'
+                      ];
                     }}
                     labelFormatter={(label) => `日期: ${formatDateShort(label)}`}
                   />
                   <Legend />
                   <Line
+                    yAxisId="left"
                     type="monotone"
                     dataKey="strategyValue"
                     stroke="#3b82f6"
@@ -253,19 +264,20 @@ export default function DcaCsi300Page() {
                     name="定投策略总价值"
                   />
                   <Line
+                    yAxisId="right"
                     type="monotone"
                     dataKey="fundValue"
                     stroke="#10b981"
                     strokeWidth={2}
                     dot={false}
                     activeDot={{ r: 6 }}
-                    name="一次性买入基金"
+                    name="沪深300基金净值"
                   />
                 </LineChart>
               </ResponsiveContainer>
               <div className="mt-4 text-sm text-gray-600">
-                <p>• <span className="text-blue-600 font-semibold">蓝线</span>：定投策略（48个月定投完成）</p>
-                <p>• <span className="text-green-600 font-semibold">绿线</span>：一次性买入基金（用于对比）</p>
+                <p>• <span className="text-blue-600 font-semibold">蓝线</span>：定投策略（48个月定投完成，左侧Y轴）</p>
+                <p>• <span className="text-green-600 font-semibold">绿线</span>：沪深300基金净值（右侧Y轴）</p>
               </div>
             </div>
 

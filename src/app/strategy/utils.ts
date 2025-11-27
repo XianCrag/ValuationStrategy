@@ -18,6 +18,6 @@ export const formatDate = (dateStr: string): string => {
 
 export const formatDateShort = (dateStr: string): string => {
   const date = new Date(dateStr);
-  return `${date.getMonth() + 1}/${date.getDate()}`;
+  return `${date.getFullYear()}/${date.getMonth() + 1}`;
 };
 
