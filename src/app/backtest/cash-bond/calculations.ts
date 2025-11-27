@@ -1,8 +1,8 @@
 import {
   ControlGroupResult,
   StockData,
-} from '../../types';
-import { runNetWorth, calculateResultFromNetWorth } from './base';
+} from '../types';
+import { runNetWorth, calculateResultFromNetWorth } from '../common/calculations/base';
 
 type NetWorth = {
   stockValue: Array<{
@@ -53,7 +53,7 @@ export function calculateControlGroup1(
     return { ...netWorth };
   };
 
-  // 调用 runNetWorth 计算净值时间线
+  // 调用 runNetWorth 计算净值时间线（不传 bondData，使用默认利率）
   const netWorthTimeLine = runNetWorth(stockData, initialNetWorth, noChangeStrategy);
 
   // 使用通用函数计算结果（startDate 和 endDate 从 netWorthTimeLine 中获取）

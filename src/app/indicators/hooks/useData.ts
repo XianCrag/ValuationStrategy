@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { StockData, ApiResponse, MetricType } from '../types';
 import { WATCHED_STOCKS, NATIONAL_DEBT_STOCKS } from '../constants';
 
-export function useData(selectedMetric: MetricType) {
+export function useData(selectedMetric: MetricType, years: number = 10) {
   const [data, setData] = useState<Record<string, StockData[]>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +26,7 @@ export function useData(selectedMetric: MetricType) {
         nationalDebtCodes = NATIONAL_DEBT_STOCKS.map(s => s.code);
       }
       
-      // 获取20年数据（服务器端自动处理分批请求）
+      // 使用动态年份参数
       const response = await fetch('/api/lixinger', {
         method: 'POST',
         headers: {
@@ -36,7 +36,7 @@ export function useData(selectedMetric: MetricType) {
           stockCodes: stockCodes.length > 0 ? stockCodes : undefined,
           nationalDebtCodes: nationalDebtCodes.length > 0 ? nationalDebtCodes : undefined,
           codeTypeMap,
-          years: 20,
+          years: years,
           metricsList: selectedMetric === 'index' ? ['pe_ttm.mcw', 'mc'] : undefined, // 指数：PE按市值加权、总市值；国债：使用默认指标
         }),
       });
@@ -78,6 +78,10 @@ export function useData(selectedMetric: MetricType) {
         );
       });
 
+      console.log('Grouped data:', groupedData);
+      console.log('Codes to track:', codesToTrack);
+      console.log('Result data sample:', result.data[0]);
+
       setData(groupedData);
       setDateRange(result.dateRange);
     } catch (err) {
@@ -86,7 +90,7 @@ export function useData(selectedMetric: MetricType) {
     } finally {
       setLoading(false);
     }
-  }, [selectedMetric]);
+  }, [selectedMetric, years]);
 
   useEffect(() => {
     fetchData();

@@ -20,7 +20,12 @@ interface NationalDebtDataDisplayProps {
 
 export default function NationalDebtDataDisplay({ stock, stockData }: NationalDebtDataDisplayProps) {
   if (stockData.length === 0) {
-    return <p className="text-gray-500">暂无数据</p>;
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800">{stock.name}</h2>
+        <p className="text-gray-500">暂无数据</p>
+      </div>
+    );
   }
 
   const nationalDebtKey = stock.code; // tcm_y10
@@ -37,7 +42,9 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
   ];
 
   return (
-    <>
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">{stock.name}</h2>
+      
       {/* 数据统计 */}
       <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-6">
         <div className="bg-green-50 p-4 rounded-lg">
@@ -109,7 +116,7 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -20,8 +20,12 @@ const menuItems: MenuItem[] = [
     path: '/backtest',
     children: [
       {
-        label: '主策略回测',
+        label: '回测概览',
         path: '/backtest',
+      },
+      {
+        label: '股债动态平衡策略',
+        path: '/backtest/stock-bond',
       },
       {
         label: '现金国债',

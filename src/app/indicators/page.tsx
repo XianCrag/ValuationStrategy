@@ -6,6 +6,7 @@ import { WATCHED_STOCKS, NATIONAL_DEBT_STOCKS } from './constants';
 import { useData } from './hooks/useData';
 import StrategyLayout from '../components/Layout';
 import MetricSelector from '../components/MetricSelector';
+import YearSelector from '../components/YearSelector';
 import ErrorDisplay from '../components/Error';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DateRangeDisplay from '../components/DateRange';
@@ -15,7 +16,8 @@ import NationalDebtDataDisplay from '../components/DebtDataDisplay';
 
 export default function IndicatorsPage() {
   const [selectedMetric, setSelectedMetric] = useState<MetricType>('index');
-  const { data, loading, error, dateRange, fetchData } = useData(selectedMetric);
+  const [selectedYears, setSelectedYears] = useState<number>(10);
+  const { data, loading, error, dateRange, fetchData } = useData(selectedMetric, selectedYears);
 
   return (
     <StrategyLayout>
@@ -26,8 +28,13 @@ export default function IndicatorsPage() {
               关注标的数据
             </h1>
             <p className="text-lg text-gray-600 mb-4">
-              展示最近10年的数据
+              选择时间范围查看历史数据
             </p>
+            
+            <YearSelector
+              selectedYears={selectedYears}
+              onYearsChange={setSelectedYears}
+            />
             
             <MetricSelector
               selectedMetric={selectedMetric}
@@ -41,31 +48,31 @@ export default function IndicatorsPage() {
 
           {loading && <LoadingSpinner />}
 
-        {!loading && !error && (
-          <div className="space-y-8">
-            {(selectedMetric === 'index' ? WATCHED_STOCKS : NATIONAL_DEBT_STOCKS).map((stock) => {
-              const stockData = data[stock.code] || [];
-              
-              return selectedMetric === 'index' ? (
-                <IndexDataDisplay
-                  key={stock.code}
-                  stock={stock}
-                  stockData={stockData}
-                />
-              ) : (
-                <NationalDebtDataDisplay
-                  key={stock.code}
-                  stock={stock}
-                  stockData={stockData}
-                />
-              );
-            })}
-          </div>
-        )}
+          {!loading && !error && (
+            <div className="space-y-8">
+              {(selectedMetric === 'index' ? WATCHED_STOCKS : NATIONAL_DEBT_STOCKS).map((stock) => {
+                const stockData = data[stock.code] || [];
+                
+                return selectedMetric === 'index' ? (
+                  <IndexDataDisplay
+                    key={stock.code}
+                    stock={stock}
+                    stockData={stockData}
+                  />
+                ) : (
+                  <NationalDebtDataDisplay
+                    key={stock.code}
+                    stock={stock}
+                    stockData={stockData}
+                  />
+                );
+              })}
+            </div>
+          )}
 
-        {!loading && !error && <RefreshButton loading={loading} onRefresh={fetchData} />}
+          {!loading && !error && <RefreshButton loading={loading} onRefresh={fetchData} />}
+        </div>
       </div>
-    </div>
     </StrategyLayout>
   );
 }

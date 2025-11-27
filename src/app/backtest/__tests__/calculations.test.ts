@@ -6,7 +6,7 @@ import {
   calculateStrategy,
   calculateControlGroup1,
   calculateControlGroup2,
-} from '../common/calculations';
+} from '../test-utils';
 import { StockData, BondData } from '../types';
 import fs from 'fs';
 import path from 'path';
@@ -59,7 +59,7 @@ describe('策略计算函数', () => {
 
   describe('calculateStrategy - 主策略', () => {
     it('应该返回有效的策略结果', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+      const result = calculateStrategy(stockData, initialCapital);
       
       expect(result).toBeDefined();
       expect(result.finalValue).toBeGreaterThan(0);
@@ -71,7 +71,7 @@ describe('策略计算函数', () => {
     });
 
     it('应该包含交易记录', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+      const result = calculateStrategy(stockData, initialCapital);
       
       expect(result.trades).toBeDefined();
       expect(Array.isArray(result.trades)).toBe(true);
@@ -88,7 +88,7 @@ describe('策略计算函数', () => {
     });
 
     it('应该包含每日状态', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+      const result = calculateStrategy(stockData, initialCapital);
       
       expect(result.dailyStates).toBeDefined();
       // 注意：如果股票和债券数据没有重叠的日期，dailyStates 可能为空
@@ -102,7 +102,7 @@ describe('策略计算函数', () => {
     });
 
     it('应该包含年度详情', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+      const result = calculateStrategy(stockData, initialCapital);
       
       expect(result.yearlyDetails).toBeDefined();
       // 注意：如果数据不足或没有跨年，可能没有年度详情
@@ -122,7 +122,7 @@ describe('策略计算函数', () => {
     });
 
     it('股票和债券价值之和应该等于总价值', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+      const result = calculateStrategy(stockData, initialCapital);
       
       result.dailyStates.forEach((state) => {
         const total = state.stockValue + state.bondValue;
@@ -130,13 +130,18 @@ describe('策略计算函数', () => {
       });
     });
 
-    it('初始仓位应该是60%股票，40%债券', () => {
-      const result = calculateStrategy(stockData, bondData, initialCapital);
+    it('初始仓位应该根据第一天PE计算', () => {
+      const result = calculateStrategy(stockData, initialCapital);
       
       if (result.dailyStates.length > 0) {
         const firstState = result.dailyStates[0];
-        expect(firstState.stockRatio).toBeCloseTo(0.6, 1);
-        expect(firstState.bondRatio).toBeCloseTo(0.4, 1);
+        // 新实现：初始仓位根据第一天PE计算，不再固定60%
+        expect(firstState.stockRatio).toBeGreaterThanOrEqual(0.1);
+        expect(firstState.stockRatio).toBeLessThanOrEqual(0.6);
+        expect(firstState.bondRatio).toBeGreaterThanOrEqual(0.4);
+        expect(firstState.bondRatio).toBeLessThanOrEqual(0.9);
+        // 股票+债券 = 100%
+        expect(firstState.stockRatio + firstState.bondRatio).toBeCloseTo(1, 5);
       }
     });
   });
@@ -291,7 +296,7 @@ describe('策略计算函数', () => {
 
   describe('边界情况测试', () => {
     it('calculateStrategy 应该处理空数据', () => {
-      const result = calculateStrategy([], [], initialCapital);
+      const result = calculateStrategy([], initialCapital);
       
       // 即使没有数据，也应该返回初始值
       expect(result.finalValue).toBe(initialCapital);
@@ -309,7 +314,7 @@ describe('策略计算函数', () => {
     });
 
     it('所有策略的年化收益率应该合理', () => {
-      const strategyResult = calculateStrategy(stockData, bondData, initialCapital);
+      const strategyResult = calculateStrategy(stockData, initialCapital);
       const startDate = new Date(stockData[0].date);
       const endDate = new Date(stockData[stockData.length - 1].date);
       const control1Result = calculateControlGroup1(startDate, endDate, initialCapital);

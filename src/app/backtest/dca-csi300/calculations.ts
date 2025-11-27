@@ -1,7 +1,7 @@
-import { StockData, ControlGroupResult } from '../../types';
-import { runNetWorth, calculateResultFromNetWorth } from './base';
+import { StockData, ControlGroupResult } from '../types';
+import { runNetWorth, calculateResultFromNetWorth } from '../common/calculations/base';
 import moment from 'moment';
-import { CSI300_FUND_CODE } from '../../constants';
+import { CSI300_FUND_CODE } from '../constants';
 
 type NetWorth = {
   stockValue: Array<{
@@ -102,10 +102,8 @@ export function calculateControlGroup2(
     };
   };
 
-  // 调用 runNetWorth 计算净值时间线
+  // 调用 runNetWorth 计算净值时间线（不传 bondData，现金利息使用默认利率）
   const netWorthTimeLine = runNetWorth(stockData, initialNetWorth, dcaStrategy);
-
-  console.log('netWorthTimeLine', netWorthTimeLine);
 
   // 使用通用函数计算结果（startDate 和 endDate 从 netWorthTimeLine 中获取）
   return calculateResultFromNetWorth(

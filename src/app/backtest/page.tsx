@@ -1,439 +1,104 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
-import { StockData, BondData, ApiResponse, StrategyResult } from './types';
-import { INITIAL_CAPITAL, CSI300_FUND_CODE, TCM_Y10_CODE, DATA_YEARS } from './constants';
-import { calculateStrategy } from './common/calculations';
-import { formatNumber, formatDateShort } from './utils';
+import Link from 'next/link';
 import StrategyLayout from '../components/Layout';
 
-export default function BacktestPage() {
-  const [stockData, setStockData] = useState<StockData[]>([]);
-  const [bondData, setBondData] = useState<BondData[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [strategyResult, setStrategyResult] = useState<StrategyResult | null>(null);
-  const [showDetails, setShowDetails] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      // 并行获取20年基金和国债数据（服务器端自动处理分批请求）
-      const [stockResponse, bondResponse] = await Promise.all([
-        fetch('/api/lixinger', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            stockCodes: [CSI300_FUND_CODE],
-            codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
-            years: DATA_YEARS,
-            metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
-          }),
-        }),
-        fetch('/api/lixinger', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nationalDebtCodes: [TCM_Y10_CODE],
-            years: DATA_YEARS,
-          }),
-        })
-      ]);
-
-      const stockResult: ApiResponse = await stockResponse.json();
-      const bondResult: ApiResponse = await bondResponse.json();
-
-      if (!stockResult.success || !bondResult.success) {
-        throw new Error(stockResult.error || bondResult.error || 'Failed to fetch data');
-      }
-
-      const stocks = (stockResult.data as StockData[]).sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
-      const bonds = (bondResult.data as BondData[]).sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
-
-      setStockData(stocks);
-      setBondData(bonds);
-
-      const result = calculateStrategy(stocks, bonds, INITIAL_CAPITAL);
-      setStrategyResult(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error fetching data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const chartData = stockData
-    .map(item => {
-      const trade = strategyResult?.trades.find(t => t.date === item.date);
-      const dailyState = strategyResult?.dailyStates.find(s => s.date === item.date);
-      return {
-        date: item.date,
-        dateShort: formatDateShort(item.date),
-        pe: item['pe_ttm.mcw'],
-        marketCap: item.mc,
-        hasTrade: !!trade,
-        tradeType: trade?.type,
-        stockRatio: trade?.stockRatio ?? dailyState?.stockRatio ?? 0,
-        bondRatio: trade?.bondRatio ?? dailyState?.bondRatio ?? 0,
-        stockValue: trade?.stockValue ?? dailyState?.stockValue ?? 0,
-        bondValue: trade?.bondValue ?? dailyState?.bondValue ?? 0,
-        totalValue: trade?.totalValue ?? dailyState?.totalValue ?? 0,
-        changePercent: trade?.changePercent ?? dailyState?.changePercent ?? 0,
-        annualizedReturn: trade?.annualizedReturn ?? dailyState?.annualizedReturn ?? 0,
-      };
-    })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  
-  const peValues = chartData
-    .map(d => d.pe)
-    .filter((val): val is number => val !== null && val !== undefined);
-  const marketCapValues = chartData
-    .map(d => d.marketCap)
-    .filter((val): val is number => val !== null && val !== undefined);
-  
-  const peMin = peValues.length > 0 ? Math.min(...peValues) : 0;
-  const peMax = peValues.length > 0 ? Math.max(...peValues) : 0;
-  const peRange = peMax - peMin;
-  const peDomain = [
-    Math.max(0, peMin - peRange * 0.1),
-    peMax + peRange * 0.1
+export default function BacktestOverviewPage() {
+  const strategies = [
+    {
+      id: 'stock-bond',
+      name: '股债动态平衡策略',
+      description: 'PE范围11-16，每6个月review一次，根据PE动态调整股债比例',
+      path: '/backtest/stock-bond',
+      color: 'blue',
+      icon: '📊',
+    },
+    {
+      id: 'cash-bond',
+      name: '对照组1：现金国债',
+      description: '全部资金持有现金国债，每月根据国债利率计息',
+      path: '/backtest/cash-bond',
+      color: 'green',
+      icon: '💰',
+    },
+    {
+      id: 'dca-csi300',
+      name: '对照组2：定投沪深300',
+      description: '通过4年48个月定投沪深300指数基金',
+      path: '/backtest/dca-csi300',
+      color: 'purple',
+      icon: '📈',
+    },
   ];
-  
-  const marketCapMin = marketCapValues.length > 0 ? Math.min(...marketCapValues) : 0;
-  const marketCapMax = marketCapValues.length > 0 ? Math.max(...marketCapValues) : 0;
-  const marketCapRange = marketCapMax - marketCapMin;
-  const marketCapDomain = [
-    Math.max(0, marketCapMin - marketCapRange * 0.1),
-    marketCapMax + marketCapRange * 0.1
-  ];
-  
-  const useTrillion = marketCapMax >= 1000000000000;
-  const marketCapDivisor = useTrillion ? 1000000000000 : 100000000;
-  const marketCapUnit = useTrillion ? '万亿' : '亿';
 
   return (
     <StrategyLayout>
       <div className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              沪深300平衡策略回测
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+              策略回测系统
             </h1>
-          <p className="text-lg text-gray-600">
-            PE范围11-16，每6个月review一次，股票仓位与目标仓位超过10%时进行股债平衡
-          </p>
-        </div>
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-md p-6 mb-6">
-            <h3 className="text-lg font-semibold text-red-800 mb-2">错误</h3>
-            <p className="text-red-700">{error}</p>
-            <button
-              onClick={fetchData}
-              className="mt-4 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-            >
-              重试
-            </button>
+            <p className="text-xl text-gray-600 mb-2">
+              对比不同投资策略的历史表现
+            </p>
+            <p className="text-lg text-gray-500">
+              选择一个策略查看详细的回测结果
+            </p>
           </div>
-        )}
 
-        {loading && (
-          <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-gray-600">加载中...</p>
-          </div>
-        )}
-
-        {!loading && !error && strategyResult && (
-          <>
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-semibold mb-4 text-gray-800">策略结果</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-blue-900 mb-2">总收益率</h3>
-                  <p className="text-2xl font-bold text-blue-600">
-                    {strategyResult.totalReturn.toFixed(2)}%
-                  </p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-green-900 mb-2">年化收益率</h3>
-                  <p className="text-2xl font-bold text-green-600">
-                    {strategyResult.annualizedReturn.toFixed(2)}%
-                  </p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-purple-900 mb-2">最终仓位</h3>
-                  <p className="text-2xl font-bold text-purple-600">
-                    股票: {(strategyResult.finalStockRatio * 100).toFixed(1)}%
-                  </p>
-                  <p className="text-sm text-purple-700 mt-1">
-                    债券: {((1 - strategyResult.finalStockRatio) * 100).toFixed(1)}%
-                  </p>
-                </div>
-                <div className="bg-red-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-red-900 mb-2">最大回撤</h3>
-                  <p className="text-2xl font-bold text-red-600">
-                    {strategyResult.maxDrawdown.toFixed(2)}%
-                  </p>
-                </div>
-              </div>
-              
-              <button
-                onClick={() => setShowDetails(!showDetails)}
-                className="mt-4 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {strategies.map((strategy) => (
+              <Link
+                key={strategy.id}
+                href={strategy.path}
+                className={`bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-${strategy.color}-100 hover:border-${strategy.color}-300`}
               >
-                {showDetails ? '隐藏' : '展示'}详情
-              </button>
-              
-              {showDetails && (
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold mb-2">年度详情</h3>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">年份</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">年末总价值</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" colSpan={2}>股票</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" colSpan={2}>债券</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">收益率</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">交易次数</th>
-                        </tr>
-                        <tr>
-                          <th></th>
-                          <th></th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">当前价值</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">交易/指数变化</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">当前价值</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">交易/利息</th>
-                          <th></th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {strategyResult.yearlyDetails.map((year, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-sm font-medium text-gray-900">{year.year}</td>
-                            <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endValue)}</td>
-                            <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endStockValue)}</td>
-                            <td className="px-4 py-3 text-sm">
-                              <div className="space-y-1">
-                                {((year.stockBuyAmount || 0) > 0 || (year.stockSellAmount || 0) > 0) && (
-                                  <div>
-                                    {(year.stockBuyAmount || 0) - (year.stockSellAmount || 0) > 0 ? (
-                                      <span className="text-blue-600">+{formatNumber((year.stockBuyAmount || 0) - (year.stockSellAmount || 0))}</span>
-                                    ) : (year.stockBuyAmount || 0) - (year.stockSellAmount || 0) < 0 ? (
-                                      <span className="text-orange-600">{formatNumber((year.stockBuyAmount || 0) - (year.stockSellAmount || 0))}</span>
-                                    ) : (
-                                      <span className="text-gray-400">-</span>
-                                    )}
-                                  </div>
-                                )}
-                                {(year.startIndexPrice || 0) > 0 && (year.endIndexPrice || 0) > 0 && (
-                                  <div className="text-xs">
-                                    <div className="text-gray-600">
-                                      {year.startIndexPrice?.toFixed(2)} → {year.endIndexPrice?.toFixed(2)}
-                                    </div>
-                                    <span className={(year.endIndexPrice || 0) >= (year.startIndexPrice || 0) ? 'text-green-600' : 'text-red-600'}>
-                                      ({(year.endIndexPrice || 0) >= (year.startIndexPrice || 0) ? '+' : ''}
-                                      {(((year.endIndexPrice || 0) - (year.startIndexPrice || 0)) / (year.startIndexPrice || 1) * 100).toFixed(2)}%)
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-900">{formatNumber(year.endBondValue)}</td>
-                            <td className="px-4 py-3 text-sm">
-                              <div className="space-y-1">
-                                {((year.bondBuyAmount || 0) > 0 || (year.bondSellAmount || 0) > 0) && (
-                                  <div>
-                                    {(year.bondBuyAmount || 0) - (year.bondSellAmount || 0) > 0 ? (
-                                      <span className="text-blue-600">+{formatNumber((year.bondBuyAmount || 0) - (year.bondSellAmount || 0))}</span>
-                                    ) : (year.bondBuyAmount || 0) - (year.bondSellAmount || 0) < 0 ? (
-                                      <span className="text-orange-600">{formatNumber((year.bondBuyAmount || 0) - (year.bondSellAmount || 0))}</span>
-                                    ) : (
-                                      <span className="text-gray-400">-</span>
-                                    )}
-                                  </div>
-                                )}
-                                {(year.bondInterest || 0) > 0 && (
-                                  <div className="text-green-600 text-xs">+{formatNumber(year.bondInterest || 0)}</div>
-                                )}
-                              </div>
-                            </td>
-                            <td className="px-4 py-3 text-sm">
-                              <span className={year.return >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {year.return >= 0 ? '+' : ''}{year.return.toFixed(2)}%
-                              </span>
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-900">{year.trades}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                <div className="text-center">
+                  <div className="text-6xl mb-4">{strategy.icon}</div>
+                  <h2 className={`text-2xl font-bold text-${strategy.color}-600 mb-4`}>
+                    {strategy.name}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    {strategy.description}
+                  </p>
+                  <div className={`mt-6 inline-block bg-${strategy.color}-50 text-${strategy.color}-700 px-6 py-2 rounded-full font-semibold`}>
+                    查看详情 →
                   </div>
                 </div>
-              )}
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-semibold mb-4 text-gray-800">PE与市值趋势</h2>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={chartData.map(d => ({
-                  ...d,
-                  marketCapFormatted: d.marketCap ? d.marketCap / marketCapDivisor : null,
-                }))} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="date"
-                    angle={-45}
-                    textAnchor="end"
-                    height={80}
-                    tickFormatter={(value) => {
-                      const item = chartData.find(d => d.date === value);
-                      return item ? item.dateShort : value;
-                    }}
-                  />
-                  <YAxis
-                    yAxisId="left"
-                    domain={peDomain}
-                    label={{ value: 'PE TTM', angle: -90, position: 'insideLeft' }}
-                    tickFormatter={(value) => value.toFixed(2)}
-                  />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    domain={marketCapDomain.map(v => v / marketCapDivisor)}
-                    label={{ value: `市值 (${marketCapUnit})`, angle: 90, position: 'insideRight' }}
-                    tickFormatter={(value) => value.toFixed(2)}
-                  />
-                  <Tooltip
-                    content={({ active, payload, label }) => {
-                      if (!active || !payload || !payload[0]) return null;
-                      
-                      const item = chartData.find(d => d.date === label);
-                      if (!item) return null;
-                      
-                      return (
-                        <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4">
-                          <p className="font-semibold mb-2">{`日期: ${item.dateShort}`}</p>
-                          <p className="text-sm mb-1">
-                            <span className="font-medium">PE TTM:</span> {item.pe?.toFixed(2) || 'N/A'}
-                          </p>
-                          <p className="text-sm mb-1">
-                            <span className="font-medium">市值:</span> {item.marketCap ? formatNumber(item.marketCap) : 'N/A'}
-                          </p>
-                          {item.hasTrade && (
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">交易类型:</span>{' '}
-                              <span className={item.tradeType === 'buy' ? 'text-red-600' : 'text-green-600'}>
-                                {item.tradeType === 'buy' ? '买入' : '卖出'}
-                              </span>
-                            </p>
-                          )}
-                          <div className="border-t border-gray-200 mt-2 pt-2">
-                            <p className="text-sm font-medium mb-1">策略状态:</p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">仓位:</span> 股票 {(item.stockRatio * 100).toFixed(1)}% / 债券 {(item.bondRatio * 100).toFixed(1)}%
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">股票价值:</span> {formatNumber(item.stockValue)}
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">债券价值:</span> {formatNumber(item.bondValue)}
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">总价值:</span> {formatNumber(item.totalValue)}
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">相对初始价值变化:</span>{' '}
-                              <span className={item.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {item.changePercent >= 0 ? '+' : ''}{item.changePercent.toFixed(2)}%
-                              </span>
-                            </p>
-                            <p className="text-sm">
-                              <span className="font-medium">年化收益率:</span>{' '}
-                              <span className={item.annualizedReturn >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {item.annualizedReturn >= 0 ? '+' : ''}{item.annualizedReturn.toFixed(2)}%
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    }}
-                  />
-                  <Legend />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="pe"
-                    stroke="#3b82f6"
-                    strokeWidth={2}
-                    dot={(props: any) => {
-                      const item = chartData.find(d => d.date === props.payload.date);
-                      if (item && item.hasTrade) {
-                        return (
-                          <circle
-                            cx={props.cx}
-                            cy={props.cy}
-                            r={6}
-                            fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
-                          />
-                        );
-                      }
-                      return null;
-                    }}
-                    activeDot={{ r: 8 }}
-                    name="PE TTM"
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="marketCapFormatted"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 6 }}
-                    name={`市值 (${marketCapUnit})`}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-              <div className="mt-4 flex gap-4 justify-center">
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">买入点</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">卖出点</span>
-                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">关于策略对比</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700">
+              <div>
+                <h3 className="font-semibold text-lg mb-2 text-blue-600">📊 主策略</h3>
+                <p className="text-sm">
+                  股债动态平衡策略追求在控制风险的前提下获得超额收益，通过PE估值判断市场位置，动态调整资产配置。
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2 text-green-600">💰 保守对照</h3>
+                <p className="text-sm">
+                  现金国债策略作为最保守的基准，展示纯固收资产的长期表现，风险极低但收益有限。
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2 text-purple-600">📈 被动对照</h3>
+                <p className="text-sm">
+                  定投沪深300策略代表被动投资理念，通过定期定额投资分散风险，跟随市场长期成长。
+                </p>
               </div>
             </div>
-          </>
-        )}
+          </div>
+
+          <div className="mt-8 text-center text-gray-500 text-sm">
+            <p>数据来源：理杏仁 API | 初始资金：100万元 | 回测周期：可选择10-20年</p>
+          </div>
+        </div>
       </div>
-    </div>
     </StrategyLayout>
   );
 }

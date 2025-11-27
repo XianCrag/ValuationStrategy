@@ -12,11 +12,12 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { BondData, ApiResponse, ControlGroupResult } from '../types';
-import { INITIAL_CAPITAL, TCM_Y10_CODE, DATA_YEARS } from '../constants';
-import { calculateControlGroup1 } from '../common/calculations';
+import { INITIAL_CAPITAL, TCM_Y10_CODE } from '../constants';
+import { calculateControlGroup1 } from './calculations';
 import { formatNumber, formatDate, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
+import YearSelector from '../../components/YearSelector';
 
 export default function CashBondPage() {
   const [bondData, setBondData] = useState<BondData[]>([]);
@@ -24,23 +25,24 @@ export default function CashBondPage() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ControlGroupResult | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [selectedYears, setSelectedYears] = useState<number>(20);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [selectedYears]);
 
   const fetchData = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // 获取20年国债数据（服务器端自动处理分批请求）
+      // 获取国债数据（服务器端自动处理分批请求）
       const bondResponse = await fetch('/api/lixinger', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nationalDebtCodes: [TCM_Y10_CODE],
-          years: DATA_YEARS,
+          years: selectedYears,
         }),
       });
 
@@ -78,9 +80,14 @@ export default function CashBondPage() {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               对照组1：现金国债
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 mb-4">
               全部资金持有现金国债，每年根据当年国债利率计算利息
             </p>
+            
+            <YearSelector
+              selectedYears={selectedYears}
+              onYearsChange={setSelectedYears}
+            />
           </div>
 
           {error && (

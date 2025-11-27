@@ -13,10 +13,11 @@ import {
 } from 'recharts';
 import { StockData, ApiResponse, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_CODE } from '../constants';
-import { calculateControlGroup2 } from '../common/calculations';
+import { calculateControlGroup2 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
+import YearSelector from '../../components/YearSelector';
 
 export default function DcaCsi300Page() {
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -24,12 +25,12 @@ export default function DcaCsi300Page() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ControlGroupResult | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [years, setYears] = useState(10); // 默认10年
+  const [selectedYears, setSelectedYears] = useState(10); // 默认10年
 
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [years]); // 当年限改变时重新获取数据
+  }, [selectedYears]); // 当年限改变时重新获取数据
 
   const fetchData = async () => {
     setLoading(true);
@@ -43,7 +44,7 @@ export default function DcaCsi300Page() {
         body: JSON.stringify({
           stockCodes: [CSI300_FUND_CODE],
           codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
-          years: years,
+          years: selectedYears,
           metricsList: ['cp'],
         }),
       });
@@ -93,32 +94,17 @@ export default function DcaCsi300Page() {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               对照组2：定投沪深300基金
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 mb-4">
               4年时间每个月定投，直到100%
             </p>
+            
+            <YearSelector
+              selectedYears={selectedYears}
+              onYearsChange={setSelectedYears}
+            />
           </div>
 
-          {/* 年限选择器 */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="flex items-center justify-center gap-4">
-            <label className="text-sm font-medium text-gray-700">
-              投资时长：
-            </label>
-            <select
-              value={years}
-              onChange={(e) => setYears(Number(e.target.value))}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              disabled={loading}
-            >
-              <option value={5}>5年</option>
-              <option value={10}>10年</option>
-              <option value={15}>15年</option>
-              <option value={20}>20年</option>
-            </select>
-          </div>
-        </div>
-
-        {error && (
+          {error && (
           <div className="bg-red-50 border border-red-200 rounded-md p-6 mb-6">
             <h3 className="text-lg font-semibold text-red-800 mb-2">错误</h3>
             <p className="text-red-700">{error}</p>

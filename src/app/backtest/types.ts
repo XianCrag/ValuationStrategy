@@ -1,6 +1,6 @@
 export interface StockData {
   date: string;
-  pe_ttm?: number;
+  'pe_ttm.mcw'?: number; // PE市盈率（市值加权）
   cp?: number; // 收盘点位
   mc?: number; // 市值
   [key: string]: any;
