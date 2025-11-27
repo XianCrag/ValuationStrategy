@@ -89,6 +89,10 @@ export function calculateStrategy(
     type: 'buy' | 'sell';
     fromRatio: number;
     toRatio: number;
+    stockValueBefore: number; // 调仓前股票价值
+    stockValueAfter: number;  // 调仓后股票价值
+    bondValueBefore: number;  // 调仓前债券价值
+    bondValueAfter: number;   // 调仓后债券价值
   }> = [];
   
   const rebalanceStrategy = (netWorth: NetWorth): NetWorth => {
@@ -143,16 +147,24 @@ export function calculateStrategy(
       return netWorth;
     }
 
+    // 计算调仓前的股票和债券价值
+    const stockValueBefore = csi300Stock.shares * csi300Stock.shareValue;
+    const bondValueBefore = netWorth.cash;
+
     // 计算新的股票份额
     const newShares = targetStockValue / csi300Stock.shareValue;
 
-    // 记录交易信息
+    // 记录交易信息（包含调仓前后的价值）
     const tradeType: 'buy' | 'sell' = targetStockRatio > oldRatio ? 'buy' : 'sell';
     tradesInfo.push({
       date: netWorth.date || '',
-          type: tradeType,
+      type: tradeType,
       fromRatio: oldRatio,
       toRatio: targetStockRatio,
+      stockValueBefore,
+      stockValueAfter: targetStockValue,
+      bondValueBefore,
+      bondValueAfter: targetCashValue,
     });
 
     // 返回调整后的净值
@@ -265,16 +277,26 @@ export function calculateStrategy(
     let bondSellAmount = 0;
 
     yearTrades.forEach(trade => {
-      if (trade.type === 'buy') {
-        // 买入股票 = 卖出债券
-        const buyAmount = trade.stockValue - (dailyStates.find(ds => ds.date === trade.date)?.stockValue || 0);
-        stockBuyAmount += buyAmount;
-        bondSellAmount += buyAmount;
+      // 从 tradesInfo 中找到该交易的详细信息
+      const tradeInfo = tradesInfo.find(t => t.date === trade.date);
+      if (!tradeInfo) return;
+
+      if (tradeInfo.type === 'buy') {
+        // 买入股票：stockValueAfter > stockValueBefore
+        const buyAmount = tradeInfo.stockValueAfter - tradeInfo.stockValueBefore;
+        stockBuyAmount += Math.abs(buyAmount);
+        
+        // 卖出债券：bondValueBefore > bondValueAfter
+        const sellAmount = tradeInfo.bondValueBefore - tradeInfo.bondValueAfter;
+        bondSellAmount += Math.abs(sellAmount);
       } else {
-        // 卖出股票 = 买入债券
-        const sellAmount = (dailyStates.find(ds => ds.date === trade.date)?.stockValue || 0) - trade.stockValue;
-        stockSellAmount += sellAmount;
-        bondBuyAmount += sellAmount;
+        // 卖出股票：stockValueBefore > stockValueAfter
+        const sellAmount = tradeInfo.stockValueBefore - tradeInfo.stockValueAfter;
+        stockSellAmount += Math.abs(sellAmount);
+        
+        // 买入债券：bondValueAfter > bondValueBefore
+        const buyAmount = tradeInfo.bondValueAfter - tradeInfo.bondValueBefore;
+        bondBuyAmount += Math.abs(buyAmount);
       }
     });
 
