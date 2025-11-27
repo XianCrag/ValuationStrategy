@@ -32,3 +32,16 @@ export interface LixingerIndexFundamentalRequest {
   token: string;
 }
 
+export interface LixingerInterestRatesData {
+  date: string;
+  [key: string]: any;
+}
+
+export interface LixingerInterestRatesRequest {
+  startDate: string;
+  endDate: string;
+  areaCode: string; // 'cn', 'hk', 'us'
+  metricsList?: string[];
+  token: string;
+}
+

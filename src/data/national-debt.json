@@ -1,0 +1,1782 @@
+{
+  "data": {
+    "2002": [
+      {
+        "date": "2002-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.02418,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.02548,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.02862,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.02824,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.03102,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.03066,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2002-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.03339,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2003": [
+      {
+        "date": "2003-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.03055,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.03009,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.03009,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.02974,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.03115,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.029,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.02992,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.02936,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.02939,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.03516,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.03567,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2003-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.03757,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2004": [
+      {
+        "date": "2004-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.03588,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.036,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.03868,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.03809,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.04016,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.04066,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.04733,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.04717,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.04867,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.04809,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.04788,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2004-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.0469,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2005": [
+      {
+        "date": "2005-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.04661,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.04728,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.04704,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.04466,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.0427,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.0415,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.03874,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.03484,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.03506,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.03294,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.03195,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2005-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.03409,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2006": [
+      {
+        "date": "2006-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.03278,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.03136,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.029,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.0292,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.0302,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.0303,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.03159,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.0325,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.0323,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.03,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.029545,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2006-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.029936,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2007": [
+      {
+        "date": "2007-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.030238,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.030676,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.031553,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.0343,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.035933,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.0408,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.0445,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.042857,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.04235,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.043664,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.045,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2007-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.045085,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2008": [
+      {
+        "date": "2008-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.044363,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.041308,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.041285,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.040563,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.040704,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.041626,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.045309,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.044601,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.041363,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.036809,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.030549,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2008-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.030378,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2009": [
+      {
+        "date": "2009-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.027102,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.030502,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.031582,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.031618,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.031092,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.030615,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.0323,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.035034,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.03481,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.035542,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.03692,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2009-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.035723,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2010": [
+      {
+        "date": "2010-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.036603,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.035406,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.033613,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.034742,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.033826,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.032726,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.032848,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.033131,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.032358,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.033342,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.036941,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2010-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.038918,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2011": [
+      {
+        "date": "2011-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.038606,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.040186,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.039259,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.039126,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.038752,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.038311,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.038775,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.040502,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.040708,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.038605,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.037395,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2011-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.035005,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2012": [
+      {
+        "date": "2012-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.034395,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.034318,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.0355,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.035204,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.035448,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.033416,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.033353,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.032921,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.034001,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.034814,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.035984,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2012-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.035397,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2013": [
+      {
+        "date": "2013-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.036062,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.036004,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.035878,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.035303,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.034119,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.034478,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.035245,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.037053,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.040356,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.039903,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.041555,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2013-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.044812,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2014": [
+      {
+        "date": "2014-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.046018,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.04478,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.044576,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.044954,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.042902,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.040214,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.040812,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.042569,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.042405,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.03993,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.037007,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2014-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.035145,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2015": [
+      {
+        "date": "2015-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.036285,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.034729,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.033883,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.035997,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.033804,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.036404,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.036127,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.0347,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.033002,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.032409,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.030525,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2015-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.030504,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2016": [
+      {
+        "date": "2016-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.02871,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.028368,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.028527,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.028422,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.02889,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.029952,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.028038,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.02783,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.027452,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.027047,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.027375,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2016-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.029893,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2017": [
+      {
+        "date": "2017-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.031054,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.034214,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.033252,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.03273,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.03487,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.036152,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.036033,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.036373,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.036353,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.036477,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.03863,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2017-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.038852,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2018": [
+      {
+        "date": "2018-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.039008,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.039066,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.038201,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.037357,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.036665,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.036202,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.034668,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.034638,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.035951,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.036155,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.034936,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2018-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.0335,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2019": [
+      {
+        "date": "2019-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.031734,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.031032,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.03187,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.031332,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.033849,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.032401,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.032254,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.031487,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.030723,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.031063,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.032757,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2019-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.032062,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2020": [
+      {
+        "date": "2020-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.031485,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.028231,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.027428,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.02555,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.025809,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.027253,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.028456,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.029465,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.030478,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.031873,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.031785,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2020-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.032725,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2021": [
+      {
+        "date": "2021-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.03178,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.031712,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.032475,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.03196,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.031507,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.0304,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.030878,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.028212,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.028226,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.029131,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.029435,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2021-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.028401,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2022": [
+      {
+        "date": "2022-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.027855,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.027256,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.028025,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.027743,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.028282,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.027551,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.028255,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.027292,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.026125,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.027626,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.026629,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2022-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.0286,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2023": [
+      {
+        "date": "2023-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.028228,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.029101,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.028977,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.028604,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.027613,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.026825,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.026402,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.026607,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.02585,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.026651,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.026853,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2023-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.026625,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2024": [
+      {
+        "date": "2024-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.025601,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.024354,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.023675,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.023082,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.023081,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.022853,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.022486,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.021297,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.021457,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.021928,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.021406,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2024-12",
+        "areaCode": "cn",
+        "tcm_y10": 0.01981,
+        "stockCode": "tcm_y10"
+      }
+    ],
+    "2025": [
+      {
+        "date": "2025-01",
+        "areaCode": "cn",
+        "tcm_y10": 0.016077,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-02",
+        "areaCode": "cn",
+        "tcm_y10": 0.016207,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-03",
+        "areaCode": "cn",
+        "tcm_y10": 0.016955,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-04",
+        "areaCode": "cn",
+        "tcm_y10": 0.018104,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-05",
+        "areaCode": "cn",
+        "tcm_y10": 0.016298,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-06",
+        "areaCode": "cn",
+        "tcm_y10": 0.016764,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-07",
+        "areaCode": "cn",
+        "tcm_y10": 0.016433,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-08",
+        "areaCode": "cn",
+        "tcm_y10": 0.017059,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-09",
+        "areaCode": "cn",
+        "tcm_y10": 0.018257,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-10",
+        "areaCode": "cn",
+        "tcm_y10": 0.018466,
+        "stockCode": "tcm_y10"
+      },
+      {
+        "date": "2025-11",
+        "areaCode": "cn",
+        "tcm_y10": 0.017944,
+        "stockCode": "tcm_y10"
+      }
+    ]
+  },
+  "metadata": {
+    "fetchedAt": "2025-11-27T03:42:44.449Z",
+    "totalRecords": 5850,
+    "filteredRecords": 282,
+    "dateRange": {
+      "start": "2002-06",
+      "end": "2025-11"
+    },
+    "years": [
+      "2002",
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "metricsList": [
+      "tcm_y10"
+    ]
+  }
+}

@@ -11,11 +11,14 @@ export type {
   LixingerApiResponse,
   LixingerNonFinancialRequest,
   LixingerIndexFundamentalRequest,
+  LixingerInterestRatesData,
+  LixingerInterestRatesRequest,
 } from './types';
 
 // 导出 API 函数
 export { getNonFinancialData } from './non-financial';
 export { getIndexFundamentalData } from './index-fundamental';
+export { getNationalDebtData } from './national-debt';
 
 // 导出工具函数
 export { getDateRangeForYears, getLixingerToken } from './utils';
