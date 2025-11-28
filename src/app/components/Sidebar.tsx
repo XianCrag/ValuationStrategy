@@ -35,6 +35,10 @@ const menuItems: MenuItem[] = [
         label: '定投沪深300',
         path: '/backtest/dca-csi300',
       },
+      {
+        label: '股权风险溢价策略',
+        path: '/backtest/erp-strategy',
+      },
     ],
   },
 ];
