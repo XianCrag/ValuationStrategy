@@ -36,8 +36,8 @@ import { useBacktestData } from '../hooks/useBacktestData';
 export default function CSI300PEBalancePage() {
   const [selectedYears, setSelectedYears] = useState<number>(10);
   
-  // 策略参数状态
-  const [strategyParams, setStrategyParams] = useState<CSI300PEBalanceParams>({
+  // 编辑中的参数（UI绑定）
+  const [editingParams, setEditingParams] = useState<CSI300PEBalanceParams>({
     peMin: DEFAULT_PE_MIN,
     peMax: DEFAULT_PE_MAX,
     minStockRatio: DEFAULT_MIN_STOCK_RATIO,
@@ -45,6 +45,14 @@ export default function CSI300PEBalancePage() {
     positionLevels: DEFAULT_POSITION_LEVELS,
     reviewIntervalMonths: DEFAULT_REVIEW_INTERVAL_MONTHS,
   });
+
+  // 实际应用的参数（用于计算）
+  const [appliedParams, setAppliedParams] = useState<CSI300PEBalanceParams>(editingParams);
+
+  // 应用参数
+  const handleApplyParams = () => {
+    setAppliedParams({...editingParams});
+  };
 
   // 使用自定义Hook获取和计算数据
   const { data, result: strategyResult, loading, error, refetch } = useBacktestData<{
@@ -85,9 +93,9 @@ export default function CSI300PEBalancePage() {
           [METRIC_PE_TTM_MCW]: indexItem?.[METRIC_PE_TTM_MCW],
         };
       });
-      return calculateCSI300PEBalanceStrategy(mergedData, INITIAL_CAPITAL, strategyParams);
-    }, [strategyParams]),
-    dependencies: [selectedYears, strategyParams],
+      return calculateCSI300PEBalanceStrategy(mergedData, INITIAL_CAPITAL, appliedParams);
+    }, [appliedParams]),
+    dependencies: [selectedYears, appliedParams],
   });
 
   // 创建图表数据
@@ -140,8 +148,8 @@ export default function CSI300PEBalancePage() {
                 <input
                   type="number"
                   step="0.5"
-                  value={strategyParams.peMin}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, peMin: parseFloat(e.target.value) || 0 })}
+                  value={editingParams.peMin}
+                  onChange={(e) => setEditingParams({ ...editingParams, peMin: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">PE ≤ 此值时满仓</p>
@@ -155,8 +163,8 @@ export default function CSI300PEBalancePage() {
                 <input
                   type="number"
                   step="0.5"
-                  value={strategyParams.peMax}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, peMax: parseFloat(e.target.value) || 0 })}
+                  value={editingParams.peMax}
+                  onChange={(e) => setEditingParams({ ...editingParams, peMax: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">PE ≥ 此值时最低仓</p>
@@ -170,8 +178,8 @@ export default function CSI300PEBalancePage() {
                 <input
                   type="number"
                   step="1"
-                  value={(strategyParams.minStockRatio * 100).toFixed(0)}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, minStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  value={(editingParams.minStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setEditingParams({ ...editingParams, minStockRatio: parseFloat(e.target.value) / 100 || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">股票最低配置比例</p>
@@ -185,8 +193,8 @@ export default function CSI300PEBalancePage() {
                 <input
                   type="number"
                   step="1"
-                  value={(strategyParams.maxStockRatio * 100).toFixed(0)}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, maxStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  value={(editingParams.maxStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setEditingParams({ ...editingParams, maxStockRatio: parseFloat(e.target.value) / 100 || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">股票最高配置比例</p>
@@ -201,12 +209,12 @@ export default function CSI300PEBalancePage() {
                   type="number"
                   step="1"
                   min="2"
-                  value={strategyParams.positionLevels}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, positionLevels: parseInt(e.target.value) || 2 })}
+                  value={editingParams.positionLevels}
+                  onChange={(e) => setEditingParams({ ...editingParams, positionLevels: parseInt(e.target.value) || 2 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}
+                  {generatePositionLevelsText(editingParams.positionLevels, editingParams.minStockRatio, editingParams.maxStockRatio)}
                 </p>
               </div>
 
@@ -219,12 +227,23 @@ export default function CSI300PEBalancePage() {
                   type="number"
                   step="1"
                   min="1"
-                  value={strategyParams.reviewIntervalMonths}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
+                  value={editingParams.reviewIntervalMonths}
+                  onChange={(e) => setEditingParams({ ...editingParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">每N个月检查仓位</p>
               </div>
+            </div>
+
+            {/* 应用参数按钮 */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={handleApplyParams}
+                disabled={loading}
+                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                {loading ? '计算中...' : '应用参数并重新计算'}
+              </button>
             </div>
           </div>
 
@@ -247,9 +266,9 @@ export default function CSI300PEBalancePage() {
                 <h3 className="text-lg font-semibold mb-2 text-blue-900">策略说明</h3>
                 <ul className="text-sm text-gray-700 space-y-1">
                   <li>• <strong>PE指标：</strong> 使用沪深300基金的市盈率（PE）作为估值指标</li>
-                  <li>• <strong>仓位规则：</strong> PE {'<='} {strategyParams.peMin} 时股票仓位最高({(strategyParams.maxStockRatio * 100).toFixed(0)}%)，PE {'>='} {strategyParams.peMax} 时股票仓位最低({(strategyParams.minStockRatio * 100).toFixed(0)}%)，中间离散化为{strategyParams.positionLevels}个固定档位</li>
-                  <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}</li>
-                  <li>• <strong>调仓频率：</strong> 每{strategyParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
+                  <li>• <strong>仓位规则：</strong> PE {'<='} {appliedParams.peMin} 时股票仓位最高({(appliedParams.maxStockRatio * 100).toFixed(0)}%)，PE {'>='} {appliedParams.peMax} 时股票仓位最低({(appliedParams.minStockRatio * 100).toFixed(0)}%)，中间离散化为{appliedParams.positionLevels}个固定档位</li>
+                  <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(appliedParams.positionLevels, appliedParams.minStockRatio, appliedParams.maxStockRatio)}</li>
+                  <li>• <strong>调仓频率：</strong> 每{appliedParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
                   <li>• <strong>数据来源：</strong> 买入沪深300ETF基金，现金部分享受国债利率</li>
                 </ul>
               </div>

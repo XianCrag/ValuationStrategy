@@ -31,8 +31,8 @@ import { useBacktestData } from '../hooks/useBacktestData';
 export default function ERPStrategyPage() {
   const [selectedYears, setSelectedYears] = useState(10);
   
-  // 策略参数状态
-  const [strategyParams, setStrategyParams] = useState<ERPStrategyParams>({
+  // 编辑中的参数（UI绑定）
+  const [editingParams, setEditingParams] = useState<ERPStrategyParams>({
     erpMin: DEFAULT_ERP_MIN,
     erpMax: DEFAULT_ERP_MAX,
     minStockRatio: DEFAULT_MIN_STOCK_RATIO,
@@ -40,6 +40,14 @@ export default function ERPStrategyPage() {
     positionLevels: DEFAULT_POSITION_LEVELS,
     reviewIntervalMonths: DEFAULT_REVIEW_INTERVAL_MONTHS,
   });
+
+  // 实际应用的参数（用于计算）
+  const [appliedParams, setAppliedParams] = useState<ERPStrategyParams>(editingParams);
+
+  // 应用参数
+  const handleApplyParams = () => {
+    setAppliedParams({...editingParams});
+  };
 
   // 使用自定义Hook获取和计算数据
   const { data, result, loading, error, refetch } = useBacktestData<{
@@ -97,9 +105,9 @@ export default function ERPStrategyPage() {
         throw new Error('没有可用数据');
       }
       // 只使用策略所需的数据计算，csi300IndexData仅用于图表展示
-      return calculateERPStrategy(data.aStockData, data.csi300Data, data.bondData, INITIAL_CAPITAL, strategyParams);
-    }, [strategyParams]),
-    dependencies: [selectedYears, strategyParams],
+      return calculateERPStrategy(data.aStockData, data.csi300Data, data.bondData, INITIAL_CAPITAL, appliedParams);
+    }, [appliedParams]),
+    dependencies: [selectedYears, appliedParams],
   });
 
   // 计算ERP数据用于图表
@@ -149,8 +157,8 @@ export default function ERPStrategyPage() {
                 <input
                   type="number"
                   step="0.1"
-                  value={strategyParams.erpMin}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, erpMin: parseFloat(e.target.value) || 0 })}
+                  value={editingParams.erpMin}
+                  onChange={(e) => setEditingParams({ ...editingParams, erpMin: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">ERP ≤ 此值时最低仓位</p>
@@ -164,8 +172,8 @@ export default function ERPStrategyPage() {
                 <input
                   type="number"
                   step="0.1"
-                  value={strategyParams.erpMax}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, erpMax: parseFloat(e.target.value) || 0 })}
+                  value={editingParams.erpMax}
+                  onChange={(e) => setEditingParams({ ...editingParams, erpMax: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">ERP ≥ 此值时最高仓位</p>
@@ -179,8 +187,8 @@ export default function ERPStrategyPage() {
                 <input
                   type="number"
                   step="1"
-                  value={(strategyParams.minStockRatio * 100).toFixed(0)}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, minStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  value={(editingParams.minStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setEditingParams({ ...editingParams, minStockRatio: parseFloat(e.target.value) / 100 || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">股票最低配置比例</p>
@@ -194,8 +202,8 @@ export default function ERPStrategyPage() {
                 <input
                   type="number"
                   step="1"
-                  value={(strategyParams.maxStockRatio * 100).toFixed(0)}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, maxStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  value={(editingParams.maxStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setEditingParams({ ...editingParams, maxStockRatio: parseFloat(e.target.value) / 100 || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">股票最高配置比例</p>
@@ -210,12 +218,12 @@ export default function ERPStrategyPage() {
                   type="number"
                   step="1"
                   min="2"
-                  value={strategyParams.positionLevels}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, positionLevels: parseInt(e.target.value) || 2 })}
+                  value={editingParams.positionLevels}
+                  onChange={(e) => setEditingParams({ ...editingParams, positionLevels: parseInt(e.target.value) || 2 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}
+                  {generatePositionLevelsText(editingParams.positionLevels, editingParams.minStockRatio, editingParams.maxStockRatio)}
                 </p>
               </div>
 
@@ -228,12 +236,23 @@ export default function ERPStrategyPage() {
                   type="number"
                   step="1"
                   min="1"
-                  value={strategyParams.reviewIntervalMonths}
-                  onChange={(e) => setStrategyParams({ ...strategyParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
+                  value={editingParams.reviewIntervalMonths}
+                  onChange={(e) => setEditingParams({ ...editingParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">每N个月检查仓位</p>
               </div>
+            </div>
+
+            {/* 应用参数按钮 */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={handleApplyParams}
+                disabled={loading}
+                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                {loading ? '计算中...' : '应用参数并重新计算'}
+              </button>
             </div>
           </div>
 
@@ -256,9 +275,9 @@ export default function ERPStrategyPage() {
                 <h3 className="text-lg font-semibold mb-2 text-blue-900">策略说明</h3>
                 <ul className="text-sm text-gray-700 space-y-1">
                   <li>• <strong>ERP计算：</strong> 股权风险溢价 = 盈利收益率(%) - 无风险利率(%)，其中盈利收益率 = (1 / PE) × 100%</li>
-                  <li>• <strong>仓位规则：</strong> ERP {'<='} {strategyParams.erpMin} 时股票仓位最低({(strategyParams.minStockRatio * 100).toFixed(0)}%)，ERP {'>='} {strategyParams.erpMax} 时股票仓位最高({(strategyParams.maxStockRatio * 100).toFixed(0)}%)，中间离散化为{strategyParams.positionLevels}个固定档位</li>
-                  <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}</li>
-                  <li>• <strong>调仓频率：</strong> 每{strategyParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
+                  <li>• <strong>仓位规则：</strong> ERP {'<='} {appliedParams.erpMin} 时股票仓位最低({(appliedParams.minStockRatio * 100).toFixed(0)}%)，ERP {'>='} {appliedParams.erpMax} 时股票仓位最高({(appliedParams.maxStockRatio * 100).toFixed(0)}%)，中间离散化为{appliedParams.positionLevels}个固定档位</li>
+                  <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(appliedParams.positionLevels, appliedParams.minStockRatio, appliedParams.maxStockRatio)}</li>
+                  <li>• <strong>调仓频率：</strong> 每{appliedParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
                   <li>• <strong>数据来源：</strong> 使用A股全指PE计算ERP，买入沪深300ETF基金，现金部分享受国债利率</li>
                 </ul>
               </div>
