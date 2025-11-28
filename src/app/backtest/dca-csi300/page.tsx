@@ -18,6 +18,7 @@ import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
+import { optimizeChartData } from '../chart-utils';
 
 export default function DcaCsi300Page() {
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -74,9 +75,8 @@ export default function DcaCsi300Page() {
   };
 
   // 准备图表数据
-  const chartData = result && stockData.length > 0 ? result.dailyValues.map((daily) => {
+  const rawChartData = result && stockData.length > 0 ? result.dailyValues.map((daily) => {
     const fundPrice = stockData.find(s => s.date === daily.date)?.cp || 0;
-    const initialFundPrice = stockData[0]?.cp || 1;
     
     return {
       date: daily.date,
@@ -85,6 +85,12 @@ export default function DcaCsi300Page() {
       fundValue: fundPrice, // 基金净值
     };
   }) : [];
+
+  // 优化图表数据：减少点位数量
+  const chartData = optimizeChartData(rawChartData, {
+    maxPoints: 300,
+    keepFirstAndLast: true,
+  });
 
   return (
     <StrategyLayout>
@@ -170,7 +176,7 @@ export default function DcaCsi300Page() {
                     angle={-45}
                     textAnchor="end"
                     height={80}
-                    interval={Math.floor(chartData.length / 10)}
+                    interval="preserveStartEnd"
                     tickFormatter={(value) => formatDateShort(value)}
                   />
                   <YAxis
@@ -204,6 +210,7 @@ export default function DcaCsi300Page() {
                     dot={false}
                     activeDot={{ r: 6 }}
                     name="定投策略总价值"
+                    isAnimationActive={false}
                   />
                   <Line
                     yAxisId="right"
@@ -214,6 +221,7 @@ export default function DcaCsi300Page() {
                     dot={false}
                     activeDot={{ r: 6 }}
                     name="沪深300基金净值"
+                    isAnimationActive={false}
                   />
                 </LineChart>
               </ResponsiveContainer>

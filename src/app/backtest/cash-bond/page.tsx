@@ -18,6 +18,7 @@ import { formatNumber, formatDate, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
+import { optimizeChartData } from '../chart-utils';
 
 export default function CashBondPage() {
   const [bondData, setBondData] = useState<BondData[]>([]);
@@ -29,6 +30,7 @@ export default function CashBondPage() {
 
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYears]);
 
   const fetchData = async () => {
@@ -146,13 +148,16 @@ export default function CashBondPage() {
                   <h3 className="text-lg font-semibold text-gray-800 mb-4">10年期国债收益率趋势</h3>
                   <ResponsiveContainer width="100%" height={300}>
                     <LineChart
-                      data={bondData
-                        .filter(item => item.tcm_y10 !== undefined && item.tcm_y10 !== null)
-                        .map((item) => ({
-                          date: item.date,
-                          dateShort: formatDateShort(item.date),
-                          rate: item.tcm_y10,
-                        }))}
+                      data={optimizeChartData(
+                        bondData
+                          .filter(item => item.tcm_y10 !== undefined && item.tcm_y10 !== null)
+                          .map((item) => ({
+                            date: item.date,
+                            dateShort: formatDateShort(item.date),
+                            rate: item.tcm_y10,
+                          })),
+                        { maxPoints: 300, keepFirstAndLast: true }
+                      )}
                       margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
@@ -161,7 +166,7 @@ export default function CashBondPage() {
                         angle={-45}
                         textAnchor="end"
                         height={80}
-                        interval={Math.floor(bondData.length / 10)}
+                        interval="preserveStartEnd"
                         tickFormatter={(value) => {
                           const item = bondData.find(d => d.date === value);
                           return item ? formatDateShort(item.date) : value;
@@ -189,6 +194,7 @@ export default function CashBondPage() {
                         dot={false}
                         activeDot={{ r: 6 }}
                         name="10年期国债收益率 (%)"
+                        isAnimationActive={false}
                       />
                     </LineChart>
                   </ResponsiveContainer>

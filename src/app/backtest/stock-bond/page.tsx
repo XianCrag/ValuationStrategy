@@ -18,6 +18,7 @@ import { formatNumber, formatDateShort } from '../utils';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
+import { optimizeChartData } from '../chart-utils';
 
 export default function BacktestPage() {
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -110,7 +111,7 @@ export default function BacktestPage() {
   };
 
   // 创建图表数据：合并策略数据、指数数据
-  const chartData = stockData
+  const rawChartData = stockData
     .map(item => {
       const trade = strategyResult?.trades.find(t => t.date === item.date);
       const dailyState = strategyResult?.dailyStates.find(s => s.date === item.date);
@@ -136,12 +137,16 @@ export default function BacktestPage() {
       };
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  // 优化图表数据：减少点位数量，保留交易点
+  const chartData = optimizeChartData(rawChartData, {
+    maxPoints: 300, // 最多保留300个点
+    isKeyPoint: (point) => point.hasTrade, // 保留所有交易点
+    keepFirstAndLast: true, // 保留首尾点
+  });
   
   const peValues = chartData
     .map(d => d.pe)
-    .filter((val): val is number => val !== null && val !== undefined);
-  const marketCapValues = chartData
-    .map(d => d.marketCap)
     .filter((val): val is number => val !== null && val !== undefined);
   const totalValueValues = chartData
     .map(d => d.totalValueInWan)
@@ -276,6 +281,7 @@ export default function BacktestPage() {
                     angle={-45}
                     textAnchor="end"
                     height={80}
+                    interval="preserveStartEnd"
                     tickFormatter={(value) => {
                       const item = chartData.find(d => d.date === value);
                       return item ? item.dateShort : value;
@@ -384,6 +390,7 @@ export default function BacktestPage() {
                     }}
                     activeDot={{ r: 8 }}
                     name="策略价值 (万元)"
+                    isAnimationActive={false}
                   />
                   {/* 指数点位曲线 - 对比基准 */}
                   <Line
@@ -396,6 +403,7 @@ export default function BacktestPage() {
                     dot={false}
                     activeDot={{ r: 6 }}
                     name="沪深300指数"
+                    isAnimationActive={false}
                   />
                   {/* PE曲线 */}
                   <Line
@@ -407,6 +415,7 @@ export default function BacktestPage() {
                     dot={false}
                     activeDot={{ r: 6 }}
                     name="PE TTM"
+                    isAnimationActive={false}
                   />
                 </LineChart>
               </ResponsiveContainer>
