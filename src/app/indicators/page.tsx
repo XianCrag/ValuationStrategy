@@ -16,9 +16,9 @@ import ErrorDisplay from '../components/Error';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DateRangeDisplay from '../components/DateRange';
 import RefreshButton from '../components/RefreshButton';
-import IndexDataDisplay from '../components/IndexDisplay';
-import NationalDebtDataDisplay from '../components/DebtDataDisplay';
-import ERPDisplay from '../components/ERPDisplay';
+import IndexDataDisplay from './components/IndexDisplay';
+import NationalDebtDataDisplay from './components/DebtDataDisplay';
+import ERPDisplay from './components/ERPDisplay';
 
 export default function IndicatorsPage() {
   const [selectedMetric, setSelectedMetric] = useState<MetricType>('csi300-index');

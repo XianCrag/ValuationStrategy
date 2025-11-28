@@ -1,18 +1,9 @@
 'use client';
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
-import { StockData } from '../indicators/types';
-import { formatDate, formatDateShort } from '../indicators/utils';
-import { optimizeChartData } from '../backtest/chart-utils';
+import { StockData } from '../types';
+import { formatDate, formatDateShort } from '../utils';
+import { optimizeChartData } from '../../backtest/chart-utils';
+import { ChartContainer } from '../../components/Chart';
 
 interface ERPDisplayProps {
   aStockData: StockData[];
@@ -86,7 +77,7 @@ export default function ERPDisplay({ aStockData, bondData }: ERPDisplayProps) {
   const maxERP = Math.max(...erpValues);
 
   const erpRange = maxERP - minERP;
-  const erpDomain = [
+  const erpDomain: [number, number] = [
     minERP - erpRange * 0.1,
     maxERP + erpRange * 0.1
   ];
@@ -137,68 +128,53 @@ export default function ERPDisplay({ aStockData, bondData }: ERPDisplayProps) {
       </div>
 
       {/* ERP趋势图 */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">股权风险溢价趋势</h3>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart
-            data={optimizedData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              angle={-45}
-              textAnchor="end"
-              height={80}
-              interval="preserveStartEnd"
-              tickFormatter={(value) => {
-                const item = optimizedData.find(d => d.date === value);
-                return item ? item.dateShort : value;
-              }}
-            />
-            <YAxis
-              domain={erpDomain}
-              label={{ value: 'ERP (%)', angle: -90, position: 'insideLeft' }}
-              tickFormatter={(value) => value.toFixed(2)}
-            />
-            <Tooltip
-              content={({ active, payload }) => {
-                if (!active || !payload || payload.length === 0) return null;
-                const data = payload[0].payload;
-                
-                return (
-                  <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4">
-                    <p className="font-semibold mb-2">{data.fullDate}</p>
-                    <p className="text-sm mb-1">
-                      <span className="font-medium text-purple-600">ERP:</span> {data.erp.toFixed(2)}%
-                    </p>
-                    <p className="text-sm mb-1">
-                      <span className="font-medium text-green-600">盈利收益率:</span> {data.earningsYield.toFixed(2)}%
-                    </p>
-                    <p className="text-sm mb-1">
-                      <span className="font-medium text-blue-600">国债利率:</span> {data.bondRate.toFixed(2)}%
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">A股全指PE:</span> {data.pe.toFixed(2)}
-                    </p>
-                  </div>
-                );
-              }}
-            />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="erp"
-              stroke="#8b5cf6"
-              strokeWidth={3}
-              dot={false}
-              activeDot={{ r: 6 }}
-              name="股权风险溢价 (%)"
-              isAnimationActive={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      <ChartContainer
+        data={optimizedData}
+        lines={[
+          {
+            dataKey: 'erp',
+            name: '股权风险溢价 (%)',
+            stroke: '#8b5cf6',
+            strokeWidth: 3,
+          },
+        ]}
+        yAxes={[
+          {
+            yAxisId: 'left',
+            label: 'ERP (%)',
+            domain: erpDomain,
+            tickFormatter: (value) => value.toFixed(2),
+          },
+        ]}
+        title="股权风险溢价趋势"
+        xTickFormatter={(value) => {
+          const item = optimizedData.find(d => d.date === value);
+          return item ? item.dateShort : value;
+        }}
+        tooltipContent={(props: any) => {
+          const { active, payload } = props;
+          if (!active || !payload || payload.length === 0) return null;
+          const data = payload[0].payload;
+          
+          return (
+            <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+              <p className="font-semibold mb-2">{data.fullDate}</p>
+              <p className="text-sm mb-1">
+                <span className="font-medium text-purple-600">ERP:</span> {data.erp.toFixed(2)}%
+              </p>
+              <p className="text-sm mb-1">
+                <span className="font-medium text-green-600">盈利收益率:</span> {data.earningsYield.toFixed(2)}%
+              </p>
+              <p className="text-sm mb-1">
+                <span className="font-medium text-blue-600">国债利率:</span> {data.bondRate.toFixed(2)}%
+              </p>
+              <p className="text-sm text-gray-600">
+                <span className="font-medium">A股全指PE:</span> {data.pe.toFixed(2)}
+              </p>
+            </div>
+          );
+        }}
+      />
 
       {/* 历史分位 */}
       <div className="bg-white border border-gray-200 rounded-lg p-4">
@@ -230,4 +206,3 @@ export default function ERPDisplay({ aStockData, bondData }: ERPDisplayProps) {
     </div>
   );
 }
-

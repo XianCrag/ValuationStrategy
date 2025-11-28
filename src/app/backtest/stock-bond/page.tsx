@@ -1,16 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
 import { StockData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, CSI300_INDEX_STOCK, CSI300_FUND_STOCK } from '../constants';
 import { calculateStrategy } from './calculations';
@@ -21,6 +11,7 @@ import YearSelector from '../../components/YearSelector';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import { optimizeChartData } from '../chart-utils';
 import { StockBondChartTooltip, ChartLegend } from './ChartComponents';
+import { ChartContainer } from '../../components/Chart';
 import { 
   METRIC_PE_TTM_MCW, 
   METRIC_CP, 
@@ -261,106 +252,81 @@ export default function BacktestPage() {
               )}
             </div>
             
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-semibold mb-4 text-gray-800">策略表现与PE趋势对比</h2>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="date"
-                    angle={-45}
-                    textAnchor="end"
-                    height={80}
-                    interval="preserveStartEnd"
-                    tickFormatter={(value) => {
-                      const item = chartData.find(d => d.date === value);
-                      return item ? item.dateShort : value;
-                    }}
-                  />
-                  {/* 左Y轴：策略价值 */}
-                  <YAxis
-                    yAxisId="left"
-                    domain={valueDomain}
-                    label={{ value: '策略价值 (万元)', angle: -90, position: 'insideLeft' }}
-                    tickFormatter={(value) => value.toFixed(0)}
-                  />
-                  {/* 右Y轴1：指数点位（隐藏刻度） */}
-                  <YAxis
-                    yAxisId="index"
-                    orientation="right"
-                    domain={indexPriceDomain}
-                    hide={true}
-                  />
-                  {/* 右Y轴2：PE */}
-                  <YAxis
-                    yAxisId="pe"
-                    orientation="right"
-                    domain={peDomain}
-                    label={{ value: 'PE TTM', angle: 90, position: 'insideRight' }}
-                    tickFormatter={(value) => value.toFixed(1)}
-                  />
-                  <Tooltip
-                    content={(props) => (
-                      <StockBondChartTooltip {...props} chartData={chartData} />
-                    )}
-                  />
-                  <Legend />
-                  {/* 策略价值曲线 - 主要曲线，带买卖标记 */}
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="totalValueInWan"
-                    stroke="#8b5cf6"
-                    strokeWidth={3}
-                    dot={(props: any) => {
-                      const item = chartData.find(d => d.date === props.payload.date);
-                      if (item && item.hasTrade) {
-                        return (
-                          <circle
-                            cx={props.cx}
-                            cy={props.cy}
-                            r={8}
-                            fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
-                            stroke="#fff"
-                            strokeWidth={2}
-                          />
-                        );
-                      }
-                      return null;
-                    }}
-                    activeDot={{ r: 8 }}
-                    name="策略价值 (万元)"
-                    isAnimationActive={false}
-                  />
-                  {/* 指数点位曲线 - 对比基准 */}
-                  <Line
-                    yAxisId="index"
-                    type="monotone"
-                    dataKey="indexPrice"
-                    stroke="#f97316"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={{ r: 6 }}
-                    name="沪深300指数"
-                    isAnimationActive={false}
-                  />
-                  {/* PE曲线 */}
-                  <Line
-                    yAxisId="pe"
-                    type="monotone"
-                    dataKey="pe"
-                    stroke="#3b82f6"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 6 }}
-                    name="PE TTM"
-                    isAnimationActive={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-              <ChartLegend />
-            </div>
+            <ChartContainer
+              data={chartData}
+              lines={[
+                {
+                  dataKey: 'totalValueInWan',
+                  name: '策略价值 (万元)',
+                  stroke: '#8b5cf6',
+                  strokeWidth: 3,
+                  yAxisId: 'left',
+                  dot: (props: any) => {
+                    const item = chartData.find(d => d.date === props.payload.date);
+                    if (item && item.hasTrade) {
+                      return (
+                        <circle
+                          cx={props.cx}
+                          cy={props.cy}
+                          r={8}
+                          fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
+                          stroke="#fff"
+                          strokeWidth={2}
+                        />
+                      );
+                    }
+                    return null;
+                  },
+                },
+                {
+                  dataKey: 'indexPrice',
+                  name: '沪深300指数',
+                  stroke: '#f97316',
+                  strokeWidth: 2,
+                  strokeDasharray: '5 5',
+                  yAxisId: 'index',
+                },
+                {
+                  dataKey: 'pe',
+                  name: 'PE TTM',
+                  stroke: '#3b82f6',
+                  strokeWidth: 2,
+                  yAxisId: 'pe',
+                },
+              ]}
+              yAxes={[
+                {
+                  yAxisId: 'left',
+                  orientation: 'left',
+                  label: '策略价值 (万元)',
+                  domain: [valueDomain[0], valueDomain[1]],
+                  tickFormatter: (value) => value.toFixed(0),
+                },
+                {
+                  yAxisId: 'index',
+                  orientation: 'right',
+                  domain: [indexPriceDomain[0], indexPriceDomain[1]],
+                  hide: true,
+                },
+                {
+                  yAxisId: 'pe',
+                  orientation: 'right',
+                  label: 'PE TTM',
+                  domain: [peDomain[0], peDomain[1]],
+                  tickFormatter: (value) => value.toFixed(1),
+                },
+              ]}
+              title="策略表现与PE趋势对比"
+              xTickFormatter={(value) => {
+                const item = chartData.find(d => d.date === value);
+                return item ? item.dateShort : value;
+              }}
+              tooltipContent={(props) => (
+                <StockBondChartTooltip {...props} chartData={chartData} />
+              )}
+              legendContent={<ChartLegend />}
+              showLegend={false}
+            />
           </>
         )}
       </div>

@@ -1,16 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
 import { StockData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_STOCK } from '../constants';
 import { PRICE_ONLY_METRICS } from '@/constants/metrics';
@@ -21,6 +11,7 @@ import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
 import { optimizeChartData } from '../chart-utils';
+import { ChartContainer } from '../../components/Chart';
 
 export default function DcaCsi300Page() {
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -155,73 +146,66 @@ export default function DcaCsi300Page() {
             </div>
 
             {/* 价值变化折线图 */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-semibold mb-4 text-gray-800">价值变化对比</h2>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart
-                  data={chartData}
-                  margin={{ top: 5, right: 60, left: 20, bottom: 60 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="date"
-                    angle={-45}
-                    textAnchor="end"
-                    height={80}
-                    interval="preserveStartEnd"
-                    tickFormatter={(value) => formatDateShort(value)}
-                  />
-                  <YAxis
-                    yAxisId="left"
-                    label={{ value: '定投策略价值（元）', angle: -90, position: 'insideLeft' }}
-                    tickFormatter={(value) => `${(value / 10000).toFixed(0)}万`}
-                  />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    label={{ value: '基金净值', angle: 90, position: 'insideRight' }}
-                    tickFormatter={(value) => value.toFixed(2)}
-                  />
-                  <Tooltip
-                    formatter={(value: number, name: string) => {
-                      const numValue = typeof value === 'number' ? value : 0;
-                      return [
-                        name === 'strategyValue' ? formatNumber(numValue) : numValue.toFixed(4), 
-                        name === 'strategyValue' ? '定投策略' : '沪深300净值'
-                      ];
-                    }}
-                    labelFormatter={(label) => `日期: ${formatDateShort(label)}`}
-                  />
-                  <Legend />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="strategyValue"
-                    stroke="#3b82f6"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 6 }}
-                    name="定投策略总价值"
-                    isAnimationActive={false}
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="fundValue"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 6 }}
-                    name="沪深300基金净值"
-                    isAnimationActive={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-              <div className="mt-4 text-sm text-gray-600">
-                <p>• <span className="text-blue-600 font-semibold">蓝线</span>：定投策略（48个月定投完成，左侧Y轴）</p>
-                <p>• <span className="text-green-600 font-semibold">绿线</span>：沪深300基金净值（右侧Y轴）</p>
-              </div>
-            </div>
+            <ChartContainer
+              data={chartData}
+              lines={[
+                {
+                  dataKey: 'strategyValue',
+                  name: '定投策略总价值',
+                  stroke: '#3b82f6',
+                  strokeWidth: 2,
+                  yAxisId: 'left',
+                },
+                {
+                  dataKey: 'fundValue',
+                  name: '沪深300基金净值',
+                  stroke: '#10b981',
+                  strokeWidth: 2,
+                  yAxisId: 'right',
+                },
+              ]}
+              yAxes={[
+                {
+                  yAxisId: 'left',
+                  orientation: 'left',
+                  label: '定投策略价值（元）',
+                  tickFormatter: (value) => `${(value / 10000).toFixed(0)}万`,
+                },
+                {
+                  yAxisId: 'right',
+                  orientation: 'right',
+                  label: '基金净值',
+                  tickFormatter: (value) => value.toFixed(2),
+                },
+              ]}
+              title="价值变化对比"
+              xTickFormatter={(value) => formatDateShort(value)}
+              tooltipContent={(props: any) => {
+                const { active, payload, label } = props;
+                if (!active || !payload || !payload[0]) return null;
+                
+                return (
+                  <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+                    <p className="font-semibold mb-2">日期: {formatDateShort(label)}</p>
+                    {payload.map((item: any, index: number) => (
+                      <p key={index} className="text-sm mb-1">
+                        <span className="font-medium">{item.name}:</span>{' '}
+                        {item.dataKey === 'strategyValue' 
+                          ? formatNumber(item.value) 
+                          : item.value.toFixed(4)}
+                      </p>
+                    ))}
+                  </div>
+                );
+              }}
+              legendContent={
+                <div className="mt-4 text-sm text-gray-600">
+                  <p>• <span className="text-blue-600 font-semibold">蓝线</span>：定投策略（48个月定投完成，左侧Y轴）</p>
+                  <p>• <span className="text-green-600 font-semibold">绿线</span>：沪深300基金净值（右侧Y轴）</p>
+                </div>
+              }
+              showLegend={false}
+            />
 
             <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
               <button

@@ -1,16 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
 import { BondData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, NATIONAL_DEBT_STOCK } from '../constants';
 import { fetchLixingerData } from '@/lib/api';
@@ -20,6 +10,7 @@ import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
 import { optimizeChartData } from '../chart-utils';
+import { ChartContainer } from '../../components/Chart';
 
 export default function CashBondPage() {
   const [bondData, setBondData] = useState<BondData[]>([]);
@@ -135,61 +126,53 @@ export default function CashBondPage() {
               </div>
               
               {bondData.length > 0 && (
-                <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4 mt-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">10年期国债收益率趋势</h3>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart
-                      data={optimizeChartData(
-                        bondData
-                          .filter(item => item.tcm_y10 !== undefined && item.tcm_y10 !== null)
-                          .map((item) => ({
-                            date: item.date,
-                            dateShort: formatDateShort(item.date),
-                            rate: item.tcm_y10,
-                          })),
-                        { maxPoints: 300, keepFirstAndLast: true }
-                      )}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="date"
-                        angle={-45}
-                        textAnchor="end"
-                        height={80}
-                        interval="preserveStartEnd"
-                        tickFormatter={(value) => {
-                          const item = bondData.find(d => d.date === value);
-                          return item ? formatDateShort(item.date) : value;
-                        }}
-                      />
-                      <YAxis
-                        label={{ value: '收益率 (%)', angle: -90, position: 'insideLeft' }}
-                        tickFormatter={(value) => value.toFixed(2)}
-                      />
-                      <Tooltip
-                        formatter={(value: any) => {
-                          const numValue = typeof value === 'number' ? value : null;
-                          return numValue !== null && !isNaN(numValue)
-                            ? [`${numValue.toFixed(2)}%`, '收益率']
-                            : ['N/A', '收益率'];
-                        }}
-                        labelFormatter={(label) => `日期: ${formatDate(label)}`}
-                      />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="rate"
-                        stroke="#10b981"
-                        strokeWidth={2}
-                        dot={false}
-                        activeDot={{ r: 6 }}
-                        name="10年期国债收益率 (%)"
-                        isAnimationActive={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <ChartContainer
+                  data={optimizeChartData(
+                    bondData
+                      .filter(item => item.tcm_y10 !== undefined && item.tcm_y10 !== null)
+                      .map((item) => ({
+                        date: item.date,
+                        dateShort: formatDateShort(item.date),
+                        fullDate: formatDate(item.date),
+                        rate: item.tcm_y10,
+                      })),
+                    { maxPoints: 300, keepFirstAndLast: true }
+                  )}
+                  lines={[
+                    {
+                      dataKey: 'rate',
+                      name: '10年期国债收益率 (%)',
+                      stroke: '#10b981',
+                      strokeWidth: 2,
+                    },
+                  ]}
+                  yAxes={[
+                    {
+                      yAxisId: 'left',
+                      label: '收益率 (%)',
+                      tickFormatter: (value) => value.toFixed(2),
+                    },
+                  ]}
+                  title="10年期国债收益率趋势"
+                  height={300}
+                  xTickFormatter={(value) => {
+                    const item = bondData.find(d => d.date === value);
+                    return item ? formatDateShort(item.date) : value;
+                  }}
+                  tooltipContent={(props: any) => {
+                    const { active, payload, label } = props;
+                    if (!active || !payload || !payload[0]) return null;
+                    
+                    return (
+                      <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
+                        <p className="font-semibold mb-1">日期: {formatDate(label)}</p>
+                        <p className="text-sm">
+                          收益率: {payload[0].value.toFixed(2)}%
+                        </p>
+                      </div>
+                    );
+                  }}
+                />
               )}
               
               <button
