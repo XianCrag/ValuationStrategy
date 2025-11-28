@@ -24,8 +24,8 @@ const menuItems: MenuItem[] = [
         path: '/backtest',
       },
       {
-        label: '股债动态平衡策略',
-        path: '/backtest/stock-bond',
+        label: '沪深300PE平衡策略',
+        path: '/backtest/csi300-pe-balance',
       },
       {
         label: '现金国债',

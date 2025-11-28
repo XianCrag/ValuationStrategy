@@ -6,10 +6,10 @@ import StrategyLayout from '../components/Layout';
 export default function BacktestOverviewPage() {
   const strategies = [
     {
-      id: 'stock-bond',
-      name: '股债动态平衡策略',
-      description: 'PE范围11-16，每6个月review一次，根据PE动态调整股债比例',
-      path: '/backtest/stock-bond',
+      id: 'csi300-pe-balance',
+      name: '沪深300PE平衡策略',
+      description: '基于沪深300指数PE的股债动态平衡策略，PE范围11-16，每6个月review一次',
+      path: '/backtest/csi300-pe-balance',
       color: 'blue',
       icon: '📊',
     },
@@ -76,7 +76,7 @@ export default function BacktestOverviewPage() {
               <div>
                 <h3 className="font-semibold text-lg mb-2 text-blue-600">📊 主策略</h3>
                 <p className="text-sm">
-                  股债动态平衡策略追求在控制风险的前提下获得超额收益，通过PE估值判断市场位置，动态调整资产配置。
+                  沪深300PE平衡策略追求在控制风险的前提下获得超额收益，通过PE估值判断市场位置，动态调整资产配置。
                 </p>
               </div>
               <div>

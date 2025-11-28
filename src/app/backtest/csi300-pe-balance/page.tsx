@@ -144,8 +144,8 @@ export default function BacktestPage() {
       <div className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <PageHeader
-            title="股债动态平衡策略"
-            description="PE范围11-16，每6个月review一次"
+            title="沪深300PE平衡策略"
+            description="基于沪深300指数PE的股债动态平衡策略，PE范围11-16，每6个月review一次"
             selectedYears={selectedYears}
             onYearsChange={setSelectedYears}
           />
