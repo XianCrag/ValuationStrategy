@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { StockData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, CSI300_INDEX_STOCK, CSI300_FUND_STOCK } from '../constants';
 import { calculateStrategy } from './calculations';
 import { formatDateShort } from '../utils';
 import { fetchLixingerData } from '@/lib/api';
 import StrategyLayout from '../../components/Layout';
-import YearSelector from '../../components/YearSelector';
+import ErrorDisplay from '../../components/Error';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import PageHeader from '../../components/PageHeader';
+import CollapsibleSection from '../../components/CollapsibleSection';
+import StrategyResultCards from '../components/StrategyResultCards';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import { optimizeChartData } from '../chart-utils';
 import { StockBondChartTooltip, ChartLegend } from './ChartComponents';
@@ -19,38 +23,27 @@ import {
   INDEX_FULL_METRICS,
   PRICE_ONLY_METRICS,
 } from '@/constants/metrics';
+import { useBacktestData } from '../hooks/useBacktestData';
+
+interface MergedData {
+  stockData: StockData[];
+  indexData: StockData[];
+}
 
 export default function BacktestPage() {
-  const [stockData, setStockData] = useState<StockData[]>([]);
-  const [indexData, setIndexData] = useState<StockData[]>([]); // 指数数据，用于图表对比
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [strategyResult, setStrategyResult] = useState<StrategyResult | null>(null);
-  const [showDetails, setShowDetails] = useState(false);
   const [selectedYears, setSelectedYears] = useState<number>(10);
 
-  useEffect(() => {
-    fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedYears]);
-
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
+  // 使用自定义Hook获取和计算数据
+  const { data, result: strategyResult, loading, error, refetch } = useBacktestData<MergedData, StrategyResult>({
+    fetchData: useCallback(async () => {
       // 同时获取指数和基金数据
-      // 指数：用于图表展示和PE估值
-      // 基金：用于策略实际交易计算
       const [rawIndexData, fundData] = await Promise.all([
-        // 获取指数数据（PE + 价格，用于图表展示）
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
           codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
           years: selectedYears,
           metricsList: INDEX_FULL_METRICS,
         }),
-        // 获取基金数据（价格，用于策略交易）
         fetchLixingerData({
           stockCodes: [CSI300_FUND_STOCK.code],
           codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
@@ -58,8 +51,11 @@ export default function BacktestPage() {
           metricsList: PRICE_ONLY_METRICS,
         }),
       ]);
+
       // 保存指数数据用于图表展示
-      setIndexData(rawIndexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
+      const indexData = rawIndexData.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
       
       // 创建日期到PE的映射（从指数获取）
       const peMap = new Map<string, number>();
@@ -70,7 +66,7 @@ export default function BacktestPage() {
       });
 
       // 合并数据：基金价格（用于策略计算） + 指数PE（用于估值判断）
-      const mergedData = fundData
+      const stockData = fundData
         .map(fundItem => ({
           ...fundItem,
           [METRIC_PE_TTM_MCW]: peMap.get(fundItem.date),
@@ -78,32 +74,33 @@ export default function BacktestPage() {
         .filter(item => item[METRIC_PE_TTM_MCW] !== undefined && item[METRIC_CP] !== undefined)
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-      setStockData(mergedData);
+      return { stockData, indexData };
+    }, [selectedYears]),
+    calculateResult: useCallback((data: MergedData) => {
+      if (data.stockData.length === 0) {
+        throw new Error('没有可用数据');
+      }
+      return calculateStrategy(data.stockData, INITIAL_CAPITAL);
+    }, []),
+    dependencies: [selectedYears],
+  });
 
-      // 计算策略结果（使用基金价格进行交易）
-      const result = calculateStrategy(mergedData, INITIAL_CAPITAL);
-      setStrategyResult(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      console.error('Error fetching data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const stockData = data?.stockData || [];
+  const indexData = data?.indexData || [];
 
   // 创建图表数据：合并策略数据、指数数据
   const rawChartData = stockData
     .map(item => {
       const trade = strategyResult?.trades.find(t => t.date === item.date);
       const dailyState = strategyResult?.dailyStates.find(s => s.date === item.date);
-      const indexItem = indexData.find(idx => idx.date === item.date); // 找到对应日期的指数数据
+      const indexItem = indexData.find(idx => idx.date === item.date);
       return {
         date: item.date,
         dateShort: formatDateShort(item.date),
         pe: item[METRIC_PE_TTM_MCW],
-        marketCap: indexItem?.[METRIC_MC], // 指数市值
-        indexPrice: indexItem?.[METRIC_CP], // 指数价格
-        fundPrice: item[METRIC_CP], // 基金价格（策略实际使用）
+        marketCap: indexItem?.[METRIC_MC],
+        indexPrice: indexItem?.[METRIC_CP],
+        fundPrice: item[METRIC_CP],
         hasTrade: !!trade,
         tradeType: trade?.type,
         stockRatio: trade?.stockRatio ?? dailyState?.stockRatio ?? 0,
@@ -113,7 +110,6 @@ export default function BacktestPage() {
         totalValue: trade?.totalValue ?? dailyState?.totalValue ?? 0,
         changePercent: trade?.changePercent ?? dailyState?.changePercent ?? 0,
         annualizedReturn: trade?.annualizedReturn ?? dailyState?.annualizedReturn ?? 0,
-        // 转换为万元单位，方便显示
         totalValueInWan: ((trade?.totalValue ?? dailyState?.totalValue ?? 0) / 10000),
       };
     })
@@ -121,216 +117,142 @@ export default function BacktestPage() {
 
   // 优化图表数据：减少点位数量，保留交易点
   const chartData = optimizeChartData(rawChartData, {
-    maxPoints: 300, // 最多保留300个点
-    isKeyPoint: (point) => point.hasTrade, // 保留所有交易点
-    keepFirstAndLast: true, // 保留首尾点
+    maxPoints: 300,
+    isKeyPoint: (point) => point.hasTrade,
+    keepFirstAndLast: true,
   });
   
-  const peValues = chartData
-    .map(d => d.pe)
-    .filter((val): val is number => val !== null && val !== undefined);
-  const totalValueValues = chartData
-    .map(d => d.totalValueInWan)
-    .filter((val): val is number => val !== null && val !== undefined);
-  const indexPriceValues = chartData
-    .map(d => d.indexPrice)
-    .filter((val): val is number => val !== null && val !== undefined);
+  // 计算Y轴范围的工具函数
+  const calculateDomain = (values: number[], padding = 0.1): [number, number] => {
+    if (values.length === 0) return [0, 0];
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min;
+    return [Math.max(0, min - range * padding), max + range * padding];
+  };
   
-  const peMin = peValues.length > 0 ? Math.min(...peValues) : 0;
-  const peMax = peValues.length > 0 ? Math.max(...peValues) : 0;
-  const peRange = peMax - peMin;
-  const peDomain = [
-    Math.max(0, peMin - peRange * 0.1),
-    peMax + peRange * 0.1
-  ];
+  const peValues = chartData.map(d => d.pe).filter((val): val is number => val !== null && val !== undefined);
+  const totalValueValues = chartData.map(d => d.totalValueInWan).filter((val): val is number => val !== null && val !== undefined);
+  const indexPriceValues = chartData.map(d => d.indexPrice).filter((val): val is number => val !== null && val !== undefined);
   
-  // 左Y轴：策略价值（万元）
-  const valueMin = totalValueValues.length > 0 ? Math.min(...totalValueValues) : 0;
-  const valueMax = totalValueValues.length > 0 ? Math.max(...totalValueValues) : 0;
-  const valueRange = valueMax - valueMin;
-  const valueDomain = [
-    Math.max(0, valueMin - valueRange * 0.1),
-    valueMax + valueRange * 0.1
-  ];
-  
-  // 右Y轴：指数价格（点位）
-  const indexPriceMin = indexPriceValues.length > 0 ? Math.min(...indexPriceValues) : 0;
-  const indexPriceMax = indexPriceValues.length > 0 ? Math.max(...indexPriceValues) : 0;
-  const indexPriceRange = indexPriceMax - indexPriceMin;
-  const indexPriceDomain = [
-    Math.max(0, indexPriceMin - indexPriceRange * 0.1),
-    indexPriceMax + indexPriceRange * 0.1
-  ];
+  const peDomain = calculateDomain(peValues);
+  const valueDomain = calculateDomain(totalValueValues);
+  const indexPriceDomain = calculateDomain(indexPriceValues);
 
   return (
     <StrategyLayout>
       <div className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              股债动态平衡策略
-            </h1>
-            <p className="text-lg text-gray-600 mb-4">
-              PE范围11-16，每6个月review一次
-            </p>
-            
-            <YearSelector
-              selectedYears={selectedYears}
-              onYearsChange={setSelectedYears}
-            />
-          </div>
+          <PageHeader
+            title="股债动态平衡策略"
+            description="PE范围11-16，每6个月review一次"
+            selectedYears={selectedYears}
+            onYearsChange={setSelectedYears}
+          />
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-md p-6 mb-6">
-            <h3 className="text-lg font-semibold text-red-800 mb-2">错误</h3>
-            <p className="text-red-700">{error}</p>
-            <button
-              onClick={fetchData}
-              className="mt-4 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-            >
-              重试
-            </button>
-          </div>
-        )}
+          {error && <ErrorDisplay error={error} onRetry={refetch} />}
 
-        {loading && (
-          <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-gray-600">加载中...</p>
-          </div>
-        )}
+          {loading && <LoadingSpinner />}
 
-        {!loading && !error && strategyResult && (
-          <>
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <h2 className="text-2xl font-semibold mb-4 text-gray-800">策略结果</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-blue-900 mb-2">总收益率</h3>
-                  <p className="text-2xl font-bold text-blue-600">
-                    {strategyResult.totalReturn.toFixed(2)}%
-                  </p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-green-900 mb-2">年化收益率</h3>
-                  <p className="text-2xl font-bold text-green-600">
-                    {strategyResult.annualizedReturn.toFixed(2)}%
-                  </p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-purple-900 mb-2">最终仓位</h3>
-                  <p className="text-2xl font-bold text-purple-600">
-                    股票: {(strategyResult.finalStockRatio * 100).toFixed(1)}%
-                  </p>
-                  <p className="text-sm text-purple-700 mt-1">
-                    债券: {((1 - strategyResult.finalStockRatio) * 100).toFixed(1)}%
-                  </p>
-                </div>
-                <div className="bg-red-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-red-900 mb-2">最大回撤</h3>
-                  <p className="text-2xl font-bold text-red-600">
-                    {strategyResult.maxDrawdown.toFixed(2)}%
-                  </p>
-                </div>
-              </div>
+          {!loading && !error && strategyResult && (
+            <>
+              <StrategyResultCards
+                totalReturn={strategyResult.totalReturn}
+                annualizedReturn={strategyResult.annualizedReturn}
+                finalValue={strategyResult.finalValue}
+                maxDrawdown={strategyResult.maxDrawdown}
+                finalStockRatio={strategyResult.finalStockRatio}
+              />
               
-              <button
-                onClick={() => setShowDetails(!showDetails)}
-                className="mt-4 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
-              >
-                {showDetails ? '隐藏' : '展示'}详情
-              </button>
-              
-              {showDetails && (
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold mb-2">年度详情</h3>
-                  <YearlyDetailsTable
-                    yearlyDetails={strategyResult.yearlyDetails}
-                    strategyType="strategy"
-                  />
-                </div>
-              )}
-            </div>
-            
-            <ChartContainer
-              data={chartData}
-              lines={[
-                {
-                  dataKey: 'totalValueInWan',
-                  name: '策略价值 (万元)',
-                  stroke: '#8b5cf6',
-                  strokeWidth: 3,
-                  yAxisId: 'left',
-                  dot: (props: any) => {
-                    const item = chartData.find(d => d.date === props.payload.date);
-                    if (item && item.hasTrade) {
-                      return (
-                        <circle
-                          cx={props.cx}
-                          cy={props.cy}
-                          r={8}
-                          fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
-                          stroke="#fff"
-                          strokeWidth={2}
-                        />
-                      );
-                    }
-                    return null;
+              <ChartContainer
+                data={chartData}
+                lines={[
+                  {
+                    dataKey: 'totalValueInWan',
+                    name: '策略价值 (万元)',
+                    stroke: '#8b5cf6',
+                    strokeWidth: 3,
+                    yAxisId: 'left',
+                    dot: (props: any) => {
+                      const item = chartData.find(d => d.date === props.payload.date);
+                      if (item && item.hasTrade) {
+                        return (
+                          <circle
+                            cx={props.cx}
+                            cy={props.cy}
+                            r={8}
+                            fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
+                            stroke="#fff"
+                            strokeWidth={2}
+                          />
+                        );
+                      }
+                      return null;
+                    },
                   },
-                },
-                {
-                  dataKey: 'indexPrice',
-                  name: '沪深300指数',
-                  stroke: '#f97316',
-                  strokeWidth: 2,
-                  strokeDasharray: '5 5',
-                  yAxisId: 'index',
-                },
-                {
-                  dataKey: 'pe',
-                  name: 'PE TTM',
-                  stroke: '#3b82f6',
-                  strokeWidth: 2,
-                  yAxisId: 'pe',
-                },
-              ]}
-              yAxes={[
-                {
-                  yAxisId: 'left',
-                  orientation: 'left',
-                  label: '策略价值 (万元)',
-                  domain: [valueDomain[0], valueDomain[1]],
-                  tickFormatter: (value) => value.toFixed(0),
-                },
-                {
-                  yAxisId: 'index',
-                  orientation: 'right',
-                  domain: [indexPriceDomain[0], indexPriceDomain[1]],
-                  hide: true,
-                },
-                {
-                  yAxisId: 'pe',
-                  orientation: 'right',
-                  label: 'PE TTM',
-                  domain: [peDomain[0], peDomain[1]],
-                  tickFormatter: (value) => value.toFixed(1),
-                },
-              ]}
-              title="策略表现与PE趋势对比"
-              xTickFormatter={(value) => {
-                const item = chartData.find(d => d.date === value);
-                return item ? item.dateShort : value;
-              }}
-              tooltipContent={(props) => (
-                <StockBondChartTooltip {...props} chartData={chartData} />
-              )}
-              legendContent={<ChartLegend />}
-              showLegend={false}
-            />
-          </>
-        )}
+                  {
+                    dataKey: 'indexPrice',
+                    name: '沪深300指数',
+                    stroke: '#f97316',
+                    strokeWidth: 2,
+                    strokeDasharray: '5 5',
+                    yAxisId: 'index',
+                  },
+                  {
+                    dataKey: 'pe',
+                    name: 'PE TTM',
+                    stroke: '#3b82f6',
+                    strokeWidth: 2,
+                    yAxisId: 'pe',
+                  },
+                ]}
+                yAxes={[
+                  {
+                    yAxisId: 'left',
+                    orientation: 'left',
+                    label: '策略价值 (万元)',
+                    domain: [valueDomain[0], valueDomain[1]],
+                    tickFormatter: (value) => value.toFixed(0),
+                  },
+                  {
+                    yAxisId: 'index',
+                    orientation: 'right',
+                    domain: [indexPriceDomain[0], indexPriceDomain[1]],
+                    hide: true,
+                  },
+                  {
+                    yAxisId: 'pe',
+                    orientation: 'right',
+                    label: 'PE TTM',
+                    domain: [peDomain[0], peDomain[1]],
+                    tickFormatter: (value) => value.toFixed(1),
+                  },
+                ]}
+                title="策略表现与PE趋势对比"
+                xTickFormatter={(value) => {
+                  const item = chartData.find(d => d.date === value);
+                  return item ? item.dateShort : value;
+                }}
+                tooltipContent={(props) => (
+                  <StockBondChartTooltip {...props} chartData={chartData} />
+                )}
+                legendContent={<ChartLegend />}
+                showLegend={false}
+              />
+
+              <CollapsibleSection
+                buttonText={{ show: '展示详情', hide: '隐藏详情' }}
+              >
+                <h3 className="text-lg font-semibold mb-2">年度详情</h3>
+                <YearlyDetailsTable
+                  yearlyDetails={strategyResult.yearlyDetails}
+                  strategyType="strategy"
+                />
+              </CollapsibleSection>
+            </>
+          )}
+        </div>
       </div>
-    </div>
     </StrategyLayout>
   );
 }
