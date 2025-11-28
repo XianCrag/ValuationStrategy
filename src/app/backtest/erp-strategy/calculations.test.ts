@@ -5,6 +5,7 @@ import {
   DEFAULT_POSITION_LEVELS,
   DEFAULT_MIN_STOCK_RATIO,
   DEFAULT_MAX_STOCK_RATIO,
+  DEFAULT_REVIEW_INTERVAL_MONTHS,
   ERPStrategyParams,
 } from './calculations';
 
@@ -16,41 +17,44 @@ describe('ERP Strategy Calculations', () => {
     minStockRatio: DEFAULT_MIN_STOCK_RATIO,
     maxStockRatio: DEFAULT_MAX_STOCK_RATIO,
     positionLevels: DEFAULT_POSITION_LEVELS,
+    reviewIntervalMonths: DEFAULT_REVIEW_INTERVAL_MONTHS,
   };
 
   describe('calculateTargetStockRatioByERP', () => {
-    it('should return minimum ratio (10%) when ERP <= 1', () => {
-      expect(calculateTargetStockRatioByERP(0.5, defaultParams)).toBe(0.1);
-      expect(calculateTargetStockRatioByERP(1, defaultParams)).toBe(0.1);
-      expect(calculateTargetStockRatioByERP(0, defaultParams)).toBe(0.1);
+    it('should return minimum ratio (20%) when ERP <= 1', () => {
+      expect(calculateTargetStockRatioByERP(0.5, defaultParams)).toBe(0.2);
+      expect(calculateTargetStockRatioByERP(1, defaultParams)).toBe(0.2);
+      expect(calculateTargetStockRatioByERP(0, defaultParams)).toBe(0.2);
     });
 
-    it('should return maximum ratio (60%) when ERP >= 4', () => {
-      expect(calculateTargetStockRatioByERP(4, defaultParams)).toBe(0.6);
-      expect(calculateTargetStockRatioByERP(5, defaultParams)).toBe(0.6);
-      expect(calculateTargetStockRatioByERP(6, defaultParams)).toBe(0.6);
+    it('should return maximum ratio (80%) when ERP >= 4', () => {
+      expect(calculateTargetStockRatioByERP(4, defaultParams)).toBe(0.8);
+      expect(calculateTargetStockRatioByERP(5, defaultParams)).toBe(0.8);
+      expect(calculateTargetStockRatioByERP(6, defaultParams)).toBe(0.8);
     });
 
     it('should return discrete levels between min and max', () => {
-      // 对于 POSITION_LEVELS = 3，应该有三个档位：0.1, 0.35, 0.6
-      if (defaultParams.positionLevels === 3) {
-        // ERP = 1.5 应该接近 0.1 (最低档)
-        expect(calculateTargetStockRatioByERP(1.5, defaultParams)).toBe(0.1);
+      // 对于 POSITION_LEVELS = 6，应该有6个档位
+      // 档位间隔 = (0.8 - 0.2) / 5 = 0.12
+      // 档位：0.2, 0.32, 0.44, 0.56, 0.68, 0.8
+      if (defaultParams.positionLevels === 6) {
+        // ERP = 1.5 应该接近 0.32
+        expect(calculateTargetStockRatioByERP(1.5, defaultParams)).toBeCloseTo(0.32, 1);
         
-        // ERP = 2.5 应该在中间档 0.35
-        expect(calculateTargetStockRatioByERP(2.5, defaultParams)).toBe(0.35);
+        // ERP = 2.5 应该在档位 0.44
+        expect(calculateTargetStockRatioByERP(2.5, defaultParams)).toBeCloseTo(0.44, 1);
         
-        // ERP = 3.5 应该接近 0.6 (最高档)
-        expect(calculateTargetStockRatioByERP(3.5, defaultParams)).toBe(0.6);
+        // ERP = 3.5 应该接近 0.68
+        expect(calculateTargetStockRatioByERP(3.5, defaultParams)).toBeCloseTo(0.68, 1);
       }
     });
 
-    it('should return values between 0.1 and 0.6 for all inputs', () => {
+    it('should return values between 0.2 and 0.8 for all inputs', () => {
       const testValues = [-1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 10];
       testValues.forEach(erp => {
         const ratio = calculateTargetStockRatioByERP(erp, defaultParams);
-        expect(ratio).toBeGreaterThanOrEqual(0.1);
-        expect(ratio).toBeLessThanOrEqual(0.6);
+        expect(ratio).toBeGreaterThanOrEqual(0.2);
+        expect(ratio).toBeLessThanOrEqual(0.8);
       });
     });
 
@@ -76,6 +80,7 @@ describe('ERP Strategy Calculations', () => {
         minStockRatio: 0.2,
         maxStockRatio: 0.8,
         positionLevels: 4,
+        reviewIntervalMonths: 3,
       };
 
       // 测试边界

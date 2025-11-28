@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { StockData, BondData, StrategyResult } from '../types';
-import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, NATIONAL_DEBT_STOCK } from '../constants';
+import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK } from '../constants';
 import { METRIC_PE_TTM_MCW, METRIC_CP, METRIC_TCM_Y10 } from '@/constants/metrics';
 import { fetchLixingerData } from '@/lib/api';
 import {
@@ -12,6 +12,7 @@ import {
   DEFAULT_MIN_STOCK_RATIO,
   DEFAULT_MAX_STOCK_RATIO,
   DEFAULT_POSITION_LEVELS,
+  DEFAULT_REVIEW_INTERVAL_MONTHS,
   ERPStrategyParams,
 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
@@ -37,17 +38,19 @@ export default function ERPStrategyPage() {
     minStockRatio: DEFAULT_MIN_STOCK_RATIO,
     maxStockRatio: DEFAULT_MAX_STOCK_RATIO,
     positionLevels: DEFAULT_POSITION_LEVELS,
+    reviewIntervalMonths: DEFAULT_REVIEW_INTERVAL_MONTHS,
   });
 
   // 使用自定义Hook获取和计算数据
   const { data, result, loading, error, refetch } = useBacktestData<{
     aStockData: StockData[];
     csi300Data: StockData[];
+    csi300IndexData: StockData[];
     bondData: BondData[];
   }, StrategyResult>({
     fetchData: useCallback(async () => {
-      // 并行获取三个数据源
-      const [aStockData, csi300Data, bondData] = await Promise.all([
+      // 并行获取四个数据源
+      const [aStockData, csi300Data, csi300IndexData, bondData] = await Promise.all([
         // A股全指数据（用于获取PE）
         fetchLixingerData({
           stockCodes: [A_STOCK_ALL_STOCK.code],
@@ -62,6 +65,13 @@ export default function ERPStrategyPage() {
           years: selectedYears,
           metricsList: [METRIC_CP],
         }),
+        // 沪深300指数数据（用于图表对比）
+        fetchLixingerData({
+          stockCodes: [CSI300_INDEX_STOCK.code],
+          codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
+          years: selectedYears,
+          metricsList: [METRIC_CP],
+        }),
         // 国债数据
         fetchLixingerData<BondData>({
           nationalDebtCodes: [NATIONAL_DEBT_STOCK.code],
@@ -73,17 +83,20 @@ export default function ERPStrategyPage() {
       return {
         aStockData: aStockData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         csi300Data: csi300Data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+        csi300IndexData: csi300IndexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         bondData: bondData as BondData[],
       };
     }, [selectedYears]),
     calculateResult: useCallback((data: {
       aStockData: StockData[];
       csi300Data: StockData[];
+      csi300IndexData: StockData[];
       bondData: BondData[];
     }) => {
       if (data.aStockData.length === 0 || data.csi300Data.length === 0 || data.bondData.length === 0) {
         throw new Error('没有可用数据');
       }
+      // 只使用策略所需的数据计算，csi300IndexData仅用于图表展示
       return calculateERPStrategy(data.aStockData, data.csi300Data, data.bondData, INITIAL_CAPITAL, strategyParams);
     }, [strategyParams]),
     dependencies: [selectedYears, strategyParams],
@@ -95,6 +108,7 @@ export default function ERPStrategyPage() {
   // 准备图表数据
   const rawChartData = result && data ? result.dailyStates.map((daily) => {
     const erpPoint = erpData.find(e => e.date === daily.date);
+    const indexPoint = data.csi300IndexData.find(idx => idx.date === daily.date);
     
     return {
       date: daily.date,
@@ -102,6 +116,7 @@ export default function ERPStrategyPage() {
       totalValue: daily.totalValue,
       stockRatio: daily.stockRatio * 100,
       erp: erpPoint?.erp || null,
+      indexPrice: indexPoint?.[METRIC_CP] || null,
     };
   }) : [];
 
@@ -203,6 +218,22 @@ export default function ERPStrategyPage() {
                   {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}
                 </p>
               </div>
+
+              {/* 复查间隔 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  复查间隔（月）
+                </label>
+                <input
+                  type="number"
+                  step="1"
+                  min="1"
+                  value={strategyParams.reviewIntervalMonths}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">每N个月检查仓位</p>
+              </div>
             </div>
           </div>
 
@@ -227,7 +258,7 @@ export default function ERPStrategyPage() {
                   <li>• <strong>ERP计算：</strong> 股权风险溢价 = 盈利收益率(%) - 无风险利率(%)，其中盈利收益率 = (1 / PE) × 100%</li>
                   <li>• <strong>仓位规则：</strong> ERP {'<='} {strategyParams.erpMin} 时股票仓位最低({(strategyParams.minStockRatio * 100).toFixed(0)}%)，ERP {'>='} {strategyParams.erpMax} 时股票仓位最高({(strategyParams.maxStockRatio * 100).toFixed(0)}%)，中间离散化为{strategyParams.positionLevels}个固定档位</li>
                   <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}</li>
-                  <li>• <strong>调仓频率：</strong> 每6个月检查一次，如果目标仓位发生变化则立即调仓</li>
+                  <li>• <strong>调仓频率：</strong> 每{strategyParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
                   <li>• <strong>数据来源：</strong> 使用A股全指PE计算ERP，买入沪深300ETF基金，现金部分享受国债利率</li>
                 </ul>
               </div>
@@ -242,6 +273,13 @@ export default function ERPStrategyPage() {
                     stroke: '#3b82f6',
                     strokeWidth: 2,
                     yAxisId: 'left',
+                  },
+                  {
+                    dataKey: 'indexPrice',
+                    name: '沪深300指数',
+                    stroke: '#10b981',
+                    strokeWidth: 2,
+                    yAxisId: 'right2',
                   },
                   {
                     dataKey: 'erp',
@@ -259,13 +297,19 @@ export default function ERPStrategyPage() {
                     tickFormatter: (value) => `${(value / 10000).toFixed(0)}万`,
                   },
                   {
+                    yAxisId: 'right2',
+                    orientation: 'right',
+                    label: '沪深300指数',
+                    tickFormatter: (value) => value.toFixed(0),
+                  },
+                  {
                     yAxisId: 'right',
                     orientation: 'right',
                     label: 'ERP (%)',
                     tickFormatter: (value) => value.toFixed(1),
                   },
                 ]}
-                title="策略价值与ERP变化"
+                title="策略价值、沪深300指数与ERP变化"
                 xTickFormatter={(value) => formatDateShort(value)}
                 tooltipContent={(props: any) => (
                   <ChartTooltip
@@ -273,6 +317,7 @@ export default function ERPStrategyPage() {
                     dateKey="dateShort"
                     formatters={{
                       totalValue: (value) => formatNumber(value),
+                      indexPrice: (value) => value !== null ? value.toFixed(2) : 'N/A',
                       erp: (value) => value !== null ? `${value.toFixed(2)}%` : 'N/A',
                     }}
                   />
@@ -280,6 +325,7 @@ export default function ERPStrategyPage() {
                 legendContent={
                   <div className="mt-4 text-sm text-gray-600">
                     <p>• <span className="text-blue-600 font-semibold">蓝线</span>：策略总价值（左侧Y轴）</p>
+                    <p>• <span className="text-green-600 font-semibold">绿线</span>：沪深300指数（右侧Y轴）</p>
                     <p>• <span className="text-purple-600 font-semibold">紫线</span>：股权风险溢价ERP（右侧Y轴）</p>
                   </div>
                 }

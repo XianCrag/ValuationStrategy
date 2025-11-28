@@ -2,9 +2,18 @@
 
 import { useState, useCallback } from 'react';
 import { StockData, StrategyResult } from '../types';
-import { INITIAL_CAPITAL, CSI300_INDEX_STOCK, CSI300_FUND_STOCK } from '../constants';
-import { calculateStrategy } from './calculations';
-import { formatDateShort } from '../utils';
+import { INITIAL_CAPITAL, CSI300_FUND_STOCK, CSI300_INDEX_STOCK } from '../constants';
+import {
+  calculateCSI300PEBalanceStrategy,
+  DEFAULT_PE_MIN,
+  DEFAULT_PE_MAX,
+  DEFAULT_MIN_STOCK_RATIO,
+  DEFAULT_MAX_STOCK_RATIO,
+  DEFAULT_POSITION_LEVELS,
+  DEFAULT_REVIEW_INTERVAL_MONTHS,
+  CSI300PEBalanceParams,
+} from './calculations';
+import { formatDateShort, formatNumber } from '../utils';
 import { fetchLixingerData } from '@/lib/api';
 import StrategyLayout from '../../components/Layout';
 import ErrorDisplay from '../../components/Error';
@@ -14,30 +23,37 @@ import CollapsibleSection from '../../components/CollapsibleSection';
 import StrategyResultCards from '../components/StrategyResultCards';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import { optimizeChartData } from '../chart-utils';
-import { StockBondChartTooltip, ChartLegend } from './ChartComponents';
 import { ChartContainer } from '../../components/Chart';
+import { ChartTooltip } from '../../components/ChartTooltips';
 import { 
   METRIC_PE_TTM_MCW, 
-  METRIC_CP, 
-  METRIC_MC,
+  METRIC_CP,
   INDEX_FULL_METRICS,
   PRICE_ONLY_METRICS,
 } from '@/constants/metrics';
 import { useBacktestData } from '../hooks/useBacktestData';
 
-interface MergedData {
-  stockData: StockData[];
-  indexData: StockData[];
-}
-
-export default function BacktestPage() {
+export default function CSI300PEBalancePage() {
   const [selectedYears, setSelectedYears] = useState<number>(10);
+  
+  // 策略参数状态
+  const [strategyParams, setStrategyParams] = useState<CSI300PEBalanceParams>({
+    peMin: DEFAULT_PE_MIN,
+    peMax: DEFAULT_PE_MAX,
+    minStockRatio: DEFAULT_MIN_STOCK_RATIO,
+    maxStockRatio: DEFAULT_MAX_STOCK_RATIO,
+    positionLevels: DEFAULT_POSITION_LEVELS,
+    reviewIntervalMonths: DEFAULT_REVIEW_INTERVAL_MONTHS,
+  });
 
   // 使用自定义Hook获取和计算数据
-  const { data, result: strategyResult, loading, error, refetch } = useBacktestData<MergedData, StrategyResult>({
+  const { data, result: strategyResult, loading, error, refetch } = useBacktestData<{
+    indexData: StockData[];
+    fundData: StockData[];
+  }, StrategyResult>({
     fetchData: useCallback(async () => {
-      // 同时获取指数和基金数据
-      const [rawIndexData, fundData] = await Promise.all([
+      // 同时获取指数数据（PE）和基金数据（价格）
+      const [indexData, fundData] = await Promise.all([
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
           codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
@@ -52,92 +68,54 @@ export default function BacktestPage() {
         }),
       ]);
 
-      // 保存指数数据用于图表展示
-      const indexData = rawIndexData.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
-      
-      // 创建日期到PE的映射（从指数获取）
-      const peMap = new Map<string, number>();
-      rawIndexData.forEach(item => {
-        if (item[METRIC_PE_TTM_MCW]) {
-          peMap.set(item.date, item[METRIC_PE_TTM_MCW]);
-        }
-      });
-
-      // 合并数据：基金价格（用于策略计算） + 指数PE（用于估值判断）
-      const stockData = fundData
-        .map(fundItem => ({
-          ...fundItem,
-          [METRIC_PE_TTM_MCW]: peMap.get(fundItem.date),
-        }))
-        .filter(item => item[METRIC_PE_TTM_MCW] !== undefined && item[METRIC_CP] !== undefined)
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-      return { stockData, indexData };
+      return {
+        indexData: indexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+        fundData: fundData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+      };
     }, [selectedYears]),
-    calculateResult: useCallback((data: MergedData) => {
-      if (data.stockData.length === 0) {
+    calculateResult: useCallback((data: { indexData: StockData[]; fundData: StockData[] }) => {
+      if (data.indexData.length === 0 || data.fundData.length === 0) {
         throw new Error('没有可用数据');
       }
-      return calculateStrategy(data.stockData, INITIAL_CAPITAL);
-    }, []),
-    dependencies: [selectedYears],
+      // 合并数据：将指数的PE数据合并到基金数据中
+      const mergedData = data.fundData.map(fundItem => {
+        const indexItem = data.indexData.find(idx => idx.date === fundItem.date);
+        return {
+          ...fundItem,
+          [METRIC_PE_TTM_MCW]: indexItem?.[METRIC_PE_TTM_MCW],
+        };
+      });
+      return calculateCSI300PEBalanceStrategy(mergedData, INITIAL_CAPITAL, strategyParams);
+    }, [strategyParams]),
+    dependencies: [selectedYears, strategyParams],
   });
 
-  const stockData = data?.stockData || [];
-  const indexData = data?.indexData || [];
+  // 创建图表数据
+  const rawChartData = data && strategyResult ? data.fundData.map(item => {
+    const dailyState = strategyResult.dailyStates.find(s => s.date === item.date);
+    const trade = strategyResult.trades.find(t => t.date === item.date);
+    const indexItem = data.indexData.find(idx => idx.date === item.date);
+    
+    return {
+      date: item.date,
+      dateShort: formatDateShort(item.date),
+      pe: indexItem?.[METRIC_PE_TTM_MCW],
+      indexPrice: indexItem?.[METRIC_CP],
+      fundPrice: item[METRIC_CP],
+      hasTrade: !!trade,
+      tradeType: trade?.type,
+      stockRatio: (dailyState?.stockRatio ?? 0) * 100,
+      totalValue: dailyState?.totalValue ?? 0,
+      stockValue: dailyState?.stockValue ?? 0,
+      bondValue: dailyState?.bondValue ?? 0,
+    };
+  }) : [];
 
-  // 创建图表数据：合并策略数据、指数数据
-  const rawChartData = stockData
-    .map(item => {
-      const trade = strategyResult?.trades.find(t => t.date === item.date);
-      const dailyState = strategyResult?.dailyStates.find(s => s.date === item.date);
-      const indexItem = indexData.find(idx => idx.date === item.date);
-      return {
-        date: item.date,
-        dateShort: formatDateShort(item.date),
-        pe: item[METRIC_PE_TTM_MCW],
-        marketCap: indexItem?.[METRIC_MC],
-        indexPrice: indexItem?.[METRIC_CP],
-        fundPrice: item[METRIC_CP],
-        hasTrade: !!trade,
-        tradeType: trade?.type,
-        stockRatio: trade?.stockRatio ?? dailyState?.stockRatio ?? 0,
-        bondRatio: trade?.bondRatio ?? dailyState?.bondRatio ?? 0,
-        stockValue: trade?.stockValue ?? dailyState?.stockValue ?? 0,
-        bondValue: trade?.bondValue ?? dailyState?.bondValue ?? 0,
-        totalValue: trade?.totalValue ?? dailyState?.totalValue ?? 0,
-        changePercent: trade?.changePercent ?? dailyState?.changePercent ?? 0,
-        annualizedReturn: trade?.annualizedReturn ?? dailyState?.annualizedReturn ?? 0,
-        totalValueInWan: ((trade?.totalValue ?? dailyState?.totalValue ?? 0) / 10000),
-      };
-    })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  // 优化图表数据：减少点位数量，保留交易点
+  // 优化图表数据
   const chartData = optimizeChartData(rawChartData, {
     maxPoints: 300,
-    isKeyPoint: (point) => point.hasTrade,
     keepFirstAndLast: true,
   });
-  
-  // 计算Y轴范围的工具函数
-  const calculateDomain = (values: number[], padding = 0.1): [number, number] => {
-    if (values.length === 0) return [0, 0];
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const range = max - min;
-    return [Math.max(0, min - range * padding), max + range * padding];
-  };
-  
-  const peValues = chartData.map(d => d.pe).filter((val): val is number => val !== null && val !== undefined);
-  const totalValueValues = chartData.map(d => d.totalValueInWan).filter((val): val is number => val !== null && val !== undefined);
-  const indexPriceValues = chartData.map(d => d.indexPrice).filter((val): val is number => val !== null && val !== undefined);
-  
-  const peDomain = calculateDomain(peValues);
-  const valueDomain = calculateDomain(totalValueValues);
-  const indexPriceDomain = calculateDomain(indexPriceValues);
 
   return (
     <StrategyLayout>
@@ -145,10 +123,110 @@ export default function BacktestPage() {
         <div className="max-w-7xl mx-auto">
           <PageHeader
             title="沪深300PE平衡策略"
-            description="基于沪深300指数PE的股债动态平衡策略，PE范围11-16，每6个月review一次"
+            description="基于沪深300指数PE的股债动态平衡策略"
             selectedYears={selectedYears}
             onYearsChange={setSelectedYears}
           />
+
+          {/* 策略参数配置 */}
+          <div className="mb-6 p-6 bg-white rounded-lg shadow-lg">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">策略参数配置</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {/* PE最小值 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  PE最小值（低估线）
+                </label>
+                <input
+                  type="number"
+                  step="0.5"
+                  value={strategyParams.peMin}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, peMin: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">PE ≤ 此值时满仓</p>
+              </div>
+
+              {/* PE最大值 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  PE最大值（高估线）
+                </label>
+                <input
+                  type="number"
+                  step="0.5"
+                  value={strategyParams.peMax}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, peMax: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">PE ≥ 此值时最低仓</p>
+              </div>
+
+              {/* 最低股票仓位 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  最低股票仓位 (%)
+                </label>
+                <input
+                  type="number"
+                  step="1"
+                  value={(strategyParams.minStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, minStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">股票最低配置比例</p>
+              </div>
+
+              {/* 最高股票仓位 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  最高股票仓位 (%)
+                </label>
+                <input
+                  type="number"
+                  step="1"
+                  value={(strategyParams.maxStockRatio * 100).toFixed(0)}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, maxStockRatio: parseFloat(e.target.value) / 100 || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">股票最高配置比例</p>
+              </div>
+
+              {/* 仓位档位数 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  仓位档位数
+                </label>
+                <input
+                  type="number"
+                  step="1"
+                  min="2"
+                  value={strategyParams.positionLevels}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, positionLevels: parseInt(e.target.value) || 2 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}
+                </p>
+              </div>
+
+              {/* 复查间隔 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  复查间隔（月）
+                </label>
+                <input
+                  type="number"
+                  step="1"
+                  min="1"
+                  value={strategyParams.reviewIntervalMonths}
+                  onChange={(e) => setStrategyParams({ ...strategyParams, reviewIntervalMonths: parseInt(e.target.value) || 1 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">每N个月检查仓位</p>
+              </div>
+            </div>
+          </div>
 
           {error && <ErrorDisplay error={error} onRetry={refetch} />}
 
@@ -163,90 +241,185 @@ export default function BacktestPage() {
                 maxDrawdown={strategyResult.maxDrawdown}
                 finalStockRatio={strategyResult.finalStockRatio}
               />
-              
+
+              {/* 策略说明 */}
+              <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+                <h3 className="text-lg font-semibold mb-2 text-blue-900">策略说明</h3>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li>• <strong>PE指标：</strong> 使用沪深300基金的市盈率（PE）作为估值指标</li>
+                  <li>• <strong>仓位规则：</strong> PE {'<='} {strategyParams.peMin} 时股票仓位最高({(strategyParams.maxStockRatio * 100).toFixed(0)}%)，PE {'>='} {strategyParams.peMax} 时股票仓位最低({(strategyParams.minStockRatio * 100).toFixed(0)}%)，中间离散化为{strategyParams.positionLevels}个固定档位</li>
+                  <li>• <strong>仓位档位：</strong> {generatePositionLevelsText(strategyParams.positionLevels, strategyParams.minStockRatio, strategyParams.maxStockRatio)}</li>
+                  <li>• <strong>调仓频率：</strong> 每{strategyParams.reviewIntervalMonths}个月检查一次，如果目标仓位发生变化则立即调仓</li>
+                  <li>• <strong>数据来源：</strong> 买入沪深300ETF基金，现金部分享受国债利率</li>
+                </ul>
+              </div>
+
+              {/* 价值变化图表 */}
               <ChartContainer
                 data={chartData}
                 lines={[
                   {
-                    dataKey: 'totalValueInWan',
-                    name: '策略价值 (万元)',
-                    stroke: '#8b5cf6',
-                    strokeWidth: 3,
+                    dataKey: 'totalValue',
+                    name: '策略总价值',
+                    stroke: '#3b82f6',
+                    strokeWidth: 2,
                     yAxisId: 'left',
-                    dot: (props: any) => {
-                      const item = chartData.find(d => d.date === props.payload.date);
-                      if (item && item.hasTrade) {
-                        return (
-                          <circle
-                            cx={props.cx}
-                            cy={props.cy}
-                            r={8}
-                            fill={item.tradeType === 'buy' ? '#ef4444' : '#10b981'}
-                            stroke="#fff"
-                            strokeWidth={2}
-                          />
-                        );
-                      }
-                      return null;
-                    },
                   },
                   {
                     dataKey: 'indexPrice',
                     name: '沪深300指数',
-                    stroke: '#f97316',
+                    stroke: '#10b981',
                     strokeWidth: 2,
-                    strokeDasharray: '5 5',
-                    yAxisId: 'index',
+                    yAxisId: 'right2',
                   },
                   {
                     dataKey: 'pe',
-                    name: 'PE TTM',
-                    stroke: '#3b82f6',
+                    name: 'PE',
+                    stroke: '#f59e0b',
                     strokeWidth: 2,
-                    yAxisId: 'pe',
+                    yAxisId: 'right',
                   },
                 ]}
                 yAxes={[
                   {
                     yAxisId: 'left',
                     orientation: 'left',
-                    label: '策略价值 (万元)',
-                    domain: [valueDomain[0], valueDomain[1]],
+                    label: '策略总价值（元）',
+                    tickFormatter: (value) => `${(value / 10000).toFixed(0)}万`,
+                  },
+                  {
+                    yAxisId: 'right2',
+                    orientation: 'right',
+                    label: '沪深300指数',
                     tickFormatter: (value) => value.toFixed(0),
                   },
                   {
-                    yAxisId: 'index',
+                    yAxisId: 'right',
                     orientation: 'right',
-                    domain: [indexPriceDomain[0], indexPriceDomain[1]],
-                    hide: true,
-                  },
-                  {
-                    yAxisId: 'pe',
-                    orientation: 'right',
-                    label: 'PE TTM',
-                    domain: [peDomain[0], peDomain[1]],
+                    label: 'PE',
                     tickFormatter: (value) => value.toFixed(1),
                   },
                 ]}
-                title="策略表现与PE趋势对比"
-                xTickFormatter={(value) => {
-                  const item = chartData.find(d => d.date === value);
-                  return item ? item.dateShort : value;
-                }}
-                tooltipContent={(props) => (
-                  <StockBondChartTooltip {...props} chartData={chartData} />
+                title="策略价值、沪深300指数与PE变化"
+                xTickFormatter={(value) => formatDateShort(value)}
+                tooltipContent={(props: any) => (
+                  <ChartTooltip
+                    {...props}
+                    dateKey="dateShort"
+                    formatters={{
+                      totalValue: (value) => formatNumber(value),
+                      indexPrice: (value) => value !== null ? value.toFixed(2) : 'N/A',
+                      pe: (value) => value !== null ? value.toFixed(2) : 'N/A',
+                    }}
+                  />
                 )}
-                legendContent={<ChartLegend />}
+                legendContent={
+                  <div className="mt-4 text-sm text-gray-600">
+                    <p>• <span className="text-blue-600 font-semibold">蓝线</span>：策略总价值（左侧Y轴）</p>
+                    <p>• <span className="text-green-600 font-semibold">绿线</span>：沪深300指数（右侧Y轴）</p>
+                    <p>• <span className="text-amber-600 font-semibold">黄线</span>：沪深300PE（右侧Y轴）</p>
+                  </div>
+                }
                 showLegend={false}
               />
 
+              {/* 股票仓位变化图表 */}
+              <ChartContainer
+                data={chartData}
+                lines={[
+                  {
+                    dataKey: 'stockRatio',
+                    name: '股票仓位 (%)',
+                    stroke: '#10b981',
+                    strokeWidth: 2,
+                  },
+                ]}
+                yAxes={[
+                  {
+                    yAxisId: 'left',
+                    label: '股票仓位 (%)',
+                    domain: [0, 100],
+                    tickFormatter: (value) => `${value.toFixed(0)}%`,
+                  },
+                ]}
+                title="股票仓位变化"
+                xTickFormatter={(value) => formatDateShort(value)}
+                tooltipContent={(props: any) => (
+                  <ChartTooltip
+                    {...props}
+                    dateKey="dateShort"
+                    formatters={{
+                      stockRatio: (value) => `${value.toFixed(2)}%`,
+                      pe: (value) => value !== null ? `PE: ${value.toFixed(2)}` : '',
+                    }}
+                  />
+                )}
+              />
+
+              {/* 交易记录 */}
+              {strategyResult.trades.length > 0 && (
+                <CollapsibleSection
+                  buttonText={{ show: '展示交易记录', hide: '隐藏交易记录' }}
+                >
+                  <h3 className="text-lg font-semibold mb-2">交易记录</h3>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border border-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-2 border">日期</th>
+                          <th className="px-4 py-2 border">操作</th>
+                          <th className="px-4 py-2 border">股票仓位</th>
+                          <th className="px-4 py-2 border">股票价值</th>
+                          <th className="px-4 py-2 border">债券价值</th>
+                          <th className="px-4 py-2 border">总价值</th>
+                          <th className="px-4 py-2 border">累计收益率</th>
+                          <th className="px-4 py-2 border">年化收益率</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {strategyResult.trades.map((trade, index) => (
+                          <tr key={index} className="hover:bg-gray-50">
+                            <td className="px-4 py-2 border text-sm">{formatDateShort(trade.date)}</td>
+                            <td className="px-4 py-2 border text-sm">
+                              <span className={trade.type === 'buy' ? 'text-red-600' : 'text-green-600'}>
+                                {trade.type === 'buy' ? '买入股票' : '卖出股票'}
+                              </span>
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {(trade.stockRatio * 100).toFixed(1)}%
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {formatNumber(trade.stockValue)}
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {formatNumber(trade.bondValue)}
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {formatNumber(trade.totalValue)}
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {trade.changePercent.toFixed(2)}%
+                            </td>
+                            <td className="px-4 py-2 border text-sm text-right">
+                              {trade.annualizedReturn.toFixed(2)}%
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </CollapsibleSection>
+              )}
+
+              {/* 年度详情 */}
               <CollapsibleSection
-                buttonText={{ show: '展示详情', hide: '隐藏详情' }}
+                buttonText={{ show: '展示年度详情', hide: '隐藏年度详情' }}
               >
                 <h3 className="text-lg font-semibold mb-2">年度详情</h3>
                 <YearlyDetailsTable
                   yearlyDetails={strategyResult.yearlyDetails}
                   strategyType="strategy"
+                  showStockPositions={true}
                 />
               </CollapsibleSection>
             </>
@@ -255,4 +428,18 @@ export default function BacktestPage() {
       </div>
     </StrategyLayout>
   );
+}
+
+/**
+ * 生成仓位档位说明文本
+ */
+function generatePositionLevelsText(levels: number, minRatio: number, maxRatio: number): string {
+  const step = (maxRatio - minRatio) / (levels - 1);
+  
+  const positions = Array.from({ length: levels }, (_, i) => {
+    const ratio = minRatio + i * step;
+    return `${(ratio * 100).toFixed(1)}%`;
+  });
+  
+  return positions.join(', ');
 }

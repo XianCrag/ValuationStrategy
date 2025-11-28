@@ -5,7 +5,6 @@ import {
   TradePoint,
 } from '../types';
 import {
-  REVIEW_INTERVAL_MONTHS,
   CSI300_FUND_STOCK,
 } from '../constants';
 import { METRIC_PE_TTM_MCW } from '@/constants/metrics';
@@ -34,7 +33,8 @@ export const DEFAULT_ERP_MIN = 1; // ERP <= 1 时持仓最低
 export const DEFAULT_ERP_MAX = 4; // ERP >= 4 时持仓最高
 export const DEFAULT_MIN_STOCK_RATIO = 0.2; // 最低持仓 10%
 export const DEFAULT_MAX_STOCK_RATIO = 0.8; // 最高持仓 60%
-export const DEFAULT_POSITION_LEVELS = 4; // 仓位档位数：从最低仓位到最高仓位之间有几个目标仓位
+export const DEFAULT_POSITION_LEVELS = 6; // 仓位档位数：从最低仓位到最高仓位之间有几个目标仓位
+export const DEFAULT_REVIEW_INTERVAL_MONTHS = 6; // 每6个月review一次
 
 /**
  * ERP策略参数配置接口
@@ -45,6 +45,7 @@ export interface ERPStrategyParams {
   minStockRatio: number; // 最低股票仓位 (0-1)
   maxStockRatio: number; // 最高股票仓位 (0-1)
   positionLevels: number; // 仓位档位数
+  reviewIntervalMonths: number; // 复查间隔（月）
 }
 
 /**
@@ -198,9 +199,9 @@ export function calculateERPStrategy(
       return netWorth;
     }
 
-    // 检查是否到了review时间（每6个月）
+    // 检查是否到了review时间
     const monthsSinceLastReview = moment(currentDate).diff(moment(lastReviewDate), 'months', true);
-    const shouldReview = monthsSinceLastReview >= REVIEW_INTERVAL_MONTHS;
+    const shouldReview = monthsSinceLastReview >= params.reviewIntervalMonths;
 
     if (!shouldReview) {
       return netWorth;
