@@ -6,7 +6,7 @@ import {
 import {
   REVIEW_INTERVAL_MONTHS,
   calculateTargetStockRatio,
-  CSI300_FUND_CODE,
+  CSI300_FUND_STOCK,
 } from '../constants';
 import { runNetWorth, calculateResultFromNetWorth } from '../common/calculations/base';
 import moment from 'moment';
@@ -72,7 +72,7 @@ export function calculateStrategy(
   // 2. 初始化 NetWorth
   const initialNetWorth: NetWorth = {
     stockValue: [{
-      code: CSI300_FUND_CODE,
+      code: CSI300_FUND_STOCK.code,
       shares: initialStockValue / firstDayPrice,
       shareValue: firstDayPrice,
     }],
@@ -142,7 +142,7 @@ export function calculateStrategy(
     const targetCashValue = netWorth.totalValue * (1 - targetStockRatio);
 
     // 获取当前股票
-    const csi300Stock = netWorth.stockValue.find(s => s.code === CSI300_FUND_CODE);
+    const csi300Stock = netWorth.stockValue.find(s => s.code === CSI300_FUND_STOCK.code);
     if (!csi300Stock) {
       return netWorth;
     }

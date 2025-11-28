@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { BondData, ApiResponse, ControlGroupResult } from '../types';
-import { INITIAL_CAPITAL, TCM_Y10_CODE } from '../constants';
+import { INITIAL_CAPITAL, NATIONAL_DEBT_STOCK } from '../constants';
 import { calculateControlGroup1 } from './calculations';
 import { formatNumber, formatDate, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -43,7 +43,7 @@ export default function CashBondPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nationalDebtCodes: [TCM_Y10_CODE],
+          nationalDebtCodes: [NATIONAL_DEBT_STOCK.code],
           years: selectedYears,
         }),
       });
@@ -174,13 +174,13 @@ export default function CashBondPage() {
                       />
                       <YAxis
                         label={{ value: '收益率 (%)', angle: -90, position: 'insideLeft' }}
-                        tickFormatter={(value) => (value * 100).toFixed(2)}
+                        tickFormatter={(value) => value.toFixed(2)}
                       />
                       <Tooltip
                         formatter={(value: any) => {
                           const numValue = typeof value === 'number' ? value : null;
                           return numValue !== null && !isNaN(numValue)
-                            ? [`${(numValue * 100).toFixed(2)}%`, '收益率']
+                            ? [`${numValue.toFixed(2)}%`, '收益率']
                             : ['N/A', '收益率'];
                         }}
                         labelFormatter={(label) => `日期: ${formatDate(label)}`}

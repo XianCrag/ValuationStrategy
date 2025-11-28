@@ -10,7 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { StockData, StockConfig } from '../indicators/types';
+import { StockData } from '../indicators/types';
+import { StockConfig } from '@/constants/stocks';
 import { formatNumber, formatDate, formatDateShort } from '../indicators/utils';
 
 interface IndexDataDisplayProps {
@@ -29,7 +30,7 @@ export default function IndexDataDisplay({ stock, stockData }: IndexDataDisplayP
   }
 
   // 判断是基金数据还是指数数据
-  const isFundData = 'netValue' in stockData[0] || 'cp' in stockData[0];
+  const isFundData = stock.type === 'fund';
   
   if (isFundData) {
     // 基金数据：显示净值走势
@@ -112,6 +113,91 @@ export default function IndexDataDisplay({ stock, stockData }: IndexDataDisplayP
   }
 
   // 指数数据：显示PE TTM和市值
+  const hasIndexPrice = stockData.some(item => item.cp !== undefined && item.cp !== null);
+  
+  // 如果指数有价格数据但没有PE数据，只显示指数点位
+  const hasPEData = stockData.some(item => item['pe_ttm.mcw'] !== undefined && item['pe_ttm.mcw'] !== null);
+  
+  if (hasIndexPrice && !hasPEData) {
+    // 只有指数点位，没有PE数据
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">{stock.name}</h2>
+        
+        {/* 数据统计 */}
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-6">
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-blue-900 mb-2">最新点位</h3>
+            <p className="text-2xl font-bold text-blue-600">
+              {stockData[stockData.length - 1]?.cp?.toFixed(2) || 'N/A'}
+            </p>
+          </div>
+        </div>
+
+        {/* 指数点位走势图 */}
+        <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">指数点位走势</h3>
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart
+              data={stockData.map((item) => ({
+                date: item.date,
+                dateShort: formatDateShort(item.date),
+                fullDate: formatDate(item.date),
+                indexPrice: item.cp,
+              }))}
+              margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="date"
+                angle={-45}
+                textAnchor="end"
+                height={80}
+                interval={Math.floor(stockData.length / 10)}
+                tickFormatter={(value) => {
+                  const item = stockData.find(d => d.date === value);
+                  return item ? formatDateShort(item.date) : value;
+                }}
+              />
+              <YAxis
+                label={{ value: '点位', angle: -90, position: 'insideLeft' }}
+                tickFormatter={(value) => value.toFixed(0)}
+              />
+              <Tooltip
+                formatter={(value: any) => {
+                  const numValue = typeof value === 'number' ? value : null;
+                  return numValue !== null && !isNaN(numValue)
+                    ? [numValue.toFixed(2), '指数点位']
+                    : ['N/A', '指数点位'];
+                }}
+                labelFormatter={(label, payload) => {
+                  if (payload && payload.length > 0 && payload[0].payload) {
+                    const dataPoint = payload[0].payload;
+                    if (dataPoint.fullDate) {
+                      return `日期: ${dataPoint.fullDate}`;
+                    }
+                  }
+                  const dataPoint = stockData.find(item => item.date === label);
+                  return dataPoint ? `日期: ${formatDate(dataPoint.date)}` : `日期: ${label}`;
+                }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="indexPrice"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{ r: 6 }}
+                name="指数点位"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    );
+  }
+  
   const peTtmValues = stockData
     .map(item => item['pe_ttm.mcw'])
     .filter((val): val is number => val !== null && val !== undefined);

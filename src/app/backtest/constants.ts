@@ -1,22 +1,17 @@
-// ============================================
-// 标的代码常量（避免硬编码）
-// ============================================
+import { 
+  CSI300_INDEX_STOCK,
+  CSI300_FUND_STOCK,
+  A_STOCK_ALL_STOCK,
+  NATIONAL_DEBT_STOCK,
+} from '@/constants/stocks';
 
-/**
- * 沪深300指数代码
- */
-export const CSI300_INDEX_CODE = '000300';
-
-/**
- * 沪深300指数基金代码（华泰柏瑞沪深300ETF）
- * 使用基金复权净值数据，已考虑分红再投资
- */
-export const CSI300_FUND_CODE = '510300';
-
-/**
- * 10年期国债利率代码
- */
-export const TCM_Y10_CODE = 'tcm_y10';
+// 重新导出配置对象供其他模块使用
+export { 
+  CSI300_INDEX_STOCK,
+  CSI300_FUND_STOCK,
+  A_STOCK_ALL_STOCK,
+  NATIONAL_DEBT_STOCK,
+};
 
 // ============================================
 // 策略参数常量
@@ -43,5 +38,3 @@ export function calculateTargetStockRatio(pe: number): number {
     return Math.max(0.1, Math.min(0.6, ratio));
   }
 }
-
-

@@ -1,4 +1,22 @@
-Index metricsList: 说明
+<!-- AI 不修改这个文件 -->
+# Lixinger API 接口文档
+
+## 股票 - non_financial
+* url: https://open.lixinger.com/api/cn/company/fundamental/
+
+## 指数 
+* url: https://open.lixinger.com/api/cn/index/fundamental
+
+## 基金
+* url: https://open.lixinger.com/api/cn/fund/net-value-of-dividend-reinvestment
+
+## 国债
+* url: https://open.lixinger.com/api/macro/national-debt
+
+
+
+
+# Index metricsList: 说明
 -----------------------
 指标列表。例如：['mc', 'pe_ttm.ew', 'pe_ttm.y10.ew.cvpos’]。
 需要注意的是，共有三种形式的指标格式：

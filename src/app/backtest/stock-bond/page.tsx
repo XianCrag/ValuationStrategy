@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { StockData, ApiResponse, StrategyResult } from '../types';
-import { INITIAL_CAPITAL, CSI300_INDEX_CODE, CSI300_FUND_CODE } from '../constants';
+import { INITIAL_CAPITAL, CSI300_INDEX_STOCK, CSI300_FUND_STOCK } from '../constants';
 import { calculateStrategy } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import StrategyLayout from '../../components/Layout';
@@ -48,8 +48,8 @@ export default function BacktestPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            stockCodes: [CSI300_INDEX_CODE],
-            codeTypeMap: { [CSI300_INDEX_CODE]: 'index' },
+            stockCodes: [CSI300_INDEX_STOCK.code],
+            codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
             years: selectedYears,
             metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
           }),
@@ -59,8 +59,8 @@ export default function BacktestPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            stockCodes: [CSI300_FUND_CODE],
-            codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
+            stockCodes: [CSI300_FUND_STOCK.code],
+            codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
             years: selectedYears,
             metricsList: ['cp'],
           }),

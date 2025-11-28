@@ -15,7 +15,7 @@ export interface ApiResponse {
   error?: string;
 }
 
-export type MetricType = 'index' | 'interest'; // interest 现在代表国债
+export type MetricType = 'csi300-index' | 'csi300-fund' | 'a-stock-all' | 'interest' | 'erp'; // csi300-index: 沪深300指数, csi300-fund: 沪深300基金, a-stock-all: A股全指, interest: 国债, erp: 股权风险溢价
 
 export interface StockConfig {
   code: string;

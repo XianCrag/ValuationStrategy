@@ -263,10 +263,27 @@ export async function POST(request: NextRequest) {
 
     // 映射 API 返回的字段名到前端使用的字段名
     // mc -> marketValue (市值) - 仅对股票/指数数据有效，基金数据没有mc字段
-    const mappedData = data.map(item => ({
-      ...item,
-      marketValue: ('mc' in item) ? item.mc : undefined,
-    }));
+    // 国债数据转换为百分比（API返回的是小数，如0.025，转换为2.5）
+    const mappedData = data.map(item => {
+      const mapped: any = {
+        ...item,
+        marketValue: ('mc' in item) ? item.mc : undefined,
+      };
+      
+      // 如果是国债数据，将所有tcm_开头的字段乘以100转换为百分比
+      if ('tcm_y10' in item) {
+        Object.keys(item).forEach(key => {
+          if (key.startsWith('tcm_')) {
+            const value = (item as any)[key];
+            if (typeof value === 'number') {
+              mapped[key] = value * 100;
+            }
+          }
+        });
+      }
+      
+      return mapped;
+    });
 
     return NextResponse.json({
       success: true,

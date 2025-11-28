@@ -10,7 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { StockData, StockConfig } from '../indicators/types';
+import { StockData } from '../indicators/types';
+import { StockConfig } from '@/constants/stocks';
 import { formatDate, formatDateShort } from '../indicators/utils';
 
 interface NationalDebtDataDisplayProps {

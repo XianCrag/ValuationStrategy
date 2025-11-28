@@ -1,7 +1,7 @@
 import { StockData, ControlGroupResult } from '../types';
 import { runNetWorth, calculateResultFromNetWorth } from '../common/calculations/base';
 import moment from 'moment';
-import { CSI300_FUND_CODE } from '../constants';
+import { CSI300_FUND_STOCK } from '../constants';
 
 type NetWorth = {
   stockValue: Array<{
@@ -42,7 +42,7 @@ export function calculateControlGroup2(
   // 初始化净值：全部为现金，创建一个虚拟的沪深300持仓（份额为0）
   const initialNetWorth: NetWorth = {
     stockValue: [{
-      code: CSI300_FUND_CODE,
+      code: CSI300_FUND_STOCK.code,
       shares: 0,
       shareValue: stockData[0].cp || 0,
     }],
@@ -69,7 +69,7 @@ export function calculateControlGroup2(
     const investmentAmount = Math.min(monthlyInvestment, netWorth.cash);
 
     // 获取沪深300基金当前价格（从更新后的 shareValue 获取）
-    const csi300 = netWorth.stockValue.find(s => s.code === CSI300_FUND_CODE);
+    const csi300 = netWorth.stockValue.find(s => s.code === CSI300_FUND_STOCK.code);
     const currentPrice = csi300?.shareValue || 0;
 
     // 计算买入份额
@@ -77,7 +77,7 @@ export function calculateControlGroup2(
 
     // 更新持仓
     const newStockValue = netWorth.stockValue.map(stock => {
-      if (stock.code === CSI300_FUND_CODE) {
+      if (stock.code === CSI300_FUND_STOCK.code) {
         return {
           ...stock,
           shares: stock.shares + sharesToBuy,

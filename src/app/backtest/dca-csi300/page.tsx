@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { StockData, ApiResponse, ControlGroupResult } from '../types';
-import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_CODE } from '../constants';
+import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_STOCK } from '../constants';
 import { calculateControlGroup2 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -43,8 +43,8 @@ export default function DcaCsi300Page() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          stockCodes: [CSI300_FUND_CODE],
-          codeTypeMap: { [CSI300_FUND_CODE]: 'fund' },
+          stockCodes: [CSI300_FUND_STOCK.code],
+          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
           years: selectedYears,
           metricsList: ['cp'],
         }),
