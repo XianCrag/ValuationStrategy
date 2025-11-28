@@ -82,7 +82,6 @@ export interface YearlyDetail {
   endStockValue?: number;
   startStockPositions?: StockPosition[]; // 年初持仓
   endStockPositions?: StockPosition[]; // 年末持仓
-  stockValue?: number; // 年末股票价值（兼容旧格式）
   stockBuyAmount?: number;
   stockSellAmount?: number;
   stockPriceChange?: number;
@@ -98,12 +97,10 @@ export interface YearlyDetail {
   bondBuyAmount?: number;
   bondSellAmount?: number;
   bondInterest?: number;
-  interest?: number; // 利息（兼容旧格式）
   cashInterest?: number; // 现金利息
   
   // 其他
   trades?: number; // 交易次数
-  finalValue?: number; // 最终价值（兼容旧格式）
 }
 
 export interface ControlGroupResult {

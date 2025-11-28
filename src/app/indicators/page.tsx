@@ -23,7 +23,7 @@ import ERPDisplay from '../components/ERPDisplay';
 export default function IndicatorsPage() {
   const [selectedMetric, setSelectedMetric] = useState<MetricType>('csi300-index');
   const [selectedYears, setSelectedYears] = useState<number>(10);
-  const { data, loading, error, dateRange, fetchData } = useData(selectedMetric, selectedYears);
+  const { data, loading, error, fetchData } = useData(selectedMetric, selectedYears);
 
   // 根据选择的指标类型获取要显示的数据
   const getDisplayContent = () => {
@@ -97,8 +97,6 @@ export default function IndicatorsPage() {
               onMetricChange={setSelectedMetric}
             />
           </div>
-
-          {dateRange && <DateRangeDisplay dateRange={dateRange} />}
 
           {getDisplayContent()}
 

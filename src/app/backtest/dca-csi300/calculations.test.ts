@@ -80,7 +80,7 @@ describe('calculateControlGroup2 (重构版)', () => {
         expect(year.startValue).toBeGreaterThanOrEqual(0);
         expect(year.endValue).toBeGreaterThanOrEqual(0);
         expect(year.return).toBeDefined();
-        expect(year.stockValue).toBeDefined();
+        expect(year.endStockValue).toBeDefined();
         expect(year.investedAmount).toBeDefined();
       });
     });
@@ -89,7 +89,6 @@ describe('calculateControlGroup2 (重构版)', () => {
   describe('定投逻辑', () => {
     it('应该每月定投固定金额', () => {
       const stockData = createTestStockData(365, 3000);
-      const monthlyInvestment = initialCapital / dcaMonths;
       
       const result = calculateControlGroup2(stockData, initialCapital, dcaMonths);
 

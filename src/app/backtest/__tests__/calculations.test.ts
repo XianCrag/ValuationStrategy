@@ -255,8 +255,8 @@ describe('策略计算函数', () => {
         expect(year.startValue).toBeGreaterThan(0);
         expect(year.endValue).toBeGreaterThan(0);
         expect(year.return).toBeDefined();
-        if (year.stockValue !== undefined) {
-          expect(year.stockValue).toBeGreaterThanOrEqual(0);
+        if (year.endStockValue !== undefined) {
+          expect(year.endStockValue).toBeGreaterThanOrEqual(0);
         }
         if (year.investedAmount !== undefined) {
           expect(year.investedAmount).toBeGreaterThanOrEqual(0);

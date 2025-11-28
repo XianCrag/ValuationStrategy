@@ -11,14 +11,23 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { StockData, ApiResponse, StrategyResult } from '../types';
+import { StockData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, CSI300_INDEX_STOCK, CSI300_FUND_STOCK } from '../constants';
 import { calculateStrategy } from './calculations';
-import { formatNumber, formatDateShort } from '../utils';
+import { formatDateShort } from '../utils';
+import { fetchLixingerData } from '@/lib/api';
 import StrategyLayout from '../../components/Layout';
 import YearSelector from '../../components/YearSelector';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import { optimizeChartData } from '../chart-utils';
+import { StockBondChartTooltip, ChartLegend } from './ChartComponents';
+import { 
+  METRIC_PE_TTM_MCW, 
+  METRIC_CP, 
+  METRIC_MC,
+  INDEX_FULL_METRICS,
+  PRICE_ONLY_METRICS,
+} from '@/constants/metrics';
 
 export default function BacktestPage() {
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -42,49 +51,30 @@ export default function BacktestPage() {
       // 同时获取指数和基金数据
       // 指数：用于图表展示和PE估值
       // 基金：用于策略实际交易计算
-      const [indexResponse, fundResponse] = await Promise.all([
+      const [rawIndexData, fundData] = await Promise.all([
         // 获取指数数据（PE + 价格，用于图表展示）
-        fetch('/api/lixinger', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            stockCodes: [CSI300_INDEX_STOCK.code],
-            codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
-            years: selectedYears,
-            metricsList: ['pe_ttm.mcw', 'cp', 'mc'],
-          }),
+        fetchLixingerData({
+          stockCodes: [CSI300_INDEX_STOCK.code],
+          codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
+          years: selectedYears,
+          metricsList: INDEX_FULL_METRICS,
         }),
         // 获取基金数据（价格，用于策略交易）
-        fetch('/api/lixinger', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            stockCodes: [CSI300_FUND_STOCK.code],
-            codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
-            years: selectedYears,
-            metricsList: ['cp'],
-          }),
+        fetchLixingerData({
+          stockCodes: [CSI300_FUND_STOCK.code],
+          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
+          years: selectedYears,
+          metricsList: PRICE_ONLY_METRICS,
         }),
       ]);
-
-      const indexResult: ApiResponse = await indexResponse.json();
-      const fundResult: ApiResponse = await fundResponse.json();
-
-      if (!indexResult.success || !fundResult.success) {
-        throw new Error(indexResult.error || fundResult.error || 'Failed to fetch data');
-      }
-
-      const rawIndexData = indexResult.data as StockData[];
-      const fundData = fundResult.data as StockData[];
-      
       // 保存指数数据用于图表展示
       setIndexData(rawIndexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
       
       // 创建日期到PE的映射（从指数获取）
       const peMap = new Map<string, number>();
       rawIndexData.forEach(item => {
-        if (item['pe_ttm.mcw']) {
-          peMap.set(item.date, item['pe_ttm.mcw']);
+        if (item[METRIC_PE_TTM_MCW]) {
+          peMap.set(item.date, item[METRIC_PE_TTM_MCW]);
         }
       });
 
@@ -92,9 +82,9 @@ export default function BacktestPage() {
       const mergedData = fundData
         .map(fundItem => ({
           ...fundItem,
-          'pe_ttm.mcw': peMap.get(fundItem.date),
+          [METRIC_PE_TTM_MCW]: peMap.get(fundItem.date),
         }))
-        .filter(item => item['pe_ttm.mcw'] !== undefined && item.cp !== undefined)
+        .filter(item => item[METRIC_PE_TTM_MCW] !== undefined && item[METRIC_CP] !== undefined)
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
       setStockData(mergedData);
@@ -119,10 +109,10 @@ export default function BacktestPage() {
       return {
         date: item.date,
         dateShort: formatDateShort(item.date),
-        pe: item['pe_ttm.mcw'],
-        marketCap: indexItem?.mc, // 指数市值
-        indexPrice: indexItem?.cp, // 指数价格
-        fundPrice: item.cp, // 基金价格（策略实际使用）
+        pe: item[METRIC_PE_TTM_MCW],
+        marketCap: indexItem?.[METRIC_MC], // 指数市值
+        indexPrice: indexItem?.[METRIC_CP], // 指数价格
+        fundPrice: item[METRIC_CP], // 基金价格（策略实际使用）
         hasTrade: !!trade,
         tradeType: trade?.type,
         stockRatio: trade?.stockRatio ?? dailyState?.stockRatio ?? 0,
@@ -310,59 +300,9 @@ export default function BacktestPage() {
                     tickFormatter={(value) => value.toFixed(1)}
                   />
                   <Tooltip
-                    content={({ active, payload, label }) => {
-                      if (!active || !payload || !payload[0]) return null;
-                      
-                      const item = chartData.find(d => d.date === label);
-                      if (!item) return null;
-                      
-                      return (
-                        <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4">
-                          <p className="font-semibold mb-2">{`日期: ${item.dateShort}`}</p>
-                          <p className="text-sm mb-1">
-                            <span className="font-medium">策略总价值:</span> {formatNumber(item.totalValue)}
-                          </p>
-                          <p className="text-sm mb-1">
-                            <span className="font-medium">沪深300指数:</span> {item.indexPrice?.toFixed(2) || 'N/A'}
-                          </p>
-                          <p className="text-sm mb-1">
-                            <span className="font-medium">PE TTM:</span> {item.pe?.toFixed(2) || 'N/A'}
-                          </p>
-                          {item.hasTrade && (
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">交易类型:</span>{' '}
-                              <span className={item.tradeType === 'buy' ? 'text-red-600' : 'text-green-600'}>
-                                {item.tradeType === 'buy' ? '买入股票' : '卖出股票'}
-                              </span>
-                            </p>
-                          )}
-                          <div className="border-t border-gray-200 mt-2 pt-2">
-                            <p className="text-sm font-medium mb-1">策略状态:</p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">仓位:</span> 股票 {(item.stockRatio * 100).toFixed(1)}% / 债券 {(item.bondRatio * 100).toFixed(1)}%
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">股票价值:</span> {formatNumber(item.stockValue)}
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">债券价值:</span> {formatNumber(item.bondValue)}
-                            </p>
-                            <p className="text-sm mb-1">
-                              <span className="font-medium">相对初始价值变化:</span>{' '}
-                              <span className={item.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {item.changePercent >= 0 ? '+' : ''}{item.changePercent.toFixed(2)}%
-                              </span>
-                            </p>
-                            <p className="text-sm">
-                              <span className="font-medium">年化收益率:</span>{' '}
-                              <span className={item.annualizedReturn >= 0 ? 'text-green-600' : 'text-red-600'}>
-                                {item.annualizedReturn >= 0 ? '+' : ''}{item.annualizedReturn.toFixed(2)}%
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    }}
+                    content={(props) => (
+                      <StockBondChartTooltip {...props} chartData={chartData} />
+                    )}
                   />
                   <Legend />
                   {/* 策略价值曲线 - 主要曲线，带买卖标记 */}
@@ -419,28 +359,7 @@ export default function BacktestPage() {
                   />
                 </LineChart>
               </ResponsiveContainer>
-              <div className="mt-4 flex gap-4 justify-center flex-wrap">
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">策略价值</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-1 bg-orange-500" style={{ width: '20px', height: '4px' }}></div>
-                  <span className="text-sm text-gray-600">沪深300指数</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">PE指标</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">买入点</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">卖出点</span>
-                </div>
-              </div>
+              <ChartLegend />
             </div>
           </>
         )}

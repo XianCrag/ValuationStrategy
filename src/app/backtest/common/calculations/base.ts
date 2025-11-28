@@ -1,9 +1,6 @@
 import { StockData, BondData } from "../../types";
 import nationalDebtData from "@/data/national-debt.json";
-import type { NationalDebtDataFile } from "@/data/types";
 import moment from "moment";
-
-type NationalDebtData = NationalDebtDataFile;
 
 type StockValue = {
   code: string;
@@ -86,7 +83,7 @@ export function runNetWorth(
   let lastDate: string | null = null;
   let lastNetWorth: NetWorth = currentNetWorth;
 
-  stockData.forEach((item: StockData, index: number) => {
+  stockData.forEach((item: StockData) => {
     const { date, cp } = item;
     
     // 初始化当日净值，继承上一日的数据
@@ -287,7 +284,6 @@ export function calculateResultFromNetWorth(
 
     yearDetail.startStockValue = startStockValue;
     yearDetail.endStockValue = endStockValue;
-    yearDetail.stockValue = endStockValue; // 保持向后兼容
 
     // 如果需要股票持仓详情
     if (includeStockPositions) {

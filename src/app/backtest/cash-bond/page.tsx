@@ -11,8 +11,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { BondData, ApiResponse, ControlGroupResult } from '../types';
+import { BondData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, NATIONAL_DEBT_STOCK } from '../constants';
+import { fetchLixingerData } from '@/lib/api';
 import { calculateControlGroup1 } from './calculations';
 import { formatNumber, formatDate, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -39,30 +40,20 @@ export default function CashBondPage() {
 
     try {
       // 获取国债数据（服务器端自动处理分批请求）
-      const bondResponse = await fetch('/api/lixinger', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nationalDebtCodes: [NATIONAL_DEBT_STOCK.code],
-          years: selectedYears,
-        }),
+      const bonds = await fetchLixingerData<BondData>({
+        nationalDebtCodes: [NATIONAL_DEBT_STOCK.code],
+        years: selectedYears,
       });
 
-      const bondResult: ApiResponse = await bondResponse.json();
-
-      if (!bondResult.success) {
-        throw new Error(bondResult.error || 'Failed to fetch data');
-      }
-
-      const bonds = (bondResult.data as BondData[]).sort(
+      const sortedBonds = bonds.sort(
         (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
       );
 
-      setBondData(bonds);
+      setBondData(sortedBonds);
 
-      if (bonds.length > 0) {
-        const startDate = new Date(bonds[0].date);
-        const endDate = new Date(bonds[bonds.length - 1].date);
+      if (sortedBonds.length > 0) {
+        const startDate = new Date(sortedBonds[0].date);
+        const endDate = new Date(sortedBonds[sortedBonds.length - 1].date);
         const calcResult = calculateControlGroup1(startDate, endDate, INITIAL_CAPITAL);
         setResult(calcResult);
       }

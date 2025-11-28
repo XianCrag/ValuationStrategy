@@ -31,7 +31,7 @@ function isFirstDayOfMonth(dateStr: string): boolean {
   try {
     const date = new Date(dateStr);
     return date.getDate() === 1;
-  } catch (error) {
+  } catch {
     return false;
   }
 }

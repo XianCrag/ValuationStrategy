@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { CSI300_FUND_STOCK, DATA_YEARS } from './constants';
+import { PRICE_ONLY_METRICS } from '@/constants/metrics';
 
 async function fetchRealData() {
   try {
@@ -27,11 +28,11 @@ async function fetchRealData() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          stockCodes: [CSI300_FUND_STOCK.code],
-          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
-          years: yearsToFetch,
-          metricsList: ['cp'], // 只需要收盘点位（基金使用净值）
-        }),
+        stockCodes: [CSI300_FUND_STOCK.code],
+        codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
+        years: yearsToFetch,
+        metricsList: PRICE_ONLY_METRICS, // 只需要收盘点位（基金使用净值）
+      }),
       });
 
       if (!stockResponse.ok) {

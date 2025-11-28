@@ -11,8 +11,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { StockData, ApiResponse, ControlGroupResult } from '../types';
+import { StockData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_STOCK } from '../constants';
+import { PRICE_ONLY_METRICS } from '@/constants/metrics';
+import { fetchLixingerData } from '@/lib/api';
 import { calculateControlGroup2 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -39,31 +41,21 @@ export default function DcaCsi300Page() {
 
     try {
       // 获取沪深300基金数据（服务器端自动处理分批请求）
-      const stockResponse = await fetch('/api/lixinger', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          stockCodes: [CSI300_FUND_STOCK.code],
-          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
-          years: selectedYears,
-          metricsList: ['cp'],
-        }),
+      const stocks = await fetchLixingerData({
+        stockCodes: [CSI300_FUND_STOCK.code],
+        codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
+        years: selectedYears,
+        metricsList: PRICE_ONLY_METRICS,
       });
 
-      const stockResult: ApiResponse = await stockResponse.json();
-
-      if (!stockResult.success) {
-        throw new Error(stockResult.error || 'Failed to fetch data');
-      }
-
-      const stocks = (stockResult.data as StockData[]).sort(
+      const sortedStocks = stocks.sort(
         (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
       );
 
-      setStockData(stocks);
+      setStockData(sortedStocks);
 
-      if (stocks.length > 0) {
-        const calcResult = calculateControlGroup2(stocks, INITIAL_CAPITAL, DCA_MONTHS);
+      if (sortedStocks.length > 0) {
+        const calcResult = calculateControlGroup2(sortedStocks, INITIAL_CAPITAL, DCA_MONTHS);
         setResult(calcResult);
       }
     } catch (err) {

@@ -8,6 +8,7 @@ import {
   calculateTargetStockRatio,
   CSI300_FUND_STOCK,
 } from '../constants';
+import { METRIC_PE_TTM_MCW, METRIC_CP } from '@/constants/metrics';
 import { runNetWorth, calculateResultFromNetWorth } from '../common/calculations/base';
 import moment from 'moment';
 
@@ -56,8 +57,8 @@ export function calculateStrategy(
   }
 
   // 1. 计算初始仓位（根据第一天的PE）
-  const firstDayPE = stockData[0]['pe_ttm.mcw'];
-  const firstDayPrice = stockData[0].cp;
+  const firstDayPE = stockData[0][METRIC_PE_TTM_MCW];
+  const firstDayPrice = stockData[0][METRIC_CP];
   
   if (firstDayPE === undefined || firstDayPE === null || 
       firstDayPrice === undefined || firstDayPrice === null) {
@@ -118,7 +119,7 @@ export function calculateStrategy(
       return netWorth;
     }
 
-    const todayPE = todayData['pe_ttm.mcw'];
+    const todayPE = todayData[METRIC_PE_TTM_MCW];
     if (todayPE === undefined || todayPE === null) {
       return netWorth;
     }
@@ -263,7 +264,7 @@ export function calculateStrategy(
     : 0;
 
   // 9. 增强年度详情（添加股债买卖信息）
-  const enhancedYearlyDetails = baseResult.yearlyDetails.map((yearDetail, index) => {
+  const enhancedYearlyDetails = baseResult.yearlyDetails.map((yearDetail) => {
     // 找到该年度的所有交易
     const yearTrades = trades.filter(trade => {
       const tradeYear = new Date(trade.date).getFullYear().toString();
@@ -302,8 +303,8 @@ export function calculateStrategy(
 
     // 获取该年的起始和结束价格
     const yearStockData = stockData.filter(d => new Date(d.date).getFullYear().toString() === yearDetail.year);
-    const startIndexPrice = yearStockData[0]?.cp || 0;
-    const endIndexPrice = yearStockData[yearStockData.length - 1]?.cp || 0;
+    const startIndexPrice = yearStockData[0]?.[METRIC_CP] || 0;
+    const endIndexPrice = yearStockData[yearStockData.length - 1]?.[METRIC_CP] || 0;
     
     // 计算股票价格变化收益
     const startStockValue = yearDetail.startStockValue || 0;

@@ -152,8 +152,6 @@ export function YearlyDetailsTable({
                   <td className="px-4 py-3 text-sm text-right text-gray-700">
                     {year.endStockValue !== undefined
                       ? formatNumber(year.endStockValue)
-                      : year.stockValue !== undefined
-                      ? formatNumber(year.stockValue)
                       : '-'}
                   </td>
                   {showStockPositions && (

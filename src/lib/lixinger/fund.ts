@@ -13,7 +13,7 @@ export interface LixingerFundData {
   date: string;
   netValue: number; // 复权净值
   stockCode?: string; // 添加stockCode字段以保持API一致性
-  cp?: number; // 映射到cp字段（收盘价）以兼容现有代码
+  cp: number; // 收盘价格，映射自netValue
 }
 
 /**
@@ -90,7 +90,7 @@ export async function getFundData(
       const formattedData = result.data.map(item => ({
         ...item,
         stockCode: fundCode,
-        cp: item.netValue, // 将netValue映射到cp字段以兼容现有代码
+        cp: item.netValue, // 将netValue映射到cp字段供策略使用
       }));
 
       allData.push(...formattedData);
