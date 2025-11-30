@@ -14,6 +14,7 @@
     "fetch:national-debt": "tsx src/data/fetch-national-debt.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.5.0",
     "moment": "^2.30.1",
     "next": "15.4.6",
     "react": "19.1.0",

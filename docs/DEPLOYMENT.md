@@ -4,7 +4,7 @@
 
 本项目需要配置以下环境变量：
 
-### LIXINGER_TOKEN
+### LIXINGER_TOKEN（必需）
 
 用于访问理杏仁（Lixinger）开放API的认证令牌。
 
@@ -52,6 +52,36 @@ npm run dev
 ##### 其他平台
 
 根据平台文档设置环境变量 `LIXINGER_TOKEN`
+
+## Analytics 配置
+
+项目已集成 **Vercel Analytics**，用于跟踪页面访问和用户行为。
+
+### 功能
+
+- ✅ 页面浏览量统计
+- ✅ 用户访问路径分析
+- ✅ 性能监控
+- ✅ 自动在 Vercel 部署时启用
+
+### 配置
+
+#### Vercel 平台
+
+Analytics 在 Vercel 平台上会**自动启用**，无需额外配置。
+
+部署后访问：
+1. 进入项目面板
+2. 点击 **Analytics** 标签
+3. 查看实时数据和历史统计
+
+#### 其他平台
+
+如果部署到其他平台，Analytics 组件不会造成任何影响，可以安全忽略。
+
+### 验证
+
+部署后打开浏览器开发者工具，在 Network 标签中搜索 `vitals`，如果看到相关请求说明 Analytics 正常工作。
 
 ## 错误处理
 
