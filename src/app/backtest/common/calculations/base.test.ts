@@ -4,7 +4,33 @@
  */
 
 import { getMonthNationalDebtRate, getMonthCashInterest } from './base';
+import { setBondData } from '@/lib/backtestData';
 import nationalDebtData from '@/data/national-debt.json';
+import { BondData } from '../../types';
+
+// 在所有测试前设置全局 bondData
+beforeAll(() => {
+  // 将 national-debt.json 数据转换为 BondData 格式
+  const bondDataArray: BondData[] = [];
+  
+  Object.entries(nationalDebtData.data).forEach(([year, monthData]) => {
+    monthData.forEach((item: any) => {
+      bondDataArray.push({
+        date: item.date,
+        tcm_y10: item.tcm_y10,
+      });
+    });
+  });
+  
+  // 设置全局数据
+  setBondData(bondDataArray);
+});
+
+// 测试后清理
+afterAll(() => {
+  const { backtestDataManager } = require('@/lib/backtestData');
+  backtestDataManager.clear();
+});
 
 describe('getMonthNationalDebtRate', () => {
   describe('正常情况', () => {
@@ -66,21 +92,24 @@ describe('getMonthNationalDebtRate', () => {
   });
 
   describe('错误情况', () => {
-    it('当年份不存在时应该抛出错误', () => {
+    it('当年份不存在时应该返回最近的历史数据', () => {
       const date = '1999-06-15'; // 1999 年不在数据中
       
-      expect(() => {
-        getMonthNationalDebtRate(date);
-      }).toThrow('No data found for year 1999');
+      const rate = getMonthNationalDebtRate(date);
+      // 由于 1999 年数据不存在，会查找最近的数据
+      // JSON 数据最早是 2002-06，所以应该返回接近该值的数据
+      expect(rate).toBeGreaterThan(0);
+      expect(rate).toBeLessThan(0.1);
     });
 
-    it('当月份不存在时应该抛出错误', () => {
+    it('当月份不存在时应该返回最近的历史数据', () => {
       // 2002 年只有 6-12 月的数据，没有 1-5 月
       const date = '2002-01-15';
       
-      expect(() => {
-        getMonthNationalDebtRate(date);
-      }).toThrow('No data found for date 2002-01');
+      const rate = getMonthNationalDebtRate(date);
+      // 应该返回最近的历史数据
+      expect(rate).toBeGreaterThan(0);
+      expect(rate).toBeLessThan(0.1);
     });
 
     it('当日期格式无效时应该正确处理', () => {
@@ -91,9 +120,10 @@ describe('getMonthNationalDebtRate', () => {
       // 这里我们测试一个明确不存在的日期
       const invalidDate = '2002-01-15';
       
-      expect(() => {
-        getMonthNationalDebtRate(invalidDate);
-      }).toThrow('No data found for date 2002-01');
+      const rate = getMonthNationalDebtRate(invalidDate);
+      // 应该返回最近的历史数据
+      expect(rate).toBeGreaterThan(0);
+      expect(rate).toBeLessThan(0.1);
     });
   });
 
@@ -242,22 +272,24 @@ describe('getMonthCashInterest', () => {
   });
 
   describe('错误情况', () => {
-    it('当年份不存在时应该抛出错误', () => {
+    it('当年份不存在时应该返回基于最近历史数据的利息', () => {
       const date = '1999-06-15'; // 1999 年不在数据中
       const cash = 1000000;
       
-      expect(() => {
-        getMonthCashInterest(date, cash);
-      }).toThrow('No data found for year 1999');
+      const interest = getMonthCashInterest(date, cash);
+      // 应该使用最近的历史利率计算
+      expect(interest).toBeGreaterThan(0);
+      expect(interest).toBeLessThan(cash * 0.1 / 12); // 应该远小于 10% 的年利率
     });
 
-    it('当月份不存在时应该抛出错误', () => {
+    it('当月份不存在时应该返回基于最近历史数据的利息', () => {
       const date = '2002-01-15'; // 2002 年没有 1-5 月的数据
       const cash = 1000000;
       
-      expect(() => {
-        getMonthCashInterest(date, cash);
-      }).toThrow('No data found for date 2002-01');
+      const interest = getMonthCashInterest(date, cash);
+      // 应该使用最近的历史利率计算
+      expect(interest).toBeGreaterThan(0);
+      expect(interest).toBeLessThan(cash * 0.1 / 12); // 应该远小于 10% 的年利率
     });
   });
 

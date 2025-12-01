@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { StockData, BondData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK } from '../constants';
 import { METRIC_PE_TTM_MCW, METRIC_CP, METRIC_TCM_Y10 } from '@/constants/metrics';
 import { fetchLixingerData } from '@/lib/api';
+import { setBondData } from '@/lib/backtestData';
 import {
   calculateERPStrategy,
   DEFAULT_ERP_MIN,
@@ -104,7 +105,12 @@ export default function ERPStrategyPage() {
       if (data.aStockData.length === 0 || data.csi300Data.length === 0 || data.bondData.length === 0) {
         throw new Error('没有可用数据');
       }
+      
+      // 设置全局 bondData
+      setBondData(data.bondData);
+      
       // 只使用策略所需的数据计算，csi300IndexData仅用于图表展示
+      // bondData 不再需要传递，计算函数会从全局获取
       return calculateERPStrategy(data.aStockData, data.csi300Data, data.bondData, INITIAL_CAPITAL, appliedParams);
     }, [appliedParams]),
     dependencies: [selectedYears, appliedParams],

@@ -1,5 +1,5 @@
 import { StockData, BondData } from "../../types";
-import nationalDebtData from "@/data/national-debt.json";
+import { backtestDataManager } from "@/lib/backtestData";
 import moment from "moment";
 
 type StockValue = {
@@ -23,26 +23,18 @@ type NetWorth = {
   stockChange?: StockChange[];
 }
 
+/**
+ * 获取指定日期的国债利率（从全局数据管理器）
+ */
 export function getMonthNationalDebtRate(date: string) {
-  const year = moment(date).year();
-  const yearKey = year.toString();
-  const yearMonth = moment(date).format('YYYY-MM');
-  
-  const yearData = nationalDebtData.data[yearKey as keyof typeof nationalDebtData.data];
-  if (!yearData) {
-    throw new Error(`No data found for year ${yearKey}`);
-  }
-  
-  const item = yearData.find(item => item.date === yearMonth);
-  if (!item) {
-    throw new Error(`No data found for date ${yearMonth}`);
-  }
-  
-  return item.tcm_y10;
+  return backtestDataManager.getBondRate(date);
 }
 
+/**
+ * 根据国债利率计算现金利息（从全局数据管理器）
+ */
 export function getMonthCashInterest(date: string, cash: number) {
-  return cash * getMonthNationalDebtRate(date) / 12;
+  return backtestDataManager.getMonthCashInterest(date, cash);
 }
 
 /**
@@ -77,7 +69,7 @@ export function runNetWorth(
   stockData: StockData[], 
   currentNetWorth: NetWorth, 
   changeStockRatio: (netWorth: NetWorth) => NetWorth,
-  bondData?: BondData[]
+  bondData?: BondData[] // 保留参数以兼容旧代码，但不再使用
 ): NetWorth[] {
   const netWorthTimeLine: NetWorth[] = [];
   let lastDate: string | null = null;
@@ -105,10 +97,8 @@ export function runNetWorth(
     // 如果月份变了，则计算现金利息
     const currentMonth = moment(date).format('YYYY-MM');
     if (currentMonth !== lastDate) {
-      // 如果提供了 bondData，使用它；否则使用本地数据
-      dateNetWorth.cashInterest = bondData 
-        ? getMonthCashInterestFromBondData(date, dateNetWorth.cash, bondData)
-        : getMonthCashInterest(date, dateNetWorth.cash);
+      // 使用全局数据管理器获取国债利率
+      dateNetWorth.cashInterest = getMonthCashInterest(date, dateNetWorth.cash);
       dateNetWorth.cash = dateNetWorth.cash + dateNetWorth.cashInterest;
       lastDate = currentMonth;
     }
