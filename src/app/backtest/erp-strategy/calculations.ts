@@ -85,6 +85,52 @@ export function calculateTargetStockRatioByERP(erp: number, params: ERPStrategyP
 }
 
 /**
+ * 获取最近的国债利率
+ * 如果指定日期没有数据，查找最近的历史数据
+ * 如果没有历史数据，则使用最早的可用数据
+ */
+function getNearestBondRate(bondRateMap: Map<string, number>, targetDate: string): number | undefined {
+  // 先尝试直接匹配
+  const directRate = bondRateMap.get(targetDate);
+  if (directRate !== undefined) {
+    return directRate;
+  }
+
+  // 如果没有直接匹配，找最近的历史数据
+  const targetTime = new Date(targetDate).getTime();
+  let nearestRate: number | undefined;
+  let minTimeDiff = Infinity;
+
+  bondRateMap.forEach((rate, date) => {
+    const dateTime = new Date(date).getTime();
+    const timeDiff = Math.abs(targetTime - dateTime);
+    
+    // 优先使用历史数据（日期<=目标日期）
+    if (dateTime <= targetTime) {
+      if (timeDiff < minTimeDiff) {
+        minTimeDiff = timeDiff;
+        nearestRate = rate;
+      }
+    }
+  });
+
+  // 如果找不到历史数据，使用最近的未来数据
+  if (nearestRate === undefined) {
+    bondRateMap.forEach((rate, date) => {
+      const dateTime = new Date(date).getTime();
+      const timeDiff = Math.abs(targetTime - dateTime);
+      
+      if (timeDiff < minTimeDiff) {
+        minTimeDiff = timeDiff;
+        nearestRate = rate;
+      }
+    });
+  }
+
+  return nearestRate;
+}
+
+/**
  * 计算ERP指标
  * ERP = 盈利收益率(%) - 无风险利率(%)
  * 盈利收益率 = (1 / PE) × 100%
@@ -95,6 +141,32 @@ function calculateERP(pe: number, bondRate: number): number | null {
   }
   const earningsYield = (1 / pe) * 100; // 转换为百分比
   return earningsYield - bondRate; // bondRate已经是百分比
+}
+
+/**
+ * 从Map中查找最近日期的值
+ * 如果找不到精确匹配，返回最近的日期的值
+ */
+function findNearestValue<T>(map: Map<string, T>, targetDate: string): T | undefined {
+  // 先尝试精确匹配
+  if (map.has(targetDate)) {
+    return map.get(targetDate);
+  }
+
+  // 如果找不到，找最近的日期
+  const targetTime = new Date(targetDate).getTime();
+  let nearestDate: string | null = null;
+  let minDiff = Infinity;
+
+  map.forEach((value, date) => {
+    const diff = Math.abs(new Date(date).getTime() - targetTime);
+    if (diff < minDiff) {
+      minDiff = diff;
+      nearestDate = date;
+    }
+  });
+
+  return nearestDate ? map.get(nearestDate) : undefined;
 }
 
 /**
@@ -147,10 +219,22 @@ export function calculateERPStrategy(
 
   // 1. 计算初始ERP和初始仓位
   const firstDayPE = peMap.get(csi300Data[0].date);
-  const firstDayBondRate = bondRateMap.get(csi300Data[0].date);
+  const firstDayBondRate = getNearestBondRate(bondRateMap, csi300Data[0].date);
   const firstDayPrice = csi300Data[0].cp;
   
   if (firstDayPE === undefined || firstDayBondRate === undefined || firstDayPrice === undefined) {
+    console.error('First day data details:', {
+      date: csi300Data[0].date,
+      PE: firstDayPE,
+      bondRate: firstDayBondRate,
+      price: firstDayPrice,
+      bondDataDates: Array.from(bondRateMap.keys()).slice(0, 10),
+      bondDataDatesLast: Array.from(bondRateMap.keys()).slice(-5),
+      peDataDates: Array.from(peMap.keys()).slice(0, 10),
+      peDataDatesLast: Array.from(peMap.keys()).slice(-5),
+      totalBondDates: bondRateMap.size,
+      totalPEDates: peMap.size,
+    });
     throw new Error(`First day data is incomplete: PE=${firstDayPE}, bondRate=${firstDayBondRate}, price=${firstDayPrice}`);
   }
 
@@ -209,7 +293,7 @@ export function calculateERPStrategy(
 
     // 获取当天PE和国债利率
     const todayPE = peMap.get(netWorth.date || '');
-    const todayBondRate = bondRateMap.get(netWorth.date || '');
+    const todayBondRate = getNearestBondRate(bondRateMap, netWorth.date || '');
     
     if (todayPE === undefined || todayBondRate === undefined) {
       return netWorth;
