@@ -5,6 +5,8 @@ export {
   CSI300_FUND_STOCK,
   A_STOCK_ALL_STOCK,
   NATIONAL_DEBT_STOCK,
+  // 个股
+  ALL_INDIVIDUAL_STOCKS,
   // 类型
   type StockConfig,
 } from '@/constants/stocks';

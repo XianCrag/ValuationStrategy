@@ -12,6 +12,7 @@ export default function MetricSelector({ selectedMetric, onMetricChange }: Metri
     { value: 'a-stock-all' as MetricType, label: 'A股全指' },
     { value: 'interest' as MetricType, label: '10年期国债' },
     { value: 'erp' as MetricType, label: '股权风险溢价' },
+    { value: 'individual-stock' as MetricType, label: '个股指标' },
   ];
 
   return (

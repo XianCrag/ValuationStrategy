@@ -5,7 +5,7 @@ import {
   CSI300_INDEX_STOCK, 
   CSI300_FUND_STOCK, 
   A_STOCK_ALL_STOCK, 
-  NATIONAL_DEBT_STOCK 
+  NATIONAL_DEBT_STOCK,
 } from '../constants';
 
 export function useData(selectedMetric: MetricType, years: number = 10) {
@@ -42,6 +42,12 @@ export function useData(selectedMetric: MetricType, years: number = 10) {
         stockCodes = [A_STOCK_ALL_STOCK.code];
         nationalDebtCodes = [NATIONAL_DEBT_STOCK.code];
         codeTypeMap[A_STOCK_ALL_STOCK.code] = A_STOCK_ALL_STOCK.type as 'index';
+      } else if (selectedMetric === 'individual-stock') {
+        // 个股数据 - 不在这里加载，由 IndividualStockDisplay 组件按需加载
+        // 直接返回空数据
+        setData({});
+        setLoading(false);
+        return;
       }
       
       // 使用动态年份参数

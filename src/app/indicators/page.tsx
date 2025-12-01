@@ -7,6 +7,7 @@ import {
   CSI300_FUND_STOCK, 
   A_STOCK_ALL_STOCK, 
   NATIONAL_DEBT_STOCK,
+  ALL_INDIVIDUAL_STOCKS,
 } from './constants';
 import { useData } from './hooks/useData';
 import StrategyLayout from '../components/Layout';
@@ -19,6 +20,7 @@ import RefreshButton from '../components/RefreshButton';
 import IndexDataDisplay from './components/IndexDisplay';
 import NationalDebtDataDisplay from './components/DebtDataDisplay';
 import ERPDisplay from './components/ERPDisplay';
+import IndividualStockDisplay from './components/IndividualStockDisplay';
 
 export default function IndicatorsPage() {
   const [selectedMetric, setSelectedMetric] = useState<MetricType>('csi300-index');
@@ -70,6 +72,15 @@ export default function IndicatorsPage() {
       const aStockData = data[A_STOCK_ALL_STOCK.code] || [];
       const bondData = data[NATIONAL_DEBT_STOCK.code] || [];
       return <ERPDisplay aStockData={aStockData} bondData={bondData} />;
+    } else if (selectedMetric === 'individual-stock') {
+      return (
+        <div className="space-y-8">
+          <IndividualStockDisplay
+            availableStocks={ALL_INDIVIDUAL_STOCKS}
+            years={selectedYears}
+          />
+        </div>
+      );
     }
 
     return null;
