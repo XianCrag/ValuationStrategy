@@ -41,6 +41,10 @@ const menuItems: MenuItem[] = [
       },
     ],
   },
+  {
+    label: '缓存管理',
+    path: '/cache',
+  },
 ];
 
 export default function Sidebar() {

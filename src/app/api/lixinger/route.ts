@@ -9,6 +9,7 @@ import {
   LixingerInterestRatesData,
   LixingerFundData 
 } from '@/lib/lixinger';
+import { dailyCache, generateCacheKey } from '@/lib/cache';
 
 export interface LixingerApiRequest {
   stockCodes?: string[];
@@ -103,6 +104,36 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // 生成缓存键
+    const cacheKey = generateCacheKey({
+      stockCodes: [...stockCodes].sort(),
+      codeTypeMap,
+      nationalDebtCodes: [...nationalDebtCodes].sort(),
+      years,
+      metricsList: [...metricsList].sort(),
+    });
+
+    // 尝试从缓存获取数据
+    const cachedResult = dailyCache.get(cacheKey);
+    if (cachedResult) {
+      console.log('✅ 缓存命中:', {
+        stockCodes,
+        nationalDebtCodes,
+        years,
+        cacheKeyPreview: cacheKey.substring(0, 100),
+      });
+      return NextResponse.json({
+        ...cachedResult,
+        fromCache: true, // 标记数据来自缓存
+      });
+    }
+
+    console.log('❌ 缓存未命中，请求 Lixinger API:', {
+      stockCodes,
+      nationalDebtCodes,
+      years,
+    });
 
     const { startDate, endDate } = getDateRangeForYears(years);
     
@@ -285,11 +316,17 @@ export async function POST(request: NextRequest) {
       return mapped;
     });
 
-    return NextResponse.json({
+    const result = {
       success: true,
       data: mappedData,
       dateRange: { startDate, endDate },
-    });
+    };
+
+    // 存入缓存（当天有效）
+    dailyCache.set(cacheKey, result);
+    console.log('💾 数据已缓存');
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Lixinger API route error:', error);
     const errorMessage = error instanceof Error 
