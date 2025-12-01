@@ -4,7 +4,7 @@
  */
 
 import { getMonthNationalDebtRate, getMonthCashInterest } from './base';
-import { setBondData } from '@/lib/backtestData';
+import { setBondData, backtestDataManager } from '@/lib/backtestData';
 import nationalDebtData from '@/data/national-debt.json';
 import { BondData } from '../../types';
 
@@ -28,7 +28,6 @@ beforeAll(() => {
 
 // 测试后清理
 afterAll(() => {
-  const { backtestDataManager } = require('@/lib/backtestData');
   backtestDataManager.clear();
 });
 
