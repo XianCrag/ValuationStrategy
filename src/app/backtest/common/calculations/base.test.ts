@@ -3,10 +3,10 @@
  * 运行方式：npm test 或 npm test -- base.test.ts
  */
 
-import { getMonthNationalDebtRate, getMonthCashInterest } from './base';
+import { getMonthNationalDebtRate, getMonthCashInterest, runNetWorth } from './base';
 import { setBondData, backtestDataManager } from '@/lib/backtestData';
 import nationalDebtData from '@/data/national-debt.json';
-import { BondData } from '../../types';
+import { BondData, StockData } from '../../types';
 
 // 在所有测试前设置全局 bondData
 beforeAll(() => {
@@ -328,4 +328,135 @@ describe('getMonthCashInterest', () => {
   });
 });
 
+
+describe('runNetWorth 多策略功能', () => {
+  // 准备测试数据
+  const stockData: StockData[] = [
+    { date: '2020-01-01', cp: 1000 },
+    { date: '2020-01-02', cp: 1050 },
+    { date: '2020-01-03', cp: 1100 },
+  ];
+
+  const initialNetWorth = {
+    stockValue: [
+      { code: '000300', shares: 100, shareValue: 1000 },
+    ],
+    cash: 50000,
+    totalValue: 150000,
+  };
+
+  it('应该支持单个策略函数（向后兼容）', () => {
+    const singleStrategy = (netWorth: any) => {
+      // 简单的策略：保持不变
+      return netWorth;
+    };
+
+    const result = runNetWorth(stockData, initialNetWorth, singleStrategy);
+    
+    expect(result).toBeDefined();
+    expect(result.length).toBe(3);
+  });
+
+  it('应该支持多个策略函数按顺序执行', () => {
+    // 策略1: 增加现金
+    const strategy1 = (netWorth: any) => {
+      return {
+        ...netWorth,
+        cash: netWorth.cash + 1000,
+      };
+    };
+
+    // 策略2: 减少股票份额
+    const strategy2 = (netWorth: any) => {
+      return {
+        ...netWorth,
+        stockValue: netWorth.stockValue.map((stock: any) => ({
+          ...stock,
+          shares: stock.shares - 10,
+        })),
+      };
+    };
+
+    // 策略3: 再增加一些现金
+    const strategy3 = (netWorth: any) => {
+      return {
+        ...netWorth,
+        cash: netWorth.cash + 500,
+      };
+    };
+
+    const result = runNetWorth(stockData, initialNetWorth, [strategy1, strategy2, strategy3]);
+    
+    expect(result).toBeDefined();
+    expect(result.length).toBe(3);
+    
+    // 验证最后一天的结果包含了所有策略的效果
+    const lastDayResult = result[result.length - 1];
+    
+    // 现金应该增加了 1000 + 500 = 1500（每天）
+    // 注意：实际现金可能因为利息等因素有所不同
+    expect(lastDayResult.cash).toBeGreaterThan(initialNetWorth.cash);
+    
+    // 股票份额每天都减少10，3天总共减少30，所以最后应该是100 - 30 = 70
+    expect(lastDayResult.stockValue[0].shares).toBe(70);
+  });
+
+  it('应该按正确的顺序执行多个策略', () => {
+    let executionOrder: number[] = [];
+
+    // 策略1
+    const strategy1 = (netWorth: any) => {
+      executionOrder.push(1);
+      return netWorth;
+    };
+
+    // 策略2
+    const strategy2 = (netWorth: any) => {
+      executionOrder.push(2);
+      return netWorth;
+    };
+
+    // 策略3
+    const strategy3 = (netWorth: any) => {
+      executionOrder.push(3);
+      return netWorth;
+    };
+
+    runNetWorth(stockData, initialNetWorth, [strategy1, strategy2, strategy3]);
+    
+    // 每天都会执行3个策略，所以应该有 3 天 * 3 个策略 = 9 次执行
+    expect(executionOrder.length).toBe(9);
+    
+    // 验证每天的执行顺序都是 1, 2, 3
+    expect(executionOrder).toEqual([1, 2, 3, 1, 2, 3, 1, 2, 3]);
+  });
+
+  it('策略应该能够访问前一个策略的结果', () => {
+    // 策略1: 设置一个标记
+    const strategy1 = (netWorth: any) => {
+      return {
+        ...netWorth,
+        cash: netWorth.cash + 1000,
+      };
+    };
+
+    // 策略2: 基于策略1的结果进行操作
+    const strategy2 = (netWorth: any) => {
+      // 策略2应该能看到策略1增加的1000现金
+      return {
+        ...netWorth,
+        cash: netWorth.cash * 1.1, // 增加10%
+      };
+    };
+
+    const result = runNetWorth(stockData, initialNetWorth, [strategy1, strategy2]);
+    
+    const firstDayResult = result[0];
+    
+    // 策略1: cash + 1000
+    // 策略2: (cash + 1000) * 1.1
+    const expectedCash = (initialNetWorth.cash + 1000) * 1.1;
+    expect(firstDayResult.cash).toBeCloseTo(expectedCash, 0);
+  });
+});
 

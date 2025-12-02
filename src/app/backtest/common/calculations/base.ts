@@ -68,7 +68,7 @@ export function getMonthCashInterestFromBondData(date: string, cash: number, bon
 export function runNetWorth(
   stockData: StockData[], 
   currentNetWorth: NetWorth, 
-  changeStockRatio: (netWorth: NetWorth) => NetWorth,
+  changeStockRatio: ((netWorth: NetWorth) => NetWorth) | ((netWorth: NetWorth) => NetWorth)[],
   bondData?: BondData[] // 保留参数以兼容旧代码，但不再使用
 ): NetWorth[] {
   const netWorthTimeLine: NetWorth[] = [];
@@ -111,8 +111,14 @@ export function runNetWorth(
     // 计算总价值
     dateNetWorth.totalValue = stockTotalValue + dateNetWorth.cash;
 
-    // 仓位调整
-    const afterChangeNetWorth = changeStockRatio(dateNetWorth);
+    // 仓位调整 - 支持单个函数或函数数组
+    const strategyFunctions = Array.isArray(changeStockRatio) ? changeStockRatio : [changeStockRatio];
+    let afterChangeNetWorth = dateNetWorth;
+    
+    // 按顺序执行所有策略函数
+    for (const strategyFn of strategyFunctions) {
+      afterChangeNetWorth = strategyFn(afterChangeNetWorth);
+    }
 
     // 重新计算总价值
     const afterStockTotalValue = afterChangeNetWorth.stockValue.reduce((sum, stock) => {
