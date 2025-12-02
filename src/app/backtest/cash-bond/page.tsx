@@ -79,7 +79,7 @@ export default function CashBondPage() {
                           date: item.date,
                           dateShort: formatDateShort(item.date),
                           fullDate: formatDate(item.date),
-                          rate: item.tcm_y10,
+                          rate: item.tcm_y10 * 100, // 将小数转换为百分比显示
                         })),
                       { maxPoints: 300, keepFirstAndLast: true }
                     )}

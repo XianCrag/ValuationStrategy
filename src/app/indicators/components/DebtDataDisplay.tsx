@@ -22,8 +22,11 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
 
   const nationalDebtKey = stock.code; // tcm_y10
   const nationalDebtValues = stockData
-    .map(item => item[nationalDebtKey] as number)
-    .filter((val): val is number => val !== null && val !== undefined);
+    .map(item => {
+      const val = item[nationalDebtKey] as number;
+      return val !== null && val !== undefined ? val * 100 : null; // 转换为百分比
+    })
+    .filter((val): val is number => val !== null);
   
   const nationalDebtMin = nationalDebtValues.length > 0 ? Math.min(...nationalDebtValues) : 0;
   const nationalDebtMax = nationalDebtValues.length > 0 ? Math.max(...nationalDebtValues) : 0;
@@ -32,6 +35,10 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
     Math.max(0, nationalDebtMin - nationalDebtRange * 0.1),
     nationalDebtMax + nationalDebtRange * 0.1
   ];
+
+  // 获取最新数据
+  const latestValue = stockData[stockData.length - 1]?.[nationalDebtKey];
+  const latestValuePercent = typeof latestValue === 'number' ? (latestValue * 100).toFixed(2) : 'N/A';
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
@@ -42,7 +49,7 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
         <div className="bg-green-50 p-4 rounded-lg">
           <h3 className="text-sm font-medium text-green-900 mb-2">10年期国债收益率 (%)</h3>
           <p className="text-2xl font-bold text-green-600">
-            {stockData[stockData.length - 1]?.[nationalDebtKey]?.toFixed(2) || 'N/A'}%
+            {latestValuePercent}%
           </p>
         </div>
       </div>
@@ -53,7 +60,7 @@ export default function NationalDebtDataDisplay({ stock, stockData }: NationalDe
           date: item.date,
           dateShort: formatDateShort(item.date),
           fullDate: formatDate(item.date),
-          nationalDebtRate: item[nationalDebtKey] as number,
+          nationalDebtRate: (item[nationalDebtKey] as number) * 100, // 转换为百分比
         }))}
         lines={[
           {

@@ -29,23 +29,24 @@ export default function ERPDisplay({ aStockData, bondData }: ERPDisplayProps) {
     }
   });
 
-  // 计算ERP：ERP = (1 / PE) - 国债利率
+  // 计算ERP：ERP = 盈利收益率(%) - 国债利率(%)
   const erpData = aStockData
     .map(item => {
       const pe = item['pe_ttm.mcw'] as number;
       const bondRate = bondRateMap.get(item.date);
       
       if (pe && pe > 0 && bondRate !== null && bondRate !== undefined) {
-        const earningsYield = 1 / pe; // 盈利收益率
-        const erp = (earningsYield * 100 - bondRate); // bondRate已经是百分比（API已转换）
+        const earningsYield = (1 / pe) * 100; // 转换为百分比
+        const bondRatePercent = bondRate * 100; // 将小数转换为百分比
+        const erp = earningsYield - bondRatePercent;
         
         return {
           date: item.date,
           dateShort: formatDateShort(item.date),
           fullDate: formatDate(item.date),
           erp,
-          earningsYield: earningsYield * 100, // 转换为百分比
-          bondRate: bondRate, // 已经是百分比（API已转换）
+          earningsYield,
+          bondRate: bondRatePercent, // 存储为百分比以便显示
           pe,
         };
       }

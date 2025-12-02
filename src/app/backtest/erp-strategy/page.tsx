@@ -498,13 +498,14 @@ function calculateERPData(aStockData: StockData[], bondData: BondData[]) {
       
       if (pe && pe > 0 && bondRate !== null && bondRate !== undefined) {
         const earningsYield = (1 / pe) * 100;
-        const erp = earningsYield - bondRate;
+        const bondRatePercent = bondRate * 100; // 将小数转换为百分比
+        const erp = earningsYield - bondRatePercent;
         
         return {
           date: item.date,
           erp,
           earningsYield,
-          bondRate,
+          bondRate: bondRatePercent, // 存储为百分比以便显示
           pe,
         };
       }

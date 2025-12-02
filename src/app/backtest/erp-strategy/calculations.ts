@@ -140,7 +140,8 @@ function calculateERP(pe: number, bondRate: number): number | null {
     return null;
   }
   const earningsYield = (1 / pe) * 100; // 转换为百分比
-  return earningsYield - bondRate; // bondRate已经是百分比
+  const bondRatePercent = bondRate * 100; // bondRate是小数（如0.025），需要转换为百分比（2.5）
+  return earningsYield - bondRatePercent;
 }
 
 /**
