@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { StockData, StrategyResult } from '../types';
-import { INITIAL_CAPITAL, CSI300_FUND_STOCK, CSI300_INDEX_STOCK } from '../constants';
+import { INITIAL_CAPITAL, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, ALL_FUNDS, StockConfig } from '../constants';
 import {
   calculateCSI300PEBalanceStrategy,
   DEFAULT_PE_MIN,
@@ -33,6 +33,7 @@ import { useBacktestData } from '../hooks/useBacktestData';
 
 export default function CSI300PEBalancePage() {
   const [selectedYears, setSelectedYears] = useState<number>(10);
+  const [selectedFund, setSelectedFund] = useState<StockConfig>(CSI300_FUND_STOCK);
   
   // 编辑中的参数（UI绑定）
   const [editingParams, setEditingParams] = useState<CSI300PEBalanceParams>({
@@ -47,18 +48,13 @@ export default function CSI300PEBalancePage() {
   // 实际应用的参数（用于计算）
   const [appliedParams, setAppliedParams] = useState<CSI300PEBalanceParams>(editingParams);
 
-  // 应用参数
-  const handleApplyParams = () => {
-    setAppliedParams({...editingParams});
-  };
-
   // 使用自定义Hook获取和计算数据
   const { data, result: strategyResult, loading, error, refetch } = useBacktestData<{
     indexData: StockData[];
     fundData: StockData[];
   }, StrategyResult>({
     fetchData: useCallback(async () => {
-      // 同时获取指数数据（PE）和基金数据（价格）
+      // 同时获取指数数据（PE）和选中的基金数据（价格）
       // API 会根据 codeTypeMap 自动选择对应的指标
       const [indexData, fundData] = await Promise.all([
         fetchLixingerData({
@@ -67,8 +63,8 @@ export default function CSI300PEBalancePage() {
           years: selectedYears,
         }),
         fetchLixingerData({
-          stockCodes: [CSI300_FUND_STOCK.code],
-          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
+          stockCodes: [selectedFund.code],
+          codeTypeMap: { [selectedFund.code]: 'fund' },
           years: selectedYears,
         }),
       ]);
@@ -77,7 +73,7 @@ export default function CSI300PEBalancePage() {
         indexData: indexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         fundData: fundData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
       };
-    }, [selectedYears]),
+    }, [selectedYears, selectedFund]),
     calculateResult: useCallback((data: { indexData: StockData[]; fundData: StockData[] }) => {
       if (data.indexData.length === 0 || data.fundData.length === 0) {
         throw new Error('没有可用数据');
@@ -92,7 +88,8 @@ export default function CSI300PEBalancePage() {
       });
       return calculateCSI300PEBalanceStrategy(mergedData, INITIAL_CAPITAL, appliedParams);
     }, [appliedParams]),
-    dependencies: [selectedYears, appliedParams],
+    dependencies: [selectedYears, appliedParams, selectedFund],
+    autoFetch: false, // 禁用自动获取，改为手动触发
   });
 
   // 创建图表数据
@@ -122,6 +119,12 @@ export default function CSI300PEBalancePage() {
     keepFirstAndLast: true,
   });
 
+  // 应用参数并重新计算
+  const handleApplyParams = () => {
+    setAppliedParams(editingParams);
+    refetch();
+  };
+
   return (
     <StrategyLayout>
       <div className="py-8 px-6">
@@ -136,6 +139,31 @@ export default function CSI300PEBalancePage() {
           {/* 策略参数配置 */}
           <div className="mb-6 p-6 bg-white rounded-lg shadow-lg">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">策略参数配置</h3>
+            
+            {/* 基金选择 */}
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                选择投资标的（基金）
+              </label>
+              <select
+                value={selectedFund.code}
+                onChange={(e) => {
+                  const fund = ALL_FUNDS.find(f => f.code === e.target.value);
+                  if (fund) setSelectedFund(fund);
+                }}
+                className="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              >
+                {ALL_FUNDS.map((fund) => (
+                  <option key={fund.code} value={fund.code}>
+                    {fund.name} ({fund.code})
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-600 mt-2">
+                💡 当前选择：<span className="font-semibold">{selectedFund.name}</span>
+              </p>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {/* PE最小值 */}
               <div>

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { StockData, BondData, StrategyResult } from '../types';
-import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK } from '../constants';
+import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK, ALL_FUNDS, StockConfig } from '../constants';
 import { fetchLixingerData } from '@/lib/api';
 import { setBondData } from '@/lib/backtestData';
 import {
@@ -32,6 +32,7 @@ import { METRIC_CP, METRIC_PE_TTM_MCW } from '@/constants/metrics';
 
 export default function ERPStrategyPage() {
   const [selectedYears, setSelectedYears] = useState(10);
+  const [selectedFund, setSelectedFund] = useState<StockConfig>(CSI300_FUND_STOCK);
   
   // 编辑中的参数（UI绑定）
   const [editingParams, setEditingParams] = useState<ERPStrategyParams>({
@@ -46,31 +47,26 @@ export default function ERPStrategyPage() {
   // 实际应用的参数（用于计算）
   const [appliedParams, setAppliedParams] = useState<ERPStrategyParams>(editingParams);
 
-  // 应用参数
-  const handleApplyParams = () => {
-    setAppliedParams({...editingParams});
-  };
-
   // 使用自定义Hook获取和计算数据
   const { data, result, loading, error, refetch } = useBacktestData<{
     aStockData: StockData[];
-    csi300Data: StockData[];
+    fundData: StockData[];
     csi300IndexData: StockData[];
     bondData: BondData[];
   }, StrategyResult>({
     fetchData: useCallback(async () => {
       // 并行获取四个数据源，API 会根据 codeTypeMap 自动选择指标
-      const [aStockData, csi300Data, csi300IndexData, bondData] = await Promise.all([
+      const [aStockData, fundData, csi300IndexData, bondData] = await Promise.all([
         // A股全指数据（用于获取PE）
         fetchLixingerData({
           stockCodes: [A_STOCK_ALL_STOCK.code],
           codeTypeMap: { [A_STOCK_ALL_STOCK.code]: 'index' },
           years: selectedYears,
         }),
-        // 沪深300基金数据（用于买入基金）
+        // 选中的基金数据（用于买入基金）
         fetchLixingerData({
-          stockCodes: [CSI300_FUND_STOCK.code],
-          codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
+          stockCodes: [selectedFund.code],
+          codeTypeMap: { [selectedFund.code]: 'fund' },
           years: selectedYears,
         }),
         // 沪深300指数数据（用于图表对比）
@@ -88,30 +84,35 @@ export default function ERPStrategyPage() {
 
       return {
         aStockData: aStockData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
-        csi300Data: csi300Data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+        fundData: fundData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         csi300IndexData: csi300IndexData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         bondData: bondData as BondData[],
       };
-    }, [selectedYears]),
+    }, [selectedYears, selectedFund]),
     calculateResult: useCallback((data: {
       aStockData: StockData[];
-      csi300Data: StockData[];
+      fundData: StockData[];
       csi300IndexData: StockData[];
       bondData: BondData[];
     }) => {
-      if (data.aStockData.length === 0 || data.csi300Data.length === 0 || data.bondData.length === 0) {
+      if (data.aStockData.length === 0 || data.fundData.length === 0 || data.bondData.length === 0) {
         throw new Error('没有可用数据');
       }
       
       // 设置全局 bondData
       setBondData(data.bondData);
       
-      // 只使用策略所需的数据计算，csi300IndexData仅用于图表展示
-      // bondData 不再需要传递，计算函数会从全局获取
-      return calculateERPStrategy(data.aStockData, data.csi300Data, data.bondData, INITIAL_CAPITAL, appliedParams);
+      // 使用选中的基金数据计算，csi300IndexData仅用于图表展示
+      return calculateERPStrategy(data.aStockData, data.fundData, data.bondData, INITIAL_CAPITAL, appliedParams);
     }, [appliedParams]),
-    dependencies: [selectedYears, appliedParams],
+    dependencies: [selectedYears, appliedParams, selectedFund],
   });
+
+  // 应用参数并查询
+  const handleApplyParams = () => {
+    setAppliedParams({...editingParams});
+    refetch();
+  };
 
   // 计算ERP数据用于图表
   const erpData = data ? calculateERPData(data.aStockData, data.bondData) : [];
@@ -151,6 +152,31 @@ export default function ERPStrategyPage() {
           {/* 策略参数配置 */}
           <div className="mb-6 p-6 bg-white rounded-lg shadow-lg">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">策略参数配置</h3>
+            
+            {/* 基金选择 */}
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                选择投资标的（基金）
+              </label>
+              <select
+                value={selectedFund.code}
+                onChange={(e) => {
+                  const fund = ALL_FUNDS.find(f => f.code === e.target.value);
+                  if (fund) setSelectedFund(fund);
+                }}
+                className="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              >
+                {ALL_FUNDS.map((fund) => (
+                  <option key={fund.code} value={fund.code}>
+                    {fund.name} ({fund.code})
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-600 mt-2">
+                💡 当前选择：<span className="font-semibold">{selectedFund.name}</span>
+              </p>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {/* ERP最小值 */}
               <div>

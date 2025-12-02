@@ -3,7 +3,9 @@ import {
   CSI300_FUND_STOCK,
   A_STOCK_ALL_STOCK,
   NATIONAL_DEBT_STOCK,
+  ALL_FUNDS,
 } from '@/constants/stocks';
+import type { StockConfig } from '@/constants/stocks';
 
 // 重新导出配置对象供其他模块使用
 export { 
@@ -11,7 +13,9 @@ export {
   CSI300_FUND_STOCK,
   A_STOCK_ALL_STOCK,
   NATIONAL_DEBT_STOCK,
+  ALL_FUNDS,
 };
+export type { StockConfig };
 
 // ============================================
 // 策略参数常量

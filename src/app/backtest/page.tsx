@@ -31,8 +31,8 @@ export default function BacktestOverviewPage() {
     },
     {
       id: 'dca-csi300',
-      name: '对照组2：定投沪深300',
-      description: '通过4年48个月定投沪深300指数基金',
+      name: '定投策略',
+      description: '选择基金标的进行定投，通过48个月分批买入，平滑成本',
       path: '/backtest/dca-csi300',
       color: 'purple',
       icon: '📈',
@@ -94,9 +94,9 @@ export default function BacktestOverviewPage() {
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-2 text-purple-600">📈 被动对照</h3>
+                <h3 className="font-semibold text-lg mb-2 text-purple-600">📈 定投策略</h3>
                 <p className="text-sm">
-                  定投沪深300策略代表被动投资理念，通过定期定额投资分散风险，跟随市场长期成长。
+                  定投策略代表被动投资理念，通过定期定额投资分散风险，可选择不同标的进行定投测试。
                 </p>
               </div>
             </div>

@@ -36,7 +36,7 @@ const menuItems: MenuItem[] = [
         path: '/backtest/cash-bond',
       },
       {
-        label: '定投沪深300',
+        label: '定投策略',
         path: '/backtest/dca-csi300',
       },
       {

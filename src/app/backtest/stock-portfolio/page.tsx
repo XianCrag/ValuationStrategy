@@ -36,22 +36,25 @@ export default function StockPortfolioPage() {
     return grouped;
   }, []);
 
-  // 生成默认选择：每个行业的前4个股票，默认5%仓位
+  // 生成默认选择：每个行业的前4个股票，默认权重为1
   const generateDefaultPositions = useCallback(() => {
     const defaultMap = new Map<string, number>();
     Object.values(stocksByIndustry).forEach(stocks => {
       // 选择每个行业的前4个股票
       stocks.slice(0, 4).forEach(stock => {
-        defaultMap.set(stock.code, 0.05); // 默认5%仓位
+        defaultMap.set(stock.code, 1); // 默认权重为1
       });
     });
     return defaultMap;
   }, [stocksByIndustry]);
 
-  // 使用 Map 存储每个股票的配置
-  const [stockPositions, setStockPositions] = useState<Map<string, number>>(() => 
+  // 使用 Map 存储每个股票的权重（而不是直接的仓位比例）
+  const [stockWeights, setStockWeights] = useState<Map<string, number>>(() => 
     generateDefaultPositions()
   );
+  
+  // 股票/现金比例设置
+  const [stockRatio, setStockRatio] = useState(0.7); // 默认70%股票，30%现金
   
   // 是否启用再平衡
   const [enableRebalance, setEnableRebalance] = useState(true);
@@ -62,23 +65,36 @@ export default function StockPortfolioPage() {
   // 实际应用的参数
   const [appliedRebalanceMonths, setAppliedRebalanceMonths] = useState(6);
   const [appliedEnableRebalance, setAppliedEnableRebalance] = useState(true);
+  const [appliedStockRatio, setAppliedStockRatio] = useState(0.7);
 
-  // 计算总仓位
-  const totalPosition = useMemo(() => {
+  // 计算总权重
+  const totalWeight = useMemo(() => {
     let sum = 0;
-    stockPositions.forEach(ratio => {
-      sum += ratio;
+    stockWeights.forEach(weight => {
+      sum += weight;
     });
     return sum;
-  }, [stockPositions]);
+  }, [stockWeights]);
+
+  // 根据权重和股票比例计算实际仓位
+  const stockPositions = useMemo(() => {
+    const positions = new Map<string, number>();
+    if (totalWeight > 0) {
+      stockWeights.forEach((weight, code) => {
+        // 实际仓位 = (权重 / 总权重) * 股票比例
+        positions.set(code, (weight / totalWeight) * appliedStockRatio);
+      });
+    }
+    return positions;
+  }, [stockWeights, totalWeight, appliedStockRatio]);
 
   // 现金比例
-  const cashRatio = Math.max(0, 1 - totalPosition);
+  const cashRatio = 1 - appliedStockRatio;
 
   // 获取选中的股票列表
   const selectedStocks = useMemo(() => {
-    return Array.from(stockPositions.keys());
-  }, [stockPositions]);
+    return Array.from(stockWeights.keys());
+  }, [stockWeights]);
 
   // 使用自定义Hook获取和计算数据（禁用自动获取）
   const { data: stockDataMap, result, loading, error, refetch } = useBacktestData<
@@ -182,22 +198,22 @@ export default function StockPortfolioPage() {
 
   // 处理股票添加/移除
   const handleStockToggle = (code: string) => {
-    setStockPositions((prev) => {
+    setStockWeights((prev) => {
       const newMap = new Map(prev);
       if (newMap.has(code)) {
         newMap.delete(code);
       } else {
-        newMap.set(code, 0.05); // 默认5%仓位
+        newMap.set(code, 1); // 默认权重为1
       }
       return newMap;
     });
   };
 
-  // 处理仓位调整
-  const handlePositionChange = (code: string, value: number) => {
-    setStockPositions((prev) => {
+  // 处理权重调整
+  const handleWeightChange = (code: string, value: number) => {
+    setStockWeights((prev) => {
       const newMap = new Map(prev);
-      newMap.set(code, value / 100); // 转换为小数
+      newMap.set(code, value);
       return newMap;
     });
   };
@@ -205,19 +221,19 @@ export default function StockPortfolioPage() {
   // 选择/取消选择某个行业的所有股票
   const handleIndustryToggle = (industry: string) => {
     const industryCodes = stocksByIndustry[industry].map(s => s.code);
-    const allSelected = industryCodes.every(code => stockPositions.has(code));
+    const allSelected = industryCodes.every(code => stockWeights.has(code));
     
-    setStockPositions((prev) => {
+    setStockWeights((prev) => {
       const newMap = new Map(prev);
       
       if (allSelected) {
         // 取消选择该行业的所有股票
         industryCodes.forEach(code => newMap.delete(code));
       } else {
-        // 选择该行业的所有股票（默认5%仓位）
+        // 选择该行业的所有股票（默认权重为1）
         industryCodes.forEach(code => {
           if (!newMap.has(code)) {
-            newMap.set(code, 0.05);
+            newMap.set(code, 1);
           }
         });
       }
@@ -238,7 +254,7 @@ export default function StockPortfolioPage() {
         <div className="max-w-7xl mx-auto">
           <PageHeader
             title="个股组合回测策略"
-            description="为每只股票单独设置目标仓位，支持定期再平衡至目标仓位"
+            description="设置股票/现金比例，通过权重分配股票组合，支持定期再平衡"
             selectedYears={selectedYears}
             onYearsChange={setSelectedYears}
           />
@@ -247,35 +263,34 @@ export default function StockPortfolioPage() {
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h3 className="text-lg font-semibold mb-4">策略配置</h3>
             
-            {/* 仓位总览 */}
+            {/* 股票/现金比例设置 */}
             <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">仓位总览</span>
-                <span className={`text-lg font-bold ${totalPosition > 1 ? 'text-red-600' : 'text-gray-900'}`}>
-                  {(totalPosition * 100).toFixed(1)}% / 100%
-                </span>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-medium text-gray-700">股票/现金比例设置</span>
+                <div className="text-lg font-bold text-gray-900">
+                  股票 {(stockRatio * 100).toFixed(0)}% • 现金 {((1 - stockRatio) * 100).toFixed(0)}%
+                </div>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value={stockRatio * 100}
+                onChange={(e) => setStockRatio(Number(e.target.value) / 100)}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              />
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>0% 股票</span>
+                <span>50% 股票</span>
+                <span>100% 股票</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3 mt-3">
                 <div
-                  className={`h-3 rounded-full transition-all ${
-                    totalPosition > 1 ? 'bg-red-500' : 'bg-blue-500'
-                  }`}
-                  style={{ width: `${Math.min(totalPosition * 100, 100)}%` }}
+                  className="h-3 rounded-full bg-blue-500 transition-all"
+                  style={{ width: `${stockRatio * 100}%` }}
                 />
               </div>
-              <div className="flex justify-between mt-2 text-sm">
-                <span className="text-blue-600 font-medium">
-                  股票: {(totalPosition * 100).toFixed(1)}%
-                </span>
-                <span className="text-green-600 font-medium">
-                  现金: {(cashRatio * 100).toFixed(1)}%
-                </span>
-              </div>
-              {totalPosition > 1 && (
-                <div className="mt-2 text-sm text-red-600 font-medium">
-                  ⚠️ 仓位总和超过100%，请调整！
-                </div>
-              )}
             </div>
 
             {/* 再平衡配置 */}
@@ -317,10 +332,10 @@ export default function StockPortfolioPage() {
               )}
             </div>
 
-            {/* 股票选择与仓位配置（整合） */}
+            {/* 股票选择与权重配置（整合） */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                股票选择与仓位配置 ({selectedStocks.length} 只已选)
+                股票选择与权重配置 ({selectedStocks.length} 只已选 • 总权重: {totalWeight.toFixed(1)})
               </label>
               <div className="space-y-4">
                 {Object.entries(stocksByIndustry).map(([industry, stocks]) => (
@@ -331,13 +346,16 @@ export default function StockPortfolioPage() {
                         onClick={() => handleIndustryToggle(industry)}
                         className="text-sm text-blue-600 hover:text-blue-800 font-medium"
                       >
-                        {stocks.every(s => stockPositions.has(s.code)) ? '取消全选' : '全选'}
+                        {stocks.every(s => stockWeights.has(s.code)) ? '取消全选' : '全选'}
                       </button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                       {stocks.map((stock) => {
-                        const isSelected = stockPositions.has(stock.code);
-                        const position = (stockPositions.get(stock.code) || 5) * 100;
+                        const isSelected = stockWeights.has(stock.code);
+                        const weight = stockWeights.get(stock.code) || 1;
+                        const actualPosition = isSelected && totalWeight > 0 
+                          ? ((weight / totalWeight) * appliedStockRatio * 100).toFixed(1)
+                          : '0.0';
                         
                         return (
                           <div
@@ -370,25 +388,28 @@ export default function StockPortfolioPage() {
                             {isSelected && (
                               <div className="mt-3 pt-3 border-t border-blue-200">
                                 <div className="flex items-center justify-between mb-1">
-                                  <span className="text-xs text-gray-600">仓位</span>
+                                  <span className="text-xs text-gray-600">权重</span>
                                   <span className="text-sm font-bold text-blue-600">
-                                    {position.toFixed(1)}%
+                                    {weight.toFixed(1)}
                                   </span>
                                 </div>
                                 <input
                                   type="range"
-                                  min="0"
-                                  max="100"
-                                  step="1"
-                                  value={position}
-                                  onChange={(e) => handlePositionChange(stock.code, Number(e.target.value))}
+                                  min="0.1"
+                                  max="10"
+                                  step="0.1"
+                                  value={weight}
+                                  onChange={(e) => handleWeightChange(stock.code, Number(e.target.value))}
                                   className="w-full h-1.5 bg-blue-200 rounded-lg appearance-none cursor-pointer"
                                   onClick={(e) => e.stopPropagation()}
                                 />
                                 <div className="flex justify-between text-xs text-gray-400 mt-0.5">
-                                  <span>0%</span>
-                                  <span>50%</span>
-                                  <span>100%</span>
+                                  <span>0.1</span>
+                                  <span>5</span>
+                                  <span>10</span>
+                                </div>
+                                <div className="mt-2 text-xs text-gray-500">
+                                  实际仓位: <span className="font-medium text-gray-700">{actualPosition}%</span>
                                 </div>
                               </div>
                             )}
@@ -407,6 +428,7 @@ export default function StockPortfolioPage() {
                 onClick={() => {
                   setAppliedRebalanceMonths(editingRebalanceMonths);
                   setAppliedEnableRebalance(enableRebalance);
+                  setAppliedStockRatio(stockRatio);
                   // 手动触发数据获取和计算
                   refetch();
                 }}
@@ -464,7 +486,8 @@ export default function StockPortfolioPage() {
                 )}
                 legendContent={
                   <div className="mt-4 text-sm text-gray-600">
-                    <p>• <span className="text-blue-600 font-semibold">蓝线</span>：组合总价值（股票 {(totalPosition * 100).toFixed(1)}% + 现金 {(cashRatio * 100).toFixed(1)}%）</p>
+                    <p>• <span className="text-blue-600 font-semibold">蓝线</span>：组合总价值（股票 {(appliedStockRatio * 100).toFixed(0)}% + 现金 {(cashRatio * 100).toFixed(0)}%）</p>
+                    <p className="mt-1">• 所有股票按权重分配在股票组合中的占比</p>
                     {appliedEnableRebalance ? (
                       <p className="mt-1">• 每 {appliedRebalanceMonths} 个月自动再平衡至目标仓位</p>
                     ) : (

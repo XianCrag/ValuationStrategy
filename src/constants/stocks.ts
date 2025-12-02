@@ -27,6 +27,51 @@ export const CSI300_FUND_STOCK: StockConfig = {
   type: 'fund',
 };
 
+// 上证50基金
+export const SSE50_FUND_STOCK: StockConfig = {
+  code: '110003',
+  name: '上证50ETF基金',
+  type: 'fund',
+};
+
+// 中证500基金
+export const CSI500_FUND_STOCK: StockConfig = {
+  code: '510500',
+  name: '中证500ETF基金',
+  type: 'fund',
+};
+
+// 创业板ETF基金
+export const GEM_FUND_STOCK: StockConfig = {
+  code: '159915',
+  name: '创业板ETF基金',
+  type: 'fund',
+};
+
+// 科创50ETF基金
+export const STAR50_FUND_STOCK: StockConfig = {
+  code: '588000',
+  name: '科创50ETF基金',
+  type: 'fund',
+};
+
+// 红利ETF基金
+export const DIVIDEND_FUND_STOCK: StockConfig = {
+  code: '510880',
+  name: '红利ETF基金',
+  type: 'fund',
+};
+
+// 所有基金列表
+export const ALL_FUNDS: StockConfig[] = [
+  CSI300_FUND_STOCK,
+  SSE50_FUND_STOCK,
+  CSI500_FUND_STOCK,
+  GEM_FUND_STOCK,
+  STAR50_FUND_STOCK,
+  DIVIDEND_FUND_STOCK,
+];
+
 // A股全指
 export const A_STOCK_ALL_STOCK: StockConfig = {
   code: '1000002',
