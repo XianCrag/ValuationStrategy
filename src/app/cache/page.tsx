@@ -106,6 +106,61 @@ export default function CachePage() {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   };
 
+  // 解析并格式化缓存键
+  const formatCacheKey = (key: string) => {
+    try {
+      const parsed = JSON.parse(key);
+      
+      // 单个 code 缓存格式
+      if (parsed.code && parsed.type) {
+        const typeMap: Record<string, string> = {
+          'stock': '股票',
+          'index': '指数',
+          'fund': '基金',
+          'candlestick': 'K线',
+          'debt': '国债',
+        };
+        
+        return (
+          <div>
+            <div className="font-semibold text-gray-900">
+              {typeMap[parsed.type] || parsed.type} - {parsed.code}
+            </div>
+            <div className="text-xs text-gray-500 mt-1">
+              {parsed.years} 年数据
+            </div>
+          </div>
+        );
+      }
+      
+      // 其他格式（如国债数据）
+      if (parsed.nationalDebtCodes) {
+        return (
+          <div>
+            <div className="font-semibold text-gray-900">国债数据</div>
+            <div className="text-xs text-gray-500 mt-1">
+              {parsed.nationalDebtCodes.join(', ')} • {parsed.years} 年
+            </div>
+          </div>
+        );
+      }
+      
+      // 默认显示原始键（截断）
+      return (
+        <div className="font-mono text-xs text-gray-600">
+          {key.substring(0, 60)}...
+        </div>
+      );
+    } catch {
+      // 解析失败，显示原始键
+      return (
+        <div className="font-mono text-xs text-gray-600">
+          {key.substring(0, 60)}...
+        </div>
+      );
+    }
+  };
+
   return (
     <StrategyLayout>
       <div className="py-8 px-6">
@@ -204,8 +259,8 @@ export default function CachePage() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {stats.entries.map((entry, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm text-gray-900 font-mono">
-                          {entry.key}...
+                        <td className="px-6 py-4 text-sm">
+                          {formatCacheKey(entry.key)}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-500">
                           {new Date(entry.timestamp).toLocaleString('zh-CN')}
@@ -237,6 +292,8 @@ export default function CachePage() {
             <ul className="text-sm text-gray-700 space-y-1">
               <li>• 缓存自动在每天 23:59:59 过期，次日自动清除</li>
               <li>• 系统每小时自动清理一次过期缓存</li>
+              <li>• <strong>单个股票独立缓存</strong>：每只股票/指数单独缓存，提高缓存复用率</li>
+              <li>• <strong>并发控制</strong>：最多5个并发请求，兼顾性能与稳定性</li>
               <li>• 相同参数的 API 请求会命中缓存，大幅提升响应速度</li>
               <li>• 可以手动清除缓存以获取最新数据</li>
             </ul>

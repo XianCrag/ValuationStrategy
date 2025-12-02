@@ -7,6 +7,8 @@ interface UseBacktestDataOptions<TData, TResult> {
   calculateResult: (data: TData) => TResult;
   /** 依赖项数组，当这些值变化时重新获取数据 */
   dependencies: any[];
+  /** 是否自动获取数据，默认为 true */
+  autoFetch?: boolean;
 }
 
 interface UseBacktestDataReturn<TData, TResult> {
@@ -30,6 +32,7 @@ export function useBacktestData<TData, TResult>({
   fetchData,
   calculateResult,
   dependencies,
+  autoFetch = true,
 }: UseBacktestDataOptions<TData, TResult>): UseBacktestDataReturn<TData, TResult> {
   const [data, setData] = useState<TData | null>(null);
   const [result, setResult] = useState<TResult | null>(null);
@@ -56,9 +59,11 @@ export function useBacktestData<TData, TResult>({
     }
   }, [fetchData, calculateResult]);
 
-  // 当依赖项变化时自动获取数据
+  // 当依赖项变化时自动获取数据（如果启用了自动获取）
   useEffect(() => {
-    fetch();
+    if (autoFetch) {
+      fetch();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 
@@ -70,4 +75,3 @@ export function useBacktestData<TData, TResult>({
     refetch: fetch,
   };
 }
-

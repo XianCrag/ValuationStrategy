@@ -80,7 +80,7 @@ export default function StockPortfolioPage() {
     return Array.from(stockPositions.keys());
   }, [stockPositions]);
 
-  // 使用自定义Hook获取和计算数据
+  // 使用自定义Hook获取和计算数据（禁用自动获取）
   const { data: stockDataMap, result, loading, error, refetch } = useBacktestData<
     Record<string, StockData[]>,
     ControlGroupResult
@@ -161,6 +161,7 @@ export default function StockPortfolioPage() {
       [stockPositions, appliedRebalanceMonths, appliedEnableRebalance]
     ),
     dependencies: [stockPositions, selectedYears, appliedRebalanceMonths, appliedEnableRebalance],
+    autoFetch: false, // 禁用自动获取，改为手动触发
   });
 
   // 准备图表数据
@@ -406,6 +407,8 @@ export default function StockPortfolioPage() {
                 onClick={() => {
                   setAppliedRebalanceMonths(editingRebalanceMonths);
                   setAppliedEnableRebalance(enableRebalance);
+                  // 手动触发数据获取和计算
+                  refetch();
                 }}
                 disabled={loading || selectedStocks.length === 0}
                 className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"

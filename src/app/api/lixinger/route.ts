@@ -4,7 +4,6 @@ import {
   getIndexFundamentalData, 
   getNationalDebtData, 
   getFundData,
-  getBatchCandlestickData,
   getDateRangeForYears, 
   LixingerNonFinancialData, 
   LixingerInterestRatesData,
@@ -54,6 +53,37 @@ function mergeStockDataWithCandlestick(
     
     return item;
   });
+}
+
+/**
+ * 并发控制函数 - 限制同时并发数
+ * @param tasks 任务数组
+ * @param concurrency 最大并发数，默认5
+ * @returns 所有任务的结果数组
+ */
+async function runWithConcurrencyLimit<T>(
+  tasks: (() => Promise<T>)[],
+  concurrency: number = 5
+): Promise<T[]> {
+  const results: T[] = [];
+  let currentIndex = 0;
+
+  // 创建 worker 函数
+  const worker = async () => {
+    while (currentIndex < tasks.length) {
+      const index = currentIndex++;
+      const task = tasks[index];
+      results[index] = await task();
+    }
+  };
+
+  // 创建并发 worker 池
+  const workers = Array(Math.min(concurrency, tasks.length))
+    .fill(null)
+    .map(() => worker());
+
+  await Promise.all(workers);
+  return results;
 }
 
 /**
@@ -171,7 +201,10 @@ async function fetchWithSingleCodeCache(
   
   console.log(`🔍 检查 ${codes.length} 个 ${type} 的缓存 (${years}年)`);
   
-  // 对每个 code 单独检查缓存
+  // 首先检查所有缓存，分离命中和未命中的代码
+  const cachedCodes: string[] = [];
+  const uncachedCodes: string[] = [];
+  
   for (const code of codes) {
     const cacheKey = generateSingleCodeCacheKey(code, years, type);
     const cachedData = dailyCache.get<(LixingerNonFinancialData | LixingerFundData)[]>(cacheKey);
@@ -180,7 +213,18 @@ async function fetchWithSingleCodeCache(
       console.log(`  ✅ 缓存命中: ${code} (${cachedData.length} 条)`);
       allData.push(...cachedData);
       cacheHits++;
+      cachedCodes.push(code);
     } else {
+      uncachedCodes.push(code);
+    }
+  }
+  
+  // 如果有未命中缓存的代码，使用并发控制获取数据
+  if (uncachedCodes.length > 0) {
+    console.log(`  📡 使用并发控制(最多5个)获取 ${uncachedCodes.length} 个代码的数据`);
+    
+    // 创建任务数组
+    const tasks = uncachedCodes.map(code => async () => {
       console.log(`  ❌ 缓存未命中，请求 API: ${code}`);
       
       // 获取数据
@@ -208,15 +252,105 @@ async function fetchWithSingleCodeCache(
       }
       
       // 缓存单个 code 的数据
+      const cacheKey = generateSingleCodeCacheKey(code, years, type);
       dailyCache.set(cacheKey, codeData);
       console.log(`  💾 已缓存: ${code} (${codeData.length} 条)`);
       
+      return codeData;
+    });
+    
+    // 使用并发控制执行任务（最多5个并发）
+    const results = await runWithConcurrencyLimit(tasks, 5);
+    
+    // 合并结果
+    results.forEach(codeData => {
       allData.push(...codeData);
-      cacheMisses++;
-    }
+    });
+    
+    cacheMisses = uncachedCodes.length;
   }
   
   return { data: allData, cacheHits, cacheMisses };
+}
+
+/**
+ * 使用单个 code 级别缓存获取K线数据
+ * 
+ * @param codes 股票代码列表
+ * @param years 查询年限
+ * @param startDate 起始日期
+ * @param endDate 结束日期
+ * @returns K线数据 Map 和缓存统计
+ */
+async function fetchCandlestickWithCache(
+  codes: string[],
+  years: number,
+  startDate: string,
+  endDate: string
+): Promise<{
+  data: Map<string, CandlestickData[]>;
+  cacheHits: number;
+  cacheMisses: number;
+}> {
+  const candlestickMap = new Map<string, CandlestickData[]>();
+  let cacheHits = 0;
+  let cacheMisses = 0;
+
+  console.log(`🔍 检查 ${codes.length} 个股票的K线数据缓存 (${years}年)`);
+
+  // 首先检查所有缓存，分离命中和未命中的代码
+  const uncachedCodes: string[] = [];
+
+  for (const code of codes) {
+    const cacheKey = generateSingleCodeCacheKey(code, years, 'candlestick' as any);
+    const cachedData = dailyCache.get<CandlestickData[]>(cacheKey);
+
+    if (cachedData) {
+      console.log(`  ✅ K线缓存命中: ${code} (${cachedData.length} 条)`);
+      candlestickMap.set(code, cachedData);
+      cacheHits++;
+    } else {
+      uncachedCodes.push(code);
+    }
+  }
+
+  // 如果有未命中缓存的代码，使用并发控制获取K线数据
+  if (uncachedCodes.length > 0) {
+    console.log(`  📡 使用并发控制(最多5个)获取 ${uncachedCodes.length} 个股票的K线数据`);
+
+    // 创建任务数组
+    const tasks = uncachedCodes.map(code => async () => {
+      console.log(`  ❌ K线缓存未命中，请求 API: ${code}`);
+
+      try {
+        const { getCandlestickData } = await import('@/lib/lixinger/candlestick');
+        const data = await getCandlestickData(code, startDate, endDate);
+
+        // 缓存单个 code 的K线数据
+        const cacheKey = generateSingleCodeCacheKey(code, years, 'candlestick' as any);
+        dailyCache.set(cacheKey, data);
+        console.log(`  💾 已缓存K线数据: ${code} (${data.length} 条)`);
+
+        return { code, data, success: true };
+      } catch (error) {
+        console.error(`  ✗ 获取K线数据失败: ${code}`, error);
+        return { code, data: [] as CandlestickData[], success: false };
+      }
+    });
+
+    // 使用并发控制执行任务（最多5个并发）
+    const results = await runWithConcurrencyLimit(tasks, 5);
+
+    // 处理结果
+    results.forEach(result => {
+      candlestickMap.set(result.code, result.data);
+      if (result.success) {
+        cacheMisses++;
+      }
+    });
+  }
+
+  return { data: candlestickMap, cacheHits, cacheMisses };
 }
 
 /**
@@ -455,20 +589,25 @@ export async function POST(request: NextRequest) {
           MAX_YEARS_PER_REQUEST
         );
         
-        // 获取股票的K线数据（前复权价格）
+        // 获取股票的K线数据（前复权价格）- 使用缓存
         console.log(`📈 获取股票K线数据（前复权）: ${stockCodeList.join(',')}`);
-        const candlestickData = await getBatchCandlestickData(stockCodeList, startDate, endDate);
-        console.log(`  ✓ K线数据获取成功: ${Array.from(candlestickData.values()).reduce((sum, arr) => sum + arr.length, 0)} 条`);
+        const candlestickResults = await fetchCandlestickWithCache(
+          stockCodeList,
+          years,
+          startDate,
+          endDate
+        );
+        console.log(`  ✓ K线数据获取成功: ${Array.from(candlestickResults.data.values()).reduce((sum, arr) => sum + arr.length, 0)} 条`);
         
         // 合并股票数据和K线数据
         const mergedStockData = mergeStockDataWithCandlestick(
           stockResults.data as LixingerNonFinancialData[],
-          candlestickData
+          candlestickResults.data
         );
         
         data = [...data, ...mergedStockData];
-        cacheHits += stockResults.cacheHits;
-        cacheMisses += stockResults.cacheMisses;
+        cacheHits += stockResults.cacheHits + candlestickResults.cacheHits;
+        cacheMisses += stockResults.cacheMisses + candlestickResults.cacheMisses;
       }
       
       // 获取指数数据（单个 code 缓存）

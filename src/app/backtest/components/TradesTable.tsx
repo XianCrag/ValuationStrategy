@@ -21,6 +21,61 @@ function isRebalanceTrade(trade: TradePoint | RebalanceTrade): trade is Rebalanc
 }
 
 /**
+ * 统计每只股票的买卖总和
+ */
+interface StockTradeSummary {
+  code: string;
+  name: string;
+  totalBuy: number;  // 总买入金额
+  totalSell: number; // 总卖出金额
+  netChange: number; // 净变化（买入-卖出）
+}
+
+function calculateTradeSummary(
+  trades: (TradePoint | RebalanceTrade)[],
+  getStockName?: (code: string) => string
+): StockTradeSummary[] {
+  const summaryMap = new Map<string, { totalBuy: number; totalSell: number }>();
+
+  trades.forEach(trade => {
+    if (isRebalanceTrade(trade)) {
+      // 再平衡交易：对比每只股票的变化
+      trade.stockPositions.forEach(pos => {
+        const prevPos = trade.prevStockPositions?.find(p => p.code === pos.code);
+        const prevValue = prevPos?.value ?? 0;
+        const change = pos.value - prevValue;
+
+        if (!summaryMap.has(pos.code)) {
+          summaryMap.set(pos.code, { totalBuy: 0, totalSell: 0 });
+        }
+
+        const summary = summaryMap.get(pos.code)!;
+        if (change > 0) {
+          summary.totalBuy += change;
+        } else if (change < 0) {
+          summary.totalSell += Math.abs(change);
+        }
+      });
+    }
+  });
+
+  // 转换为数组并排序
+  const summaryArray: StockTradeSummary[] = Array.from(summaryMap.entries()).map(
+    ([code, { totalBuy, totalSell }]) => ({
+      code,
+      name: getStockName ? getStockName(code) : code,
+      totalBuy,
+      totalSell,
+      netChange: totalBuy - totalSell,
+    })
+  );
+
+  // 按净变化从小到大排序（负数在前，正数在后）
+  // 负数 = 卖出多（上涨股票），正数 = 买入多（下跌股票）
+  return summaryArray.sort((a, b) => a.netChange - b.netChange);
+}
+
+/**
  * 通用交易记录表格组件
  * 自动识别交易类型并渲染相应的内容
  * 支持多策略动态列展示
@@ -34,9 +89,13 @@ export default function TradesTable({ trades, getStockName }: TradesTableProps) 
   const hasStrategyTrade = trades.some(t => isTradePoint(t));
   const hasRebalanceTrade = trades.some(t => isRebalanceTrade(t));
 
+  // 计算交易总结
+  const tradeSummary = calculateTradeSummary(trades, getStockName);
+
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-4 py-2 border">日期</th>
@@ -158,6 +217,60 @@ export default function TradesTable({ trades, getStockName }: TradesTableProps) 
           })}
         </tbody>
       </table>
+      </div>
+
+      {/* 交易总结部分 */}
+      {tradeSummary.length > 0 && (
+        <div className="mt-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <h4 className="text-md font-semibold mb-3 text-gray-700">交易总结</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tradeSummary.map((summary) => (
+              <div
+                key={summary.code}
+                className="bg-white rounded-md p-3 border border-gray-200 shadow-sm"
+              >
+                <div className="font-medium text-gray-800 mb-2">{summary.name}</div>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">总买入：</span>
+                    <span className="text-red-600 font-medium">
+                      {formatNumber(summary.totalBuy)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">总卖出：</span>
+                    <span className="text-green-600 font-medium">
+                      {formatNumber(summary.totalSell)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1 border-t border-gray-200">
+                    <span className="text-gray-700 font-medium">净变化：</span>
+                    <span
+                      className={`font-semibold ${
+                        summary.netChange > 0
+                          ? 'text-red-600'
+                          : summary.netChange < 0
+                          ? 'text-green-600'
+                          : 'text-gray-600'
+                      }`}
+                    >
+                      {summary.netChange > 0 ? '+' : ''}
+                      {formatNumber(summary.netChange)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* 说明文字 */}
+          <div className="mt-4 text-xs text-gray-600 bg-blue-50 p-3 rounded border border-blue-200">
+            <span className="font-medium">💡 说明：</span> 
+            净变化 = 总买入 - 总卖出。
+            <span className="text-green-600 font-medium">负数</span>表示该股票上涨较多，通过再平衡卖出了部分仓位；
+            <span className="text-red-600 font-medium">正数</span>表示该股票下跌较多，通过再平衡买入了部分仓位。
+          </div>
+        </div>
+      )}
     </div>
   );
 }
