@@ -35,11 +35,11 @@ export function useIndividualStockData(stockCode: string | null, years: number =
     try {
       console.log(`加载个股数据: ${stockCode}`);
       
+      // API 会根据 codeTypeMap 自动选择个股指标
       const allData = await fetchLixingerData({
         stockCodes: [stockCode],
         codeTypeMap: { [stockCode]: 'stock' },
         years: years,
-        metricsList: ['pe_ttm', 'mc', 'dyr'],
       });
 
       // 过滤出当前股票的数据并排序

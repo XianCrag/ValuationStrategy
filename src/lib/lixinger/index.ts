@@ -16,12 +16,14 @@ export type {
 } from './types';
 
 export type { LixingerFundData } from './fund';
+export type { CandlestickData } from './candlestick';
 
 // 导出 API 函数
 export { getNonFinancialData } from './non-financial';
 export { getIndexFundamentalData } from './index-fundamental';
 export { getNationalDebtData } from './national-debt';
 export { getFundData } from './fund';
+export { getCandlestickData, getBatchCandlestickData } from './candlestick';
 
 // 导出工具函数
 export { getDateRangeForYears, getLixingerToken } from './utils';

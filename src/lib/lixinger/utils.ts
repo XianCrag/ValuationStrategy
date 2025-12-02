@@ -45,3 +45,34 @@ export function getLixingerToken(): string {
   return token;
 }
 
+/**
+ * 通用的 Lixinger API 数据获取函数
+ * @param url API 端点 URL
+ * @param params 请求参数（不包含 token）
+ * @returns API 响应数据
+ */
+export async function fetchLixingerData<T>(
+  url: string,
+  params: Record<string, any>
+): Promise<T> {
+  const token = getLixingerToken();
+  
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token,
+      ...params,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Lixinger API request failed: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+

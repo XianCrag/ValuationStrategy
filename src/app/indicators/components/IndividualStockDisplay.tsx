@@ -83,7 +83,13 @@ export default function IndividualStockDisplay({
       ) : (
         <>
           {/* 数据统计 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-orange-50 p-4 rounded-lg">
+              <h3 className="text-sm font-medium text-orange-900 mb-2">股票价格</h3>
+              <p className="text-2xl font-bold text-orange-600">
+                ¥{stockData[stockData.length - 1]?.sp?.toFixed(2) || 'N/A'}
+              </p>
+            </div>
             <div className="bg-green-50 p-4 rounded-lg">
               <h3 className="text-sm font-medium text-green-900 mb-2">PE TTM</h3>
               <p className="text-2xl font-bold text-green-600">
@@ -106,42 +112,30 @@ export default function IndividualStockDisplay({
             </div>
           </div>
 
-          {/* 合并趋势图 */}
+          {/* 综合指标趋势图：股票价格、PE TTM、股息率 */}
           <ChartContainer
-            data={stockData.map((item) => {
-              // 判断市值是否需要使用万亿单位
-              const rawMarketCapValues = stockData
-                .map(d => d.mc)
-                .filter((val): val is number => val !== null && val !== undefined);
-              const maxMarketCap = rawMarketCapValues.length > 0 ? Math.max(...rawMarketCapValues) : 0;
-              const useTrillion = maxMarketCap >= 1000000000000; // 大于等于1万亿
-              const marketCapDivisor = useTrillion ? 1000000000000 : 100000000;
-              
-              return {
-                date: item.date,
-                dateShort: formatDateShort(item.date),
-                fullDate: formatDate(item.date),
-                peTtm: item.pe_ttm,
-                marketCap: item.mc ? item.mc / marketCapDivisor : null,
-                rawMarketCap: item.mc,
-                dividendYield: item.dyr ? item.dyr * 100 : null, // 转换为百分比
-                useTrillion,
-              };
-            })}
+            data={stockData.map((item) => ({
+              date: item.date,
+              dateShort: formatDateShort(item.date),
+              fullDate: formatDate(item.date),
+              stockPrice: item.sp,
+              peTtm: item.pe_ttm,
+              dividendYield: item.dyr ? item.dyr * 100 : null, // 转换为百分比
+            }))}
             lines={[
+              {
+                dataKey: 'stockPrice',
+                name: '股票价格 (¥)',
+                stroke: '#f97316',
+                strokeWidth: 2,
+                yAxisId: 'right',
+              },
               {
                 dataKey: 'peTtm',
                 name: 'PE TTM',
                 stroke: '#10b981',
                 strokeWidth: 2,
                 yAxisId: 'left',
-              },
-              {
-                dataKey: 'marketCap',
-                name: '总市值',
-                stroke: '#3b82f6',
-                strokeWidth: 2,
-                yAxisId: 'right',
               },
               {
                 dataKey: 'dividendYield',
@@ -161,11 +155,11 @@ export default function IndividualStockDisplay({
               {
                 yAxisId: 'right',
                 orientation: 'right',
-                label: `总市值 (${stockData.length > 0 && stockData[0] && 'useTrillion' in stockData[0] ? '万亿' : '亿'})`,
-                tickFormatter: (value) => value.toFixed(2),
+                label: '股票价格 (¥)',
+                tickFormatter: (value) => `¥${value.toFixed(2)}`,
               },
             ]}
-            title={`${selectedStock?.name || ''} - PE TTM、总市值与股息率趋势`}
+            title={`${selectedStock?.name || ''} - 股票价格、PE TTM 与股息率趋势`}
             xTickFormatter={(value) => {
               const item = stockData.find(d => d.date === value);
               return item ? formatDateShort(item.date) : value;
@@ -182,27 +176,26 @@ export default function IndividualStockDisplay({
                 <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
                   <p className="font-semibold mb-2">日期: {fullDate}</p>
                   {payload.map((item: any, index: number) => {
-                    if (item.dataKey === 'peTtm') {
-                      const numValue = typeof item.value === 'number' ? item.value : null;
+                    const numValue = typeof item.value === 'number' ? item.value : null;
+                    
+                    if (item.dataKey === 'stockPrice') {
                       return (
                         <p key={index} className="text-sm mb-1">
-                          PE TTM: {numValue !== null && !isNaN(numValue) ? numValue.toFixed(2) : 'N/A'}
+                          <span className="text-orange-600 font-medium">股票价格:</span> {numValue !== null && !isNaN(numValue) ? `¥${numValue.toFixed(2)}` : 'N/A'}
                         </p>
                       );
                     }
-                    if (item.dataKey === 'marketCap') {
-                      const rawValue = dataPoint?.rawMarketCap;
+                    if (item.dataKey === 'peTtm') {
                       return (
                         <p key={index} className="text-sm mb-1">
-                          总市值: {rawValue ? formatNumber(rawValue) : 'N/A'}
+                          <span className="text-green-600 font-medium">PE TTM:</span> {numValue !== null && !isNaN(numValue) ? numValue.toFixed(2) : 'N/A'}
                         </p>
                       );
                     }
                     if (item.dataKey === 'dividendYield') {
-                      const numValue = typeof item.value === 'number' ? item.value : null;
                       return (
                         <p key={index} className="text-sm">
-                          股息率: {numValue !== null && !isNaN(numValue) ? `${numValue.toFixed(2)}%` : 'N/A'}
+                          <span className="text-purple-600 font-medium">股息率:</span> {numValue !== null && !isNaN(numValue) ? `${numValue.toFixed(2)}%` : 'N/A'}
                         </p>
                       );
                     }

@@ -30,7 +30,7 @@ export interface LixingerApiParams {
   nationalDebtCodes?: string[];
   /** 查询年限 */
   years: number;
-  /** 指标列表 */
+  /** 指标列表 - 已废弃，保留用于向后兼容，API 会根据 codeTypeMap 自动选择 */
   metricsList?: readonly string[] | string[];
 }
 

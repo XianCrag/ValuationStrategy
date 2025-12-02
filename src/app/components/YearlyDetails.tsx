@@ -3,7 +3,7 @@ import { formatNumber } from '../backtest/utils';
 
 interface YearlyDetailsTableProps {
   yearlyDetails: YearlyDetail[];
-  strategyType: 'cash-bond' | 'dca' | 'strategy';
+  strategyType: 'cash-bond' | 'dca' | 'strategy' | 'portfolio';
   showStockPositions?: boolean; // 是否显示详细持仓
 }
 
@@ -17,8 +17,8 @@ export function YearlyDetailsTable({
   showStockPositions = false 
 }: YearlyDetailsTableProps) {
   // 根据策略类型确定显示的列
-  const showStockData = strategyType === 'dca' || strategyType === 'strategy';
-  const showCashData = strategyType === 'cash-bond' || strategyType === 'dca';
+  const showStockData = strategyType === 'dca' || strategyType === 'strategy' || strategyType === 'portfolio';
+  const showCashData = strategyType === 'cash-bond' || strategyType === 'dca' || strategyType === 'portfolio';
   const showBondData = strategyType === 'strategy';
   const showTradeData = strategyType === 'strategy';
 

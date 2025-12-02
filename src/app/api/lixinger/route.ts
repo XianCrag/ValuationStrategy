@@ -4,24 +4,299 @@ import {
   getIndexFundamentalData, 
   getNationalDebtData, 
   getFundData,
+  getBatchCandlestickData,
   getDateRangeForYears, 
   LixingerNonFinancialData, 
   LixingerInterestRatesData,
-  LixingerFundData 
+  LixingerFundData,
+  CandlestickData 
 } from '@/lib/lixinger';
-import { dailyCache, generateCacheKey } from '@/lib/cache';
+import { dailyCache, generateCacheKey, generateSingleCodeCacheKey } from '@/lib/cache';
+import { 
+  INDEX_FULL_METRICS,
+  FUND_NET_VALUE_METRICS,
+  NATIONAL_DEBT_METRICS,
+  INDIVIDUAL_STOCK_METRICS,
+} from '@/constants/metrics';
+
+/**
+ * 合并股票数据和K线数据
+ * 将K线数据中的收盘价（close）添加到股票数据中作为 sp 字段
+ * 
+ * @param stockData 股票基础数据
+ * @param candlestickData K线数据 Map
+ * @returns 合并后的数据
+ */
+function mergeStockDataWithCandlestick(
+  stockData: LixingerNonFinancialData[],
+  candlestickData: Map<string, CandlestickData[]>
+): LixingerNonFinancialData[] {
+  return stockData.map(item => {
+    const stockCode = item.stockCode;
+    const itemDate = item.date.split('T')[0]; // 提取日期部分
+    
+    // 获取该股票的K线数据
+    const candlesticks = candlestickData.get(stockCode) || [];
+    
+    // 查找匹配日期的K线数据
+    const matchingCandlestick = candlesticks.find(c => {
+      const candleDate = c.date.split('T')[0];
+      return candleDate === itemDate;
+    });
+    
+    // 如果找到匹配的K线数据，使用其收盘价作为 sp
+    if (matchingCandlestick) {
+      return {
+        ...item,
+        sp: matchingCandlestick.close, // 使用前复权收盘价
+      };
+    }
+    
+    return item;
+  });
+}
+
+/**
+ * 格式化日期为 YYYY-MM-DD 格式（使用本地时区，避免 UTC 转换问题）
+ */
+function formatLocalDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * 计算分批请求的日期范围
+ * @param batchIndex 当前批次索引（从0开始）
+ * @param totalBatches 总批次数
+ * @param batchSize 每批次的年数
+ * @param startDateObj 起始日期对象
+ * @param endDateObj 结束日期对象
+ * @param originalStartDate 原始起始日期字符串
+ * @param originalEndDate 原始结束日期字符串
+ * @returns 当前批次的起始和结束日期
+ */
+function calculateBatchDateRange(
+  batchIndex: number,
+  totalBatches: number,
+  batchSize: number,
+  startDateObj: Date,
+  endDateObj: Date,
+  originalStartDate: string,
+  originalEndDate: string
+): { batchStartDate: string; batchEndDate: string } {
+  // 计算当前批次的结束日期（从最新日期往前推）
+  const batchEndDateObj = new Date(endDateObj);
+  batchEndDateObj.setFullYear(batchEndDateObj.getFullYear() - batchIndex * batchSize);
+  const batchEndDate = batchIndex === 0 ? originalEndDate : formatLocalDate(batchEndDateObj);
+  
+  // 计算当前批次的开始日期
+  const batchStartDateObj = new Date(batchEndDateObj);
+  batchStartDateObj.setFullYear(batchStartDateObj.getFullYear() - batchSize);
+  
+  // 对于最后一批，使用原始的 startDate（确保不超出范围）
+  const batchStartDate = batchStartDateObj < startDateObj 
+    ? originalStartDate 
+    : formatLocalDate(batchStartDateObj);
+  
+  return { batchStartDate, batchEndDate };
+}
+
+/**
+ * 根据代码类型自动选择对应的指标列表
+ * 
+ * - stock: 个股指标（股票价格、PE、市值、股息率）
+ * - index: 指数指标（市值加权PE、点位、市值）
+ * - fund: 基金指标（累计净值）
+ */
+function getDefaultMetricsList(type: 'stock' | 'index' | 'fund'): string[] {
+  switch (type) {
+    case 'stock':
+      // 股票需要完整数据：股票价格 + PE + 市值 + 股息率
+      return [...INDIVIDUAL_STOCK_METRICS];
+    case 'index':
+      // 指数需要完整数据：PE + 价格 + 市值
+      return [...INDEX_FULL_METRICS];
+    case 'fund':
+      // 基金净值数据：累计净值（复权）
+      return [...FUND_NET_VALUE_METRICS];
+    default:
+      return [];
+  }
+}
 
 export interface LixingerApiRequest {
+  /** 股票/指数/基金代码列表（如 ['600036', '000300', '510300']） */
   stockCodes?: string[];
-  codeTypeMap?: Record<string, string>; // code 到 type 的映射，type 可以是 'stock', 'index' 或 'fund'
-  nationalDebtCodes?: string[]; // 国债代码列表，如 ['tcm_y10']
+  /** 代码类型映射表，指定每个代码的类型（stock/index/fund） */
+  codeTypeMap?: Record<string, string>;
+  /** 国债指标代码列表（实际上是 metricsList，如 ['tcm_y10']） */
+  nationalDebtCodes?: string[];
+  /** 查询年限（从今天往前推 N 年） */
   years?: number;
+  /** @deprecated 已废弃，现在由 API 根据 codeTypeMap 自动选择指标 */
   metricsList?: string[];
 }
 
 /**
+ * 使用单个 code 级别缓存获取数据
+ * 对每个 code 单独检查缓存并获取，提高缓存复用率
+ * 
+ * @param codes 代码列表
+ * @param years 查询年限
+ * @param type 数据类型
+ * @param startDate 起始日期
+ * @param endDate 结束日期
+ * @param needsBatching 是否需要分批
+ * @param maxYearsPerRequest 每批最大年数
+ * @returns 数据和缓存统计
+ */
+async function fetchWithSingleCodeCache(
+  codes: string[],
+  years: number,
+  type: 'stock' | 'index' | 'fund',
+  startDate: string,
+  endDate: string,
+  needsBatching: boolean,
+  maxYearsPerRequest: number
+): Promise<{
+  data: (LixingerNonFinancialData | LixingerFundData)[];
+  cacheHits: number;
+  cacheMisses: number;
+}> {
+  const allData: (LixingerNonFinancialData | LixingerFundData)[] = [];
+  let cacheHits = 0;
+  let cacheMisses = 0;
+  
+  console.log(`🔍 检查 ${codes.length} 个 ${type} 的缓存 (${years}年)`);
+  
+  // 对每个 code 单独检查缓存
+  for (const code of codes) {
+    const cacheKey = generateSingleCodeCacheKey(code, years, type);
+    const cachedData = dailyCache.get<(LixingerNonFinancialData | LixingerFundData)[]>(cacheKey);
+    
+    if (cachedData) {
+      console.log(`  ✅ 缓存命中: ${code} (${cachedData.length} 条)`);
+      allData.push(...cachedData);
+      cacheHits++;
+    } else {
+      console.log(`  ❌ 缓存未命中，请求 API: ${code}`);
+      
+      // 获取数据
+      let codeData: (LixingerNonFinancialData | LixingerFundData)[];
+      
+      if (needsBatching) {
+        codeData = await fetchDataInBatches(
+          [code],
+          years,
+          maxYearsPerRequest,
+          startDate,
+          endDate,
+          type
+        );
+      } else {
+        const metricsList = getDefaultMetricsList(type);
+        
+        if (type === 'fund') {
+          codeData = await getFundData([code], startDate, endDate);
+        } else if (type === 'stock') {
+          codeData = await getNonFinancialData([code], startDate, endDate, metricsList);
+        } else {
+          codeData = await getIndexFundamentalData([code], startDate, endDate, metricsList);
+        }
+      }
+      
+      // 缓存单个 code 的数据
+      dailyCache.set(cacheKey, codeData);
+      console.log(`  💾 已缓存: ${code} (${codeData.length} 条)`);
+      
+      allData.push(...codeData);
+      cacheMisses++;
+    }
+  }
+  
+  return { data: allData, cacheHits, cacheMisses };
+}
+
+/**
+ * 分批获取国债数据
+ * 
+ * @param codes 国债指标代码列表
+ * @param years 总年数
+ * @param maxYearsPerRequest 每批最大年数
+ * @param startDate 起始日期
+ * @param endDate 结束日期
+ * @returns 合并后的国债数据数组
+ */
+async function fetchDebtDataInBatches(
+  codes: string[],
+  years: number,
+  maxYearsPerRequest: number,
+  startDate: string,
+  endDate: string
+): Promise<LixingerInterestRatesData[]> {
+  const allBatches: LixingerInterestRatesData[] = [];
+  const totalBatches = Math.ceil(years / maxYearsPerRequest);
+  const endDateObj = new Date(endDate);
+  const startDateObj = new Date(startDate);
+  
+  for (let i = 0; i < totalBatches; i++) {
+    const { batchStartDate, batchEndDate } = calculateBatchDateRange(
+      i, totalBatches, maxYearsPerRequest, startDateObj, endDateObj, startDate, endDate
+    );
+    
+    console.log(`[批次 ${i + 1}/${totalBatches}] 国债数据: ${batchStartDate} ~ ${batchEndDate}`);
+    
+    try {
+      const batchData = await getNationalDebtData(batchStartDate, batchEndDate, 'cn', codes);
+      allBatches.push(...batchData);
+      console.log(`  ✓ 获取成功: ${batchData.length} 条数据`);
+      
+      // 避免请求过快，在批次之间稍作延迟
+      if (i < totalBatches - 1) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    } catch (error) {
+      console.error(`  ✗ 获取失败:`, error);
+      // 继续获取其他批次，不中断整个流程
+    }
+  }
+  
+  // 去重并排序（按日期去重，保留最新的）
+  const uniqueDataMap = new Map<string, LixingerInterestRatesData>();
+  allBatches.forEach(item => {
+    const dateKey = item.date.split('T')[0]; // 使用日期作为key去重
+    if (!uniqueDataMap.has(dateKey) || new Date(item.date) > new Date(uniqueDataMap.get(dateKey)!.date)) {
+      uniqueDataMap.set(dateKey, item);
+    }
+  });
+  
+  const uniqueData = Array.from(uniqueDataMap.values())
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  
+  console.log(`✅ 国债数据分批获取完成: 共 ${uniqueData.length} 条`);
+  
+  // 格式化国债数据，添加 stockCode 字段
+  return uniqueData.map(item => ({
+    ...item,
+    stockCode: codes[0],
+  }));
+}
+
+/**
  * 分批获取股票、指数或基金数据
- * 当请求年份超过 MAX_YEARS_PER_REQUEST 时，自动分批请求并合并结果
+ * 
+ * 当请求年份超过 MAX_YEARS_PER_REQUEST（10年）时，自动分批请求并合并结果。
+ * 对于多个股票，会对每个股票单独并发请求，避免 API 限制。
+ * 
+ * @param codes 代码列表
+ * @param years 总年数
+ * @param maxYearsPerRequest 每批最大年数
+ * @param startDate 起始日期
+ * @param endDate 结束日期
+ * @param type 数据类型
+ * @returns 合并后的数据数组
  */
 async function fetchDataInBatches(
   codes: string[],
@@ -29,7 +304,6 @@ async function fetchDataInBatches(
   maxYearsPerRequest: number,
   startDate: string,
   endDate: string,
-  metricsList: string[],
   type: 'stock' | 'index' | 'fund'
 ): Promise<(LixingerNonFinancialData | LixingerFundData)[]> {
   const allBatches: (LixingerNonFinancialData | LixingerFundData)[] = [];
@@ -37,43 +311,75 @@ async function fetchDataInBatches(
   const endDateObj = new Date(endDate);
   const startDateObj = new Date(startDate);
   
-  for (let i = 0; i < totalBatches; i++) {
-    // 计算当前批次的日期范围（从最新日期往前推）
-    const batchEndDateObj = new Date(endDateObj);
-    batchEndDateObj.setFullYear(batchEndDateObj.getFullYear() - i * maxYearsPerRequest);
-    const batchEndDate = i === 0 ? endDate : batchEndDateObj.toISOString().split('T')[0];
+  // 根据类型自动获取默认指标配置
+  const metricsList = getDefaultMetricsList(type);
+  
+  // 对于多个股票，采用并发策略分别请求，提高效率
+  if (codes.length > 1 && type === 'stock') {
+    console.log(`🔄 并发请求 ${codes.length} 个股票，每个分 ${totalBatches} 批`);
     
-    // 计算开始日期
-    const batchStartDateObj = new Date(batchEndDateObj);
-    batchStartDateObj.setFullYear(batchStartDateObj.getFullYear() - maxYearsPerRequest);
-    // 对于最后一批，使用原始的startDate（确保不超出范围）
-    const batchStartDate = batchStartDateObj < startDateObj 
-      ? startDate 
-      : batchStartDateObj.toISOString().split('T')[0];
-    
-    console.log(`${type}数据 - 获取第 ${i + 1}/${totalBatches} 批: ${batchStartDate} 到 ${batchEndDate}`);
-    
-    try {
-      let batchData: (LixingerNonFinancialData | LixingerFundData)[];
+    const codePromises = codes.map(async (code) => {
+      const codeBatches: (LixingerNonFinancialData | LixingerFundData)[] = [];
       
-      if (type === 'fund') {
-        batchData = await getFundData(codes, batchStartDate, batchEndDate);
-      } else if (type === 'stock') {
-        batchData = await getNonFinancialData(codes, batchStartDate, batchEndDate, metricsList);
-      } else {
-        batchData = await getIndexFundamentalData(codes, batchStartDate, batchEndDate, metricsList);
+      for (let i = 0; i < totalBatches; i++) {
+        const { batchStartDate, batchEndDate } = calculateBatchDateRange(
+          i, totalBatches, maxYearsPerRequest, startDateObj, endDateObj, startDate, endDate
+        );
+        
+        console.log(`    [批次 ${i + 1}/${totalBatches}] 股票 ${code}: ${batchStartDate} ~ ${batchEndDate}`);
+        
+        try {
+          const batchData = await getNonFinancialData([code], batchStartDate, batchEndDate, metricsList);
+          codeBatches.push(...batchData);
+          console.log(`      ✓ 获取成功: ${batchData.length} 条数据`);
+          
+          // 避免请求过快，在批次之间稍作延迟
+          if (i < totalBatches - 1) {
+            await new Promise(resolve => setTimeout(resolve, 300));
+          }
+        } catch (error) {
+          console.error(`      ✗ 获取失败:`, error);
+        }
       }
       
-      allBatches.push(...batchData);
-      console.log(`  获取到 ${batchData.length} 条数据`);
+      return codeBatches;
+    });
+    
+    const allCodeBatches = await Promise.all(codePromises);
+    allCodeBatches.forEach(batches => {
+      allBatches.push(...batches);
+    });
+  } else {
+    // 单个代码或非股票类型
+    for (let i = 0; i < totalBatches; i++) {
+      const { batchStartDate, batchEndDate } = calculateBatchDateRange(
+        i, totalBatches, maxYearsPerRequest, startDateObj, endDateObj, startDate, endDate
+      );
       
-      // 避免请求过快，在批次之间稍作延迟
-      if (i < totalBatches - 1) {
-        await new Promise(resolve => setTimeout(resolve, 500));
+      console.log(`[批次 ${i + 1}/${totalBatches}] ${type} 数据: ${batchStartDate} ~ ${batchEndDate}`);
+      
+      try {
+        let batchData: (LixingerNonFinancialData | LixingerFundData)[];
+        
+        if (type === 'fund') {
+          batchData = await getFundData(codes, batchStartDate, batchEndDate);
+        } else if (type === 'stock') {
+          batchData = await getNonFinancialData(codes, batchStartDate, batchEndDate, metricsList);
+        } else {
+          batchData = await getIndexFundamentalData(codes, batchStartDate, batchEndDate, metricsList);
+        }
+        
+        allBatches.push(...batchData);
+        console.log(`  ✓ 获取成功: ${batchData.length} 条数据`);
+        
+        // 避免请求过快，在批次之间稍作延迟
+        if (i < totalBatches - 1) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+      } catch (error) {
+        console.error(`  ✗ 获取失败:`, error);
+        // 继续获取其他批次，不中断整个流程
       }
-    } catch (error) {
-      console.error(`获取第 ${i + 1} 批${type}数据失败:`, error);
-      // 继续获取其他批次，不中断整个流程
     }
   }
   
@@ -89,14 +395,14 @@ async function fetchDataInBatches(
   const uniqueData = Array.from(uniqueDataMap.values())
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   
-  console.log(`${type}数据分批获取完成，共 ${uniqueData.length} 条数据`);
+  console.log(`✅ 分批获取完成 [${type}]: 共 ${uniqueData.length} 条数据`);
   return uniqueData;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: LixingerApiRequest = await request.json();
-    const { stockCodes = [], codeTypeMap = {}, nationalDebtCodes = [], years = 10, metricsList = ['pe_ttm.y10.mcw.cvpos'] } = body;
+    const { stockCodes = [], codeTypeMap = {}, nationalDebtCodes = [], years = 10 } = body;
 
     if (stockCodes.length === 0 && nationalDebtCodes.length === 0) {
       return NextResponse.json(
@@ -105,31 +411,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 生成缓存键
-    const cacheKey = generateCacheKey({
-      stockCodes: [...stockCodes].sort(),
-      codeTypeMap,
-      nationalDebtCodes: [...nationalDebtCodes].sort(),
-      years,
-      metricsList: [...metricsList].sort(),
-    });
-
-    // 尝试从缓存获取数据
-    const cachedResult = dailyCache.get(cacheKey);
-    if (cachedResult) {
-      console.log('✅ 缓存命中:', {
-        stockCodes,
-        nationalDebtCodes,
-        years,
-        cacheKeyPreview: cacheKey.substring(0, 100),
-      });
-      return NextResponse.json({
-        ...cachedResult,
-        fromCache: true, // 标记数据来自缓存
-      });
-    }
-
-    console.log('❌ 缓存未命中，请求 Lixinger API:', {
+    console.log('📡 API 请求:', {
       stockCodes,
       nationalDebtCodes,
       years,
@@ -138,6 +420,8 @@ export async function POST(request: NextRequest) {
     const { startDate, endDate } = getDateRangeForYears(years);
     
     let data: (LixingerNonFinancialData | LixingerInterestRatesData | LixingerFundData)[] = [];
+    let cacheHits = 0;
+    let cacheMisses = 0;
     
     // 如果年份超过10年，需要分批获取所有数据
     const MAX_YEARS_PER_REQUEST = 10;
@@ -159,180 +443,141 @@ export async function POST(request: NextRequest) {
         return type === 'fund';
       });
       
-      // 获取股票数据
+      // 获取股票数据（单个 code 缓存）
       if (stockCodeList.length > 0) {
-        if (needsBatching) {
-          console.log(`股票数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
-          const stockData = await fetchDataInBatches(
-            stockCodeList,
-            years,
-            MAX_YEARS_PER_REQUEST,
-            startDate,
-            endDate,
-            metricsList,
-            'stock'
-          );
-          data = [...data, ...stockData];
-        } else {
-          const stockData = await getNonFinancialData(stockCodeList, startDate, endDate, metricsList);
-          data = [...data, ...stockData];
-        }
+        const stockResults = await fetchWithSingleCodeCache(
+          stockCodeList,
+          years,
+          'stock',
+          startDate,
+          endDate,
+          needsBatching,
+          MAX_YEARS_PER_REQUEST
+        );
+        
+        // 获取股票的K线数据（前复权价格）
+        console.log(`📈 获取股票K线数据（前复权）: ${stockCodeList.join(',')}`);
+        const candlestickData = await getBatchCandlestickData(stockCodeList, startDate, endDate);
+        console.log(`  ✓ K线数据获取成功: ${Array.from(candlestickData.values()).reduce((sum, arr) => sum + arr.length, 0)} 条`);
+        
+        // 合并股票数据和K线数据
+        const mergedStockData = mergeStockDataWithCandlestick(
+          stockResults.data as LixingerNonFinancialData[],
+          candlestickData
+        );
+        
+        data = [...data, ...mergedStockData];
+        cacheHits += stockResults.cacheHits;
+        cacheMisses += stockResults.cacheMisses;
       }
       
-      // 获取指数数据
+      // 获取指数数据（单个 code 缓存）
       if (indexCodeList.length > 0) {
-        if (needsBatching) {
-          console.log(`指数数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
-          const indexData = await fetchDataInBatches(
-            indexCodeList,
-            years,
-            MAX_YEARS_PER_REQUEST,
-            startDate,
-            endDate,
-            metricsList,
-            'index'
-          );
-          data = [...data, ...indexData];
-        } else {
-          const indexData = await getIndexFundamentalData(indexCodeList, startDate, endDate, metricsList);
-          data = [...data, ...indexData];
-        }
+        const indexResults = await fetchWithSingleCodeCache(
+          indexCodeList,
+          years,
+          'index',
+          startDate,
+          endDate,
+          needsBatching,
+          MAX_YEARS_PER_REQUEST
+        );
+        data = [...data, ...indexResults.data];
+        cacheHits += indexResults.cacheHits;
+        cacheMisses += indexResults.cacheMisses;
       }
       
-      // 获取基金数据
+      // 获取基金数据（单个 code 缓存）
       if (fundCodeList.length > 0) {
+        const fundResults = await fetchWithSingleCodeCache(
+          fundCodeList,
+          years,
+          'fund',
+          startDate,
+          endDate,
+          needsBatching,
+          MAX_YEARS_PER_REQUEST
+        );
+        data = [...data, ...fundResults.data];
+        cacheHits += fundResults.cacheHits;
+        cacheMisses += fundResults.cacheMisses;
+      }
+    }
+    
+    // 获取国债数据（整体缓存，因为通常一起使用）
+    if (nationalDebtCodes.length > 0) {
+      const debtCacheKey = generateCacheKey({
+        nationalDebtCodes: [...nationalDebtCodes].sort(),
+        years,
+        type: 'debt',
+      });
+      
+      const cachedDebtData = dailyCache.get<LixingerInterestRatesData[]>(debtCacheKey);
+      if (cachedDebtData) {
+        console.log(`  ✅ 国债数据缓存命中: ${nationalDebtCodes.join(',')}`);
+        data = [...data, ...cachedDebtData];
+        cacheHits++;
+      } else {
+        console.log(`  ❌ 国债数据缓存未命中，请求 API: ${nationalDebtCodes.join(',')}`);
         if (needsBatching) {
-          console.log(`基金数据年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取`);
-          const fundData = await fetchDataInBatches(
-            fundCodeList,
+          console.log(`📦 国债数据需要分批获取 (${years}年 > ${MAX_YEARS_PER_REQUEST}年)`);
+          const debtData = await fetchDebtDataInBatches(
+            nationalDebtCodes,
             years,
             MAX_YEARS_PER_REQUEST,
             startDate,
-            endDate,
-            [], // 基金API不需要metricsList
-            'fund'
+            endDate
           );
-          data = [...data, ...fundData];
+          data = [...data, ...debtData];
+          dailyCache.set(debtCacheKey, debtData);
         } else {
-          const fundData = await getFundData(fundCodeList, startDate, endDate);
-          data = [...data, ...fundData];
+          const debtData = await getNationalDebtData(startDate, endDate, 'cn', nationalDebtCodes);
+          // 格式化国债数据，添加 stockCode 字段
+          const formattedDebtData = debtData.map(item => ({
+            ...item,
+            stockCode: nationalDebtCodes[0],
+          }));
+          data = [...data, ...formattedDebtData];
+          dailyCache.set(debtCacheKey, formattedDebtData);
         }
+        cacheMisses++;
       }
     }
-    
-    // 获取国债数据
-    if (nationalDebtCodes.length > 0) {
-      let nationalDebtData: LixingerInterestRatesData[] = [];
-      
-      // 如果年份超过10年，分批获取以避免API限制
-      const MAX_YEARS_PER_REQUEST = 10;
-      if (years > MAX_YEARS_PER_REQUEST) {
-        console.log(`年份 ${years} 超过限制 ${MAX_YEARS_PER_REQUEST}，将分批获取数据`);
-        const allBatches: LixingerInterestRatesData[] = [];
-        const batchSize = MAX_YEARS_PER_REQUEST;
-        const totalBatches = Math.ceil(years / batchSize);
-        const endDateObj = new Date(endDate);
-        const startDateObj = new Date(startDate);
-        
-        for (let i = 0; i < totalBatches; i++) {
-          // 计算当前批次的日期范围
-          // 从最新日期往前推，每批10年
-          const batchEndDateObj = new Date(endDateObj);
-          batchEndDateObj.setFullYear(batchEndDateObj.getFullYear() - i * batchSize);
-          const batchEndDate = i === 0 ? endDate : batchEndDateObj.toISOString().split('T')[0];
-          
-          // 计算开始日期
-          const batchStartDateObj = new Date(batchEndDateObj);
-          batchStartDateObj.setFullYear(batchStartDateObj.getFullYear() - batchSize);
-          // 对于最后一批，使用原始的startDate（确保不超出范围）
-          const batchStartDate = batchStartDateObj < startDateObj 
-            ? startDate 
-            : batchStartDateObj.toISOString().split('T')[0];
-          
-          console.log(`获取第 ${i + 1}/${totalBatches} 批数据: ${batchStartDate} 到 ${batchEndDate}`);
-          
-          try {
-            const batchData = await getNationalDebtData(batchStartDate, batchEndDate, 'cn', nationalDebtCodes);
-            allBatches.push(...batchData);
-            console.log(`  获取到 ${batchData.length} 条数据`);
-            
-            // 避免请求过快，在批次之间稍作延迟
-            if (i < totalBatches - 1) {
-              await new Promise(resolve => setTimeout(resolve, 500));
-            }
-          } catch (error) {
-            console.error(`获取第 ${i + 1} 批数据失败:`, error);
-            // 继续获取其他批次，不中断整个流程
-          }
-        }
-        
-        // 去重并排序（按日期去重，保留最新的）
-        const uniqueDataMap = new Map<string, LixingerInterestRatesData>();
-        allBatches.forEach(item => {
-          const dateKey = item.date.split('T')[0]; // 使用日期作为key去重
-          if (!uniqueDataMap.has(dateKey) || new Date(item.date) > new Date(uniqueDataMap.get(dateKey)!.date)) {
-            uniqueDataMap.set(dateKey, item);
-          }
-        });
-        
-        nationalDebtData = Array.from(uniqueDataMap.values())
-          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        
-        console.log(`分批获取完成，共 ${nationalDebtData.length} 条数据`);
-      } else {
-        // 年份不超过限制，直接获取
-        nationalDebtData = await getNationalDebtData(startDate, endDate, 'cn', nationalDebtCodes);
-      }
-      
-      // 将国债数据转换为统一格式，使用第一个国债代码作为标识
-      const formattedNationalDebtData = nationalDebtData.map(item => ({
-        ...item,
-        stockCode: nationalDebtCodes[0], // 使用第一个代码作为标识
-      }));
-      data = [...data, ...formattedNationalDebtData];
-    }
 
-    // 映射 API 返回的字段名到前端使用的字段名
-    // mc -> marketValue (市值) - 仅对股票/指数数据有效，基金数据没有mc字段
-    // 国债数据保持原始小数格式（API返回的是小数，如0.025表示2.5%）
-    const mappedData = data.map(item => {
-      const mapped: any = {
-        ...item,
-        marketValue: ('mc' in item) ? item.mc : undefined,
-      };
-      
-      // 国债数据保持原始格式，不做百分比转换
-      // 在使用时需要注意：tcm_y10 是小数格式（如0.025），显示时需要*100转换为百分比
-      
-      return mapped;
-    });
+    // 日志输出缓存统计
+    const totalRequests = cacheHits + cacheMisses;
+    const hitRate = totalRequests > 0 ? ((cacheHits / totalRequests) * 100).toFixed(1) : '0.0';
+    console.log(`📊 缓存统计: 命中 ${cacheHits}/${totalRequests} (${hitRate}%)`);
 
-    const result = {
+    return NextResponse.json({
       success: true,
-      data: mappedData,
-      dateRange: { startDate, endDate },
-    };
-
-    // 存入缓存（当天有效）
-    dailyCache.set(cacheKey, result);
-    console.log('💾 数据已缓存');
-
-    return NextResponse.json(result);
+      data: data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+      dateRange: {
+        startDate,
+        endDate,
+      },
+      meta: {
+        count: data.length,
+        years,
+        cache: {
+          hits: cacheHits,
+          misses: cacheMisses,
+          hitRate: `${hitRate}%`,
+        },
+      },
+    });
   } catch (error) {
-    console.error('Lixinger API route error:', error);
-    const errorMessage = error instanceof Error 
-      ? error.message 
-      : typeof error === 'string' 
-        ? error 
-        : 'Failed to fetch data from Lixinger API';
-    
+    console.error('Error fetching data:', error);
     return NextResponse.json(
       { 
-        error: errorMessage,
-        success: false 
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch data',
+        data: [],
+        dateRange: { startDate: '', endDate: '' },
       },
       { status: 500 }
     );
   }
 }
+
 

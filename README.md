@@ -135,6 +135,9 @@ src/
   - 公式：ERP = (1 / PE) - 国债利率
   - 自动计算盈利收益率与无风险利率的差值
   - 提供历史分位统计，帮助判断市场估值水平
+- **个股指标**: 
+  - 查看个股的 PE TTM、总市值、股息率等指标
+  - 详细文档：`docs/individual-stocks.md`
 
 ### 策略回测 (`/backtest`)
 
@@ -229,6 +232,7 @@ const optimizedData = optimizeChartData(rawData, {
 详细文档：
 - `docs/chart_optimization.md` - 完整优化文档
 - `docs/chart_optimization_quickstart.md` - 快速参考
+- `docs/individual-stocks.md` - 个股数据指标说明
 
 ### 添加新策略
 

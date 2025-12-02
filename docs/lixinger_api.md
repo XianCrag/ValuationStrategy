@@ -2,16 +2,21 @@
 # Lixinger API 接口文档
 
 ## 股票 - non_financial
-* url: https://open.lixinger.com/api/cn/company/fundamental/
+* url: https://open.lixinger.com/api/cn/company/fundamental/non_financial
+* 支持的指标：`pe_ttm`, `pb`, `ps_ttm`, `mc`（市值）, `dyr`（股息率）等
+* **注意**：non_financial API **不支持** `cp`（收盘价格）指标
 
 ## 指数 
 * url: https://open.lixinger.com/api/cn/index/fundamental
+* 支持的指标：`pe_ttm.mcw`, `cp`（收盘点位）, `mc`（市值）等
 
 ## 基金
 * url: https://open.lixinger.com/api/cn/fund/net-value-of-dividend-reinvestment
+* 支持的指标：`cp`（复权净值）
 
 ## 国债
 * url: https://open.lixinger.com/api/macro/national-debt
+* 支持的指标：`tcm_y10`（10年期国债收益率）
 
 
 

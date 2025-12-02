@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { StockData, BondData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK } from '../constants';
-import { METRIC_PE_TTM_MCW, METRIC_CP, METRIC_TCM_Y10 } from '@/constants/metrics';
 import { fetchLixingerData } from '@/lib/api';
 import { setBondData } from '@/lib/backtestData';
 import {
@@ -25,9 +24,11 @@ import PageHeader from '../../components/PageHeader';
 import CollapsibleSection from '../../components/CollapsibleSection';
 import { ChartTooltip } from '../../components/ChartTooltips';
 import StrategyResultCards from '../components/StrategyResultCards';
+import TradesTable from '../components/TradesTable';
 import { optimizeChartData } from '../chart-utils';
 import { ChartContainer } from '../../components/Chart';
 import { useBacktestData } from '../hooks/useBacktestData';
+import { METRIC_CP, METRIC_PE_TTM_MCW } from '@/constants/metrics';
 
 export default function ERPStrategyPage() {
   const [selectedYears, setSelectedYears] = useState(10);
@@ -58,34 +59,30 @@ export default function ERPStrategyPage() {
     bondData: BondData[];
   }, StrategyResult>({
     fetchData: useCallback(async () => {
-      // 并行获取四个数据源
+      // 并行获取四个数据源，API 会根据 codeTypeMap 自动选择指标
       const [aStockData, csi300Data, csi300IndexData, bondData] = await Promise.all([
         // A股全指数据（用于获取PE）
         fetchLixingerData({
           stockCodes: [A_STOCK_ALL_STOCK.code],
           codeTypeMap: { [A_STOCK_ALL_STOCK.code]: 'index' },
           years: selectedYears,
-          metricsList: [METRIC_PE_TTM_MCW, METRIC_CP],
         }),
         // 沪深300基金数据（用于买入基金）
         fetchLixingerData({
           stockCodes: [CSI300_FUND_STOCK.code],
           codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
           years: selectedYears,
-          metricsList: [METRIC_CP],
         }),
         // 沪深300指数数据（用于图表对比）
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
           codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
           years: selectedYears,
-          metricsList: [METRIC_CP],
         }),
         // 国债数据
         fetchLixingerData<BondData>({
           nationalDebtCodes: [NATIONAL_DEBT_STOCK.code],
           years: selectedYears,
-          metricsList: [METRIC_TCM_Y10],
         }),
       ]);
 
@@ -395,52 +392,9 @@ export default function ERPStrategyPage() {
                   buttonText={{ show: '展示交易记录', hide: '隐藏交易记录' }}
                 >
                   <h3 className="text-lg font-semibold mb-2">交易记录</h3>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-4 py-2 border">日期</th>
-                          <th className="px-4 py-2 border">操作</th>
-                          <th className="px-4 py-2 border">股票仓位</th>
-                          <th className="px-4 py-2 border">股票价值</th>
-                          <th className="px-4 py-2 border">债券价值</th>
-                          <th className="px-4 py-2 border">总价值</th>
-                          <th className="px-4 py-2 border">累计收益率</th>
-                          <th className="px-4 py-2 border">年化收益率</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.trades.map((trade, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-4 py-2 border text-sm">{formatDateShort(trade.date)}</td>
-                            <td className="px-4 py-2 border text-sm">
-                              <span className={trade.type === 'buy' ? 'text-red-600' : 'text-green-600'}>
-                                {trade.type === 'buy' ? '买入股票' : '卖出股票'}
-                              </span>
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {(trade.stockRatio * 100).toFixed(1)}%
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {formatNumber(trade.stockValue)}
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {formatNumber(trade.bondValue)}
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {formatNumber(trade.totalValue)}
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {trade.changePercent.toFixed(2)}%
-                            </td>
-                            <td className="px-4 py-2 border text-sm text-right">
-                              {trade.annualizedReturn.toFixed(2)}%
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <TradesTable 
+                    trades={result.trades}
+                  />
                 </CollapsibleSection>
               )}
 
@@ -452,7 +406,7 @@ export default function ERPStrategyPage() {
                 <YearlyDetailsTable
                   yearlyDetails={result.yearlyDetails}
                   strategyType="strategy"
-                  showStockPositions={true}
+                  showStockPositions={false}
                 />
               </CollapsibleSection>
             </>

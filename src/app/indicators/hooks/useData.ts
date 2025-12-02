@@ -50,15 +50,12 @@ export function useData(selectedMetric: MetricType, years: number = 10) {
         return;
       }
       
-      // 使用动态年份参数
+      // 使用动态年份参数，API 会根据 codeTypeMap 自动选择指标
       const allData = await fetchLixingerData({
         stockCodes: stockCodes.length > 0 ? stockCodes : undefined,
         nationalDebtCodes: nationalDebtCodes.length > 0 ? nationalDebtCodes : undefined,
         codeTypeMap,
         years: years,
-        metricsList: (selectedMetric === 'csi300-index' || selectedMetric === 'csi300-fund' || selectedMetric === 'a-stock-all' || selectedMetric === 'erp') 
-          ? ['pe_ttm.mcw', 'mc', 'cp'] 
-          : undefined,
       });
 
       // 按代码分组数据

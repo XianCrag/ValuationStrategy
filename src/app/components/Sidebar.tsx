@@ -28,6 +28,10 @@ const menuItems: MenuItem[] = [
         path: '/backtest/csi300-pe-balance',
       },
       {
+        label: '个股组合策略',
+        path: '/backtest/stock-portfolio',
+      },
+      {
         label: '现金国债',
         path: '/backtest/cash-bond',
       },

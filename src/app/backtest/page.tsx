@@ -14,6 +14,14 @@ export default function BacktestOverviewPage() {
       icon: '📊',
     },
     {
+      id: 'stock-portfolio',
+      name: '个股组合策略',
+      description: '自选多只个股构建组合，配置股票与现金比例，可选等权重再平衡',
+      path: '/backtest/stock-portfolio',
+      color: 'orange',
+      icon: '🎯',
+    },
+    {
       id: 'cash-bond',
       name: '对照组1：现金国债',
       description: '全部资金持有现金国债，每月根据国债利率计息',

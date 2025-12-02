@@ -28,8 +28,6 @@ import { ChartTooltip } from '../../components/ChartTooltips';
 import { 
   METRIC_PE_TTM_MCW, 
   METRIC_CP,
-  INDEX_FULL_METRICS,
-  PRICE_ONLY_METRICS,
 } from '@/constants/metrics';
 import { useBacktestData } from '../hooks/useBacktestData';
 
@@ -61,18 +59,17 @@ export default function CSI300PEBalancePage() {
   }, StrategyResult>({
     fetchData: useCallback(async () => {
       // 同时获取指数数据（PE）和基金数据（价格）
+      // API 会根据 codeTypeMap 自动选择对应的指标
       const [indexData, fundData] = await Promise.all([
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
           codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
           years: selectedYears,
-          metricsList: INDEX_FULL_METRICS,
         }),
         fetchLixingerData({
           stockCodes: [CSI300_FUND_STOCK.code],
           codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
           years: selectedYears,
-          metricsList: PRICE_ONLY_METRICS,
         }),
       ]);
 
@@ -438,7 +435,7 @@ export default function CSI300PEBalancePage() {
                 <YearlyDetailsTable
                   yearlyDetails={strategyResult.yearlyDetails}
                   strategyType="strategy"
-                  showStockPositions={true}
+                  showStockPositions={false}
                 />
               </CollapsibleSection>
             </>

@@ -1,7 +1,8 @@
 export interface StockData {
   date: string;
   'pe_ttm.mcw'?: number; // PE市盈率（市值加权）
-  cp?: number; // 收盘点位
+  cp?: number; // 收盘点位（指数/基金用）
+  sp?: number; // 股票价格（个股用）
   mc?: number; // 市值
   [key: string]: any;
 }
@@ -103,6 +104,28 @@ export interface YearlyDetail {
   trades?: number; // 交易次数
 }
 
+export interface RebalanceTrade {
+  date: string;
+  type: 'rebalance';
+  totalValue: number;
+  cashValue: number;
+  stockPositions: Array<{
+    code: string;
+    name?: string;
+    value: number;
+    ratio: number;
+    price?: number; // 当时的股价
+  }>;
+  // 再平衡前的仓位（用于显示变化）
+  prevCashValue?: number;
+  prevStockPositions?: Array<{
+    code: string;
+    value: number;
+  }>;
+  changePercent: number;
+  annualizedReturn: number;
+}
+
 export interface ControlGroupResult {
   finalValue: number;
   totalReturn: number;
@@ -114,5 +137,6 @@ export interface ControlGroupResult {
     changePercent: number;
   }>;
   yearlyDetails: YearlyDetail[];
+  trades?: RebalanceTrade[];
 }
 

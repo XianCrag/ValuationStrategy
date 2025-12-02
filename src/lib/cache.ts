@@ -204,3 +204,33 @@ export function generateCacheKey(params: Record<string, any>): string {
   return JSON.stringify(sortedParams);
 }
 
+/**
+ * 为单个 code 生成缓存键
+ * 用于将 code 列表拆分为单个 code 进行缓存，提高缓存复用率
+ * 
+ * @param code 股票/指数/基金代码
+ * @param years 查询年限
+ * @param type 代码类型 (stock/index/fund)
+ * @param extraParams 其他参数（可选）
+ * @returns 标准化的缓存键
+ */
+export function generateSingleCodeCacheKey(
+  code: string,
+  years: number,
+  type: string,
+  extraParams?: Record<string, any>
+): string {
+  const params: Record<string, any> = {
+    code,
+    years,
+    type,
+  };
+  
+  // 添加额外参数
+  if (extraParams) {
+    Object.assign(params, extraParams);
+  }
+  
+  return generateCacheKey(params);
+}
+

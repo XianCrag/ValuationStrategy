@@ -1,17 +1,22 @@
 /**
  * Lixinger Non-Financial Data API
- * 理杏仁公司非财务数据API
+ * 理杏仁公司非财务数据 API（用于获取个股数据）
  */
 
 import { LixingerNonFinancialData, LixingerApiResponse, LixingerNonFinancialRequest } from './types';
 import { getLixingerToken } from './utils';
 
 /**
- * 获取公司非财务数据
- * @param stockCodes 股票代码列表，格式如 ['510300.sh']
+ * 获取公司非财务数据（个股数据）
+ * 
+ * 支持的指标：sp（股票价格）, pe_ttm, pb, ps_ttm, mc（市值）, dyr（股息率）等
+ * 注意：不支持 cp（收盘价/点位），个股使用 sp（股票价格）
+ * 
+ * @param stockCodes 股票代码列表，格式如 ['600036', '601988']
  * @param startDate 开始日期，格式 YYYY-MM-DD
  * @param endDate 结束日期，格式 YYYY-MM-DD
- * @param metricsList 指标列表，如 ['mc', 'pe_ttm']
+ * @param metricsList 指标列表，如 ['sp', 'pe_ttm', 'mc', 'dyr']
+ * @returns 股票非财务数据数组
  */
 export async function getNonFinancialData(
   stockCodes: string[],
@@ -21,7 +26,6 @@ export async function getNonFinancialData(
 ): Promise<LixingerNonFinancialData[]> {
   const token = getLixingerToken();
 
-  // 构建 URL，将 token 作为查询参数
   const baseUrl = 'https://open.lixinger.com/api/cn/company/fundamental/non_financial';
   const url = new URL(baseUrl);
   
@@ -36,12 +40,12 @@ export async function getNonFinancialData(
     requestBody.metricsList = metricsList;
   }
 
-  console.log('Lixinger API request:', {
-    url: url.toString(),
-    stockCodes,
-    startDate,
-    endDate,
-    metricsList: requestBody.metricsList,
+  console.log('📡 [Non-Financial API] 请求:', {
+    url: baseUrl,
+    stockCodes: stockCodes.slice(0, 3),
+    stockCount: stockCodes.length,
+    dateRange: `${startDate} ~ ${endDate}`,
+    metrics: requestBody.metricsList || 'default',
   });
 
   try {
@@ -56,34 +60,32 @@ export async function getNonFinancialData(
     let result: LixingerApiResponse<LixingerNonFinancialData[]>;
     try {
       result = await response.json();
-      console.log('Lixinger API parsed result:', { code: result.code, message: result.message, dataLength: Array.isArray(result.data) ? result.data.length : 'not array' });
     } catch (jsonError) {
-      // 如果 JSON 解析失败，尝试获取原始文本用于调试
+      // JSON 解析失败，获取原始文本用于调试
       const errorText = await response.text().catch(() => 'Unable to read response');
-      console.error('JSON parse error:', jsonError, 'Response text:', errorText.substring(0, 500));
-      throw new Error(`Failed to parse Lixinger API response: ${jsonError instanceof Error ? jsonError.message : 'Unknown parse error'}`);
+      console.error('✗ [Non-Financial API] JSON 解析失败:', errorText.substring(0, 200));
+      throw new Error(`Failed to parse API response: ${jsonError instanceof Error ? jsonError.message : 'Unknown parse error'}`);
     }
 
     if (!response.ok) {
-      throw new Error(`Lixinger API HTTP error: ${response.status} - ${result.message || 'Unknown error'}`);
+      throw new Error(`HTTP ${response.status}: ${result.message || 'Unknown error'}`);
     }
-    
-    console.log('Lixinger API parsed result:', { code: result.code, message: result.message, hasData: !!result.data });
     
     // Lixinger API 成功时返回 code: 1, message: "success"
     if (result.code !== 1) {
-      const errorMsg = `Lixinger API error (code: ${result.code}): ${result.message || 'Unknown error'}`;
-      console.error(errorMsg);
+      const errorMsg = `API error (code: ${result.code}): ${result.message || 'Unknown error'}`;
+      console.error('✗ [Non-Financial API]', errorMsg);
       throw new Error(errorMsg);
     }
 
     if (!result.data) {
-      throw new Error('Lixinger API returned no data');
+      throw new Error('API returned no data');
     }
 
+    console.log(`✓ [Non-Financial API] 成功: ${result.data.length} 条数据`);
     return result.data;
   } catch (error) {
-    console.error('Error fetching Lixinger data:', error);
+    console.error('✗ [Non-Financial API] 请求失败:', error);
     throw error;
   }
 }

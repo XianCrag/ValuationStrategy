@@ -3,7 +3,6 @@
 import { useState, useCallback } from 'react';
 import { StockData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_STOCK } from '../constants';
-import { PRICE_ONLY_METRICS } from '@/constants/metrics';
 import { fetchLixingerData } from '@/lib/api';
 import { calculateControlGroup2 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
@@ -25,11 +24,11 @@ export default function DcaCsi300Page() {
   // 使用自定义Hook获取和计算数据
   const { data: stockData, result, loading, error, refetch } = useBacktestData<StockData[], ControlGroupResult>({
     fetchData: useCallback(async () => {
+      // API 会根据 codeTypeMap 自动选择基金价格指标
       const stocks = await fetchLixingerData({
         stockCodes: [CSI300_FUND_STOCK.code],
         codeTypeMap: { [CSI300_FUND_STOCK.code]: 'fund' },
         years: selectedYears,
-        metricsList: PRICE_ONLY_METRICS,
       });
 
       return stocks.sort(
@@ -148,7 +147,7 @@ export default function DcaCsi300Page() {
                 <YearlyDetailsTable
                   yearlyDetails={result.yearlyDetails}
                   strategyType="dca"
-                  showStockPositions={true}
+                  showStockPositions={false}
                 />
               </CollapsibleSection>
             </>
