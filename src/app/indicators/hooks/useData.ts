@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { StockData, MetricType } from '../types';
-import { fetchLixingerData } from '@/lib/api';
+import { fetchLixingerData, StockType } from '@/lib/api';
 import { 
   CSI300_INDEX_STOCK, 
   CSI300_FUND_STOCK, 
@@ -20,20 +20,20 @@ export function useData(selectedMetric: MetricType, years: number = 10) {
     try {
       let stockCodes: string[] = [];
       let nationalDebtCodes: string[] = [];
-      const codeTypeMap: Record<string, 'stock' | 'index' | 'fund'> = {};
+      const codeTypeMap: Record<string, StockType> = {};
       
       if (selectedMetric === 'csi300-index') {
         // 沪深300指数
         stockCodes = [CSI300_INDEX_STOCK.code];
-        codeTypeMap[CSI300_INDEX_STOCK.code] = CSI300_INDEX_STOCK.type as 'index';
+        codeTypeMap[CSI300_INDEX_STOCK.code] = StockType.INDEX;
       } else if (selectedMetric === 'csi300-fund') {
         // 沪深300基金
         stockCodes = [CSI300_FUND_STOCK.code];
-        codeTypeMap[CSI300_FUND_STOCK.code] = CSI300_FUND_STOCK.type as 'fund';
+        codeTypeMap[CSI300_FUND_STOCK.code] = StockType.FUND;
       } else if (selectedMetric === 'a-stock-all') {
         // A股全指
         stockCodes = [A_STOCK_ALL_STOCK.code];
-        codeTypeMap[A_STOCK_ALL_STOCK.code] = A_STOCK_ALL_STOCK.type as 'index';
+        codeTypeMap[A_STOCK_ALL_STOCK.code] = StockType.INDEX;
       } else if (selectedMetric === 'interest') {
         // 10年期国债
         nationalDebtCodes = [NATIONAL_DEBT_STOCK.code];
@@ -41,7 +41,7 @@ export function useData(selectedMetric: MetricType, years: number = 10) {
         // 股权风险溢价需要A股全指和国债数据
         stockCodes = [A_STOCK_ALL_STOCK.code];
         nationalDebtCodes = [NATIONAL_DEBT_STOCK.code];
-        codeTypeMap[A_STOCK_ALL_STOCK.code] = A_STOCK_ALL_STOCK.type as 'index';
+        codeTypeMap[A_STOCK_ALL_STOCK.code] = StockType.INDEX;
       } else if (selectedMetric === 'individual-stock') {
         // 个股数据 - 不在这里加载，由 IndividualStockDisplay 组件按需加载
         // 直接返回空数据

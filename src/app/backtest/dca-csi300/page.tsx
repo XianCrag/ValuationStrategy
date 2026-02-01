@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { StockData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL, DCA_MONTHS, CSI300_FUND_STOCK, ALL_FUNDS, StockConfig } from '../constants';
-import { fetchLixingerData } from '@/lib/api';
+import { fetchLixingerData, StockType } from '@/lib/api';
 import { calculateControlGroup2 } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -28,7 +28,7 @@ export default function DcaCsi300Page() {
       // API 会根据 codeTypeMap 自动选择基金价格指标
       const stocks = await fetchLixingerData({
         stockCodes: [selectedFund.code],
-        codeTypeMap: { [selectedFund.code]: 'fund' },
+        codeTypeMap: { [selectedFund.code]: StockType.FUND },
         years: selectedYears,
       });
 

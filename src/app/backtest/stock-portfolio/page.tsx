@@ -4,7 +4,7 @@ import { useState, useCallback, useMemo } from 'react';
 import { StockData, ControlGroupResult } from '../types';
 import { INITIAL_CAPITAL } from '../constants';
 import { ALL_INDIVIDUAL_STOCKS, StockConfig } from '@/constants/stocks';
-import { fetchLixingerData } from '@/lib/api';
+import { fetchLixingerData, StockType } from '@/lib/api';
 import { calculateStockPortfolio, calculateStockPortfolioWithRebalance, StockPositionConfig } from './calculations';
 import { formatNumber, formatDateShort } from '../utils';
 import { YearlyDetailsTable } from '../../components/YearlyDetails';
@@ -22,7 +22,7 @@ import { useBacktestData } from '../hooks/useBacktestData';
 
 export default function StockPortfolioPage() {
   const [selectedYears, setSelectedYears] = useState(10);
-  
+
   // 按行业分组股票
   const stocksByIndustry = useMemo(() => {
     const grouped: Record<string, typeof ALL_INDIVIDUAL_STOCKS> = {};
@@ -49,19 +49,19 @@ export default function StockPortfolioPage() {
   }, [stocksByIndustry]);
 
   // 使用 Map 存储每个股票的权重（而不是直接的仓位比例）
-  const [stockWeights, setStockWeights] = useState<Map<string, number>>(() => 
+  const [stockWeights, setStockWeights] = useState<Map<string, number>>(() =>
     generateDefaultPositions()
   );
-  
+
   // 股票/现金比例设置
   const [stockRatio, setStockRatio] = useState(0.7); // 默认70%股票，30%现金
-  
+
   // 是否启用再平衡
   const [enableRebalance, setEnableRebalance] = useState(true);
-  
+
   // 编辑中的参数
   const [editingRebalanceMonths, setEditingRebalanceMonths] = useState(6);
-  
+
   // 实际应用的参数
   const [appliedRebalanceMonths, setAppliedRebalanceMonths] = useState(6);
   const [appliedEnableRebalance, setAppliedEnableRebalance] = useState(true);
@@ -107,9 +107,9 @@ export default function StockPortfolioPage() {
       }
 
       // 为所有选中的股票创建 code type map
-      const codeTypeMap: Record<string, 'stock' | 'index' | 'fund'> = {};
+      const codeTypeMap: Record<string, StockType> = {};
       selectedStocks.forEach(code => {
-        codeTypeMap[code] = 'stock';
+        codeTypeMap[code] = StockType.STOCK;
       });
 
       // 获取所有股票的数据
@@ -141,7 +141,7 @@ export default function StockPortfolioPage() {
 
       // 按日期排序每个股票的数据
       Object.keys(groupedData).forEach(code => {
-        groupedData[code].sort((a, b) => 
+        groupedData[code].sort((a, b) =>
           new Date(a.date).getTime() - new Date(b.date).getTime()
         );
       });
@@ -183,11 +183,11 @@ export default function StockPortfolioPage() {
   // 准备图表数据
   const rawChartData = result
     ? result.dailyValues.map((daily) => ({
-        date: daily.date,
-        dateShort: formatDateShort(daily.date),
-        portfolioValue: daily.value,
-        changePercent: daily.changePercent,
-      }))
+      date: daily.date,
+      dateShort: formatDateShort(daily.date),
+      portfolioValue: daily.value,
+      changePercent: daily.changePercent,
+    }))
     : [];
 
   // 优化图表数据
@@ -222,10 +222,10 @@ export default function StockPortfolioPage() {
   const handleIndustryToggle = (industry: string) => {
     const industryCodes = stocksByIndustry[industry].map(s => s.code);
     const allSelected = industryCodes.every(code => stockWeights.has(code));
-    
+
     setStockWeights((prev) => {
       const newMap = new Map(prev);
-      
+
       if (allSelected) {
         // 取消选择该行业的所有股票
         industryCodes.forEach(code => newMap.delete(code));
@@ -237,7 +237,7 @@ export default function StockPortfolioPage() {
           }
         });
       }
-      
+
       return newMap;
     });
   };
@@ -262,7 +262,7 @@ export default function StockPortfolioPage() {
           {/* 策略配置区域 */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h3 className="text-lg font-semibold mb-4">策略配置</h3>
-            
+
             {/* 股票/现金比例设置 */}
             <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
               <div className="flex items-center justify-between mb-3">
@@ -304,7 +304,7 @@ export default function StockPortfolioPage() {
                 />
                 启用定期再平衡（定期调整至目标仓位）
               </label>
-              
+
               {enableRebalance && (
                 <div className="ml-6">
                   <label className="block text-sm text-gray-600 mb-2">
@@ -353,19 +353,18 @@ export default function StockPortfolioPage() {
                       {stocks.map((stock) => {
                         const isSelected = stockWeights.has(stock.code);
                         const weight = stockWeights.get(stock.code) || 1;
-                        const actualPosition = isSelected && totalWeight > 0 
+                        const actualPosition = isSelected && totalWeight > 0
                           ? ((weight / totalWeight) * appliedStockRatio * 100).toFixed(1)
                           : '0.0';
-                        
+
                         return (
                           <div
                             key={stock.code}
                             onClick={() => !isSelected && handleStockToggle(stock.code)}
-                            className={`p-3 rounded-lg border-2 transition-all ${
-                              isSelected
+                            className={`p-3 rounded-lg border-2 transition-all ${isSelected
                                 ? 'bg-blue-50 border-blue-300'
                                 : 'bg-gray-50 border-transparent hover:border-gray-300 hover:bg-gray-100 cursor-pointer'
-                            }`}
+                              }`}
                           >
                             <div className="flex items-start justify-between mb-2">
                               <div className="flex-1">
@@ -384,7 +383,7 @@ export default function StockPortfolioPage() {
                                 </button>
                               )}
                             </div>
-                            
+
                             {isSelected && (
                               <div className="mt-3 pt-3 border-t border-blue-200">
                                 <div className="flex items-center justify-between mb-1">
@@ -504,8 +503,8 @@ export default function StockPortfolioPage() {
                   buttonText={{ show: '展示交易记录', hide: '隐藏交易记录' }}
                 >
                   <h3 className="text-lg font-semibold mb-2">交易记录（再平衡）</h3>
-                  <TradesTable 
-                    trades={result.trades} 
+                  <TradesTable
+                    trades={result.trades}
                     getStockName={getStockName}
                   />
                 </CollapsibleSection>

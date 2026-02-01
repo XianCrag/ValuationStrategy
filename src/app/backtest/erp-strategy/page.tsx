@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { StockData, BondData, StrategyResult } from '../types';
 import { INITIAL_CAPITAL, A_STOCK_ALL_STOCK, CSI300_FUND_STOCK, CSI300_INDEX_STOCK, NATIONAL_DEBT_STOCK, ALL_FUNDS, StockConfig } from '../constants';
-import { fetchLixingerData } from '@/lib/api';
+import { fetchLixingerData, StockType } from '@/lib/api';
 import { setBondData } from '@/lib/backtestData';
 import {
   calculateERPStrategy,
@@ -60,19 +60,19 @@ export default function ERPStrategyPage() {
         // A股全指数据（用于获取PE）
         fetchLixingerData({
           stockCodes: [A_STOCK_ALL_STOCK.code],
-          codeTypeMap: { [A_STOCK_ALL_STOCK.code]: 'index' },
+          codeTypeMap: { [A_STOCK_ALL_STOCK.code]: StockType.INDEX },
           years: selectedYears,
         }),
         // 选中的基金数据（用于买入基金）
         fetchLixingerData({
           stockCodes: [selectedFund.code],
-          codeTypeMap: { [selectedFund.code]: 'fund' },
+          codeTypeMap: { [selectedFund.code]: StockType.FUND },
           years: selectedYears,
         }),
         // 沪深300指数数据（用于图表对比）
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
-          codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
+          codeTypeMap: { [CSI300_INDEX_STOCK.code]: StockType.INDEX },
           years: selectedYears,
         }),
         // 国债数据

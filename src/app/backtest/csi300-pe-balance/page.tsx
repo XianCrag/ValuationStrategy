@@ -14,7 +14,7 @@ import {
   CSI300PEBalanceParams,
 } from './calculations';
 import { formatDateShort, formatNumber } from '../utils';
-import { fetchLixingerData } from '@/lib/api';
+import { fetchLixingerData, StockType } from '@/lib/api';
 import StrategyLayout from '../../components/Layout';
 import ErrorDisplay from '../../components/Error';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -25,8 +25,8 @@ import { YearlyDetailsTable } from '../../components/YearlyDetails';
 import { optimizeChartData } from '../chart-utils';
 import { ChartContainer } from '../../components/Chart';
 import { ChartTooltip } from '../../components/ChartTooltips';
-import { 
-  METRIC_PE_TTM_MCW, 
+import {
+  METRIC_PE_TTM_MCW,
   METRIC_CP,
 } from '@/constants/metrics';
 import { useBacktestData } from '../hooks/useBacktestData';
@@ -34,7 +34,7 @@ import { useBacktestData } from '../hooks/useBacktestData';
 export default function CSI300PEBalancePage() {
   const [selectedYears, setSelectedYears] = useState<number>(10);
   const [selectedFund, setSelectedFund] = useState<StockConfig>(CSI300_FUND_STOCK);
-  
+
   // 编辑中的参数（UI绑定）
   const [editingParams, setEditingParams] = useState<CSI300PEBalanceParams>({
     peMin: DEFAULT_PE_MIN,
@@ -59,12 +59,12 @@ export default function CSI300PEBalancePage() {
       const [indexData, fundData] = await Promise.all([
         fetchLixingerData({
           stockCodes: [CSI300_INDEX_STOCK.code],
-          codeTypeMap: { [CSI300_INDEX_STOCK.code]: 'index' },
+          codeTypeMap: { [CSI300_INDEX_STOCK.code]: StockType.INDEX },
           years: selectedYears,
         }),
         fetchLixingerData({
           stockCodes: [selectedFund.code],
-          codeTypeMap: { [selectedFund.code]: 'fund' },
+          codeTypeMap: { [selectedFund.code]: StockType.FUND },
           years: selectedYears,
         }),
       ]);
@@ -97,7 +97,7 @@ export default function CSI300PEBalancePage() {
     const dailyState = strategyResult.dailyStates.find(s => s.date === item.date);
     const trade = strategyResult.trades.find(t => t.date === item.date);
     const indexItem = data.indexData.find(idx => idx.date === item.date);
-    
+
     return {
       date: item.date,
       dateShort: formatDateShort(item.date),
@@ -139,7 +139,7 @@ export default function CSI300PEBalancePage() {
           {/* 策略参数配置 */}
           <div className="mb-6 p-6 bg-white rounded-lg shadow-lg">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">策略参数配置</h3>
-            
+
             {/* 基金选择 */}
             <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -163,7 +163,7 @@ export default function CSI300PEBalancePage() {
                 💡 当前选择：<span className="font-semibold">{selectedFund.name}</span>
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {/* PE最小值 */}
               <div>
@@ -479,11 +479,11 @@ export default function CSI300PEBalancePage() {
  */
 function generatePositionLevelsText(levels: number, minRatio: number, maxRatio: number): string {
   const step = (maxRatio - minRatio) / (levels - 1);
-  
+
   const positions = Array.from({ length: levels }, (_, i) => {
     const ratio = minRatio + i * step;
     return `${(ratio * 100).toFixed(1)}%`;
   });
-  
+
   return positions.join(', ');
 }

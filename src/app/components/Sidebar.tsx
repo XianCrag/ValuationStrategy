@@ -16,6 +16,10 @@ const menuItems: MenuItem[] = [
     path: '/indicators',
   },
   {
+    label: 'AH溢价策略',
+    path: '/ah-premium',
+  },
+  {
     label: '策略回测',
     path: '/backtest',
     children: [

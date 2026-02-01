@@ -4,6 +4,7 @@
  */
 
 import { StockData, BondData } from '@/app/backtest/types';
+import { StockType } from '@/types/stock';
 
 /**
  * API 响应接口
@@ -25,7 +26,7 @@ export interface LixingerApiParams {
   /** 股票/指数/基金代码列表 */
   stockCodes?: string[];
   /** 代码类型映射 */
-  codeTypeMap?: Record<string, 'stock' | 'index' | 'fund'>;
+  codeTypeMap?: Record<string, StockType | string>;
   /** 国债代码列表 */
   nationalDebtCodes?: string[];
   /** 查询年限 */
@@ -33,6 +34,9 @@ export interface LixingerApiParams {
   /** 指标列表 - 已废弃，保留用于向后兼容，API 会根据 codeTypeMap 自动选择 */
   metricsList?: readonly string[] | string[];
 }
+
+// 重新导出 StockType 以便其他文件可以从 @/lib/api 导入
+export { StockType };
 
 /**
  * 调用 Lixinger API 获取数据
