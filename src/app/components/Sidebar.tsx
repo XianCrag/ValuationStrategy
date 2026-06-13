@@ -20,6 +20,10 @@ const menuItems: MenuItem[] = [
     path: '/ah-premium',
   },
   {
+    label: '宏观经济',
+    path: '/macroeconomics',
+  },
+  {
     label: '策略回测',
     path: '/backtest',
     children: [
