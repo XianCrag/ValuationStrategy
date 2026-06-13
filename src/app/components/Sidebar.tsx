@@ -16,6 +16,10 @@ const menuItems: MenuItem[] = [
     path: '/indicators',
   },
   {
+    label: '股票池',
+    path: '/stock-pool',
+  },
+  {
     label: 'AH溢价策略',
     path: '/ah-premium',
   },
