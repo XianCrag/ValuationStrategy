@@ -44,7 +44,7 @@ export default function StockPoolPageClient() {
 
   return (
     <>
-      <StockPoolClient pooledCodes={pooledCodes} onAdd={addStock} selection={selection} />
+      <StockPoolClient pooledCodes={pooledCodes} pooledEntries={items} onAdd={addStock} selection={selection} />
       <PoolList items={items} loading={loading} onRemove={removeStock} onSelect={selectStock} />
     </>
   );

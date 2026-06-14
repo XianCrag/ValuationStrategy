@@ -16,6 +16,8 @@ import type {
 
 interface StockPoolClientProps {
   pooledCodes: Set<string>;
+  /** 选股池条目快照，用于线上只读模式回退展示。 */
+  pooledEntries: PoolEntry[];
   onAdd: (entry: PoolEntry) => Promise<void> | void;
   /** 外部请求分析的标的（如点击选股池卡片）。nonce 变化即重新触发。 */
   selection?: { code: string; nonce: number } | null;
@@ -43,11 +45,13 @@ const STRIKE_ZONE_META: Record<StrikeZone, { label: string; dot: string; chip: s
   unknown: { label: '数据不足', dot: 'bg-gray-400', chip: 'bg-gray-100 text-gray-500' },
 };
 
-export default function StockPoolClient({ pooledCodes, onAdd, selection }: StockPoolClientProps) {
+export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, selection }: StockPoolClientProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [offline, setOffline] = useState(false);
+  const [activeCode, setActiveCode] = useState('');
   const [quote, setQuote] = useState<StockQuote | null>(null);
   const [valuation, setValuation] = useState<StockValuation | null>(null);
   const [valLoading, setValLoading] = useState(false);
@@ -95,12 +99,14 @@ export default function StockPoolClient({ pooledCodes, onAdd, selection }: Stock
       setError('请输入 6 位股票代码');
       return;
     }
+    setActiveCode(code);
     setLoading(true);
     setValLoading(true);
     setBizLoading(true);
     setCycleLoading(true);
     setShLoading(true);
     setError(null);
+    setOffline(false);
     setValuation(null);
     setBusiness(null);
     setCycle(null);
@@ -122,8 +128,12 @@ export default function StockPoolClient({ pooledCodes, onAdd, selection }: Stock
 
     try {
       const res = await fetch(`/api/stock-quote?code=${code}`);
-      const data = (await res.json()) as StockQuote;
-      if (!data.success) {
+      const data = (await res.json()) as StockQuote & { offline?: boolean };
+      if (data.offline) {
+        // 线上只读模式：跳过实时行情，回退到选股池快照
+        setOffline(true);
+        setQuote(null);
+      } else if (!data.success) {
         setError(data.error || '获取行情失败');
         setQuote(null);
       } else {
@@ -180,6 +190,19 @@ export default function StockPoolClient({ pooledCodes, onAdd, selection }: Stock
   const zoneMeta = STRIKE_ZONE_META[zone];
   const inPool = quote ? pooledCodes.has(quote.code) : false;
 
+  // 线上只读模式：实时行情不可用时，回退到选股池快照（仅池内标的可查看）
+  const snapshot =
+    offline && activeCode ? pooledEntries.find((e) => e.code === activeCode) ?? null : null;
+
+  // 业务 / 周期 / 股东回报均为离线生成、文件驱动，线上同样可查看
+  const analyses = (
+    <>
+      <BusinessAnalysis data={business} loading={bizLoading} />
+      <CycleAnalysis data={cycle} loading={cycleLoading} />
+      <ShareholderReturn data={shareholder} loading={shLoading} />
+    </>
+  );
+
   return (
     <div ref={rootRef} className="scroll-mt-4">
       {/* 搜索框 */}
@@ -235,7 +258,17 @@ export default function StockPoolClient({ pooledCodes, onAdd, selection }: Stock
         </div>
       )}
 
-      {!quote && !error && !loading && (
+      {/* 线上只读：实时行情不可用，且该标的不在选股池（无快照可看） */}
+      {offline && !snapshot && !loading && (
+        <div className="mb-6 p-4 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-800">
+          <p className="font-medium">线上只读查看模式</p>
+          <p className="mt-1 text-amber-700">
+            实时行情 / 估值为本地功能（依赖本地数据脚本），线上已跳过。可在下方选股池中点击已生成分析的标的进行查看。
+          </p>
+        </div>
+      )}
+
+      {!quote && !snapshot && !offline && !error && !loading && (
         <div className="p-10 text-center text-gray-400 border-2 border-dashed border-gray-200 rounded-xl">
           输入股票代码，查看实时估值概览
         </div>
@@ -356,14 +389,85 @@ export default function StockPoolClient({ pooledCodes, onAdd, selection }: Stock
             )}
           </div>
 
-          {/* 业务分析（RRD_1 §2） */}
-          <BusinessAnalysis data={business} loading={bizLoading} />
+          {/* 业务（§2）/ 周期（§4）/ 股东回报（§6）分析 */}
+          {analyses}
+        </>
+      )}
 
-          {/* 周期分析（RRD_1 §4 周期性） */}
-          <CycleAnalysis data={cycle} loading={cycleLoading} />
+      {/* 线上只读快照视图（实时行情不可用，但标的在选股池内） */}
+      {snapshot && !quote && (
+        <>
+          <div className="flex items-end justify-between mb-4 flex-wrap gap-3">
+            <div>
+              <div className="flex items-center gap-3">
+                <h2 className="text-2xl font-bold text-gray-900">{snapshot.name}</h2>
+                <span className="text-gray-500 font-mono">{snapshot.code}</span>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${STRIKE_ZONE_META[snapshot.strikeZone].chip}`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${STRIKE_ZONE_META[snapshot.strikeZone].dot}`} />
+                  {STRIKE_ZONE_META[snapshot.strikeZone].label}
+                </span>
+              </div>
+              <div className="mt-1 flex items-center gap-2 text-xs text-gray-400">
+                <span className="px-2 py-0.5 rounded bg-gray-100">{snapshot.industry}</span>
+                <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-700">线上只读 · 选股池快照</span>
+              </div>
+            </div>
+          </div>
 
-          {/* 股东回报分析（RRD_1 §6） */}
-          <ShareholderReturn data={shareholder} loading={shLoading} />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <OverviewCard label="加入时价格">
+              <div className="text-2xl font-bold text-gray-900">
+                {snapshot.price != null ? formatPrice(snapshot.price) : '—'}
+              </div>
+              <div className="text-sm text-gray-400">快照价</div>
+            </OverviewCard>
+            <OverviewCard label="PE-TTM">
+              <div className="text-2xl font-bold text-gray-900">
+                {snapshot.peTtm != null && snapshot.peTtm > 0 ? snapshot.peTtm.toFixed(2) : '—'}
+              </div>
+              <div className="text-sm text-gray-400">快照值</div>
+            </OverviewCard>
+            <OverviewCard label="PE 历史分位">
+              {snapshot.pePercentile != null ? (
+                <div className="text-2xl font-bold text-gray-900">{snapshot.pePercentile.toFixed(1)}%</div>
+              ) : (
+                <EmptyValue hint="历史数据不足" />
+              )}
+            </OverviewCard>
+            <OverviewCard label="股息率">
+              {snapshot.dividendYield != null ? (
+                <div className="text-2xl font-bold text-gray-900">{snapshot.dividendYield.toFixed(2)}%</div>
+              ) : (
+                <EmptyValue hint="暂无分红" />
+              )}
+            </OverviewCard>
+            <OverviewCard label="ROE">
+              {snapshot.roe != null ? (
+                <>
+                  <div className="text-2xl font-bold text-gray-900">{snapshot.roe.toFixed(2)}%</div>
+                  <div className="text-sm text-gray-400">{snapshot.roePeriod ?? '—'} 年报</div>
+                </>
+              ) : (
+                <EmptyValue hint="暂无数据" />
+              )}
+            </OverviewCard>
+            <OverviewCard label="击球区状态">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${STRIKE_ZONE_META[snapshot.strikeZone].chip}`}>
+                <span className={`w-2 h-2 rounded-full ${STRIKE_ZONE_META[snapshot.strikeZone].dot}`} />
+                {STRIKE_ZONE_META[snapshot.strikeZone].label}
+              </span>
+              <div className="text-sm text-gray-400 mt-1">基于 PE 分位</div>
+            </OverviewCard>
+          </div>
+
+          <div className="mt-4 text-xs text-gray-400">
+            实时价格 / 换手率 / 市值等需本地数据脚本，线上展示加入选股池时的快照。
+          </div>
+
+          {/* 业务（§2）/ 周期（§4）/ 股东回报（§6）分析 */}
+          {analyses}
         </>
       )}
     </div>
