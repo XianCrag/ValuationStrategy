@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import BusinessAnalysis from './BusinessAnalysis';
 import CycleAnalysis from './CycleAnalysis';
+import ShareholderReturn from './ShareholderReturn';
 import type {
   BusinessAnalysis as BusinessAnalysisData,
   CycleAnalysis as CycleAnalysisData,
   PoolEntry,
+  ShareholderAnalysis as ShareholderAnalysisData,
   StockQuote,
   StockValuation,
   StrikeZone,
@@ -15,6 +17,8 @@ import type {
 interface StockPoolClientProps {
   pooledCodes: Set<string>;
   onAdd: (entry: PoolEntry) => Promise<void> | void;
+  /** 外部请求分析的标的（如点击选股池卡片）。nonce 变化即重新触发。 */
+  selection?: { code: string; nonce: number } | null;
 }
 
 const EXAMPLES: Array<{ code: string; name: string }> = [
@@ -39,7 +43,8 @@ const STRIKE_ZONE_META: Record<StrikeZone, { label: string; dot: string; chip: s
   unknown: { label: '数据不足', dot: 'bg-gray-400', chip: 'bg-gray-100 text-gray-500' },
 };
 
-export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientProps) {
+export default function StockPoolClient({ pooledCodes, onAdd, selection }: StockPoolClientProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,9 +55,11 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
   const [bizLoading, setBizLoading] = useState(false);
   const [cycle, setCycle] = useState<CycleAnalysisData | null>(null);
   const [cycleLoading, setCycleLoading] = useState(false);
+  const [shareholder, setShareholder] = useState<ShareholderAnalysisData | null>(null);
+  const [shLoading, setShLoading] = useState(false);
   const [adding, setAdding] = useState(false);
 
-  const loadBusiness = async (code: string) => {
+  const loadBusiness = useCallback(async (code: string) => {
     try {
       const r = await fetch(`/api/stock-business?code=${code}`);
       const data = (await r.json()) as BusinessAnalysisData;
@@ -60,9 +67,9 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
     } catch {
       /* 忽略，保留上一次状态 */
     }
-  };
+  }, []);
 
-  const loadCycle = async (code: string) => {
+  const loadCycle = useCallback(async (code: string) => {
     try {
       const r = await fetch(`/api/stock-cycle?code=${code}`);
       const data = (await r.json()) as CycleAnalysisData;
@@ -70,9 +77,19 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
     } catch {
       /* 忽略，保留上一次状态 */
     }
-  };
+  }, []);
 
-  const search = async (rawCode: string) => {
+  const loadShareholder = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-shareholder?code=${code}`);
+      const data = (await r.json()) as ShareholderAnalysisData;
+      if (data.success) setShareholder(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
+  const search = useCallback(async (rawCode: string) => {
     const code = rawCode.trim();
     if (!/^\d{6}$/.test(code)) {
       setError('请输入 6 位股票代码');
@@ -82,10 +99,12 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
     setValLoading(true);
     setBizLoading(true);
     setCycleLoading(true);
+    setShLoading(true);
     setError(null);
     setValuation(null);
     setBusiness(null);
     setCycle(null);
+    setShareholder(null);
 
     // 估值分析较慢，与实时行情并行请求
     fetch(`/api/stock-valuation?code=${code}`)
@@ -96,9 +115,10 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
       .catch(() => {})
       .finally(() => setValLoading(false));
 
-    // 业务分析（§2）/ 周期分析（§4）—— 与股票池对齐，仅池内标的有内容，并行请求
+    // 业务分析（§2）/ 周期分析（§4）/ 股东回报（§6）—— 与股票池对齐，仅池内标的有内容，并行请求
     loadBusiness(code).finally(() => setBizLoading(false));
     loadCycle(code).finally(() => setCycleLoading(false));
+    loadShareholder(code).finally(() => setShLoading(false));
 
     try {
       const res = await fetch(`/api/stock-quote?code=${code}`);
@@ -115,7 +135,15 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
     } finally {
       setLoading(false);
     }
-  };
+  }, [loadBusiness, loadCycle, loadShareholder]);
+
+  // 外部选中（点击选股池卡片）→ 填入代码、触发分析并滚动到顶部
+  useEffect(() => {
+    if (!selection?.code) return;
+    setInput(selection.code);
+    search(selection.code);
+    rootRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [selection, search]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -139,8 +167,8 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
         strikeZone: valuation?.strikeZone ?? 'unknown',
         addedAt: '',
       });
-      // 加入后重取业务/周期分析：not-in-pool → pending（待离线生成）
-      await Promise.all([loadBusiness(quote.code), loadCycle(quote.code)]);
+      // 加入后重取业务/周期/股东回报分析：not-in-pool → pending（待离线生成）
+      await Promise.all([loadBusiness(quote.code), loadCycle(quote.code), loadShareholder(quote.code)]);
     } finally {
       setAdding(false);
     }
@@ -153,7 +181,7 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
   const inPool = quote ? pooledCodes.has(quote.code) : false;
 
   return (
-    <div>
+    <div ref={rootRef} className="scroll-mt-4">
       {/* 搜索框 */}
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-3">
@@ -333,6 +361,9 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
 
           {/* 周期分析（RRD_1 §4 周期性） */}
           <CycleAnalysis data={cycle} loading={cycleLoading} />
+
+          {/* 股东回报分析（RRD_1 §6） */}
+          <ShareholderReturn data={shareholder} loading={shLoading} />
         </>
       )}
     </div>

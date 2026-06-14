@@ -1,0 +1,105 @@
+{
+  "code": "601088",
+  "name": "中国神华",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 147.18,
+      "netProfit": 374.19,
+      "revenue": 2530.81,
+      "payoutRatio": 39.3
+    },
+    {
+      "year": "2015",
+      "dividend": 63.65,
+      "netProfit": 161.44,
+      "revenue": 1770.69,
+      "payoutRatio": 39.4
+    },
+    {
+      "year": "2016",
+      "dividend": 91.49,
+      "netProfit": 227.12,
+      "revenue": 1831.27,
+      "payoutRatio": 40.3
+    },
+    {
+      "year": "2017",
+      "dividend": 181,
+      "netProfit": 450.37,
+      "revenue": 2487.46,
+      "payoutRatio": 40.2
+    },
+    {
+      "year": "2018",
+      "dividend": 175.03,
+      "netProfit": 438.67,
+      "revenue": 2641.01,
+      "payoutRatio": 39.9
+    },
+    {
+      "year": "2019",
+      "dividend": 250.61,
+      "netProfit": 432.5,
+      "revenue": 2418.71,
+      "payoutRatio": 57.9
+    },
+    {
+      "year": "2020",
+      "dividend": 359.62,
+      "netProfit": 391.7,
+      "revenue": 2332.63,
+      "payoutRatio": 91.8
+    },
+    {
+      "year": "2021",
+      "dividend": 504.66,
+      "netProfit": 500.84,
+      "revenue": 3356.4,
+      "payoutRatio": 100.8
+    },
+    {
+      "year": "2022",
+      "dividend": 506.65,
+      "netProfit": 696.48,
+      "revenue": 3445.33,
+      "payoutRatio": 72.7
+    },
+    {
+      "year": "2023",
+      "dividend": 449.03,
+      "netProfit": 596.94,
+      "revenue": 3430.74,
+      "payoutRatio": 75.2
+    },
+    {
+      "year": "2024",
+      "dividend": 449.03,
+      "netProfit": 558.05,
+      "revenue": 3397.88,
+      "payoutRatio": 80.5
+    },
+    {
+      "year": "2025",
+      "dividend": 413.4,
+      "netProfit": 528.49,
+      "revenue": 2949.16,
+      "payoutRatio": 78.2
+    }
+  ],
+  "mcapYi": 10007.5,
+  "currentDividendYield": 4.1,
+  "payoutRatioLatest": 78.2,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 4524.17,
+  "cumulativeToMcap": 45.2,
+  "dividendToRevenue": 14,
+  "buybackNote": "以高比例现金分红为主，基本不依赖回购；2019 年起派息比例提升至 58%，近年达 75%~80%，并已启动中期分红。",
+  "rating": "strong",
+  "summary": "股东回报力度强且持续。连续 12 年现金分红，累计派现约 4524 亿元，相当于当前市值的约 45%。派息比例从 2014-2018 年的约 40% 阶梯式提升至近年的 75%~80%（2020-2021 年一度达 90%~100%），当前股息率约 4.1%。分红绝对额随煤价周期小幅波动，但占收入比例稳定在 14% 左右，回报确定性高。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:58:00+08:00"
+}

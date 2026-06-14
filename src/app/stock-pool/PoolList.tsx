@@ -17,9 +17,10 @@ interface PoolListProps {
   items: PoolEntry[];
   loading: boolean;
   onRemove: (code: string) => void;
+  onSelect?: (code: string) => void;
 }
 
-export default function PoolList({ items, loading, onRemove }: PoolListProps) {
+export default function PoolList({ items, loading, onRemove, onSelect }: PoolListProps) {
   // 按行业分组排序
   const groups = new Map<string, PoolEntry[]>();
   for (const item of items) {
@@ -64,7 +65,23 @@ export default function PoolList({ items, loading, onRemove }: PoolListProps) {
                   return (
                     <div
                       key={item.code}
-                      className="group bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition"
+                      role={onSelect ? 'button' : undefined}
+                      tabIndex={onSelect ? 0 : undefined}
+                      onClick={onSelect ? () => onSelect(item.code) : undefined}
+                      onKeyDown={
+                        onSelect
+                          ? (e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                onSelect(item.code);
+                              }
+                            }
+                          : undefined
+                      }
+                      title={onSelect ? '查看分析' : undefined}
+                      className={`group bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition ${
+                        onSelect ? 'cursor-pointer hover:border-blue-200' : ''
+                      }`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
@@ -81,7 +98,10 @@ export default function PoolList({ items, loading, onRemove }: PoolListProps) {
                         </div>
                         <button
                           type="button"
-                          onClick={() => onRemove(item.code)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRemove(item.code);
+                          }}
                           className="text-gray-300 hover:text-red-500 transition text-sm opacity-0 group-hover:opacity-100"
                           title="移出选股池"
                           aria-label="移出选股池"

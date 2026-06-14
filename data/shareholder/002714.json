@@ -1,0 +1,105 @@
+{
+  "code": "002714",
+  "name": "牧原股份",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0.15,
+      "netProfit": 0.8,
+      "revenue": 26.05,
+      "payoutRatio": 18.7
+    },
+    {
+      "year": "2015",
+      "dividend": 1.82,
+      "netProfit": 5.96,
+      "revenue": 30.03,
+      "payoutRatio": 30.5
+    },
+    {
+      "year": "2016",
+      "dividend": 8,
+      "netProfit": 23.22,
+      "revenue": 56.06,
+      "payoutRatio": 34.5
+    },
+    {
+      "year": "2017",
+      "dividend": 7.99,
+      "netProfit": 23.66,
+      "revenue": 100.42,
+      "payoutRatio": 33.8
+    },
+    {
+      "year": "2018",
+      "dividend": 1.04,
+      "netProfit": 5.2,
+      "revenue": 133.88,
+      "payoutRatio": 20
+    },
+    {
+      "year": "2019",
+      "dividend": 12.13,
+      "netProfit": 61.14,
+      "revenue": 202.21,
+      "payoutRatio": 19.8
+    },
+    {
+      "year": "2020",
+      "dividend": 54.92,
+      "netProfit": 274.51,
+      "revenue": 562.77,
+      "payoutRatio": 20
+    },
+    {
+      "year": "2021",
+      "dividend": 13.2,
+      "netProfit": 69.04,
+      "revenue": 788.9,
+      "payoutRatio": 19.1
+    },
+    {
+      "year": "2022",
+      "dividend": 40.34,
+      "netProfit": 132.66,
+      "revenue": 1248.26,
+      "payoutRatio": 30.4
+    },
+    {
+      "year": "2023",
+      "dividend": 0,
+      "netProfit": -42.63,
+      "revenue": 1108.61,
+      "payoutRatio": null
+    },
+    {
+      "year": "2024",
+      "dividend": 76.97,
+      "netProfit": 178.81,
+      "revenue": 1379.47,
+      "payoutRatio": 43
+    },
+    {
+      "year": "2025",
+      "dividend": 75.32,
+      "netProfit": 154.87,
+      "revenue": 1441.45,
+      "payoutRatio": 48.6
+    }
+  ],
+  "mcapYi": 2012.47,
+  "currentDividendYield": 3.7,
+  "payoutRatioLatest": 48.6,
+  "consecutiveYears": 2,
+  "cumulativeDividend": 292.45,
+  "cumulativeToMcap": 14.5,
+  "dividendToRevenue": 5.2,
+  "buybackNote": "盈利年度分红、亏损年度（2023）暂停分红；辅以股份回购（含注销/员工持股）。",
+  "rating": "weak",
+  "summary": "回报受猪周期主导、稳定性偏弱。仅连续 2 年分红（2023 年行业亏损暂停），累计派现约 292 亿元（约当前市值 15%），派息比例在盈利年约 30%~49%，当前股息率约 3.7%、分红占收入约 5%。属「盈利好就分、周期差就停」的弹性回报，需在猪价上行周期才有较好分红，长期回报确定性不及高分红蓝筹。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:58:00+08:00"
+}

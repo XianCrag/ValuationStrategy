@@ -1,0 +1,105 @@
+{
+  "code": "000858",
+  "name": "五粮液",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 22.78,
+      "netProfit": 58.35,
+      "revenue": 210.11,
+      "payoutRatio": 39
+    },
+    {
+      "year": "2015",
+      "dividend": 30.37,
+      "netProfit": 61.76,
+      "revenue": 216.59,
+      "payoutRatio": 49.2
+    },
+    {
+      "year": "2016",
+      "dividend": 34.16,
+      "netProfit": 67.85,
+      "revenue": 245.44,
+      "payoutRatio": 50.3
+    },
+    {
+      "year": "2017",
+      "dividend": 50.46,
+      "netProfit": 96.74,
+      "revenue": 301.87,
+      "payoutRatio": 52.2
+    },
+    {
+      "year": "2018",
+      "dividend": 65.99,
+      "netProfit": 133.84,
+      "revenue": 400.3,
+      "payoutRatio": 49.3
+    },
+    {
+      "year": "2019",
+      "dividend": 85.4,
+      "netProfit": 174.02,
+      "revenue": 501.18,
+      "payoutRatio": 49.1
+    },
+    {
+      "year": "2020",
+      "dividend": 100.15,
+      "netProfit": 199.55,
+      "revenue": 573.21,
+      "payoutRatio": 50.2
+    },
+    {
+      "year": "2021",
+      "dividend": 117.34,
+      "netProfit": 233.77,
+      "revenue": 662.09,
+      "payoutRatio": 50.2
+    },
+    {
+      "year": "2022",
+      "dividend": 146.8,
+      "netProfit": 266.9,
+      "revenue": 739.69,
+      "payoutRatio": 55
+    },
+    {
+      "year": "2023",
+      "dividend": 181.27,
+      "netProfit": 302.11,
+      "revenue": 832.72,
+      "payoutRatio": 60
+    },
+    {
+      "year": "2024",
+      "dividend": 223,
+      "netProfit": 318.53,
+      "revenue": 891.75,
+      "payoutRatio": 70
+    },
+    {
+      "year": "2025",
+      "dividend": 200.14,
+      "netProfit": 89.54,
+      "revenue": 405.29,
+      "payoutRatio": 223.5
+    }
+  ],
+  "mcapYi": 3102.18,
+  "currentDividendYield": 6.5,
+  "payoutRatioLatest": 223.5,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 1364.54,
+  "cumulativeToMcap": 44,
+  "dividendToRevenue": 49.4,
+  "buybackNote": "以现金分红为主并持续提升分红率（2024 年达 70%），辅以少量回购；管理层多次回应将加大分红力度。",
+  "rating": "strong",
+  "summary": "高分红消费龙头。连续 12 年分红，累计派现约 1365 亿元（约当前市值 44%），派息比例由 50% 出头提升至 2024 年的 70%，当前股息率约 6.5%。⚠️ 2025 年因利润大幅回落（该数据源口径存疑）仍维持约 200 亿分红，派息比例飙升至 220%+，属盈利下行期的「刚性分红」，可持续性需结合盈利修复情况观察。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:58:00+08:00"
+}

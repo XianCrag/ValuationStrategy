@@ -8,6 +8,11 @@ import type { PoolEntry } from './types';
 export default function StockPoolPageClient() {
   const [items, setItems] = useState<PoolEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selection, setSelection] = useState<{ code: string; nonce: number } | null>(null);
+
+  const selectStock = useCallback((code: string) => {
+    setSelection((prev) => ({ code, nonce: (prev?.nonce ?? 0) + 1 }));
+  }, []);
 
   useEffect(() => {
     fetch('/api/stock-pool')
@@ -39,8 +44,8 @@ export default function StockPoolPageClient() {
 
   return (
     <>
-      <StockPoolClient pooledCodes={pooledCodes} onAdd={addStock} />
-      <PoolList items={items} loading={loading} onRemove={removeStock} />
+      <StockPoolClient pooledCodes={pooledCodes} onAdd={addStock} selection={selection} />
+      <PoolList items={items} loading={loading} onRemove={removeStock} onSelect={selectStock} />
     </>
   );
 }

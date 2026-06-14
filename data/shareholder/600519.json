@@ -1,0 +1,105 @@
+{
+  "code": "600519",
+  "name": "贵州茅台",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 49.95,
+      "netProfit": 153.5,
+      "revenue": 322.17,
+      "payoutRatio": 32.5
+    },
+    {
+      "year": "2015",
+      "dividend": 77.52,
+      "netProfit": 155.03,
+      "revenue": 334.47,
+      "payoutRatio": 50
+    },
+    {
+      "year": "2016",
+      "dividend": 85.26,
+      "netProfit": 167.18,
+      "revenue": 401.55,
+      "payoutRatio": 51
+    },
+    {
+      "year": "2017",
+      "dividend": 138.17,
+      "netProfit": 270.79,
+      "revenue": 610.63,
+      "payoutRatio": 51
+    },
+    {
+      "year": "2018",
+      "dividend": 182.64,
+      "netProfit": 352.04,
+      "revenue": 771.99,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2019",
+      "dividend": 213.87,
+      "netProfit": 412.06,
+      "revenue": 888.54,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2020",
+      "dividend": 242.36,
+      "netProfit": 466.97,
+      "revenue": 979.93,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2021",
+      "dividend": 272.28,
+      "netProfit": 524.6,
+      "revenue": 1094.64,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2022",
+      "dividend": 325.49,
+      "netProfit": 627.17,
+      "revenue": 1275.54,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2023",
+      "dividend": 387.86,
+      "netProfit": 747.34,
+      "revenue": 1505.6,
+      "payoutRatio": 51.9
+    },
+    {
+      "year": "2024",
+      "dividend": 647.63,
+      "netProfit": 862.28,
+      "revenue": 1741.44,
+      "payoutRatio": 75.1
+    },
+    {
+      "year": "2025",
+      "dividend": 650.95,
+      "netProfit": 823.2,
+      "revenue": 1720.54,
+      "payoutRatio": 79.1
+    }
+  ],
+  "mcapYi": 16149.93,
+  "currentDividendYield": 4,
+  "payoutRatioLatest": 79.1,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 3492.18,
+  "cumulativeToMcap": 21.6,
+  "dividendToRevenue": 37.8,
+  "buybackNote": "以现金分红为主，近年明显提升分红率并实施特别分红，基本不做回购。",
+  "rating": "strong",
+  "summary": "现金分红龙头。连续 12 年分红，累计派现约 3492 亿元（约当前市值 22%），派息比例由约 52% 提升至 2024-2025 年的 75%~79%（含特别分红），当前股息率约 4.0%。分红约占收入 38%，回报力度大、现金流支撑充分。市值基数高使「累计分红/市值」比率相对低，但绝对回报与可持续性突出。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:58:00+08:00"
+}

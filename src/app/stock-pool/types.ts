@@ -194,6 +194,66 @@ export interface CycleAnalysis {
   generatedAt: string | null;
 }
 
+/** 一年的股东回报序列点。 */
+export interface ShareholderPoint {
+  /** 年份 */
+  year: string;
+  /** 当年现金分红总额（亿元），0 表示当年未分红，null 表示缺数据 */
+  dividend: number | null;
+  /** 归母净利润（亿元） */
+  netProfit: number | null;
+  /** 营业总收入（亿元） */
+  revenue: number | null;
+  /** 派息比例 = 分红 / 归母净利（%） */
+  payoutRatio: number | null;
+}
+
+/** 股东回报力度评级。 */
+export type ShareholderRating = 'strong' | 'moderate' | 'weak';
+
+/**
+ * 股东回报分析（来自 /api/stock-shareholder，对应 RRD_1.md §6）。
+ *
+ * 考察「分红 / 回购」与「市值、收入」的关系：股息率、派息比例、累计分红/市值、
+ * 分红/收入、连续分红年数等。🟦 序列与比率为客观计算（shareholder_fetch.py），
+ * 🟨 回购说明与评价由 Cursor 综合。与股票池对齐，仅池内标的生成。
+ */
+export interface ShareholderAnalysis {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 历年股东回报序列（status=ready 时有值） */
+  annual: ShareholderPoint[];
+  /** 生成时总市值（亿元，作为各比率分母的快照） */
+  mcapYi: number | null;
+  /** 当前股息率 = 最新年度分红 / 市值（%） */
+  currentDividendYield: number | null;
+  /** 最新派息比例（%） */
+  payoutRatioLatest: number | null;
+  /** 连续现金分红年数 */
+  consecutiveYears: number | null;
+  /** 累计现金分红（亿元） */
+  cumulativeDividend: number | null;
+  /** 累计分红 / 当前市值（%） */
+  cumulativeToMcap: number | null;
+  /** 最新年度分红 / 营业收入（%） */
+  dividendToRevenue: number | null;
+  /** 回购情况定性说明（🟨 AI，A 股无统一回购数据接口） */
+  buybackNote: string;
+  /** 股东回报力度评级 */
+  rating: ShareholderRating;
+  /** AI 论证 */
+  summary: string;
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
 /** 选股池条目（来自 /api/stock-pool，服务端快照）。 */
 export interface PoolEntry {
   code: string;

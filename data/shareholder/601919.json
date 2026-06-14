@@ -1,0 +1,105 @@
+{
+  "code": "601919",
+  "name": "中远海控",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0,
+      "netProfit": 3.63,
+      "revenue": 643.74,
+      "payoutRatio": null
+    },
+    {
+      "year": "2015",
+      "dividend": 0,
+      "netProfit": 4.69,
+      "revenue": 650.36,
+      "payoutRatio": null
+    },
+    {
+      "year": "2016",
+      "dividend": 0,
+      "netProfit": -99.06,
+      "revenue": 711.6,
+      "payoutRatio": null
+    },
+    {
+      "year": "2017",
+      "dividend": 0,
+      "netProfit": 26.62,
+      "revenue": 904.64,
+      "payoutRatio": null
+    },
+    {
+      "year": "2018",
+      "dividend": 0,
+      "netProfit": 12.3,
+      "revenue": 1208.3,
+      "payoutRatio": null
+    },
+    {
+      "year": "2019",
+      "dividend": 0,
+      "netProfit": 67.64,
+      "revenue": 1510.57,
+      "payoutRatio": null
+    },
+    {
+      "year": "2020",
+      "dividend": 0,
+      "netProfit": 99.27,
+      "revenue": 1712.59,
+      "payoutRatio": null
+    },
+    {
+      "year": "2021",
+      "dividend": 139.33,
+      "netProfit": 893.49,
+      "revenue": 3336.94,
+      "payoutRatio": 15.6
+    },
+    {
+      "year": "2022",
+      "dividend": 548.27,
+      "netProfit": 1097.03,
+      "revenue": 3910.58,
+      "payoutRatio": 50
+    },
+    {
+      "year": "2023",
+      "dividend": 118.67,
+      "netProfit": 238.6,
+      "revenue": 1754.53,
+      "payoutRatio": 49.7
+    },
+    {
+      "year": "2024",
+      "dividend": 242.54,
+      "netProfit": 491,
+      "revenue": 2338.59,
+      "payoutRatio": 49.4
+    },
+    {
+      "year": "2025",
+      "dividend": 154.12,
+      "netProfit": 308.68,
+      "revenue": 2195.04,
+      "payoutRatio": 49.9
+    }
+  ],
+  "mcapYi": 2231.1,
+  "currentDividendYield": 6.9,
+  "payoutRatioLatest": 49.9,
+  "consecutiveYears": 5,
+  "cumulativeDividend": 1260.14,
+  "cumulativeToMcap": 56.5,
+  "dividendToRevenue": 7,
+  "buybackNote": "除高分红外，超级周期后实施 A/H 股回购（含部分注销）强化回报；但股东回报随运价周期大幅波动。",
+  "rating": "moderate",
+  "summary": "周期型高回报。2016-2020 年亏损/微利期未分红，2021 年盈利大增后开启分红、连续 5 年；累计派现约 1260 亿元，相当于当前市值的约 56%（比率居池内最高）。派息比例稳定在约 50%，当前股息率约 6.9%。但分红额完全跟随集运运价周期起落（2022 年派 548 亿 vs 2023 年 119 亿），回报连续性弱于公用事业型红利股。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:58:00+08:00"
+}
