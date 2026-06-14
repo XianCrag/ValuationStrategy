@@ -1,0 +1,34 @@
+{
+  "code": "000858",
+  "name": "五粮液",
+  "annual": [
+    { "year": "2014", "revenue": 210.11, "netProfit": 58.35, "revenueYoY": -15.0, "netProfitYoY": -26.81, "roe": 15.42, "grossMargin": 72.53, "netMargin": 28.83 },
+    { "year": "2015", "revenue": 216.59, "netProfit": 61.76, "revenueYoY": 3.08, "netProfitYoY": 5.85, "roe": 14.93, "grossMargin": 69.2, "netMargin": 29.6 },
+    { "year": "2016", "revenue": 245.44, "netProfit": 67.85, "revenueYoY": 13.32, "netProfitYoY": 9.85, "roe": 15.01, "grossMargin": 70.2, "netMargin": 28.75 },
+    { "year": "2017", "revenue": 301.87, "netProfit": 96.74, "revenueYoY": 22.99, "netProfitYoY": 42.58, "roe": 19.38, "grossMargin": 72.01, "netMargin": 33.41 },
+    { "year": "2018", "revenue": 400.3, "netProfit": 133.84, "revenueYoY": 32.61, "netProfitYoY": 38.36, "roe": 22.8, "grossMargin": 73.8, "netMargin": 35.07 },
+    { "year": "2019", "revenue": 501.18, "netProfit": 174.02, "revenueYoY": 25.2, "netProfitYoY": 30.02, "roe": 25.26, "grossMargin": 74.46, "netMargin": 36.37 },
+    { "year": "2020", "revenue": 573.21, "netProfit": 199.55, "revenueYoY": 14.37, "netProfitYoY": 14.67, "roe": 24.94, "grossMargin": 74.16, "netMargin": 36.48 },
+    { "year": "2021", "revenue": 662.09, "netProfit": 233.77, "revenueYoY": 15.51, "netProfitYoY": 17.15, "roe": 25.31, "grossMargin": 75.35, "netMargin": 37.02 },
+    { "year": "2022", "revenue": 739.69, "netProfit": 266.9, "revenueYoY": 11.72, "netProfitYoY": 14.17, "roe": 25.28, "grossMargin": 75.42, "netMargin": 37.81 },
+    { "year": "2023", "revenue": 832.72, "netProfit": 302.11, "revenueYoY": 12.58, "netProfitYoY": 13.19, "roe": 25.06, "grossMargin": 75.79, "netMargin": 37.85 },
+    { "year": "2024", "revenue": 891.75, "netProfit": 318.53, "revenueYoY": 7.09, "netProfitYoY": 5.44, "roe": 23.35, "grossMargin": 77.05, "netMargin": 37.22 },
+    { "year": "2025", "revenue": 405.29, "netProfit": 89.54, "revenueYoY": -54.55, "netProfitYoY": -71.89, "roe": 6.89, "grossMargin": 77.54, "netMargin": 22.99 }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "falling",
+  "positionScore": 18,
+  "summary": "弱～中周期（高端白酒消费）。波动主要来自宏观消费景气与渠道库存周期，而非典型商品周期：2014 年是上一轮（限制三公消费）行业调整的底部，随后 2015-2024 走出长达十年的量价齐升，归母从 58 亿增至 318 亿、ROE 稳定在 25% 上下。2025 年营收与利润大幅回落，进入新一轮去库存调整下行期，当前景气落入历史低位区。⚠️ 注：本数据源 2025 全年营收同比 -54.5%、归母 -71.9% 的幅度明显异常（与同业茅台仅微降背离），疑为数据口径/披露问题，结论需结合公司正式年报复核。",
+  "drivers": [
+    "高端及次高端白酒需求与宏观消费景气",
+    "渠道库存与普五批价（动销与价盘）",
+    "白酒行业去库存 / 补库存周期",
+    "政策预期（消费税、三公消费、宴席场景）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:30:00+08:00"
+}

@@ -1,0 +1,55 @@
+{
+  "code": "600519",
+  "name": "贵州茅台",
+  "segments": [
+    {
+      "name": "茅台酒",
+      "position": "核心主业",
+      "features": "飞天/53 度茅台等高端大单品，品牌与价格带壁垒极强，是收入与绝大部分利润来源"
+    },
+    {
+      "name": "系列酒",
+      "position": "增长补充",
+      "features": "茅台 1935、王子、迎宾等，承担放量与中端价格带卡位，增速快于主品牌"
+    },
+    {
+      "name": "渠道（直销 i茅台 + 批发）",
+      "position": "渠道变革",
+      "features": "直销（含 i茅台）占比提升至约 45%，掌控终端价与渠道利润，平滑批价波动"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "茅台酒",
+      "share": "~85%",
+      "shareYear": "2025",
+      "trend": "行业调整期保持稳健，提价与结构优化支撑",
+      "trendDirection": "flat"
+    },
+    {
+      "source": "系列酒",
+      "share": "~13%",
+      "shareYear": "2025",
+      "trend": "增长快于主品牌，结构持续优化",
+      "trendDirection": "up"
+    },
+    {
+      "source": "其他（含海外）",
+      "share": "~2%",
+      "shareYear": "2025",
+      "trend": "占比小，平稳",
+      "trendDirection": "flat"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "飞天茅台单一大单品贡献核心收入与绝大部分利润；2025 全年营收 1721 亿（同比 -1.2%）、归母 823 亿，行业调整下韧性突出",
+    "share": "~85%",
+    "note": "高度依赖单一高端大单品，护城河极强；需关注飞天批价与渠道库存周期"
+  },
+  "source": "2025 年报 / F10 公司概况·财务分析 / 东财研报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:25:00+08:00"
+}

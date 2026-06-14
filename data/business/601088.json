@@ -1,0 +1,67 @@
+{
+  "code": "601088",
+  "name": "中国神华",
+  "segments": [
+    {
+      "name": "煤炭",
+      "position": "核心主业",
+      "features": "自有动力煤矿产销一体，以长协价为主、现货为辅，价格相对平稳；产销规模行业第一，是收入与利润的压舱石"
+    },
+    {
+      "name": "发电",
+      "position": "一体化协同",
+      "features": "燃煤发电为主，煤电联营对冲煤价波动；2025 年装机量增、成本下降，盈利同比改善"
+    },
+    {
+      "name": "运输（铁路/港口/航运）",
+      "position": "物流枢纽",
+      "features": "自有铁路、黄骅港等运输网络，承运自产煤并对外提供服务，构成一体化护城河"
+    },
+    {
+      "name": "煤化工",
+      "position": "业务补充",
+      "features": "煤制烯烃等，体量相对小；资产注入后产能有望扩大"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "煤炭",
+      "share": "~60%",
+      "shareYear": "2025",
+      "trend": "量稳价跌，营收随动力煤价回落",
+      "trendDirection": "down"
+    },
+    {
+      "source": "发电",
+      "share": "~20%",
+      "shareYear": "2025",
+      "trend": "量增本降，盈利改善",
+      "trendDirection": "up"
+    },
+    {
+      "source": "运输（铁路/港口/航运）",
+      "share": "~12%",
+      "shareYear": "2025",
+      "trend": "一体化协同，平稳",
+      "trendDirection": "flat"
+    },
+    {
+      "source": "煤化工",
+      "share": "~3%",
+      "shareYear": "2025",
+      "trend": "占比小，毛利率有提升",
+      "trendDirection": "flat"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "煤炭分部贡献约六成营收，且为利润核心；2025 全年营收 2949 亿、归母净利 528 亿，均较 2024 年回落",
+    "share": "~60%",
+    "note": "业绩与动力煤长协及现货价格高度相关，是周期波动主因；煤电一体化运营 + 高比例分红（结合拟注入资产）提供下行缓冲"
+  },
+  "source": "2025 年报 / F10 公司概况·财务分析 / 东财研报（华源·信达·国信等）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:25:00+08:00"
+}

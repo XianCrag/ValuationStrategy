@@ -1,7 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import type { PoolEntry, StockQuote, StockValuation, StrikeZone } from './types';
+import BusinessAnalysis from './BusinessAnalysis';
+import CycleAnalysis from './CycleAnalysis';
+import type {
+  BusinessAnalysis as BusinessAnalysisData,
+  CycleAnalysis as CycleAnalysisData,
+  PoolEntry,
+  StockQuote,
+  StockValuation,
+  StrikeZone,
+} from './types';
 
 interface StockPoolClientProps {
   pooledCodes: Set<string>;
@@ -37,7 +46,31 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
   const [quote, setQuote] = useState<StockQuote | null>(null);
   const [valuation, setValuation] = useState<StockValuation | null>(null);
   const [valLoading, setValLoading] = useState(false);
+  const [business, setBusiness] = useState<BusinessAnalysisData | null>(null);
+  const [bizLoading, setBizLoading] = useState(false);
+  const [cycle, setCycle] = useState<CycleAnalysisData | null>(null);
+  const [cycleLoading, setCycleLoading] = useState(false);
   const [adding, setAdding] = useState(false);
+
+  const loadBusiness = async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-business?code=${code}`);
+      const data = (await r.json()) as BusinessAnalysisData;
+      if (data.success) setBusiness(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  };
+
+  const loadCycle = async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-cycle?code=${code}`);
+      const data = (await r.json()) as CycleAnalysisData;
+      if (data.success) setCycle(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  };
 
   const search = async (rawCode: string) => {
     const code = rawCode.trim();
@@ -47,8 +80,12 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
     }
     setLoading(true);
     setValLoading(true);
+    setBizLoading(true);
+    setCycleLoading(true);
     setError(null);
     setValuation(null);
+    setBusiness(null);
+    setCycle(null);
 
     // 估值分析较慢，与实时行情并行请求
     fetch(`/api/stock-valuation?code=${code}`)
@@ -58,6 +95,10 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
       })
       .catch(() => {})
       .finally(() => setValLoading(false));
+
+    // 业务分析（§2）/ 周期分析（§4）—— 与股票池对齐，仅池内标的有内容，并行请求
+    loadBusiness(code).finally(() => setBizLoading(false));
+    loadCycle(code).finally(() => setCycleLoading(false));
 
     try {
       const res = await fetch(`/api/stock-quote?code=${code}`);
@@ -98,6 +139,8 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
         strikeZone: valuation?.strikeZone ?? 'unknown',
         addedAt: '',
       });
+      // 加入后重取业务/周期分析：not-in-pool → pending（待离线生成）
+      await Promise.all([loadBusiness(quote.code), loadCycle(quote.code)]);
     } finally {
       setAdding(false);
     }
@@ -284,6 +327,12 @@ export default function StockPoolClient({ pooledCodes, onAdd }: StockPoolClientP
               <> · 分位口径 PE {valuation.peComputed.toFixed(2)}</>
             )}
           </div>
+
+          {/* 业务分析（RRD_1 §2） */}
+          <BusinessAnalysis data={business} loading={bizLoading} />
+
+          {/* 周期分析（RRD_1 §4 周期性） */}
+          <CycleAnalysis data={cycle} loading={cycleLoading} />
         </>
       )}
     </div>

@@ -37,5 +37,31 @@
     "roePeriod": "2025",
     "strikeZone": "undervalued",
     "addedAt": "2026-06-13T18:39:26.324Z"
+  },
+  {
+    "code": "601919",
+    "name": "中远海控",
+    "industry": "航运港口",
+    "price": 14.57,
+    "peTtm": 8.91,
+    "pePercentile": 47,
+    "dividendYield": 10.91,
+    "roe": 13.17,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-14T07:45:48.674Z"
+  },
+  {
+    "code": "002714",
+    "name": "牧原股份",
+    "industry": "养殖业",
+    "price": 34.86,
+    "peTtm": 20.58,
+    "pePercentile": 36.5,
+    "dividendYield": 5.53,
+    "roe": 20.57,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-14T07:47:08.315Z"
   }
 ]

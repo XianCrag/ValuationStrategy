@@ -1,0 +1,55 @@
+{
+  "code": "601919",
+  "name": "中远海控",
+  "segments": [
+    {
+      "name": "集装箱航运",
+      "position": "核心主业",
+      "features": "通过中远海运集运 + 东方海外（OOCL）经营全球集装箱班轮，运力规模全球前三，干线网络覆盖跨太平洋、亚欧等主要航线"
+    },
+    {
+      "name": "码头业务",
+      "position": "一体化协同",
+      "features": "中远海运港口提供全球码头组合，港航协同，对冲部分运价波动；2025 年港口业务表现亮眼"
+    },
+    {
+      "name": "相关物流 / 供应链",
+      "position": "业务延伸",
+      "features": "围绕集运拓展端到端物流与数字化服务，体量相对小"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "集装箱航运业务",
+      "share": "~93%",
+      "shareYear": "2025",
+      "trend": "运价较 2024 红海绕行高点回落，营收承压",
+      "trendDirection": "down"
+    },
+    {
+      "source": "码头业务",
+      "share": "~6%",
+      "shareYear": "2025",
+      "trend": "吞吐量稳健，盈利向好",
+      "trendDirection": "up"
+    },
+    {
+      "source": "其他（物流/供应链）",
+      "share": "~1%",
+      "shareYear": "2025",
+      "trend": "占比小，平稳",
+      "trendDirection": "flat"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "集装箱航运单一业务贡献逾九成营收；2025 全年营收 2195 亿、归母净利 309 亿，较 2024 年（491 亿）回落约 37%",
+    "share": "~93%",
+    "note": "业绩高度依赖集运运价（SCFI/CCFI），运价由全球贸易需求与运力供需决定，叠加红海绕行等突发事件，波动极大；高分红与净现金对股东回报形成支撑"
+  },
+  "source": "2025 年报 / F10 公司概况·行业分析 / 东财研报（国信·华源·国金等）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:48:00+08:00"
+}

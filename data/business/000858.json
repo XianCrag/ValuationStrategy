@@ -1,0 +1,55 @@
+{
+  "code": "000858",
+  "name": "五粮液",
+  "segments": [
+    {
+      "name": "五粮液产品（主品牌）",
+      "position": "核心主业",
+      "features": "第八代五粮液（普五）等高端浓香，品牌与价格带核心，贡献绝大部分收入与利润"
+    },
+    {
+      "name": "系列酒",
+      "position": "腰部放量",
+      "features": "五粮春、五粮醇、尖庄等中低端产品，承担销量与中端价位卡位"
+    },
+    {
+      "name": "渠道（经销 + 直销/电商）",
+      "position": "渠道变革",
+      "features": "以经销为主，推进直销与数字化、控盘分利，强化对终端价与库存的掌控"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "五粮液产品（主品牌）",
+      "share": "~80%",
+      "shareYear": "2024",
+      "trend": "行业进入调整期，高端动销承压、去库存",
+      "trendDirection": "down"
+    },
+    {
+      "source": "系列酒",
+      "share": "~16%",
+      "shareYear": "2024",
+      "trend": "结构补充，增速波动",
+      "trendDirection": "flat"
+    },
+    {
+      "source": "其他（玻瓶/物流等）",
+      "share": "~4%",
+      "shareYear": "2024",
+      "trend": "占比小，平稳",
+      "trendDirection": "flat"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "第八代五粮液（普五）单一大单品贡献主要收入与绝大部分利润",
+    "share": "~70%+",
+    "note": "高度依赖单一高端大单品，普五批价与终端动销是核心变量；2025 年白酒行业调整下营收承压"
+  },
+  "source": "2024 年报（占比口径）/ F10 公司概况·财务分析 / 东财研报",
+  "confidence": "medium",
+  "reportPeriod": "2024-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:25:00+08:00"
+}

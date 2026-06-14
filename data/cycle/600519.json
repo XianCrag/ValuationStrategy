@@ -1,0 +1,34 @@
+{
+  "code": "600519",
+  "name": "贵州茅台",
+  "annual": [
+    { "year": "2014", "revenue": 322.17, "netProfit": 153.5, "revenueYoY": 3.69, "netProfitYoY": 1.41, "roe": 31.96, "grossMargin": 92.59, "netMargin": 51.53 },
+    { "year": "2015", "revenue": 334.47, "netProfit": 155.03, "revenueYoY": 3.82, "netProfitYoY": 1.0, "roe": 26.23, "grossMargin": 92.23, "netMargin": 50.38 },
+    { "year": "2016", "revenue": 401.55, "netProfit": 167.18, "revenueYoY": 20.06, "netProfitYoY": 7.84, "roe": 24.44, "grossMargin": 91.23, "netMargin": 46.14 },
+    { "year": "2017", "revenue": 610.63, "netProfit": 270.79, "revenueYoY": 52.07, "netProfitYoY": 61.97, "roe": 32.95, "grossMargin": 89.8, "netMargin": 49.82 },
+    { "year": "2018", "revenue": 771.99, "netProfit": 352.04, "revenueYoY": 26.43, "netProfitYoY": 30.0, "roe": 34.46, "grossMargin": 91.14, "netMargin": 51.37 },
+    { "year": "2019", "revenue": 888.54, "netProfit": 412.06, "revenueYoY": 15.1, "netProfitYoY": 17.05, "roe": 33.09, "grossMargin": 91.3, "netMargin": 51.47 },
+    { "year": "2020", "revenue": 979.93, "netProfit": 466.97, "revenueYoY": 10.29, "netProfitYoY": 13.33, "roe": 31.41, "grossMargin": 91.41, "netMargin": 52.18 },
+    { "year": "2021", "revenue": 1094.64, "netProfit": 524.6, "revenueYoY": 11.71, "netProfitYoY": 12.34, "roe": 29.89, "grossMargin": 91.54, "netMargin": 52.47 },
+    { "year": "2022", "revenue": 1275.54, "netProfit": 627.17, "revenueYoY": 16.53, "netProfitYoY": 19.55, "roe": 30.26, "grossMargin": 91.87, "netMargin": 52.68 },
+    { "year": "2023", "revenue": 1505.6, "netProfit": 747.34, "revenueYoY": 18.04, "netProfitYoY": 19.16, "roe": 34.19, "grossMargin": 91.96, "netMargin": 52.49 },
+    { "year": "2024", "revenue": 1741.44, "netProfit": 862.28, "revenueYoY": 15.66, "netProfitYoY": 15.38, "roe": 36.02, "grossMargin": 91.93, "netMargin": 52.27 },
+    { "year": "2025", "revenue": 1720.54, "netProfit": 823.2, "revenueYoY": -1.2, "netProfitYoY": -4.53, "roe": 32.53, "grossMargin": 91.18, "netMargin": 50.53 }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "peak",
+  "positionScore": 90,
+  "summary": "弱周期成长股。凭借飞天茅台的品牌壁垒与极高毛利（约 91%），盈利波动远小于行业：过去十余年归母净利从 153 亿增至 862 亿、几乎逐年增长，ROE 长期维持 30% 上下。2014-2015 曾受上一轮行业调整影响增速降至个位数，但未出现利润下滑。2025 年首次出现营收/归母双双微降（-1.2% / -4.5%），反映白酒行业进入调整期，但其韧性显著强于同业。当前盈利仍处历史高位平台，增速见顶回落，属高景气位置的成长龙头而非典型周期股。",
+  "drivers": [
+    "高端白酒消费景气与飞天批价",
+    "渠道库存与控价、配额投放节奏",
+    "提价与直销（i茅台）占比提升的结构性增量",
+    "宏观与政策（消费税、三公消费、商务/宴席需求）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:30:00+08:00"
+}

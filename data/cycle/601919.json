@@ -1,0 +1,34 @@
+{
+  "code": "601919",
+  "name": "中远海控",
+  "annual": [
+    { "year": "2014", "revenue": 643.74, "netProfit": 3.63, "revenueYoY": 3.94, "netProfitYoY": 53.96, "roe": 1.49, "grossMargin": 7.02, "netMargin": 2.41 },
+    { "year": "2015", "revenue": 650.36, "netProfit": 4.69, "revenueYoY": 1.03, "netProfitYoY": 29.45, "roe": 1.64, "grossMargin": 4.96, "netMargin": 3.4 },
+    { "year": "2016", "revenue": 711.6, "netProfit": -99.06, "revenueYoY": 9.42, "netProfitYoY": -2210.8, "roe": -44.19, "grossMargin": -0.99, "netMargin": -12.79 },
+    { "year": "2017", "revenue": 904.64, "netProfit": 26.62, "revenueYoY": 27.13, "netProfitYoY": 126.87, "roe": 13.77, "grossMargin": 8.69, "netMargin": 5.34 },
+    { "year": "2018", "revenue": 1208.3, "netProfit": 12.3, "revenueYoY": 33.57, "netProfitYoY": -53.79, "roe": 5.52, "grossMargin": 8.46, "netMargin": 2.5 },
+    { "year": "2019", "revenue": 1510.57, "netProfit": 67.64, "revenueYoY": 25.02, "netProfitYoY": 449.92, "roe": 21.57, "grossMargin": 10.74, "netMargin": 6.85 },
+    { "year": "2020", "revenue": 1712.59, "netProfit": 99.27, "revenueYoY": 13.37, "netProfitYoY": 46.76, "roe": 25.16, "grossMargin": 14.21, "netMargin": 7.7 },
+    { "year": "2021", "revenue": 3336.94, "netProfit": 893.49, "revenueYoY": 94.85, "netProfitYoY": 800.05, "roe": 100.57, "grossMargin": 42.3, "netMargin": 31.14 },
+    { "year": "2022", "revenue": 3910.58, "netProfit": 1097.03, "revenueYoY": 17.19, "netProfitYoY": 22.78, "roe": 59.84, "grossMargin": 44.26, "netMargin": 33.62 },
+    { "year": "2023", "revenue": 1754.53, "netProfit": 238.6, "revenueYoY": -55.13, "netProfitYoY": -78.25, "roe": 11.8, "grossMargin": 16.36, "netMargin": 16.18 },
+    { "year": "2024", "revenue": 2338.59, "netProfit": 491.0, "revenueYoY": 33.29, "netProfitYoY": 105.78, "roe": 22.6, "grossMargin": 29.54, "netMargin": 23.69 },
+    { "year": "2025", "revenue": 2195.04, "netProfit": 308.68, "revenueYoY": -6.14, "netProfitYoY": -37.13, "roe": 13.17, "grossMargin": 20.05, "netMargin": 16.05 }
+  ],
+  "isCyclical": true,
+  "cyclicality": "strong",
+  "position": "falling",
+  "positionScore": 38,
+  "summary": "超强周期（集装箱航运）。盈利完全由集运运价驱动，振幅极大：2016 年行业低谷巨亏 99 亿（*ST 远洋时期），2017-2020 缓慢复苏，2021-2022 疫情供应链紊乱推动运价暴涨，归母净利冲到 893 亿、1097 亿的历史峰值（ROE 一度 100%）；2023 年运价正常化后利润骤降 78% 至 239 亿，2024 年红海绕行推升运价、利润反弹至 491 亿，2025 年再度回落至 309 亿（同比 -37%）。当前盈利处于历史峰谷区间的中部偏下、趋势向下。该行业无稳定中枢，景气高度依赖外部事件，择时难度大。",
+  "drivers": [
+    "集运运价（SCFI / CCFI）—— 决定盈利的核心变量",
+    "全球贸易需求与集运运力供需（新船交付 vs 拆解）",
+    "突发事件：疫情供应链紊乱、红海绕行 / 苏伊士、港口拥堵",
+    "燃油成本与汇率（美元计价运费）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-14T15:48:00+08:00"
+}
