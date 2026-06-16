@@ -254,6 +254,160 @@ export interface ShareholderAnalysis {
   generatedAt: string | null;
 }
 
+/** 政策环境立场（顺风 / 中性 / 逆风）。 */
+export type PolicyStance = 'tailwind' | 'neutral' | 'headwind';
+
+/** 单条政策影响方向。 */
+export type PolicyImpact = 'positive' | 'neutral' | 'negative';
+
+/** 一条政策事件（时间线的一行）。 */
+export interface PolicyEvent {
+  /** 时间，如「2024-04」或「2025 年」 */
+  date: string;
+  /** 事件标题 */
+  title: string;
+  /** 对公司 / 行业的影响方向 */
+  impact: PolicyImpact;
+  /** 影响说明 */
+  note: string;
+}
+
+/**
+ * 政策、监管环境分析（来自 /api/stock-policy，对应 RRD_1.md §7）。
+ *
+ * 🟨 纯 AI 定性：识别行业政策顺风/逆风与监管风险。与股票池对齐，仅池内标的生成；
+ * 开发期由 Cursor 综合（财报/政策文件/新闻）后写入 data/policy/{code}.json。
+ */
+export interface PolicyAnalysis {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 总体政策立场 */
+  stance: PolicyStance;
+  /** AI 论证（一段话） */
+  summary: string;
+  /** 关键政策事件时间线 */
+  events: PolicyEvent[];
+  /** 监管 / 政策风险点 */
+  risks: string[];
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
+/** 护城河整体强度（宽 / 中 / 窄）。 */
+export type MoatStrength = 'wide' | 'moderate' | 'narrow';
+
+/** 护城河单维度评分（雷达图一个顶点）。 */
+export interface MoatDimension {
+  /** 维度名，如「成本优势」 */
+  name: string;
+  /** 评分 0~5 */
+  score: number;
+  /** 评分依据 */
+  note: string;
+}
+
+/** 竞争对手对比要点。 */
+export interface CompetitorPoint {
+  /** 对手名称 */
+  name: string;
+  /** 对比要点 */
+  note: string;
+}
+
+/**
+ * 市场竞争力 / 护城河 / 技术创新分析（来自 /api/stock-moat，对应 RRD_1.md §8）。
+ *
+ * 🟨 AI 定性主导：成本优势 / 网络效应 / 无形资产 / 转换成本 / 规模效应五维评分，
+ * 佐证可结合研发数据。与股票池对齐，仅池内标的生成；开发期由 Cursor 写入
+ * data/moat/{code}.json。
+ */
+export interface MoatAnalysis {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 护城河整体强度 */
+  strength: MoatStrength;
+  /** 五维护城河评分（雷达图） */
+  dimensions: MoatDimension[];
+  /** AI 论证（一段话） */
+  summary: string;
+  /** 主要竞争对手对比要点 */
+  competitors: CompetitorPoint[];
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
+/** 一年的海外收入序列点（🟦 来自 globalization_fetch.py，按地区主营构成）。 */
+export interface GlobalizationPoint {
+  /** 年份 */
+  year: string;
+  /** 当年主营总收入（亿元） */
+  totalRevenue: number | null;
+  /** 当年海外 / 境外主营收入（亿元），null 表示无分地区披露 */
+  overseasIncome: number | null;
+  /** 海外收入占主营比例（%） */
+  overseasRatio: number | null;
+}
+
+/** 一条分地区收入明细（最新年度）。 */
+export interface RegionShare {
+  /** 地区名，如「境内」「境外」 */
+  name: string;
+  /** 主营收入（亿元） */
+  income: number | null;
+  /** 占主营比例（%） */
+  ratio: number | null;
+  /** 毛利率（%），常缺失 */
+  grossMargin: number | null;
+}
+
+/**
+ * 全球化、出海分析（来自 /api/stock-globalization，对应 RRD_1.md §9）。
+ *
+ * 🟦 海外收入序列与分地区拆分客观计算（globalization_fetch.py，东财主营构成·按地区）
+ * + 🟨 AI 判断（出海市场、地缘/汇率风险、海外竞争）。与股票池对齐，仅池内标的生成。
+ */
+export interface GlobalizationAnalysis {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 历年海外收入序列（status=ready 时有值） */
+  annual: GlobalizationPoint[];
+  /** 最新披露年度 */
+  latestYear: string | null;
+  /** 最新年度分地区拆分明细 */
+  latestBreakdown: RegionShare[];
+  /** 主要出海市场（🟨 AI） */
+  markets: string[];
+  /** 出海机会要点（🟨 AI） */
+  opportunities: string[];
+  /** 出海风险要点：地缘 / 汇率 / 竞争（🟨 AI） */
+  risks: string[];
+  /** AI 论证（一段话） */
+  summary: string;
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
 /** 选股池条目（来自 /api/stock-pool，服务端快照）。 */
 export interface PoolEntry {
   code: string;

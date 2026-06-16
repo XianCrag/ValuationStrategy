@@ -1,0 +1,39 @@
+{
+  "code": "601919",
+  "name": "中远海控",
+  "annual": [
+    { "year": "2020", "totalRevenue": 1712.6, "overseasIncome": 1524.47, "overseasRatio": 89.0 },
+    { "year": "2021", "totalRevenue": 3336.93, "overseasIncome": 3088.6, "overseasRatio": 92.6 },
+    { "year": "2022", "totalRevenue": 3910.58, "overseasIncome": 3652.21, "overseasRatio": 93.4 },
+    { "year": "2023", "totalRevenue": 1754.47, "overseasIncome": 1530.43, "overseasRatio": 87.2 },
+    { "year": "2024", "totalRevenue": 2338.59, "overseasIncome": 2092.54, "overseasRatio": 89.5 },
+    { "year": "2025", "totalRevenue": 2195.03, "overseasIncome": 1923.29, "overseasRatio": 87.6 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "亚太地区", "income": 561.35, "ratio": 25.6, "grossMargin": null },
+    { "name": "美洲地区", "income": 556.27, "ratio": 25.3, "grossMargin": null },
+    { "name": "欧洲地区", "income": 471.69, "ratio": 21.5, "grossMargin": null },
+    { "name": "其他国际地区", "income": 333.98, "ratio": 15.2, "grossMargin": null },
+    { "name": "中国地区", "income": 304.43, "ratio": 13.9, "grossMargin": null },
+    { "name": "分部间抵销", "income": -32.69, "ratio": -1.5, "grossMargin": null }
+  ],
+  "markets": ["亚太", "美洲（含跨太平洋）", "欧洲（含地中海）", "新兴市场航线"],
+  "opportunities": [
+    "全球航线网络叠加码头与端到端物流转型，向「集运 + 物流」综合服务商升级，增厚非运价收入。",
+    "新兴市场（东南亚、拉美、非洲）货量增长与区域航线加密带来结构性机会。",
+    "数字化货运平台提升直客比例与单箱盈利质量。"
+  ],
+  "risks": [
+    "境外收入占比常年约 90%，业绩与全球贸易景气、跨太平洋/欧线运价高度绑定，强周期波动剧烈（2021-2022 高点后已大幅回落）。",
+    "全球贸易摩擦、关税与地缘冲突（红海等）对运量与航线结构形成扰动。",
+    "汇率（美元结算为主）与燃油价格波动影响盈利。",
+    "新船集中交付导致运力过剩，压制长期运价中枢。"
+  ],
+  "summary": "中远海控是组合中全球化程度最高的标的——境外收入占比常年约 87%~93%，2025 年约 1923 亿元、占比 87.6%，收入按亚太/美洲/欧洲等大洲分布，本质是一家全球性集装箱航运央企。这意味着其业绩几乎完全由全球贸易景气与国际运价周期决定：景气高点盈利爆发（2021-2022）、回落期利润大幅缩水，波动远大于内需型公司。投资上应将其视为「高弹性全球周期 + 高股息」标的，紧扣运价周期、全球贸易需求与脱碳/关税等外部变量，而非稳定成长逻辑。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py，按大洲披露）+ 中远海控 2025 年报",
+  "confidence": "high",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-15T18:05:00+08:00"
+}

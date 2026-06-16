@@ -1,0 +1,32 @@
+{
+  "code": "002714",
+  "name": "牧原股份",
+  "annual": [
+    { "year": "2020", "totalRevenue": 562.77, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 788.9, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 1248.26, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 1108.61, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 1379.47, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 1441.45, "overseasIncome": 0.04, "overseasRatio": 0.0 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "国内", "income": 1441.41, "ratio": 100.0, "grossMargin": 17.8 },
+    { "name": "国外", "income": 0.04, "ratio": 0.0, "grossMargin": 87.5 }
+  ],
+  "markets": [],
+  "opportunities": [
+    "养殖技术、智能化设备与种猪育种能力的对外输出是潜在的远期可选项。",
+    "若启动海外建场（如东南亚），可复制低成本养殖模式，但尚无实质落地。"
+  ],
+  "risks": [
+    "海外收入近乎为零（2025 年仅约 0.04 亿元），全球化不在当前投资逻辑内。",
+    "业绩完全由国内猪周期与养殖成本决定，无海外对冲。"
+  ],
+  "summary": "牧原是纯国内生猪养殖企业，海外收入近乎为零（2025 年约 0.04 亿元、占比 0%），全球化不构成其投资逻辑的任何部分。公司价值完全来自国内市场：核心是穿越猪周期的成本领先与出栏规模。技术与种猪能力的对外输出仅是远期可选项，尚无实质业务。分析应聚焦国内猪价周期位置、完全成本与产能扩张节奏，全球化模块对该标的可忽略。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 牧原 2025 年报",
+  "confidence": "high",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-15T18:05:00+08:00"
+}

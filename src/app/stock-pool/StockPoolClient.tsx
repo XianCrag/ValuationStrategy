@@ -4,9 +4,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import BusinessAnalysis from './BusinessAnalysis';
 import CycleAnalysis from './CycleAnalysis';
 import ShareholderReturn from './ShareholderReturn';
+import PolicyAnalysis from './PolicyAnalysis';
+import MoatAnalysis from './MoatAnalysis';
+import GlobalizationAnalysis from './GlobalizationAnalysis';
 import type {
   BusinessAnalysis as BusinessAnalysisData,
   CycleAnalysis as CycleAnalysisData,
+  GlobalizationAnalysis as GlobalizationAnalysisData,
+  MoatAnalysis as MoatAnalysisData,
+  PolicyAnalysis as PolicyAnalysisData,
   PoolEntry,
   ShareholderAnalysis as ShareholderAnalysisData,
   StockQuote,
@@ -61,6 +67,12 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
   const [cycleLoading, setCycleLoading] = useState(false);
   const [shareholder, setShareholder] = useState<ShareholderAnalysisData | null>(null);
   const [shLoading, setShLoading] = useState(false);
+  const [policy, setPolicy] = useState<PolicyAnalysisData | null>(null);
+  const [policyLoading, setPolicyLoading] = useState(false);
+  const [moat, setMoat] = useState<MoatAnalysisData | null>(null);
+  const [moatLoading, setMoatLoading] = useState(false);
+  const [globalization, setGlobalization] = useState<GlobalizationAnalysisData | null>(null);
+  const [globLoading, setGlobLoading] = useState(false);
   const [adding, setAdding] = useState(false);
 
   const loadBusiness = useCallback(async (code: string) => {
@@ -93,6 +105,36 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     }
   }, []);
 
+  const loadPolicy = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-policy?code=${code}`);
+      const data = (await r.json()) as PolicyAnalysisData;
+      if (data.success) setPolicy(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
+  const loadMoat = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-moat?code=${code}`);
+      const data = (await r.json()) as MoatAnalysisData;
+      if (data.success) setMoat(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
+  const loadGlobalization = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-globalization?code=${code}`);
+      const data = (await r.json()) as GlobalizationAnalysisData;
+      if (data.success) setGlobalization(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
   const search = useCallback(async (rawCode: string) => {
     const code = rawCode.trim();
     if (!/^\d{6}$/.test(code)) {
@@ -105,12 +147,18 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     setBizLoading(true);
     setCycleLoading(true);
     setShLoading(true);
+    setPolicyLoading(true);
+    setMoatLoading(true);
+    setGlobLoading(true);
     setError(null);
     setOffline(false);
     setValuation(null);
     setBusiness(null);
     setCycle(null);
     setShareholder(null);
+    setPolicy(null);
+    setMoat(null);
+    setGlobalization(null);
 
     // 估值分析较慢，与实时行情并行请求
     fetch(`/api/stock-valuation?code=${code}`)
@@ -121,10 +169,14 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
       .catch(() => {})
       .finally(() => setValLoading(false));
 
-    // 业务分析（§2）/ 周期分析（§4）/ 股东回报（§6）—— 与股票池对齐，仅池内标的有内容，并行请求
+    // 业务（§2）/ 周期（§4）/ 股东回报（§6）/ 政策（§7）/ 护城河（§8）/ 全球化（§9）
+    // —— 与股票池对齐，仅池内标的有内容，并行请求
     loadBusiness(code).finally(() => setBizLoading(false));
     loadCycle(code).finally(() => setCycleLoading(false));
     loadShareholder(code).finally(() => setShLoading(false));
+    loadPolicy(code).finally(() => setPolicyLoading(false));
+    loadMoat(code).finally(() => setMoatLoading(false));
+    loadGlobalization(code).finally(() => setGlobLoading(false));
 
     try {
       const res = await fetch(`/api/stock-quote?code=${code}`);
@@ -145,7 +197,7 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     } finally {
       setLoading(false);
     }
-  }, [loadBusiness, loadCycle, loadShareholder]);
+  }, [loadBusiness, loadCycle, loadShareholder, loadPolicy, loadMoat, loadGlobalization]);
 
   // 外部选中（点击选股池卡片）→ 填入代码、触发分析并滚动到顶部
   useEffect(() => {
@@ -177,8 +229,15 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
         strikeZone: valuation?.strikeZone ?? 'unknown',
         addedAt: '',
       });
-      // 加入后重取业务/周期/股东回报分析：not-in-pool → pending（待离线生成）
-      await Promise.all([loadBusiness(quote.code), loadCycle(quote.code), loadShareholder(quote.code)]);
+      // 加入后重取各分析：not-in-pool → pending（待离线生成）
+      await Promise.all([
+        loadBusiness(quote.code),
+        loadCycle(quote.code),
+        loadShareholder(quote.code),
+        loadPolicy(quote.code),
+        loadMoat(quote.code),
+        loadGlobalization(quote.code),
+      ]);
     } finally {
       setAdding(false);
     }
@@ -194,12 +253,15 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
   const snapshot =
     offline && activeCode ? pooledEntries.find((e) => e.code === activeCode) ?? null : null;
 
-  // 业务 / 周期 / 股东回报均为离线生成、文件驱动，线上同样可查看
+  // 各分析模块均为离线生成、文件驱动，线上同样可查看
   const analyses = (
     <>
       <BusinessAnalysis data={business} loading={bizLoading} />
       <CycleAnalysis data={cycle} loading={cycleLoading} />
       <ShareholderReturn data={shareholder} loading={shLoading} />
+      <PolicyAnalysis data={policy} loading={policyLoading} />
+      <MoatAnalysis data={moat} loading={moatLoading} />
+      <GlobalizationAnalysis data={globalization} loading={globLoading} />
     </>
   );
 
@@ -389,7 +451,7 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
             )}
           </div>
 
-          {/* 业务（§2）/ 周期（§4）/ 股东回报（§6）分析 */}
+          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 分析 */}
           {analyses}
         </>
       )}
@@ -466,7 +528,7 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
             实时价格 / 换手率 / 市值等需本地数据脚本，线上展示加入选股池时的快照。
           </div>
 
-          {/* 业务（§2）/ 周期（§4）/ 股东回报（§6）分析 */}
+          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 分析 */}
           {analyses}
         </>
       )}

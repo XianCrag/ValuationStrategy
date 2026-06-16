@@ -1,0 +1,34 @@
+{
+  "code": "600519",
+  "name": "贵州茅台",
+  "annual": [
+    { "year": "2020", "totalRevenue": 949.15, "overseasIncome": 24.32, "overseasRatio": 2.6 },
+    { "year": "2021", "totalRevenue": 1061.9, "overseasIncome": 26.18, "overseasRatio": 2.5 },
+    { "year": "2022", "totalRevenue": 1241.01, "overseasIncome": 42.4, "overseasRatio": 3.4 },
+    { "year": "2023", "totalRevenue": 1476.94, "overseasIncome": 43.5, "overseasRatio": 2.9 },
+    { "year": "2024", "totalRevenue": 1708.99, "overseasIncome": 51.89, "overseasRatio": 3.0 },
+    { "year": "2025", "totalRevenue": 1688.38, "overseasIncome": 48.5, "overseasRatio": 2.9 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "国内", "income": 1639.24, "ratio": 97.1, "grossMargin": 91.2 },
+    { "name": "国外", "income": 48.5, "ratio": 2.9, "grossMargin": 91.7 },
+    { "name": "其他(补充)", "income": 0.64, "ratio": 0.0, "grossMargin": -36.0 }
+  ],
+  "markets": ["港澳台", "东南亚华人市场", "全球免税渠道"],
+  "opportunities": [
+    "国际化战略与中国文化输出长期打开海外华人及高端消费圈层空间。",
+    "免税、跨境电商与海外直营渠道建设可逐步提升品牌全球可得性。"
+  ],
+  "risks": [
+    "海外收入占比常年仅约 3%，对整体业绩拉动有限，全球化非当前成长主线。",
+    "白酒口味与饮用文化差异导致海外主流市场渗透缓慢。",
+    "海外以华人圈层为主，受汇率与出口政策小幅扰动。"
+  ],
+  "summary": "茅台是典型的内需主导型消费龙头，海外收入占比长期维持在 3% 左右（2025 年约 48.5 亿元、占比 2.9%），且主要面向港澳台与全球华人圈层及免税渠道，国际化仍处早期。白酒独特的香型与饮用文化构成天然的出海壁垒，短期内全球化对业绩与估值的边际影响很小。投资逻辑应继续以国内高端需求、品牌定价权与高确定性现金流为核心，全球化视为长期可选项而非主要驱动。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 茅台 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-15T18:05:00+08:00"
+}

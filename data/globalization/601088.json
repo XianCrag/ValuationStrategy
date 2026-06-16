@@ -1,0 +1,33 @@
+{
+  "code": "601088",
+  "name": "中国神华",
+  "annual": [
+    { "year": "2020", "totalRevenue": 2332.63, "overseasIncome": 57.24, "overseasRatio": 2.5 },
+    { "year": "2021", "totalRevenue": 3352.16, "overseasIncome": 107.28, "overseasRatio": 3.2 },
+    { "year": "2022", "totalRevenue": 3445.33, "overseasIncome": 122.8, "overseasRatio": 3.6 },
+    { "year": "2023", "totalRevenue": 3430.74, "overseasIncome": 123.28, "overseasRatio": 3.6 },
+    { "year": "2024", "totalRevenue": 3383.75, "overseasIncome": 130.43, "overseasRatio": 3.9 },
+    { "year": "2025", "totalRevenue": 2949.16, "overseasIncome": 83.55, "overseasRatio": 2.8 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 2865.61, "ratio": 97.2, "grossMargin": null },
+    { "name": "境外", "income": 83.55, "ratio": 2.8, "grossMargin": null }
+  ],
+  "markets": ["东南亚 / 东北亚煤炭贸易", "国际航运（自有船队）"],
+  "opportunities": [
+    "依托自有港口与船队开展煤炭进口及转口贸易，平滑国内供需与价差。",
+    "「一带一路」沿线能源合作可能带来煤电/工程输出的长期增量。"
+  ],
+  "risks": [
+    "海外收入占比常年仅 2.5%~3.9%，对整体业绩拉动有限，全球化并非成长主线。",
+    "境外业务以贸易为主，受国际煤价、海运运价与汇率波动影响，毛利不稳定。",
+    "地缘政治与各国能源转型政策可能扰动跨境煤炭贸易。"
+  ],
+  "summary": "中国神华本质是以国内市场为绝对主体的内需型能源央企，境外收入占比长期维持在 3% 左右（2025 年约 2.8%、约 84 亿元），且以煤炭进出口/转口贸易和国际航运为主，并非自主出海扩张的成长逻辑。全球化对其估值与业绩的边际影响很小，更应将海外业务理解为对国内供需与价差的补充对冲，而非第二增长曲线。投资判断仍应以国内煤电一体化的盈利稳定性与高分红为核心。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 神华 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-15T17:45:00+08:00"
+}

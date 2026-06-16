@@ -1,0 +1,34 @@
+{
+  "code": "000858",
+  "name": "五粮液",
+  "annual": [
+    { "year": "2020", "totalRevenue": 573.21, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 662.08, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 739.69, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 832.71, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 891.75, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 405.29, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "南部片区", "income": 178.25, "ratio": 44.0, "grossMargin": 79.3 },
+    { "name": "东部片区", "income": 128.32, "ratio": 31.7, "grossMargin": 88.5 },
+    { "name": "北部片区", "income": 64.47, "ratio": 15.9, "grossMargin": 86.8 },
+    { "name": "非酒类产品", "income": 34.25, "ratio": 8.4, "grossMargin": 10.2 }
+  ],
+  "markets": ["东南亚 / 全球华人市场（少量）"],
+  "opportunities": [
+    "「和美全球行」等国际化品牌活动逐步铺垫海外认知。",
+    "随中国文化影响力提升，高端白酒长期存在出海可选项。"
+  ],
+  "risks": [
+    "年报按国内片区（南部/东部/北部）披露，未单列海外收入，国际化程度低于披露口径可见范围。",
+    "白酒香型与饮用文化差异使海外渗透缓慢，全球化非投资逻辑核心。"
+  ],
+  "summary": "五粮液收入几乎全部来自国内，年报按国内销售片区（南部/东部/北部）+ 非酒类列示主营构成，并未单独披露海外收入，海外占比极低且非披露重点。国际化尚处品牌铺垫的早期阶段，对业绩与估值几乎没有边际影响。投资判断应聚焦国内高端浓香的需求、批价与渠道动销，全球化视为长期可选项。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py，按国内片区披露）+ 五粮液 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-15T18:05:00+08:00"
+}
