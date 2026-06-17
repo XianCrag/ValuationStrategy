@@ -408,6 +408,138 @@ export interface GlobalizationAnalysis {
   generatedAt: string | null;
 }
 
+/** 三维评分维度标识：稳定性 / 成长性 / 周期性。 */
+export type ScoreDimensionId = 'stability' | 'growth' | 'cyclicality';
+
+/**
+ * 评分子项（维度下的一个考察点，对应 PRD_0.md「击球区」三方面拆解）。
+ * score 0~5；口径统一为「越高越有利于价值投资」。
+ */
+export interface ScoreFactor {
+  /** 子项名，如「商业模式 + 护城河」 */
+  name: string;
+  /** 评分 0~5 */
+  score: number;
+  /** 评分依据 */
+  note: string;
+}
+
+/**
+ * 一个评分维度（稳定性 / 成长性 / 周期性）。
+ *
+ * 口径统一为「分数越高越好（越利于价值投资）」：
+ * - 稳定性：越高越稳健；
+ * - 成长性：越高成长性越强；
+ * - 周期性：越高代表周期性越弱 / 穿越周期确定性越强（强周期股得低分）。
+ */
+export interface ScoreDimension {
+  id: ScoreDimensionId;
+  /** 维度名，如「稳定性」 */
+  name: string;
+  /** 维度综合分 0~5（子项加权 / 平均） */
+  score: number;
+  /** 维度小结 */
+  summary: string;
+  /** 子项评分（逐条） */
+  factors: ScoreFactor[];
+}
+
+/**
+ * 企业综合评分（来自 /api/stock-scorecard，对应 PRD_0.md「击球区」三方面）。
+ *
+ * 置于估值分析之前：在「值多少钱」之前，先用三维评分判断「是一家什么样的公司」。
+ * 🟨 AI 定性主导（结合护城河 / 周期 / 股东回报 / 财务等模块），与股票池对齐，
+ * 仅池内标的生成；开发期由 Cursor 综合后写入 data/scorecard/{code}.json。
+ */
+export interface ScorecardAnalysis {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 三个维度（稳定性 / 成长性 / 周期性） */
+  dimensions: ScoreDimension[];
+  /** 综合评分 0~5（三维加权 / 平均） */
+  overallScore: number | null;
+  /** 企业画像标签，如「稳健高分红 · 类债周期龙头」 */
+  profileTag: string;
+  /** 总评（一段话） */
+  summary: string;
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
+/** 估值方法标识：①股息率 / ②DCF 自由现金流 / ③未来盈利能力。 */
+export type ValuationMethodId = 'dividend' | 'dcf' | 'earnings-power';
+
+/**
+ * 一种估值方法的结果（§10 三种估值方法之一）。
+ *
+ * fairValue 为合理价值（每股，元，固定单点值）。
+ */
+export interface ValuationMethod {
+  id: ValuationMethodId;
+  /** 方法名，如「股息率估值」 */
+  name: string;
+  /** 是否适用该公司 */
+  applicable: boolean;
+  /** 适用性说明（为何适用 / 不适用） */
+  applicability: string;
+  /** 合理价值（每股，元，固定单点值） */
+  fairValue: number | null;
+  /** 关键假设（逐条） */
+  assumptions: string[];
+}
+
+/**
+ * 估值总结（来自 /api/stock-valuation-summary，对应 RRD_1.md §10）。⭐核心输出
+ *
+ * 以「内在价值」为锚：三种估值方法（每家至少①②，符合③特征再加③）→ AI 推荐主方法
+ * → 击球价 = 推荐合理价值 ×（1 − 安全边际）。PE/股息率历史分位仅作参考，不作结论。
+ *
+ * 🟦 客观锚点由 valuation_fetch.py 提供（现价/股本/FCF/EPS/分红），🟨 各方法假设、
+ * 推荐、安全边际与多空逻辑由 Cursor 综合后写入 data/valuation/{code}.json。
+ */
+export interface ValuationSummary {
+  success: boolean;
+  error?: string;
+  code: string;
+  name: string;
+  status: BusinessStatus;
+  inPool: boolean;
+  /** 三种估值方法（不适用的也返回，applicable=false 并置灰） */
+  methods: ValuationMethod[];
+  /** AI 推荐主用的方法 */
+  recommendedMethod: ValuationMethodId;
+  /** 推荐理由 */
+  recommendationReason: string;
+  /** 推荐方法的合理价值（每股，元，固定单点值），用于击球区计算 */
+  fairValue: number | null;
+  /** 安全边际（0~1，如 0.25 表示 25%） */
+  safetyMargin: number;
+  /** 击球价 = 合理价值 ×（1 − 安全边际） */
+  strikePrice: number | null;
+  /** 生成时的现价快照（线上无实时价时用作信号灯回退） */
+  snapshotPrice: number | null;
+  /** 看多逻辑（3~5 条，综合各模块） */
+  bullPoints: string[];
+  /** 看空逻辑（3~5 条，综合各模块） */
+  bearPoints: string[];
+  /** PE 历史分位（仅参考，不作结论） */
+  pePercentile: number | null;
+  /** 滚动股息率（%，仅参考） */
+  dividendYield: number | null;
+  source: string;
+  confidence: 'high' | 'medium' | 'low';
+  reportPeriod: string | null;
+  generatedBy: GeneratedBy;
+  generatedAt: string | null;
+}
+
 /** 选股池条目（来自 /api/stock-pool，服务端快照）。 */
 export interface PoolEntry {
   code: string;

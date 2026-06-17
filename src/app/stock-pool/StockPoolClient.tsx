@@ -7,6 +7,8 @@ import ShareholderReturn from './ShareholderReturn';
 import PolicyAnalysis from './PolicyAnalysis';
 import MoatAnalysis from './MoatAnalysis';
 import GlobalizationAnalysis from './GlobalizationAnalysis';
+import Scorecard from './Scorecard';
+import ValuationSummary from './ValuationSummary';
 import type {
   BusinessAnalysis as BusinessAnalysisData,
   CycleAnalysis as CycleAnalysisData,
@@ -14,10 +16,12 @@ import type {
   MoatAnalysis as MoatAnalysisData,
   PolicyAnalysis as PolicyAnalysisData,
   PoolEntry,
+  ScorecardAnalysis as ScorecardData,
   ShareholderAnalysis as ShareholderAnalysisData,
   StockQuote,
   StockValuation,
   StrikeZone,
+  ValuationSummary as ValuationSummaryData,
 } from './types';
 
 interface StockPoolClientProps {
@@ -73,6 +77,10 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
   const [moatLoading, setMoatLoading] = useState(false);
   const [globalization, setGlobalization] = useState<GlobalizationAnalysisData | null>(null);
   const [globLoading, setGlobLoading] = useState(false);
+  const [scorecard, setScorecard] = useState<ScorecardData | null>(null);
+  const [scorecardLoading, setScorecardLoading] = useState(false);
+  const [valSummary, setValSummary] = useState<ValuationSummaryData | null>(null);
+  const [valSummaryLoading, setValSummaryLoading] = useState(false);
   const [adding, setAdding] = useState(false);
 
   const loadBusiness = useCallback(async (code: string) => {
@@ -135,6 +143,26 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     }
   }, []);
 
+  const loadScorecard = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-scorecard?code=${code}`);
+      const data = (await r.json()) as ScorecardData;
+      if (data.success) setScorecard(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
+  const loadValSummary = useCallback(async (code: string) => {
+    try {
+      const r = await fetch(`/api/stock-valuation-summary?code=${code}`);
+      const data = (await r.json()) as ValuationSummaryData;
+      if (data.success) setValSummary(data);
+    } catch {
+      /* 忽略，保留上一次状态 */
+    }
+  }, []);
+
   const search = useCallback(async (rawCode: string) => {
     const code = rawCode.trim();
     if (!/^\d{6}$/.test(code)) {
@@ -150,6 +178,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     setPolicyLoading(true);
     setMoatLoading(true);
     setGlobLoading(true);
+    setScorecardLoading(true);
+    setValSummaryLoading(true);
     setError(null);
     setOffline(false);
     setValuation(null);
@@ -159,6 +189,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     setPolicy(null);
     setMoat(null);
     setGlobalization(null);
+    setScorecard(null);
+    setValSummary(null);
 
     // 估值分析较慢，与实时行情并行请求
     fetch(`/api/stock-valuation?code=${code}`)
@@ -177,6 +209,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     loadPolicy(code).finally(() => setPolicyLoading(false));
     loadMoat(code).finally(() => setMoatLoading(false));
     loadGlobalization(code).finally(() => setGlobLoading(false));
+    loadScorecard(code).finally(() => setScorecardLoading(false));
+    loadValSummary(code).finally(() => setValSummaryLoading(false));
 
     try {
       const res = await fetch(`/api/stock-quote?code=${code}`);
@@ -197,7 +231,7 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     } finally {
       setLoading(false);
     }
-  }, [loadBusiness, loadCycle, loadShareholder, loadPolicy, loadMoat, loadGlobalization]);
+  }, [loadBusiness, loadCycle, loadShareholder, loadPolicy, loadMoat, loadGlobalization, loadScorecard, loadValSummary]);
 
   // 外部选中（点击选股池卡片）→ 填入代码、触发分析并滚动到顶部
   useEffect(() => {
@@ -237,6 +271,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
         loadPolicy(quote.code),
         loadMoat(quote.code),
         loadGlobalization(quote.code),
+        loadScorecard(quote.code),
+        loadValSummary(quote.code),
       ]);
     } finally {
       setAdding(false);
@@ -254,7 +290,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
     offline && activeCode ? pooledEntries.find((e) => e.code === activeCode) ?? null : null;
 
   // 各分析模块均为离线生成、文件驱动，线上同样可查看
-  const analyses = (
+  // 估值总结需现价做信号灯：实时行情用 quote.price，线上快照用 snapshot.price
+  const renderAnalyses = (livePrice: number | null) => (
     <>
       <BusinessAnalysis data={business} loading={bizLoading} />
       <CycleAnalysis data={cycle} loading={cycleLoading} />
@@ -262,6 +299,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
       <PolicyAnalysis data={policy} loading={policyLoading} />
       <MoatAnalysis data={moat} loading={moatLoading} />
       <GlobalizationAnalysis data={globalization} loading={globLoading} />
+      <Scorecard data={scorecard} loading={scorecardLoading} />
+      <ValuationSummary data={valSummary} loading={valSummaryLoading} livePrice={livePrice} />
     </>
   );
 
@@ -451,8 +490,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
             )}
           </div>
 
-          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 分析 */}
-          {analyses}
+          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 / 综合评分 / 估值总结 */}
+          {renderAnalyses(quote.price)}
         </>
       )}
 
@@ -528,8 +567,8 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
             实时价格 / 换手率 / 市值等需本地数据脚本，线上展示加入选股池时的快照。
           </div>
 
-          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 分析 */}
-          {analyses}
+          {/* 业务 / 周期 / 股东回报 / 政策 / 护城河 / 全球化 / 综合评分 / 估值总结 */}
+          {renderAnalyses(snapshot.price)}
         </>
       )}
     </div>

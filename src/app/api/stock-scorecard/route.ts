@@ -1,0 +1,82 @@
+import { NextRequest, NextResponse } from 'next/server';
+import path from 'path';
+import { promises as fs } from 'fs';
+
+export const runtime = 'nodejs';
+
+/**
+ * 企业综合评分 API（对应 docs/PRD_0.md「击球区」三方面：稳定性 / 成长性 / 周期性）—— 与股票池对齐。
+ *
+ * 置于估值分析之前：先判断「是一家什么样的公司」，再谈「值多少钱」。
+ * 规则同其他分析模块：仅股票池内标的有内容（not-in-pool / pending / ready）。
+ * 🟨 AI 定性主导，由 Cursor 综合护城河 / 周期 / 股东回报 / 财务后写入
+ * data/scorecard/{code}.json（generatedBy=cursor-dev）。
+ */
+
+const DATA_DIR = path.join(process.cwd(), 'data');
+const POOL_FILE = path.join(DATA_DIR, 'stock-pool.json');
+const SCORE_DIR = path.join(DATA_DIR, 'scorecard');
+
+async function isInPool(code: string): Promise<{ inPool: boolean; name: string | null }> {
+  try {
+    const raw = await fs.readFile(POOL_FILE, 'utf-8');
+    const items = JSON.parse(raw) as Array<{ code: string; name: string }>;
+    const hit = Array.isArray(items) ? items.find((i) => i.code === code) : undefined;
+    return { inPool: Boolean(hit), name: hit?.name ?? null };
+  } catch {
+    return { inPool: false, name: null };
+  }
+}
+
+async function readScorecard(code: string): Promise<Record<string, unknown> | null> {
+  try {
+    const raw = await fs.readFile(path.join(SCORE_DIR, `${code}.json`), 'utf-8');
+    return JSON.parse(raw) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+function emptyShell(code: string, name: string, status: 'pending' | 'not-in-pool', inPool: boolean) {
+  return {
+    success: true,
+    code,
+    name,
+    status,
+    inPool,
+    dimensions: [],
+    overallScore: null,
+    profileTag: '',
+    summary: '',
+    source: '',
+    confidence: 'low' as const,
+    reportPeriod: null,
+    generatedBy: 'cursor-dev' as const,
+    generatedAt: null,
+  };
+}
+
+export async function GET(request: NextRequest) {
+  const code = request.nextUrl.searchParams.get('code')?.trim() ?? '';
+  if (!/^\d{6}$/.test(code)) {
+    return NextResponse.json({ success: false, error: '股票代码须为 6 位数字' }, { status: 400 });
+  }
+
+  const { inPool, name } = await isInPool(code);
+  if (!inPool) {
+    return NextResponse.json(emptyShell(code, name ?? code, 'not-in-pool', false));
+  }
+
+  const card = await readScorecard(code);
+  if (!card) {
+    return NextResponse.json(emptyShell(code, name ?? code, 'pending', true));
+  }
+
+  return NextResponse.json({
+    success: true,
+    status: 'ready',
+    inPool: true,
+    ...card,
+    name: (card.name as string) || name || code,
+  });
+}
