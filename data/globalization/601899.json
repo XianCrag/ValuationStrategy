@@ -1,0 +1,35 @@
+{
+  "code": "601899",
+  "name": "紫金矿业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 1715.02, "overseasIncome": 342.9, "overseasRatio": 20.0 },
+    { "year": "2021", "totalRevenue": 2251.02, "overseasIncome": 674.16, "overseasRatio": 29.9 },
+    { "year": "2022", "totalRevenue": 2703.29, "overseasIncome": 856.23, "overseasRatio": 31.7 },
+    { "year": "2023", "totalRevenue": 2934.04, "overseasIncome": 891.68, "overseasRatio": 30.4 },
+    { "year": "2024", "totalRevenue": 3036.4, "overseasIncome": 1314.71, "overseasRatio": 43.3 },
+    { "year": "2025", "totalRevenue": 3490.8, "overseasIncome": 1986.76, "overseasRatio": 56.9 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 3853.74, "ratio": 110.4, "grossMargin": 13.5 },
+    { "name": "境外", "income": 1986.76, "ratio": 56.9, "grossMargin": 26.9 },
+    { "name": "内部抵销数", "income": -2349.7, "ratio": -67.3, "grossMargin": null }
+  ],
+  "markets": ["刚果（金）卡莫阿-卡库拉铜矿", "塞尔维亚 Timok/博尔铜矿", "南美（秘鲁/哥伦比亚/阿根廷锂）", "中亚（哈萨克/吉尔吉斯金矿）", "非洲多国金/铜矿"],
+  "opportunities": [
+    "海外世界级铜金矿山（卡莫阿、Timok）持续放量，是公司成长的主引擎，且境外业务毛利率（26.9%）高于境内（13.5%）。",
+    "全球化矿产资源组合分散单一国别/品种风险，跨周期获取优质低成本矿山。",
+    "依托海外资源 + 「一带一路」沿线布局，向真正的全球性矿业巨头迈进，新能源金属（锂）海外布局打开第二曲线。"
+  ],
+  "risks": [
+    "境外收入占比已升至约 57%，地缘政治、资源国政策变动、矿权与税收争议风险显著上升（如部分国家提高矿业税、要求本地化）。",
+    "汇率波动（美元及资源国货币）影响海外收入折算与成本。",
+    "海外大型项目建设与爬坡存在工程、安全、社区与环保不确定性。"
+  ],
+  "summary": "紫金矿业是 A 股资源股中全球化程度最高的标的之一：境外收入占比从 2020 年的 20% 快速提升至 2025 年的约 57%，且境外毛利率（26.9%）显著高于境内（13.5%），海外世界级铜金矿山是公司成长与高盈利的核心来源。与多数「内需为主」的资源央企不同，紫金的全球化是其成长主线而非补充，海外优质资源构成其最核心的竞争优势。但高海外敞口也带来更高的地缘政治与资源国政策风险，是投资中需重点跟踪的变量。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 紫金矿业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

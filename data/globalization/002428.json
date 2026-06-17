@@ -1,0 +1,33 @@
+{
+  "code": "002428",
+  "name": "云南锗业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 6.71, "overseasIncome": 1.11, "overseasRatio": 16.5 },
+    { "year": "2021", "totalRevenue": 5.56, "overseasIncome": 1.51, "overseasRatio": 27.2 },
+    { "year": "2022", "totalRevenue": 5.37, "overseasIncome": 1.21, "overseasRatio": 22.5 },
+    { "year": "2023", "totalRevenue": 6.72, "overseasIncome": 1.18, "overseasRatio": 17.6 },
+    { "year": "2024", "totalRevenue": 7.67, "overseasIncome": 1.35, "overseasRatio": 17.6 },
+    { "year": "2025", "totalRevenue": 10.66, "overseasIncome": 0.5, "overseasRatio": 4.7 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 10.16, "ratio": 95.4, "grossMargin": 19.1 },
+    { "name": "境外", "income": 0.5, "ratio": 4.6, "grossMargin": 63.0 }
+  ],
+  "markets": ["锗产品出口（红外/光纤级，受出口管制约束）", "化合物半导体材料海外客户"],
+  "opportunities": [
+    "锗、镓产品在红外光学、光纤、太阳能等领域具全球需求，境外业务毛利率较高（2025 年约 63%）。",
+    "化合物半导体材料对接全球光通信/红外客户，存在国产替代后出口提升空间。"
+  ],
+  "risks": [
+    "境外收入占比从 2021 年的约 27% 降至 2025 年的约 4.7%，海外业务因锗出口管制大幅收缩，并非成长主线。",
+    "锗、镓属战略关键金属，出口受国家管制政策直接约束，海外销售受政策与地缘影响大。",
+    "海外业务体量极小（2025 年仅 0.5 亿元），对整体业绩拉动可忽略。"
+  ],
+  "summary": "云南锗业以国内市场为绝对主体，境外收入占比从 2021 年的约 27% 大幅回落至 2025 年的约 4.7%，主要因锗作为战略关键金属被纳入出口管制、海外销售收缩。其全球化既非成长主线，反而受出口管制政策制约；境外毛利率虽高但体量极小。投资判断应聚焦其锗资源储备的战略价值与国内题材，而非海外业务，且需注意出口管制对其海外收入的持续约束。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 云南锗业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

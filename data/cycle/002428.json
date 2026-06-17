@@ -1,0 +1,154 @@
+{
+  "code": "002428",
+  "name": "云南锗业",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 5.56,
+      "netProfit": 1.25,
+      "revenueYoY": -32.54,
+      "netProfitYoY": 1.75,
+      "roe": 8.27,
+      "grossMargin": 40.02,
+      "netMargin": 22.54,
+      "priceClose": 14.51
+    },
+    {
+      "year": "2015",
+      "revenue": 4.02,
+      "netProfit": 0.61,
+      "revenueYoY": -27.65,
+      "netProfitYoY": -51.25,
+      "roe": 3.89,
+      "grossMargin": 32.29,
+      "netMargin": 15.67,
+      "priceClose": 20.28
+    },
+    {
+      "year": "2016",
+      "revenue": 2.98,
+      "netProfit": -1.03,
+      "revenueYoY": -25.83,
+      "netProfitYoY": -269.01,
+      "roe": -6.73,
+      "grossMargin": 7.25,
+      "netMargin": -35.88,
+      "priceClose": 12.67
+    },
+    {
+      "year": "2017",
+      "revenue": 4.64,
+      "netProfit": 0.08,
+      "revenueYoY": 55.63,
+      "netProfitYoY": 108.2,
+      "roe": 0.57,
+      "grossMargin": 18.04,
+      "netMargin": 1.39,
+      "priceClose": 12.07
+    },
+    {
+      "year": "2018",
+      "revenue": 4.65,
+      "netProfit": 0.09,
+      "revenueYoY": 0.16,
+      "netProfitYoY": 1.85,
+      "roe": 0.58,
+      "grossMargin": 20.9,
+      "netMargin": 1.64,
+      "priceClose": 5.0
+    },
+    {
+      "year": "2019",
+      "revenue": 4.18,
+      "netProfit": -0.59,
+      "revenueYoY": -10.02,
+      "netProfitYoY": -786.08,
+      "roe": -4.06,
+      "grossMargin": 16.0,
+      "netMargin": -13.64,
+      "priceClose": 8.51
+    },
+    {
+      "year": "2020",
+      "revenue": 6.7,
+      "netProfit": 0.23,
+      "revenueYoY": 60.12,
+      "netProfitYoY": 138.27,
+      "roe": 1.57,
+      "grossMargin": 17.79,
+      "netMargin": 3.48,
+      "priceClose": 12.29
+    },
+    {
+      "year": "2021",
+      "revenue": 5.56,
+      "netProfit": 0.14,
+      "revenueYoY": -16.95,
+      "netProfitYoY": -38.31,
+      "roe": 0.95,
+      "grossMargin": 19.58,
+      "netMargin": 4.07,
+      "priceClose": 12.0
+    },
+    {
+      "year": "2022",
+      "revenue": 5.37,
+      "netProfit": -0.62,
+      "revenueYoY": -3.57,
+      "netProfitYoY": -546.83,
+      "roe": -4.34,
+      "grossMargin": 11.53,
+      "netMargin": -10.62,
+      "priceClose": 9.32
+    },
+    {
+      "year": "2023",
+      "revenue": 6.72,
+      "netProfit": 0.07,
+      "revenueYoY": 25.23,
+      "netProfitYoY": 111.18,
+      "roe": 0.49,
+      "grossMargin": 18.9,
+      "netMargin": 1.42,
+      "priceClose": 12.33
+    },
+    {
+      "year": "2024",
+      "revenue": 7.67,
+      "netProfit": 0.53,
+      "revenueYoY": 14.2,
+      "netProfitYoY": 661.28,
+      "roe": 3.68,
+      "grossMargin": 28.48,
+      "netMargin": 6.26,
+      "priceClose": 18.9
+    },
+    {
+      "year": "2025",
+      "revenue": 10.66,
+      "netProfit": 0.2,
+      "revenueYoY": 38.89,
+      "netProfitYoY": -62.06,
+      "roe": 1.37,
+      "grossMargin": 21.12,
+      "netMargin": 2.33,
+      "priceClose": 31.75
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "strong",
+  "position": "trough",
+  "positionScore": 25,
+  "summary": "盈利极不稳定的小金属（锗）标的，本质是「资源储备 + 题材」型公司而非稳定盈利体。近 12 年归母净利长期在盈亏线附近剧烈波动，2016、2019、2022 年三度亏损，盈利从未稳定放大：即便 2023 年起锗实施出口管制、锗价大涨，2024 年净利也仅 0.53 亿、2025 年反而回落至 0.2 亿（ROE 1.37%），价格上涨未能有效转化为利润。营收规模常年仅 3~11 亿元，净利率极低且时正时负。从盈利角度看公司长期处于周期底部 / 盈利失真状态，当期业绩完全不能支撑其百亿级市值，估值由锗的战略小金属属性与半导体题材驱动。",
+  "drivers": [
+    "锗价（区熔锗、红外锗等）—— 核心价格变量，但价格上涨向利润传导效率低",
+    "锗出口管制政策与战略金属储备/收储预期（题材主驱动）",
+    "化合物半导体（砷化镓/磷化铟）国产替代进展与放量",
+    "锗矿资源储量与开采/加工成本"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

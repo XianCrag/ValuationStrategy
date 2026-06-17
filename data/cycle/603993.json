@@ -1,0 +1,154 @@
+{
+  "code": "603993",
+  "name": "洛阳钼业",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 66.62,
+      "netProfit": 18.24,
+      "revenueYoY": 20.34,
+      "netProfitYoY": 55.36,
+      "roe": 14.39,
+      "grossMargin": 41.89,
+      "netMargin": 27.02,
+      "priceClose": 8.75
+    },
+    {
+      "year": "2015",
+      "revenue": 41.97,
+      "netProfit": 7.61,
+      "revenueYoY": -37.01,
+      "netProfitYoY": -58.28,
+      "roe": 4.77,
+      "grossMargin": 37.51,
+      "netMargin": 16.75,
+      "priceClose": 4.46
+    },
+    {
+      "year": "2016",
+      "revenue": 69.5,
+      "netProfit": 9.98,
+      "revenueYoY": 65.59,
+      "netProfitYoY": 31.12,
+      "roe": 5.52,
+      "grossMargin": 33.47,
+      "netMargin": 14.67,
+      "priceClose": 3.72
+    },
+    {
+      "year": "2017",
+      "revenue": 241.48,
+      "netProfit": 27.28,
+      "revenueYoY": 247.47,
+      "netProfitYoY": 173.32,
+      "roe": 9.89,
+      "grossMargin": 37.0,
+      "netMargin": 14.89,
+      "priceClose": 6.88
+    },
+    {
+      "year": "2018",
+      "revenue": 259.63,
+      "netProfit": 46.36,
+      "revenueYoY": 7.52,
+      "netProfitYoY": 69.94,
+      "roe": 11.72,
+      "grossMargin": 37.68,
+      "netMargin": 19.84,
+      "priceClose": 3.76
+    },
+    {
+      "year": "2019",
+      "revenue": 686.77,
+      "netProfit": 18.57,
+      "revenueYoY": 164.52,
+      "netProfitYoY": -59.94,
+      "roe": 4.54,
+      "grossMargin": 4.47,
+      "netMargin": 2.57,
+      "priceClose": 4.36
+    },
+    {
+      "year": "2020",
+      "revenue": 1129.81,
+      "netProfit": 23.29,
+      "revenueYoY": 64.51,
+      "netProfitYoY": 25.4,
+      "roe": 5.83,
+      "grossMargin": 7.47,
+      "netMargin": 2.19,
+      "priceClose": 6.25
+    },
+    {
+      "year": "2021",
+      "revenue": 1738.63,
+      "netProfit": 51.06,
+      "revenueYoY": 53.89,
+      "netProfitYoY": 119.26,
+      "roe": 12.93,
+      "grossMargin": 9.39,
+      "netMargin": 3.12,
+      "priceClose": 5.58
+    },
+    {
+      "year": "2022",
+      "revenue": 1729.91,
+      "netProfit": 60.67,
+      "revenueYoY": -0.5,
+      "netProfitYoY": 18.82,
+      "roe": 13.41,
+      "grossMargin": 9.29,
+      "netMargin": 4.16,
+      "priceClose": 4.55
+    },
+    {
+      "year": "2023",
+      "revenue": 1862.69,
+      "netProfit": 82.5,
+      "revenueYoY": 7.68,
+      "netProfitYoY": 35.98,
+      "roe": 15.0,
+      "grossMargin": 9.72,
+      "netMargin": 4.58,
+      "priceClose": 5.2
+    },
+    {
+      "year": "2024",
+      "revenue": 2130.29,
+      "netProfit": 135.32,
+      "revenueYoY": 14.37,
+      "netProfitYoY": 64.03,
+      "roe": 20.96,
+      "grossMargin": 16.55,
+      "netMargin": 7.26,
+      "priceClose": 6.65
+    },
+    {
+      "year": "2025",
+      "revenue": 2066.84,
+      "netProfit": 203.39,
+      "revenueYoY": -2.98,
+      "netProfitYoY": 50.3,
+      "roe": 26.61,
+      "grossMargin": 23.93,
+      "netMargin": 11.63,
+      "priceClose": 20.0
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 88,
+  "summary": "成长型周期股（铜钴）。营收因 2019 年并表 IXM 贸易而台阶式跃升（贸易摊薄了整体毛利率），但利润主线是矿山板块：2015 年金属价格低谷时利润见底（归母 7.6 亿、ROE 4.8%），2017-2018 钼钴价反弹利润回升，2019-2020 钴价低迷拖累，2021 年起铜钴量价齐升、刚果金 TFM/KFM 持续放量推动盈利连续上行。2024-2025 年随 KFM 投产与 TFM 扩建放量，归母净利从 82.5 亿跃升至 135.3、203.4 亿，ROE 升至 26.6%、矿山毛利率超 50%，盈利处历史绝对高位（约 88% 分位）。量增是这轮高增长的核心，使其穿越价格周期向上，但当前铜钴价与盈利同处高位，需防价格回落。",
+  "drivers": [
+    "铜价与钴价 —— 矿山板块两大核心价格变量（钴价波动尤为剧烈）",
+    "刚果金 TFM、KFM 铜钴矿的产量爬坡与放量节奏（量增主引擎）",
+    "铌、钼、钨价格与巴西/国内矿山产销",
+    "新能源（动力电池）对钴的需求 + 能源转型对铜的需求"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

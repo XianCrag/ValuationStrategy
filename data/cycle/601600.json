@@ -1,0 +1,154 @@
+{
+  "code": "601600",
+  "name": "中国铝业",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 1420.0,
+      "netProfit": -162.08,
+      "revenueYoY": -17.94,
+      "netProfitYoY": -1809.92,
+      "roe": -44.81,
+      "grossMargin": 1.45,
+      "netMargin": -12.0,
+      "priceClose": 6.25
+    },
+    {
+      "year": "2015",
+      "revenue": 1234.75,
+      "netProfit": 1.49,
+      "revenueYoY": -13.05,
+      "netProfitYoY": 100.92,
+      "roe": 0.37,
+      "grossMargin": 3.45,
+      "netMargin": 0.3,
+      "priceClose": 4.97
+    },
+    {
+      "year": "2016",
+      "revenue": 1442.29,
+      "netProfit": 3.68,
+      "revenueYoY": 16.81,
+      "netProfitYoY": 147.89,
+      "roe": 0.93,
+      "grossMargin": 7.52,
+      "netMargin": 0.85,
+      "priceClose": 4.22
+    },
+    {
+      "year": "2017",
+      "revenue": 1810.2,
+      "netProfit": 14.13,
+      "revenueYoY": 25.51,
+      "netProfitYoY": 283.55,
+      "roe": 3.62,
+      "grossMargin": 8.44,
+      "netMargin": 1.33,
+      "priceClose": 8.09
+    },
+    {
+      "year": "2018",
+      "revenue": 1802.41,
+      "netProfit": 8.31,
+      "revenueYoY": -0.43,
+      "netProfitYoY": -41.18,
+      "roe": 1.8,
+      "grossMargin": 8.84,
+      "netMargin": 0.87,
+      "priceClose": 3.55
+    },
+    {
+      "year": "2019",
+      "revenue": 1902.15,
+      "netProfit": 8.53,
+      "revenueYoY": 5.53,
+      "netProfitYoY": 2.63,
+      "roe": 1.59,
+      "grossMargin": 7.27,
+      "netMargin": 0.78,
+      "priceClose": 3.54
+    },
+    {
+      "year": "2020",
+      "revenue": 1859.91,
+      "netProfit": 7.64,
+      "revenueYoY": -2.22,
+      "netProfitYoY": -10.41,
+      "roe": 1.53,
+      "grossMargin": 7.64,
+      "netMargin": 0.86,
+      "priceClose": 3.63
+    },
+    {
+      "year": "2021",
+      "revenue": 2988.85,
+      "netProfit": 57.59,
+      "revenueYoY": 60.7,
+      "netProfitYoY": 653.55,
+      "roe": 9.86,
+      "grossMargin": 12.27,
+      "netMargin": 3.79,
+      "priceClose": 6.09
+    },
+    {
+      "year": "2022",
+      "revenue": 2909.88,
+      "netProfit": 41.92,
+      "revenueYoY": -2.64,
+      "netProfitYoY": -27.21,
+      "roe": 6.9,
+      "grossMargin": 11.47,
+      "netMargin": 3.73,
+      "priceClose": 4.47
+    },
+    {
+      "year": "2023",
+      "revenue": 2253.19,
+      "netProfit": 66.89,
+      "revenueYoY": -22.57,
+      "netProfitYoY": 59.56,
+      "roe": 11.93,
+      "grossMargin": 12.87,
+      "netMargin": 5.57,
+      "priceClose": 5.64
+    },
+    {
+      "year": "2024",
+      "revenue": 2371.09,
+      "netProfit": 123.94,
+      "revenueYoY": 5.23,
+      "netProfitYoY": 85.29,
+      "roe": 19.25,
+      "grossMargin": 15.75,
+      "netMargin": 8.17,
+      "priceClose": 7.35
+    },
+    {
+      "year": "2025",
+      "revenue": 2411.25,
+      "netProfit": 126.74,
+      "revenueYoY": 1.69,
+      "netProfitYoY": 2.25,
+      "roe": 17.64,
+      "grossMargin": 18.03,
+      "netMargin": 8.93,
+      "priceClose": 12.22
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "strong",
+  "position": "rising",
+  "positionScore": 78,
+  "summary": "典型强周期（电解铝）。盈利随铝价与氧化铝—电解铝价差剧烈波动：2014 年行业产能过剩巨亏 162 亿、ROE -45%，2015-2020 长期挣扎在盈亏线附近（ROE 不足 2%）；2017 年「电解铝供给侧改革」确立 4500 万吨产能天花板后，存量产能价值重估，2021 年能耗双控推升铝价、利润首次爆发（归母 57.6 亿）。2023 年起在铝价高位 + 氧化铝成本回落带来的价差扩张下盈利连续三年上行，2025 归母 126.7 亿、ROE 17.6%、毛利率升至 18%，盈利绝对值已处历史峰值区（约 78% 分位）。产能刚性约束 + 一体化成本控制使本轮高盈利的持续性强于以往纯周期高点，但当前盈利已在高位，需警惕铝价回落与新一轮资本开支的周期下行风险。",
+  "drivers": [
+    "电解铝价格（LME/SHFE 铝价）—— 最核心的周期变量",
+    "氧化铝价格与「铝—氧化铝」价差（决定单吨盈利弹性）",
+    "电力/煤炭成本（电解铝是高耗能行业，能源成本占比高）",
+    "4500 万吨电解铝产能天花板政策（存量产能稀缺性的制度基础）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

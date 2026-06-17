@@ -1,7 +1,9 @@
 'use client';
 
 import type {
+  EvEbitValuation,
   GeneratedBy,
+  PsValuation,
   StrikeZone,
   ValuationMethod,
   ValuationMethodId,
@@ -29,8 +31,9 @@ const GENERATED_BY_META: Record<GeneratedBy, string> = {
 
 const METHOD_META: Record<ValuationMethodId, { badge: string; desc: string }> = {
   dividend: { badge: '①', desc: '股息率估值' },
-  dcf: { badge: '②', desc: 'DCF 自由现金流' },
+  dcf: { badge: '②', desc: 'EV/EBIT 倍数' },
   'earnings-power': { badge: '③', desc: '未来盈利能力' },
+  ps: { badge: '④', desc: 'PS 市销率' },
 };
 
 /**
@@ -198,17 +201,38 @@ export default function ValuationSummary({ data, loading, livePrice }: Valuation
         )}
       </div>
 
-      {/* 三种估值方法卡片 */}
-      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.methods.map((m) => (
+      {/* 估值方法卡片：①② 在上；③盈利能力 与 ④PS 市销率 成组在下（盈利不确定时交叉锚定） */}
+      {(() => {
+        const renderCard = (m: ValuationMethod) => (
           <MethodCard
             key={m.id}
             method={m}
             recommended={m.id === data.recommendedMethod}
             discount={discountFor(m.id, data.safetyMargin)}
           />
-        ))}
-      </div>
+        );
+        const isEpPs = (id: ValuationMethodId) => id === 'earnings-power' || id === 'ps';
+        const baseMethods = data.methods.filter((m) => !isEpPs(m.id));
+        const epPsMethods = data.methods
+          .filter((m) => isEpPs(m.id))
+          .sort((a, b) => (a.id === 'earnings-power' ? -1 : 1));
+        return (
+          <div className="mt-5 space-y-4">
+            {baseMethods.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">{baseMethods.map(renderCard)}</div>
+            )}
+            {epPsMethods.length > 0 && (
+              <div className="rounded-xl border border-gray-100 bg-gray-50/40 p-3">
+                <div className="mb-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="text-xs font-semibold text-gray-600">盈利能力 / 市销率估值</span>
+                  <span className="text-[11px] text-gray-400">— 盈利能力不确定时，用前瞻盈利与营收交叉锚定价值</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{epPsMethods.map(renderCard)}</div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {/* 看多 / 看空逻辑 */}
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -328,6 +352,79 @@ function MethodCard({
           </ul>
         </div>
       )}
+
+      {method.evEbit && <EvEbitBlock ev={method.evEbit} />}
+
+      {method.ps && <PsBlock ps={method.ps} />}
+    </div>
+  );
+}
+
+/** PS 市销率估值测算桥：合理 PS × 常态营收 → 合理市值 ÷ 股本（股权口径，不调净负债）。 */
+function PsBlock({ ps }: { ps: PsValuation }) {
+  const fairMcap = ps.fairPs * ps.revenueYi;
+  const premium = ps.fairPs >= ps.currentPs;
+  return (
+    <div className="mt-3 border-t border-dashed border-gray-200 pt-2">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-[11px] font-medium text-gray-500">PS 测算</span>
+        <span className="text-[10px] text-gray-400">
+          合理 <b className="text-indigo-600">{ps.fairPs}×</b>
+          <span className="mx-1 text-gray-300">·</span>
+          当前 <b className={premium ? 'text-green-600' : 'text-red-500'}>{ps.currentPs}×</b>
+        </span>
+      </div>
+      <div className="space-y-0.5 text-[11px] text-gray-600">
+        <BridgeRow label={`合理 PS ${ps.fairPs}× × 常态营收 ${Math.round(ps.revenueYi)}亿`} value={`${Math.round(fairMcap)} 亿`} strong />
+        <BridgeRow label={`= 合理市值 ÷ ${ps.sharesYi}亿股`} value={`${Math.round(fairMcap)} 亿`} divider />
+      </div>
+      <p className="mt-1 text-[10px] text-gray-400">营收口径：{ps.revenueBasis}</p>
+    </div>
+  );
+}
+
+/** EV/EBIT 倍数估值测算桥：合理倍数 × 常态EBIT → 合理EV → 扣净负债/少数股东权益 → ÷股本。 */
+function EvEbitBlock({ ev }: { ev: EvEbitValuation }) {
+  const equityYi = ev.fairEvYi - ev.netDebtYi - ev.minorityYi;
+  const fmtYi = (v: number) => `${v >= 0 ? '' : '−'}${Math.abs(Math.round(v))} 亿`;
+  const premium = ev.fairMultiple >= ev.currentMultiple;
+  return (
+    <div className="mt-3 border-t border-dashed border-gray-200 pt-2">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-[11px] font-medium text-gray-500">EV/EBIT 测算</span>
+        <span className="text-[10px] text-gray-400">
+          合理 <b className="text-indigo-600">{ev.fairMultiple}×</b>
+          <span className="mx-1 text-gray-300">·</span>
+          当前 <b className={premium ? 'text-green-600' : 'text-red-500'}>{ev.currentMultiple}×</b>
+        </span>
+      </div>
+
+      <div className="space-y-0.5 text-[11px] text-gray-600">
+        <BridgeRow label={`合理倍数 ${ev.fairMultiple}× × 常态EBIT ${Math.round(ev.ebitYi)}亿`} value={fmtYi(ev.fairEvYi)} strong />
+        <BridgeRow label={ev.netDebtYi >= 0 ? '− 净负债' : '＋ 净现金'} value={fmtYi(-ev.netDebtYi)} />
+        <BridgeRow label="− 少数股东权益" value={fmtYi(-ev.minorityYi)} />
+        <BridgeRow label={`= 股权价值 ÷ ${ev.sharesYi}亿股`} value={fmtYi(equityYi)} divider />
+      </div>
+      <p className="mt-1 text-[10px] text-gray-400">EBIT 口径：{ev.ebitBasis}</p>
+    </div>
+  );
+}
+
+function BridgeRow({
+  label,
+  value,
+  strong,
+  divider,
+}: {
+  label: string;
+  value: string;
+  strong?: boolean;
+  divider?: boolean;
+}) {
+  return (
+    <div className={`flex items-center justify-between gap-2 ${divider ? 'border-t border-gray-100 pt-0.5 mt-0.5' : ''}`}>
+      <span className={strong ? 'text-gray-700' : ''}>{label}</span>
+      <span className={`tabular-nums ${strong || divider ? 'font-semibold text-gray-800' : 'text-gray-500'}`}>{value}</span>
     </div>
   );
 }

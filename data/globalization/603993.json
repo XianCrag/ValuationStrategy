@@ -1,0 +1,38 @@
+{
+  "code": "603993",
+  "name": "洛阳钼业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 1129.79, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 1738.62, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 1729.91, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 1862.69, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 2130.3, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 2066.86, "overseasIncome": 1911.75, "overseasRatio": 92.5 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "矿产贸易-中国境外", "income": 1222.14, "ratio": 59.1, "grossMargin": 9.1 },
+    { "name": "矿山采掘及加工-刚果(金)", "income": 612.68, "ratio": 29.6, "grossMargin": 56.0 },
+    { "name": "矿产贸易-中国", "income": 578.66, "ratio": 28.0, "grossMargin": 0.9 },
+    { "name": "矿山采掘及加工-中国", "income": 87.53, "ratio": 4.2, "grossMargin": 47.1 },
+    { "name": "矿山采掘及加工-巴西", "income": 76.93, "ratio": 3.7, "grossMargin": 34.3 },
+    { "name": "内部交易抵销", "income": -513.5, "ratio": -24.8, "grossMargin": null }
+  ],
+  "markets": ["刚果（金）TFM/KFM 铜钴矿（利润核心）", "巴西铌磷矿", "瑞士 IXM 全球金属贸易网络", "澳大利亚 NPM 铜金矿"],
+  "opportunities": [
+    "刚果金 TFM 混合矿扩建与 KFM 持续放量，是公司利润成长的核心引擎，矿山板块毛利率高达约 56%。",
+    "全球多金属矿山（铜钴/铌磷/钼钨）+ IXM 贸易网络协同，跨区域获取低成本资源并掌握全球供应链信息。",
+    "新能源（钴用于动力电池）与能源转型（铜）需求长期向好，海外优质矿山卡位关键金属。"
+  ],
+  "risks": [
+    "利润高度依赖刚果（金）单一国别矿山，资源民族主义、矿权与税费争议（历史上曾与刚果金国家矿业公司 Gécamines 发生权益金纠纷）风险突出。",
+    "贸易板块（IXM）境外收入占比大但毛利极薄，且大宗贸易自带价格与对手方风险。",
+    "钴价波动极为剧烈，地缘政治、汇率与海外项目运营不确定性较高。"
+  ],
+  "summary": "洛阳钼业是高度全球化的「出海型」矿业龙头：剔除内部抵销后，境外收入占比超过 90%，利润核心来自刚果（金）TFM/KFM 铜钴矿（毛利率约 56%），并拥有巴西铌磷、瑞士 IXM 贸易等全球资产。其全球化是利润与成长的主线而非补充，海外优质矿山是核心竞争力。但与紫金相比，其利润对刚果金单一国别的依赖度更高，地缘与资源国政策风险更集中，是投资中需重点跟踪的变量。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 洛阳钼业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

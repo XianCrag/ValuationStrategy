@@ -49,6 +49,33 @@ const POSITION_META: Record<CyclePosition, { label: string; color: string }> = {
   unknown: { label: '难以判定', color: 'text-gray-500' },
 };
 
+/** 股价周期指标：从年度收盘价序列算出最新股价在历史区间中的分位与档位。 */
+function computePriceStats(
+  annual: CycleAnalysisData['annual'],
+): { percentile: number; label: string; chip: string; low: number; high: number; latest: number; span: number } | null {
+  const prices = annual
+    .map((p) => (typeof p.priceClose === 'number' ? p.priceClose : null))
+    .filter((v): v is number => v != null && v > 0);
+  if (prices.length < 2) return null;
+
+  const low = Math.min(...prices);
+  const high = Math.max(...prices);
+  const latest = prices[prices.length - 1];
+  const percentile = high > low ? Math.round(((latest - low) / (high - low)) * 100) : 50;
+
+  let label = '中位';
+  let chip = 'bg-amber-50 text-amber-700';
+  if (percentile >= 70) {
+    label = '高位';
+    chip = 'bg-red-50 text-red-700';
+  } else if (percentile <= 30) {
+    label = '低位';
+    chip = 'bg-green-50 text-green-700';
+  }
+
+  return { percentile, label, chip, low, high, latest, span: prices.length };
+}
+
 function formatTime(iso: string): string {
   try {
     return new Date(iso).toLocaleString('zh-CN', { hour12: false });
@@ -109,7 +136,10 @@ export default function CycleAnalysis({ data, loading }: CycleAnalysisProps) {
     营收: p.revenue,
     归母净利: p.netProfit,
     营收增速: p.revenueYoY,
+    股价: p.priceClose ?? null,
   }));
+
+  const priceStats = computePriceStats(data.annual);
 
   return (
     <section className="mt-8">
@@ -155,16 +185,29 @@ export default function CycleAnalysis({ data, loading }: CycleAnalysisProps) {
                 {data.isCyclical ? '周期股' : '非典型周期股'}
               </span>
               <span className={`px-2.5 py-1 rounded-full text-sm font-medium ${cyc.chip}`}>周期性 · {cyc.label}</span>
+              {priceStats && (
+                <span className={`px-2.5 py-1 rounded-full text-sm font-medium ${priceStats.chip}`}>
+                  股价周期 · {priceStats.label}（分位 {priceStats.percentile}%）
+                </span>
+              )}
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">{data.summary}</p>
+            {priceStats && (
+              <p className="mt-2 text-xs text-gray-400">
+                近 {priceStats.span} 年股价（不复权）区间 ¥{priceStats.low}–¥{priceStats.high}，最新年度收盘 ¥{priceStats.latest}
+                ；股价分位越高代表当前股价相对自身历史越贵（仅参考，非择时）。
+              </p>
+            )}
           </div>
         </div>
       </div>
 
       {/* 10 年财务序列：营收/净利柱 + 营收增速线 */}
       <div className="mt-5 bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-        <h3 className="font-semibold text-gray-800 mb-1">近 {data.annual.length} 年营收 / 净利 / 增速</h3>
-        <p className="text-xs text-gray-400 mb-4">柱：营收·归母净利（亿元，左轴）｜线：营收同比增速（%，右轴）</p>
+        <h3 className="font-semibold text-gray-800 mb-1">近 {data.annual.length} 年营收 / 净利 / 增速 / 股价</h3>
+        <p className="text-xs text-gray-400 mb-4">
+          柱：营收·归母净利（亿元，左轴）｜线：营收同比增速（%，右轴）｜<span className="text-emerald-600">绿线：年度股价（不复权·元，独立刻度）</span>，用于对比「盈利周期 vs 股价周期」
+        </p>
         <ResponsiveContainer width="100%" height={320}>
           <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -176,10 +219,15 @@ export default function CycleAnalysis({ data, loading }: CycleAnalysisProps) {
               tick={{ fontSize: 12 }}
               tickFormatter={(v) => `${v}%`}
             />
+            {/* 股价独立隐藏轴：股价量级与营收/增速差异大，单独自适应缩放，仅看周期形态 */}
+            <YAxis yAxisId="price" hide domain={['auto', 'auto']} />
             <Tooltip
-              formatter={(value: number, name: string) =>
-                name === '营收增速' ? [`${value}%`, name] : [`${value} 亿`, name]
-              }
+              formatter={(value: number, name: string) => {
+                if (value == null) return ['—', name];
+                if (name === '营收增速') return [`${value}%`, name];
+                if (name === '股价') return [`¥${value}`, '年度股价(不复权)'];
+                return [`${value} 亿`, name];
+              }}
             />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             <Bar yAxisId="left" dataKey="营收" fill="#93c5fd" radius={[2, 2, 0, 0]} isAnimationActive={false} />
@@ -191,6 +239,17 @@ export default function CycleAnalysis({ data, loading }: CycleAnalysisProps) {
               stroke="#f59e0b"
               strokeWidth={2}
               dot={{ r: 3 }}
+              isAnimationActive={false}
+            />
+            <Line
+              yAxisId="price"
+              type="monotone"
+              dataKey="股价"
+              stroke="#10b981"
+              strokeWidth={2}
+              strokeDasharray="5 3"
+              dot={{ r: 3 }}
+              connectNulls
               isAnimationActive={false}
             />
           </ComposedChart>

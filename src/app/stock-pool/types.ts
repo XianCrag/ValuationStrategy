@@ -151,6 +151,8 @@ export interface CyclePoint {
   grossMargin: number | null;
   /** 销售净利率（%） */
   netMargin: number | null;
+  /** 年度收盘价（不复权，元），用于「股价周期」对比；缺失为 null */
+  priceClose?: number | null;
 }
 
 /** 周期性强度。 */
@@ -473,11 +475,65 @@ export interface ScorecardAnalysis {
   generatedAt: string | null;
 }
 
-/** 估值方法标识：①股息率 / ②DCF 自由现金流 / ③未来盈利能力。 */
-export type ValuationMethodId = 'dividend' | 'dcf' | 'earnings-power';
+/** 估值方法标识：①股息率 / ②EV/EBIT 倍数（替代 FCF 折现）/ ③未来盈利能力 / ④PS 市销率。 */
+export type ValuationMethodId = 'dividend' | 'dcf' | 'earnings-power' | 'ps';
 
 /**
- * 一种估值方法的结果（§10 三种估值方法之一）。
+ * EV/EBIT 倍数估值的测算明细（② 号方法的核心算法，替代 FCF×(1+g)/(r−g) 折现）。
+ *
+ * EV/EBIT 资本结构中性、对周期性重资产企业比 PE 更可比，且不依赖难以证伪的折现率 /
+ * 永续增长假设。估值桥：
+ *   合理 EV   = 合理倍数 × 常态 EBIT
+ *   股权价值  = 合理 EV − 净负债 − 少数股东权益
+ *   合理价值/股 = 股权价值 ÷ 总股本   →  写入 ValuationMethod.fairValue
+ *
+ * 🟦 EBIT / 净负债 / 少数股东权益 / 当前倍数由 ev_ebit_fetch.py 提供；
+ * 🟨 常态 EBIT 与合理倍数由 Cursor 按周期与行业综合判断。
+ */
+export interface EvEbitValuation {
+  /** 选用的合理 EV/EBIT 倍数（行业中枢 / 周期调整后） */
+  fairMultiple: number;
+  /** 常态 / 中周期 EBIT（亿元，利润总额 + 利息费用口径） */
+  ebitYi: number;
+  /** EBIT 口径说明（如「中周期常态」「2025 年报」「TTM 截至 …」） */
+  ebitBasis: string;
+  /** 合理 EV = 合理倍数 × 常态 EBIT（亿元） */
+  fairEvYi: number;
+  /** 净负债（亿元，负值表示净现金，估值时回加） */
+  netDebtYi: number;
+  /** 少数股东权益（亿元，EBIT 为合并口径，估值时扣减） */
+  minorityYi: number;
+  /** 总股本（亿股） */
+  sharesYi: number;
+  /** 当前股价对应的 EV/EBIT（倍，仅作参考对照） */
+  currentMultiple: number;
+}
+
+/**
+ * PS（市销率）估值测算明细（④ 号方法）。
+ *
+ * 适用「盈利能力不确定」的公司（盈利在盈亏线波动、PE/EBIT 失真），用营收锚定价值：
+ *   合理市值 = 合理 PS × 常态营收
+ *   合理价值/股 = 合理市值 ÷ 总股本   →  写入 ValuationMethod.fairValue
+ * PS 为股权口径（市值/营收），不再扣减净负债。
+ *
+ * 🟦 营收 / 当前 PS 由取数脚本提供；🟨 合理 PS 与常态营收由 Cursor 按行业与前景判断。
+ */
+export interface PsValuation {
+  /** 选用的合理 PS（市销率，倍） */
+  fairPs: number;
+  /** 常态 / 前瞻营收（亿元） */
+  revenueYi: number;
+  /** 营收口径说明（如「前瞻常态」「2025 年报」「TTM」） */
+  revenueBasis: string;
+  /** 总股本（亿股） */
+  sharesYi: number;
+  /** 当前股价对应的 PS（倍，仅作参考对照） */
+  currentPs: number;
+}
+
+/**
+ * 一种估值方法的结果（§10 估值方法之一）。
  *
  * fairValue 为合理价值（每股，元，固定单点值）。
  */
@@ -493,6 +549,10 @@ export interface ValuationMethod {
   fairValue: number | null;
   /** 关键假设（逐条） */
   assumptions: string[];
+  /** EV/EBIT 倍数估值测算明细（仅 ② 号方法提供） */
+  evEbit?: EvEbitValuation | null;
+  /** PS 市销率估值测算明细（仅 ④ 号方法提供） */
+  ps?: PsValuation | null;
 }
 
 /**

@@ -1,0 +1,33 @@
+{
+  "code": "601600",
+  "name": "中国铝业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 1859.91, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 2697.49, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 2909.88, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 2250.71, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 2370.65, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 2411.26, "overseasIncome": 27.06, "overseasRatio": 1.1 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "中国大陆以内", "income": 2384.2, "ratio": 98.9, "grossMargin": 18.2 },
+    { "name": "中国大陆以外", "income": 27.06, "ratio": 1.1, "grossMargin": 1.2 }
+  ],
+  "markets": ["几内亚 Boffa 铝土矿", "印尼氧化铝项目", "海外铝土矿/氧化铝资源布局"],
+  "opportunities": [
+    "通过几内亚、印尼等海外铝土矿与氧化铝产能锁定上游资源，对冲国内铝土矿品位下降与对外依存度上升。",
+    "海外低成本氧化铝产能可向全球供给，强化氧化铝环节的成本与规模优势。"
+  ],
+  "risks": [
+    "境外销售收入占比仅约 1%，海外业务以资源端布局为主、收入端拉动有限，全球化非成长主线。",
+    "海外矿产项目受资源国政策、税收、汇率及地缘政治影响，存在投资与运营不确定性。",
+    "国内电解铝产能受 4500 万吨天花板约束，增量主要来自海外，但海外建厂受能源与电网条件限制。"
+  ],
+  "summary": "中国铝业本质是以国内市场为绝对主体的资源型央企，境外销售收入占比仅约 1%（2025 年约 27 亿元）。其「全球化」更多体现在上游铝土矿/氧化铝的海外资源布局（几内亚、印尼等），目的是保障原料安全与成本，而非海外收入扩张。对估值与业绩的边际影响主要在成本端而非收入端，投资判断仍应以国内电解铝产能稀缺性、铝价周期与一体化成本控制为核心。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 中国铝业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

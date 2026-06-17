@@ -16,15 +16,25 @@
     },
     {
       "id": "dcf",
-      "name": "DCF 自由现金流",
+      "name": "EV/EBIT 估值",
       "applicable": true,
-      "applicability": "自由现金流随运价剧烈波动（2022 超千亿、平年 370~540 亿），DCF 假设极敏感、置信度低，仅作参考。",
-      "fairValue": 21,
+      "applicability": "集运强周期，单年盈利大起大落，EV/EBIT 用中周期常态 EBIT × 偏低周期倍数估值，并完整计入大额净现金，比对单年现金流折现更克制、更可比。",
+      "fairValue": 12,
       "assumptions": [
-        "中周期常态自由现金流 ≈ 400 亿",
-        "折现率 r = 12%（高周期风险），永续增长 g = 0%",
-        "股权价值 = FCF/(r−g)，÷ 154.92 亿股；公司持大额净现金，结果偏保守"
-      ]
+        "合理 EV/EBIT = 5×（强周期航运，市场对周期股给予低倍数，与当前约 5× 一致）",
+        "中周期常态 EBIT ≈ 320 亿（剔除 2021~22 暴利与低谷，取中枢）",
+        "合理 EV = 5×320 = 1600 亿 ＋ 净现金 768 亿 − 少数股东权益 516 亿 = 股权价值 1852 亿 ÷ 154.92 亿股 ≈ 12 元"
+      ],
+      "evEbit": {
+        "fairMultiple": 5,
+        "ebitYi": 320,
+        "ebitBasis": "中周期常态（剔除 2021~22 暴利与低谷，取中枢）",
+        "fairEvYi": 1600,
+        "netDebtYi": -767.89,
+        "minorityYi": 515.72,
+        "sharesYi": 154.92,
+        "currentMultiple": 5.1
+      }
     },
     {
       "id": "earnings-power",
@@ -37,10 +47,21 @@
         "合理 PE ≈ 8 倍（航运强周期、服务同质化，给低倍数）",
         "合理价 = 常态 EPS × 合理 PE = 2.2 × 8 ≈ 18 元"
       ]
+    },
+    {
+      "id": "ps",
+      "name": "PS 市销率估值",
+      "applicable": false,
+      "applicability": "公司盈利能力明确、可由 ③ 盈利能力法（穿越周期常态盈利）可靠估值；PS 仅用于盈利长期失真的公司，此处不适用。",
+      "fairValue": null,
+      "assumptions": [
+        "盈利能力可由 ③ 盈利能力法估值，无需用营收锚定",
+        "不适用，置灰"
+      ]
     }
   ],
   "recommendedMethod": "earnings-power",
-  "recommendationReason": "集运是强周期行业，当前盈利与现金流受运价周期主导、不能代表常态，应基于穿越周期的常态盈利 × 审慎倍数估值；股息率法与 DCF 因周期波动置信度低，仅作区间参考。",
+  "recommendationReason": "集运是强周期行业，当前盈利与现金流受运价周期主导、不能代表常态，应基于穿越周期的常态盈利 × 审慎倍数估值；股息率法与 EV/EBIT 因周期波动置信度低，仅作区间参考。",
   "fairValue": 18,
   "safetyMargin": 0.4,
   "strikePrice": 10.8,

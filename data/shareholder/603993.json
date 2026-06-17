@@ -1,0 +1,33 @@
+{
+  "code": "603993",
+  "name": "洛阳钼业",
+  "annual": [
+    { "year": "2014", "dividend": 10.13, "netProfit": 18.24, "revenue": 66.62, "payoutRatio": 55.5 },
+    { "year": "2015", "dividend": 4.22, "netProfit": 7.61, "revenue": 41.97, "payoutRatio": 55.5 },
+    { "year": "2016", "dividend": 5.91, "netProfit": 9.98, "revenue": 69.5, "payoutRatio": 59.2 },
+    { "year": "2017", "dividend": 16.42, "netProfit": 27.28, "revenue": 241.48, "payoutRatio": 60.2 },
+    { "year": "2018", "dividend": 23.76, "netProfit": 46.36, "revenue": 259.63, "payoutRatio": 51.3 },
+    { "year": "2019", "dividend": 9.29, "netProfit": 18.57, "revenue": 686.77, "payoutRatio": 50.0 },
+    { "year": "2020", "dividend": 7.13, "netProfit": 23.29, "revenue": 1129.81, "payoutRatio": 30.6 },
+    { "year": "2021", "dividend": 15.39, "netProfit": 51.06, "revenue": 1738.63, "payoutRatio": 30.1 },
+    { "year": "2022", "dividend": 18.38, "netProfit": 60.67, "revenue": 1729.91, "payoutRatio": 30.3 },
+    { "year": "2023", "dividend": 33.32, "netProfit": 82.5, "revenue": 1862.69, "payoutRatio": 40.4 },
+    { "year": "2024", "dividend": 54.82, "netProfit": 135.32, "revenue": 2130.29, "payoutRatio": 40.5 },
+    { "year": "2025", "dividend": 61.19, "netProfit": 203.39, "revenue": 2066.84, "payoutRatio": 30.1 }
+  ],
+  "mcapYi": 4315.23,
+  "currentDividendYield": 2.68,
+  "payoutRatioLatest": 30.1,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 277.73,
+  "cumulativeToMcap": 6.4,
+  "dividendToRevenue": 3.0,
+  "buybackNote": "连续 12 年现金分红，派息比例稳定在 30%~40%，分红绝对额随利润高增长持续放大（2025 年派现约 61 亿）；公司处扩张期，留存利润用于刚果金矿山扩建与新项目，回报以「成长 + 适度分红」为主。",
+  "rating": "moderate",
+  "summary": "股东回报稳健、随成长放大。连续 12 年分红，累计派现约 278 亿元，派息比例长期稳定在 30%~40%，2025 年派现约 61 亿、当前股息率约 2.68%。公司处铜钴产能扩张期，主动将多数利润留存再投资，分红比例适中而非「类债」高分红；其回报逻辑偏「利润高增长驱动分红绝对额提升」，总回报由成长与分红共同贡献，股息率高于紫金但低于神华、海控。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

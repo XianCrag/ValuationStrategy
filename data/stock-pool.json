@@ -63,5 +63,57 @@
     "roePeriod": "2025",
     "strikeZone": "fair",
     "addedAt": "2026-06-14T07:47:08.315Z"
+  },
+  {
+    "code": "601600",
+    "name": "中国铝业",
+    "industry": "工业金属",
+    "price": 9.97,
+    "peTtm": 11.66,
+    "pePercentile": 7.5,
+    "dividendYield": 2.59,
+    "roe": 17.64,
+    "roePeriod": "2025",
+    "strikeZone": "undervalued",
+    "addedAt": "2026-06-17T09:26:30.624Z"
+  },
+  {
+    "code": "601899",
+    "name": "紫金矿业",
+    "industry": "工业金属",
+    "price": 30.43,
+    "peTtm": 13.12,
+    "pePercentile": 6.5,
+    "dividendYield": 0.72,
+    "roe": 33.04,
+    "roePeriod": "2025",
+    "strikeZone": "undervalued",
+    "addedAt": "2026-06-17T09:26:46.593Z"
+  },
+  {
+    "code": "603993",
+    "name": "洛阳钼业",
+    "industry": "工业金属",
+    "price": 20.17,
+    "peTtm": 17.87,
+    "pePercentile": 23.3,
+    "dividendYield": 2.68,
+    "roe": 26.61,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-17T09:27:35.669Z"
+  },
+  {
+    "code": "002428",
+    "name": "云南锗业",
+    "industry": "小金属",
+    "price": 99.26,
+    "peTtm": 3402.41,
+    "pePercentile": 99.8,
+    "dividendYield": 0.03,
+    "roe": 1.37,
+    "roePeriod": "2025",
+    "strikeZone": "overvalued",
+    "addedAt": "2026-06-17T09:27:53.331Z"
   }
 ]

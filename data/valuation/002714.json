@@ -16,15 +16,25 @@
     },
     {
       "id": "dcf",
-      "name": "DCF 自由现金流",
+      "name": "EV/EBIT 估值",
       "applicable": true,
-      "applicability": "自由现金流随猪价周期大幅波动（好年 150~180 亿、坏年偏低甚至为负），DCF 假设敏感，仅作参考。",
-      "fairValue": 28,
+      "applicability": "生猪养殖强周期且资产负债率高，EV/EBIT 用中周期常态 EBIT × 周期合理倍数估值、并扣减较高净负债，比单年现金流折现更能反映其杠杆与周期属性。",
+      "fairValue": 16,
       "assumptions": [
-        "中周期常态自由现金流 ≈ 120 亿",
-        "折现率 r = 10%，永续增长 g = 2%（出栏量仍有扩张）",
-        "股权价值 = FCF×(1+g)/(r−g)，÷ 54.65 亿股"
-      ]
+        "合理 EV/EBIT = 9×（猪周期均衡，给予周期中枢倍数；当前 TTM 因 EBIT 偏低显 20×）",
+        "中周期常态 EBIT ≈ 160 亿（2025 EBIT 184 亿偏景气、坏年可为负，取均衡中枢）",
+        "合理 EV = 9×160 = 1440 亿 − 净负债 546 亿 − 少数股东权益 0.2 亿 = 股权价值 894 亿 ÷ 54.65 亿股 ≈ 16 元"
+      ],
+      "evEbit": {
+        "fairMultiple": 9,
+        "ebitYi": 160,
+        "ebitBasis": "中周期常态（2025 EBIT 184 亿偏景气、坏年可为负，取均衡中枢）",
+        "fairEvYi": 1440,
+        "netDebtYi": 546.25,
+        "minorityYi": 0.23,
+        "sharesYi": 54.65,
+        "currentMultiple": 20.45
+      }
     },
     {
       "id": "earnings-power",
@@ -37,10 +47,21 @@
         "合理 PE ≈ 13 倍（成本领先龙头给一定溢价）",
         "合理价 = 常态 EPS × 合理 PE = 2.4 × 13 ≈ 31 元"
       ]
+    },
+    {
+      "id": "ps",
+      "name": "PS 市销率估值",
+      "applicable": false,
+      "applicability": "盈利虽随猪周期波动，但出栏量与成本领先使穿越周期常态盈利可估，③ 盈利能力法已能可靠定价；PS 仅作猪价深亏年的下限参考，不作主用。",
+      "fairValue": null,
+      "assumptions": [
+        "穿越周期常态盈利可估，盈利能力法优于营收锚定",
+        "不适用，置灰（深亏年可作下限参考）"
+      ]
     }
   ],
   "recommendedMethod": "earnings-power",
-  "recommendationReason": "生猪养殖强周期，当年盈利随猪价剧烈波动甚至亏损，不能代表常态，应基于穿越周期的常态出栏与成本领先的常态盈利 × 合理倍数估值；成本优势是核心变量，股息率法与 DCF 仅作参考。",
+  "recommendationReason": "生猪养殖强周期，当年盈利随猪价剧烈波动甚至亏损，不能代表常态，应基于穿越周期的常态出栏与成本领先的常态盈利 × 合理倍数估值；成本优势是核心变量，股息率法与 EV/EBIT 仅作参考。",
   "fairValue": 31,
   "safetyMargin": 0.4,
   "strikePrice": 18.6,

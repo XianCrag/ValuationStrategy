@@ -1,0 +1,33 @@
+{
+  "code": "601600",
+  "name": "中国铝业",
+  "annual": [
+    { "year": "2014", "dividend": 0.0, "netProfit": -162.08, "revenue": 1420.0, "payoutRatio": null },
+    { "year": "2015", "dividend": 0.0, "netProfit": 1.49, "revenue": 1234.75, "payoutRatio": null },
+    { "year": "2016", "dividend": 0.0, "netProfit": 3.68, "revenue": 1442.29, "payoutRatio": null },
+    { "year": "2017", "dividend": 0.0, "netProfit": 14.13, "revenue": 1810.2, "payoutRatio": null },
+    { "year": "2018", "dividend": 0.0, "netProfit": 8.31, "revenue": 1802.41, "payoutRatio": null },
+    { "year": "2019", "dividend": 0.0, "netProfit": 8.53, "revenue": 1902.15, "payoutRatio": null },
+    { "year": "2020", "dividend": 0.0, "netProfit": 7.64, "revenue": 1859.91, "payoutRatio": null },
+    { "year": "2021", "dividend": 5.45, "netProfit": 57.59, "revenue": 2988.85, "payoutRatio": 9.5 },
+    { "year": "2022", "dividend": 6.18, "netProfit": 41.92, "revenue": 2909.88, "payoutRatio": 14.7 },
+    { "year": "2023", "dividend": 13.73, "netProfit": 66.89, "revenue": 2253.19, "payoutRatio": 20.5 },
+    { "year": "2024", "dividend": 37.23, "netProfit": 123.94, "revenue": 2371.09, "payoutRatio": 30.0 },
+    { "year": "2025", "dividend": 46.32, "netProfit": 126.74, "revenue": 2411.25, "payoutRatio": 36.5 }
+  ],
+  "mcapYi": 1710.35,
+  "currentDividendYield": 2.59,
+  "payoutRatioLatest": 36.5,
+  "consecutiveYears": 5,
+  "cumulativeDividend": 157.12,
+  "cumulativeToMcap": 9.2,
+  "dividendToRevenue": 1.9,
+  "buybackNote": "以现金分红为主，基本无回购。2014-2020 年因巨亏/微利长期不分红，2021 年盈利恢复后重启分红，派息比例从 9.5% 阶梯式提升至 2025 年的 36.5%，分红政策仍在改善通道中。",
+  "rating": "moderate",
+  "summary": "股东回报处于改善期但绝对水平仍偏低。受电解铝行业长周期低迷影响，公司 2014-2020 年连续 7 年未分红；2021 年盈利爆发后恢复派息，派息比例由 9.5% 稳步提升至 2025 年的 36.5%，近 5 年累计派现约 157 亿元（约当前市值的 9%）。当前股息率约 2.6%，低于神华、紫金等同业高分红标的，分红确定性受铝价周期影响较大，回报属性弱于「类债」资源股。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

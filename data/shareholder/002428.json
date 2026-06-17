@@ -1,0 +1,33 @@
+{
+  "code": "002428",
+  "name": "云南锗业",
+  "annual": [
+    { "year": "2014", "dividend": 0.2, "netProfit": 1.25, "revenue": 5.56, "payoutRatio": 16.0 },
+    { "year": "2015", "dividend": 0.2, "netProfit": 0.61, "revenue": 4.02, "payoutRatio": 32.8 },
+    { "year": "2016", "dividend": 0.0, "netProfit": -1.03, "revenue": 2.98, "payoutRatio": null },
+    { "year": "2017", "dividend": 0.0, "netProfit": 0.08, "revenue": 4.64, "payoutRatio": null },
+    { "year": "2018", "dividend": 0.0, "netProfit": 0.09, "revenue": 4.65, "payoutRatio": null },
+    { "year": "2019", "dividend": 0.0, "netProfit": -0.59, "revenue": 4.18, "payoutRatio": null },
+    { "year": "2020", "dividend": 0.0, "netProfit": 0.23, "revenue": 6.7, "payoutRatio": null },
+    { "year": "2021", "dividend": 0.0, "netProfit": 0.14, "revenue": 5.56, "payoutRatio": null },
+    { "year": "2022", "dividend": 0.0, "netProfit": -0.62, "revenue": 5.37, "payoutRatio": null },
+    { "year": "2023", "dividend": 0.13, "netProfit": 0.07, "revenue": 6.72, "payoutRatio": 185.7 },
+    { "year": "2024", "dividend": 0.2, "netProfit": 0.53, "revenue": 7.67, "payoutRatio": 37.7 },
+    { "year": "2025", "dividend": 0.07, "netProfit": 0.2, "revenue": 10.66, "payoutRatio": 35.0 }
+  ],
+  "mcapYi": 648.29,
+  "currentDividendYield": 0.03,
+  "payoutRatioLatest": 35.0,
+  "consecutiveYears": 3,
+  "cumulativeDividend": 1.87,
+  "cumulativeToMcap": 0.3,
+  "dividendToRevenue": 0.7,
+  "buybackNote": "分红能力极弱，2016-2022 年长期不分红或仅象征性派息，累计派现仅约 1.87 亿元（不足当前市值的 0.3%）；2023 年甚至出现派息超过当年净利润（payout 185.7%）的异常。基本无股东现金回报属性。",
+  "rating": "weak",
+  "summary": "股东回报能力极弱。受盈利长期微利/亏损制约，公司分红断断续续、金额微薄，近 12 年累计派现仅约 1.87 亿元，相当于当前市值的约 0.3%；当前股息率仅约 0.03%，几乎可忽略。2023 年出现派息超净利的情况，反映其盈利无法稳定支撑分红。从价值投资「真金白银回报股东」的角度看，本标的几乎不提供股息现金流，完全不具备股东回报吸引力。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}

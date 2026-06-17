@@ -1,0 +1,33 @@
+{
+  "code": "601899",
+  "name": "紫金矿业",
+  "annual": [
+    { "year": "2014", "dividend": 17.26, "netProfit": 23.45, "revenue": 587.61, "payoutRatio": 73.6 },
+    { "year": "2015", "dividend": 12.93, "netProfit": 16.56, "revenue": 743.04, "payoutRatio": 78.1 },
+    { "year": "2016", "dividend": 13.82, "netProfit": 18.4, "revenue": 788.51, "payoutRatio": 75.1 },
+    { "year": "2017", "dividend": 20.73, "netProfit": 35.08, "revenue": 945.49, "payoutRatio": 59.1 },
+    { "year": "2018", "dividend": 23.03, "netProfit": 40.94, "revenue": 1059.94, "payoutRatio": 56.3 },
+    { "year": "2019", "dividend": 25.38, "netProfit": 42.84, "revenue": 1360.98, "payoutRatio": 59.2 },
+    { "year": "2020", "dividend": 31.59, "netProfit": 65.09, "revenue": 1715.01, "payoutRatio": 48.5 },
+    { "year": "2021", "dividend": 52.66, "netProfit": 156.73, "revenue": 2251.02, "payoutRatio": 33.6 },
+    { "year": "2022", "dividend": 52.65, "netProfit": 200.42, "revenue": 2703.29, "payoutRatio": 26.3 },
+    { "year": "2023", "dividend": 65.82, "netProfit": 211.19, "revenue": 2934.03, "payoutRatio": 31.2 },
+    { "year": "2024", "dividend": 101.0, "netProfit": 320.51, "revenue": 3036.4, "payoutRatio": 31.5 },
+    { "year": "2025", "dividend": 159.51, "netProfit": 517.77, "revenue": 3490.79, "payoutRatio": 30.8 }
+  ],
+  "mcapYi": 8091.55,
+  "currentDividendYield": 0.72,
+  "payoutRatioLatest": 30.8,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 694.03,
+  "cumulativeToMcap": 8.6,
+  "dividendToRevenue": 4.6,
+  "buybackNote": "连续 12 年现金分红，分红绝对额随利润高增长持续放大（2025 年派现约 160 亿）；公司处扩张期，派息比例主动控制在约 30%，留存利润用于矿山并购与产能扩张，并配合一定股份回购。",
+  "rating": "moderate",
+  "summary": "股东回报「绝对额高增、比例适中」。连续 12 年分红，累计派现约 694 亿元，2025 年派现约 160 亿、同比大增。但因公司处于高速扩张期、利润大量再投资于海外矿山，派息比例近年主动维持在约 30%（早年曾达 70%+）；叠加股价上涨，当前股息率仅约 0.72%，显著低于神华、海控等高股息标的。其回报逻辑是「成长 + 再投资复利」而非高股息，分红是成长的副产品，更适合从总回报（成长 + 分红）而非股息率角度评估。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-17T17:30:00+08:00"
+}
