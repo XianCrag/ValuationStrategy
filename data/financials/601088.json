@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "601088",
+  "name": "中国神华",
+  "snapshotPrice": 41.61,
+  "sharesYi": 216.89,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 2641.01,
+      "netProfitYi": 438.67,
+      "ebitYi": 747.18,
+      "netMargin": 16.61
+    },
+    {
+      "year": "2019",
+      "revenueYi": 2418.71,
+      "netProfitYi": 432.5,
+      "ebitYi": 695.73,
+      "netMargin": 17.88
+    },
+    {
+      "year": "2020",
+      "revenueYi": 2332.63,
+      "netProfitYi": 391.7,
+      "ebitYi": 649.23,
+      "netMargin": 16.79
+    },
+    {
+      "year": "2021",
+      "revenueYi": 3356.4,
+      "netProfitYi": 500.84,
+      "ebitYi": 797.23,
+      "netMargin": 14.92
+    },
+    {
+      "year": "2022",
+      "revenueYi": 3445.33,
+      "netProfitYi": 696.48,
+      "ebitYi": 994.81,
+      "netMargin": 20.22
+    },
+    {
+      "year": "2023",
+      "revenueYi": 3430.74,
+      "netProfitYi": 596.94,
+      "ebitYi": 900.34,
+      "netMargin": 17.4
+    },
+    {
+      "year": "2024",
+      "revenueYi": 3397.88,
+      "netProfitYi": 558.05,
+      "ebitYi": 858.81,
+      "netMargin": 16.42
+    },
+    {
+      "year": "2025",
+      "revenueYi": 2949.16,
+      "netProfitYi": 528.49,
+      "ebitYi": 817.24,
+      "netMargin": 17.92
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 69.58,
+  "minorityYi": 749.81,
+  "dpsAvg3y": 2.1767,
+  "dpsByYear": {
+    "2025": 2.01,
+    "2024": 2.26,
+    "2023": 2.26
+  },
+  "generatedAt": "2026-06-18T11:55:39+08:00"
+}

@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "002428",
+  "name": "云南锗业",
+  "snapshotPrice": 101.38,
+  "sharesYi": 6.53,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 4.65,
+      "netProfitYi": 0.09,
+      "ebitYi": 0.21,
+      "netMargin": 1.85
+    },
+    {
+      "year": "2019",
+      "revenueYi": 4.18,
+      "netProfitYi": -0.59,
+      "ebitYi": -0.38,
+      "netMargin": -14.13
+    },
+    {
+      "year": "2020",
+      "revenueYi": 6.7,
+      "netProfitYi": 0.23,
+      "ebitYi": 0.48,
+      "netMargin": 3.38
+    },
+    {
+      "year": "2021",
+      "revenueYi": 5.56,
+      "netProfitYi": 0.14,
+      "ebitYi": 0.56,
+      "netMargin": 2.51
+    },
+    {
+      "year": "2022",
+      "revenueYi": 5.37,
+      "netProfitYi": -0.62,
+      "ebitYi": -0.46,
+      "netMargin": -11.63
+    },
+    {
+      "year": "2023",
+      "revenueYi": 6.72,
+      "netProfitYi": 0.07,
+      "ebitYi": 0.29,
+      "netMargin": 1.04
+    },
+    {
+      "year": "2024",
+      "revenueYi": 7.67,
+      "netProfitYi": 0.53,
+      "ebitYi": 0.92,
+      "netMargin": 6.92
+    },
+    {
+      "year": "2025",
+      "revenueYi": 10.66,
+      "netProfitYi": 0.2,
+      "ebitYi": 0.76,
+      "netMargin": 1.89
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 4.9,
+  "minorityYi": 0.7,
+  "dpsAvg3y": 0.02,
+  "dpsByYear": {
+    "2025": 0.01,
+    "2024": 0.03,
+    "2023": 0.02
+  },
+  "generatedAt": "2026-06-18T11:55:53+08:00"
+}

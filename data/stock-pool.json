@@ -115,5 +115,70 @@
     "roePeriod": "2025",
     "strikeZone": "overvalued",
     "addedAt": "2026-06-17T09:27:53.331Z"
+  },
+  {
+    "code": "601838",
+    "name": "成都银行",
+    "industry": "银行Ⅱ",
+    "price": 18.74,
+    "peTtm": 5.91,
+    "pePercentile": 52.5,
+    "dividendYield": 4.75,
+    "roe": 15.39,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-18T04:51:30.564Z"
+  },
+  {
+    "code": "600036",
+    "name": "招商银行",
+    "industry": "银行Ⅱ",
+    "price": 37.44,
+    "peTtm": 6.26,
+    "pePercentile": 16.5,
+    "dividendYield": 8.05,
+    "roe": 13.44,
+    "roePeriod": "2025",
+    "strikeZone": "undervalued",
+    "addedAt": "2026-06-18T04:51:42.291Z"
+  },
+  {
+    "code": "601169",
+    "name": "北京银行",
+    "industry": "银行Ⅱ",
+    "price": 5.04,
+    "peTtm": 5.2,
+    "pePercentile": 73.5,
+    "dividendYield": 3.97,
+    "roe": 6.11,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-18T04:51:53.436Z"
+  },
+  {
+    "code": "601318",
+    "name": "中国平安",
+    "industry": "保险Ⅱ",
+    "price": 50.03,
+    "peTtm": 6.82,
+    "pePercentile": 5.1,
+    "dividendYield": 8.63,
+    "roe": 14,
+    "roePeriod": "2025",
+    "strikeZone": "undervalued",
+    "addedAt": "2026-06-18T04:52:16.418Z"
+  },
+  {
+    "code": "600926",
+    "name": "杭州银行",
+    "industry": "银行Ⅱ",
+    "price": 15.71,
+    "peTtm": 5.8,
+    "pePercentile": 28.2,
+    "dividendYield": 5.98,
+    "roe": 14.65,
+    "roePeriod": "2025",
+    "strikeZone": "fair",
+    "addedAt": "2026-06-18T04:52:41.808Z"
   }
 ]

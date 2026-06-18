@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "601600",
+  "name": "中国铝业",
+  "snapshotPrice": 9.41,
+  "sharesYi": 171.55,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 1802.41,
+      "netProfitYi": 8.31,
+      "ebitYi": 72.82,
+      "netMargin": 0.46
+    },
+    {
+      "year": "2019",
+      "revenueYi": 1902.15,
+      "netProfitYi": 8.53,
+      "ebitYi": 70.43,
+      "netMargin": 0.45
+    },
+    {
+      "year": "2020",
+      "revenueYi": 1859.91,
+      "netProfitYi": 7.64,
+      "ebitYi": 65.33,
+      "netMargin": 0.41
+    },
+    {
+      "year": "2021",
+      "revenueYi": 2988.85,
+      "netProfitYi": 57.59,
+      "ebitYi": 186.97,
+      "netMargin": 1.93
+    },
+    {
+      "year": "2022",
+      "revenueYi": 2909.88,
+      "netProfitYi": 41.92,
+      "ebitYi": 170.37,
+      "netMargin": 1.44
+    },
+    {
+      "year": "2023",
+      "revenueYi": 2253.19,
+      "netProfitYi": 66.89,
+      "ebitYi": 183.88,
+      "netMargin": 2.97
+    },
+    {
+      "year": "2024",
+      "revenueYi": 2371.09,
+      "netProfitYi": 123.94,
+      "ebitYi": 250.74,
+      "netMargin": 5.23
+    },
+    {
+      "year": "2025",
+      "revenueYi": 2411.25,
+      "netProfitYi": 126.74,
+      "ebitYi": 281.81,
+      "netMargin": 5.26
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 218.51,
+  "minorityYi": 517.2,
+  "dpsAvg3y": 0.189,
+  "dpsByYear": {
+    "2025": 0.27,
+    "2024": 0.217,
+    "2023": 0.08
+  },
+  "generatedAt": "2026-06-18T11:55:49+08:00"
+}

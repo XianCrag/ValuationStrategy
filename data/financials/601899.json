@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "601899",
+  "name": "紫金矿业",
+  "snapshotPrice": 29.51,
+  "sharesYi": 265.91,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 1059.94,
+      "netProfitYi": 40.94,
+      "ebitYi": 77.06,
+      "netMargin": 3.86
+    },
+    {
+      "year": "2019",
+      "revenueYi": 1360.98,
+      "netProfitYi": 42.84,
+      "ebitYi": 89.02,
+      "netMargin": 3.15
+    },
+    {
+      "year": "2020",
+      "revenueYi": 1715.01,
+      "netProfitYi": 65.09,
+      "ebitYi": 129.03,
+      "netMargin": 3.8
+    },
+    {
+      "year": "2021",
+      "revenueYi": 2251.02,
+      "netProfitYi": 156.73,
+      "ebitYi": 269.06,
+      "netMargin": 6.96
+    },
+    {
+      "year": "2022",
+      "revenueYi": 2703.29,
+      "netProfitYi": 200.42,
+      "ebitYi": 334.38,
+      "netMargin": 7.41
+    },
+    {
+      "year": "2023",
+      "revenueYi": 2934.03,
+      "netProfitYi": 211.19,
+      "ebitYi": 362.11,
+      "netMargin": 7.2
+    },
+    {
+      "year": "2024",
+      "revenueYi": 3036.4,
+      "netProfitYi": 320.51,
+      "ebitYi": 526.26,
+      "netMargin": 10.56
+    },
+    {
+      "year": "2025",
+      "revenueYi": 3490.79,
+      "netProfitYi": 517.77,
+      "ebitYi": 846.85,
+      "netMargin": 14.83
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 688.34,
+  "minorityYi": 670.02,
+  "dpsAvg3y": 0.41,
+  "dpsByYear": {
+    "2025": 0.6,
+    "2024": 0.38,
+    "2023": 0.25
+  },
+  "generatedAt": "2026-06-18T11:55:50+08:00"
+}

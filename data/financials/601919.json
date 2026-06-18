@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "601919",
+  "name": "中远海控",
+  "snapshotPrice": 13.89,
+  "sharesYi": 153.13,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 1208.3,
+      "netProfitYi": 12.3,
+      "ebitYi": 74.1,
+      "netMargin": 1.02
+    },
+    {
+      "year": "2019",
+      "revenueYi": 1510.57,
+      "netProfitYi": 67.64,
+      "ebitYi": 179.91,
+      "netMargin": 4.48
+    },
+    {
+      "year": "2020",
+      "revenueYi": 1712.59,
+      "netProfitYi": 99.27,
+      "ebitYi": 180.32,
+      "netMargin": 5.8
+    },
+    {
+      "year": "2021",
+      "revenueYi": 3336.94,
+      "netProfitYi": 893.49,
+      "ebitYi": 1316.0,
+      "netMargin": 26.78
+    },
+    {
+      "year": "2022",
+      "revenueYi": 3910.58,
+      "netProfitYi": 1097.03,
+      "ebitYi": 1707.78,
+      "netMargin": 28.05
+    },
+    {
+      "year": "2023",
+      "revenueYi": 1754.53,
+      "netProfitYi": 238.6,
+      "ebitYi": 366.73,
+      "netMargin": 13.6
+    },
+    {
+      "year": "2024",
+      "revenueYi": 2338.59,
+      "netProfitYi": 491.0,
+      "ebitYi": 699.48,
+      "netMargin": 21.0
+    },
+    {
+      "year": "2025",
+      "revenueYi": 2195.04,
+      "netProfitYi": 308.68,
+      "ebitYi": 450.13,
+      "netMargin": 14.06
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -767.89,
+  "minorityYi": 515.72,
+  "dpsAvg3y": 1.0967,
+  "dpsByYear": {
+    "2025": 1.0,
+    "2024": 1.55,
+    "2023": 0.74
+  },
+  "generatedAt": "2026-06-18T11:55:46+08:00"
+}

@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "002714",
+  "name": "牧原股份",
+  "snapshotPrice": 33.9,
+  "sharesYi": 57.73,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 133.88,
+      "netProfitYi": 5.2,
+      "ebitYi": 10.87,
+      "netMargin": 3.89
+    },
+    {
+      "year": "2019",
+      "revenueYi": 202.21,
+      "netProfitYi": 61.14,
+      "ebitYi": 68.85,
+      "netMargin": 30.24
+    },
+    {
+      "year": "2020",
+      "revenueYi": 562.77,
+      "netProfitYi": 274.51,
+      "ebitYi": 312.95,
+      "netMargin": 48.78
+    },
+    {
+      "year": "2021",
+      "revenueYi": 788.9,
+      "netProfitYi": 69.04,
+      "ebitYi": 98.29,
+      "netMargin": 8.75
+    },
+    {
+      "year": "2022",
+      "revenueYi": 1248.26,
+      "netProfitYi": 132.66,
+      "ebitYi": 178.2,
+      "netMargin": 10.63
+    },
+    {
+      "year": "2023",
+      "revenueYi": 1108.61,
+      "netProfitYi": -42.63,
+      "ebitYi": -9.31,
+      "netMargin": -3.85
+    },
+    {
+      "year": "2024",
+      "revenueYi": 1379.47,
+      "netProfitYi": 178.81,
+      "ebitYi": 220.74,
+      "netMargin": 12.96
+    },
+    {
+      "year": "2025",
+      "revenueYi": 1441.45,
+      "netProfitYi": 154.87,
+      "ebitYi": 183.67,
+      "netMargin": 10.74
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 546.25,
+  "minorityYi": 0.23,
+  "dpsAvg3y": 0.9212,
+  "dpsByYear": {
+    "2025": 1.3545,
+    "2024": 1.4091,
+    "2023": 0.0
+  },
+  "generatedAt": "2026-06-18T11:55:47+08:00"
+}

@@ -1,22 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
+import { computeValuation, type FinancialMetrics } from './compute';
 
 export const runtime = 'nodejs';
 
 /**
- * 估值总结 API（对应 docs/RRD_1.md §10，三种估值方法 + 推荐 + 击球区 + 多空）—— 与股票池对齐。
+ * 估值总结 API —— 100% 公式计算，无 AI 推荐、无主观分析、不存储估值结论。
  *
- * 规则同其他分析模块：仅股票池内标的有内容（not-in-pool / pending / ready）。
- * 🟦 客观锚点由 valuation_fetch.py 提供，🟨 方法假设/推荐/安全边际/多空由 Cursor 综合
- * 后写入 data/valuation/{code}.json（generatedBy=cursor-dev）。
- *
- * 注意：与 /api/stock-valuation（实时 PE 分位概览）不同，本路由是离线、文件驱动的深度估值。
+ * 读取 data/financials/{code}.json 的客观财务指标（由 valuation_metrics_fetch.py 取数），
+ * 按 compute.ts 的固定公式实时计算四种方法的合理价值。仅股票池内标的有内容。
  */
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const POOL_FILE = path.join(DATA_DIR, 'stock-pool.json');
-const VAL_DIR = path.join(DATA_DIR, 'valuation');
+const FIN_DIR = path.join(DATA_DIR, 'financials');
 
 async function isInPool(code: string): Promise<{ inPool: boolean; name: string | null }> {
   try {
@@ -29,10 +27,10 @@ async function isInPool(code: string): Promise<{ inPool: boolean; name: string |
   }
 }
 
-async function readValuation(code: string): Promise<Record<string, unknown> | null> {
+async function readFinancials(code: string): Promise<FinancialMetrics | null> {
   try {
-    const raw = await fs.readFile(path.join(VAL_DIR, `${code}.json`), 'utf-8');
-    return JSON.parse(raw) as Record<string, unknown>;
+    const raw = await fs.readFile(path.join(FIN_DIR, `${code}.json`), 'utf-8');
+    return JSON.parse(raw) as FinancialMetrics;
   } catch {
     return null;
   }
@@ -46,20 +44,11 @@ function emptyShell(code: string, name: string, status: 'pending' | 'not-in-pool
     status,
     inPool,
     methods: [],
-    recommendedMethod: 'dividend' as const,
-    recommendationReason: '',
-    fairValue: null,
+    medianFairValue: null,
     safetyMargin: 0,
-    strikePrice: null,
     snapshotPrice: null,
-    bullPoints: [],
-    bearPoints: [],
-    pePercentile: null,
-    dividendYield: null,
-    source: '',
-    confidence: 'low' as const,
     reportPeriod: null,
-    generatedBy: 'cursor-dev' as const,
+    source: '',
     generatedAt: null,
   };
 }
@@ -75,16 +64,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(emptyShell(code, name ?? code, 'not-in-pool', false));
   }
 
-  const val = await readValuation(code);
-  if (!val) {
+  const fin = await readFinancials(code);
+  if (!fin) {
     return NextResponse.json(emptyShell(code, name ?? code, 'pending', true));
   }
+
+  const { methods, medianFairValue, safetyMargin } = computeValuation(fin);
 
   return NextResponse.json({
     success: true,
     status: 'ready',
     inPool: true,
-    ...val,
-    name: (val.name as string) || name || code,
+    code,
+    name: fin.name || name || code,
+    methods,
+    medianFairValue,
+    safetyMargin,
+    snapshotPrice: fin.snapshotPrice ?? null,
+    reportPeriod: fin.reportPeriod ?? null,
+    source: 'data/financials（客观财务指标）+ 固定公式计算',
+    generatedAt: fin.generatedAt ?? null,
   });
 }

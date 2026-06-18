@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600519",
+  "name": "贵州茅台",
+  "snapshotPrice": 1221.4,
+  "sharesYi": 12.5,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 771.99,
+      "netProfitYi": 352.04,
+      "ebitYi": 508.28,
+      "netMargin": 45.6
+    },
+    {
+      "year": "2019",
+      "revenueYi": 888.54,
+      "netProfitYi": 412.06,
+      "ebitYi": 587.83,
+      "netMargin": 46.38
+    },
+    {
+      "year": "2020",
+      "revenueYi": 979.93,
+      "netProfitYi": 466.97,
+      "ebitYi": 661.97,
+      "netMargin": 47.65
+    },
+    {
+      "year": "2021",
+      "revenueYi": 1094.64,
+      "netProfitYi": 524.6,
+      "ebitYi": 745.42,
+      "netMargin": 47.92
+    },
+    {
+      "year": "2022",
+      "revenueYi": 1275.54,
+      "netProfitYi": 627.17,
+      "ebitYi": 877.14,
+      "netMargin": 49.17
+    },
+    {
+      "year": "2023",
+      "revenueYi": 1505.6,
+      "netProfitYi": 747.34,
+      "ebitYi": 1036.75,
+      "netMargin": 49.64
+    },
+    {
+      "year": "2024",
+      "revenueYi": 1741.44,
+      "netProfitYi": 862.28,
+      "ebitYi": 1196.53,
+      "netMargin": 49.52
+    },
+    {
+      "year": "2025",
+      "revenueYi": 1720.54,
+      "netProfitYi": 823.2,
+      "ebitYi": 1147.84,
+      "netMargin": 47.85
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -485.44,
+  "minorityYi": 102.42,
+  "dpsAvg3y": 44.8041,
+  "dpsByYear": {
+    "2025": 51.9812,
+    "2024": 51.555,
+    "2023": 30.876
+  },
+  "generatedAt": "2026-06-18T11:55:45+08:00"
+}

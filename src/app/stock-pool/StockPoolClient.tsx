@@ -55,6 +55,20 @@ const STRIKE_ZONE_META: Record<StrikeZone, { label: string; dot: string; chip: s
   unknown: { label: '数据不足', dot: 'bg-gray-400', chip: 'bg-gray-100 text-gray-500' },
 };
 
+/**
+ * 击球区状态 = 下方估值模块的结论：
+ * 现价 ≤ 击球价（中枢 ×（1−安全边际）） → 低估；≤ 合理价值中枢 → 合理；否则高估。
+ * 与 ValuationSummary 的信号灯口径一致。
+ */
+function valuationZone(price: number | null | undefined, summary: ValuationSummaryData | null): StrikeZone {
+  const center = summary?.medianFairValue ?? null;
+  if (price == null || price <= 0 || center == null) return 'unknown';
+  const strike = center * (1 - (summary?.safetyMargin ?? 0));
+  if (price <= strike) return 'undervalued';
+  if (price <= center) return 'fair';
+  return 'overvalued';
+}
+
 export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, selection }: StockPoolClientProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState('');
@@ -281,8 +295,6 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
 
   const up = quote ? quote.changePct >= 0 : false;
   const changeColor = up ? 'text-red-600' : 'text-green-600';
-  const zone = valuation?.strikeZone ?? 'unknown';
-  const zoneMeta = STRIKE_ZONE_META[zone];
   const inPool = quote ? pooledCodes.has(quote.code) : false;
 
   // 线上只读模式：实时行情不可用时，回退到选股池快照（仅池内标的可查看）
@@ -383,12 +395,17 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
               <div className="flex items-center gap-3">
                 <h2 className="text-2xl font-bold text-gray-900">{quote.name}</h2>
                 <span className="text-gray-500 font-mono">{quote.code}</span>
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${zoneMeta.chip}`}
-                >
-                  <span className={`w-2 h-2 rounded-full ${zoneMeta.dot}`} />
-                  {valLoading ? '评估中…' : zoneMeta.label}
-                </span>
+                {(() => {
+                  const z = STRIKE_ZONE_META[valuationZone(quote.price, valSummary)];
+                  return (
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${z.chip}`}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${z.dot}`} />
+                      {valSummaryLoading ? '评估中…' : z.label}
+                    </span>
+                  );
+                })()}
               </div>
               <div className="mt-1 flex items-center gap-2 text-xs text-gray-400">
                 <span className="px-2 py-0.5 rounded bg-gray-100">数据源 · a-stock-data</span>
@@ -475,11 +492,16 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
             </OverviewCard>
 
             <OverviewCard label="击球区状态">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${zoneMeta.chip}`}>
-                <span className={`w-2 h-2 rounded-full ${zoneMeta.dot}`} />
-                {valLoading ? '评估中…' : zoneMeta.label}
-              </span>
-              <div className="text-sm text-gray-400 mt-1">基于 PE 分位</div>
+              {(() => {
+                const z = STRIKE_ZONE_META[valuationZone(quote.price, valSummary)];
+                return (
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${z.chip}`}>
+                    <span className={`w-2 h-2 rounded-full ${z.dot}`} />
+                    {valSummaryLoading ? '评估中…' : z.label}
+                  </span>
+                );
+              })()}
+              <div className="text-sm text-gray-400 mt-1">基于估值中枢</div>
             </OverviewCard>
           </div>
 

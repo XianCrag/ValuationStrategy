@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "000858",
+  "name": "五 粮 液",
+  "snapshotPrice": 76.54,
+  "sharesYi": 38.82,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 400.3,
+      "netProfitYi": 133.84,
+      "ebitYi": 186.07,
+      "netMargin": 33.44
+    },
+    {
+      "year": "2019",
+      "revenueYi": 501.18,
+      "netProfitYi": 174.02,
+      "ebitYi": 241.06,
+      "netMargin": 34.72
+    },
+    {
+      "year": "2020",
+      "revenueYi": 573.21,
+      "netProfitYi": 199.55,
+      "ebitYi": 276.78,
+      "netMargin": 34.81
+    },
+    {
+      "year": "2021",
+      "revenueYi": 662.09,
+      "netProfitYi": 233.77,
+      "ebitYi": 325.2,
+      "netMargin": 35.31
+    },
+    {
+      "year": "2022",
+      "revenueYi": 739.69,
+      "netProfitYi": 266.9,
+      "ebitYi": 371.52,
+      "netMargin": 36.08
+    },
+    {
+      "year": "2023",
+      "revenueYi": 832.72,
+      "netProfitYi": 302.11,
+      "ebitYi": 419.24,
+      "netMargin": 36.28
+    },
+    {
+      "year": "2024",
+      "revenueYi": 891.75,
+      "netProfitYi": 318.53,
+      "ebitYi": 442.04,
+      "netMargin": 35.72
+    },
+    {
+      "year": "2025",
+      "revenueYi": 405.29,
+      "netProfitYi": 89.54,
+      "ebitYi": 122.27,
+      "netMargin": 22.09
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -1238.18,
+  "minorityYi": 24.82,
+  "dpsAvg3y": 5.1903,
+  "dpsByYear": {
+    "2025": 5.156,
+    "2024": 5.745,
+    "2023": 4.67
+  },
+  "generatedAt": "2026-06-18T11:55:41+08:00"
+}

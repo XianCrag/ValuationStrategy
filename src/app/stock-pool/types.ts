@@ -475,94 +475,44 @@ export interface ScorecardAnalysis {
   generatedAt: string | null;
 }
 
-/** 估值方法标识：①股息率 / ②EV/EBIT 倍数（替代 FCF 折现）/ ③未来盈利能力 / ④PS 市销率。 */
+/** 估值方法标识：①股息率 / ②EV/EBIT 倍数 / ③未来盈利能力(PE) / ④PS 市销率。 */
 export type ValuationMethodId = 'dividend' | 'dcf' | 'earnings-power' | 'ps';
 
-/**
- * EV/EBIT 倍数估值的测算明细（② 号方法的核心算法，替代 FCF×(1+g)/(r−g) 折现）。
- *
- * EV/EBIT 资本结构中性、对周期性重资产企业比 PE 更可比，且不依赖难以证伪的折现率 /
- * 永续增长假设。估值桥：
- *   合理 EV   = 合理倍数 × 常态 EBIT
- *   股权价值  = 合理 EV − 净负债 − 少数股东权益
- *   合理价值/股 = 股权价值 ÷ 总股本   →  写入 ValuationMethod.fairValue
- *
- * 🟦 EBIT / 净负债 / 少数股东权益 / 当前倍数由 ev_ebit_fetch.py 提供；
- * 🟨 常态 EBIT 与合理倍数由 Cursor 按周期与行业综合判断。
- */
-export interface EvEbitValuation {
-  /** 选用的合理 EV/EBIT 倍数（行业中枢 / 周期调整后） */
-  fairMultiple: number;
-  /** 常态 / 中周期 EBIT（亿元，利润总额 + 利息费用口径） */
-  ebitYi: number;
-  /** EBIT 口径说明（如「中周期常态」「2025 年报」「TTM 截至 …」） */
-  ebitBasis: string;
-  /** 合理 EV = 合理倍数 × 常态 EBIT（亿元） */
-  fairEvYi: number;
-  /** 净负债（亿元，负值表示净现金，估值时回加） */
-  netDebtYi: number;
-  /** 少数股东权益（亿元，EBIT 为合并口径，估值时扣减） */
-  minorityYi: number;
-  /** 总股本（亿股） */
-  sharesYi: number;
-  /** 当前股价对应的 EV/EBIT（倍，仅作参考对照） */
-  currentMultiple: number;
+/** 公式的一行输入 / 中间量（label：含义，value：已格式化的数值字符串）。 */
+export interface ValuationFormulaRow {
+  label: string;
+  value: string;
 }
 
 /**
- * PS（市销率）估值测算明细（④ 号方法）。
+ * 一种估值方法的「纯公式」结果（无任何主观判断 / AI 推荐）。
  *
- * 适用「盈利能力不确定」的公司（盈利在盈亏线波动、PE/EBIT 失真），用营收锚定价值：
- *   合理市值 = 合理 PS × 常态营收
- *   合理价值/股 = 合理市值 ÷ 总股本   →  写入 ValuationMethod.fairValue
- * PS 为股权口径（市值/营收），不再扣减净负债。
- *
- * 🟦 营收 / 当前 PS 由取数脚本提供；🟨 合理 PS 与常态营收由 Cursor 按行业与前景判断。
- */
-export interface PsValuation {
-  /** 选用的合理 PS（市销率，倍） */
-  fairPs: number;
-  /** 常态 / 前瞻营收（亿元） */
-  revenueYi: number;
-  /** 营收口径说明（如「前瞻常态」「2025 年报」「TTM」） */
-  revenueBasis: string;
-  /** 总股本（亿股） */
-  sharesYi: number;
-  /** 当前股价对应的 PS（倍，仅作参考对照） */
-  currentPs: number;
-}
-
-/**
- * 一种估值方法的结果（§10 估值方法之一）。
- *
- * fairValue 为合理价值（每股，元，固定单点值）。
+ * fairValue 为合理价值（每股，元），由固定公式 + 已存客观财务指标计算得出；
+ * formula 为人类可读的公式表达式，rows 列出公式的输入与中间量，便于核对。
  */
 export interface ValuationMethod {
   id: ValuationMethodId;
   /** 方法名，如「股息率估值」 */
   name: string;
-  /** 是否适用该公司 */
+  /** 是否可计算（输入有效，如常态盈利 > 0） */
   applicable: boolean;
-  /** 适用性说明（为何适用 / 不适用） */
-  applicability: string;
-  /** 合理价值（每股，元，固定单点值） */
+  /** 不可计算的客观原因（公式判定，如「常态EBIT≤0」），非主观分析 */
+  naReason?: string;
+  /** 合理价值（每股，元；不可计算为 null） */
   fairValue: number | null;
-  /** 关键假设（逐条） */
-  assumptions: string[];
-  /** EV/EBIT 倍数估值测算明细（仅 ② 号方法提供） */
-  evEbit?: EvEbitValuation | null;
-  /** PS 市销率估值测算明细（仅 ④ 号方法提供） */
-  ps?: PsValuation | null;
+  /** 击球价 = 合理价值 ×（1 − 固定安全边际） */
+  strikePrice: number | null;
+  /** 人类可读公式表达式 */
+  formula: string;
+  /** 公式输入与中间量（逐行） */
+  rows: ValuationFormulaRow[];
 }
 
 /**
- * 估值总结（来自 /api/stock-valuation-summary，对应 RRD_1.md §10）。⭐核心输出
+ * 估值总结（来自 /api/stock-valuation-summary）。
  *
- * 以「内在价值」为锚：三种估值方法（每家至少①②，符合③特征再加③）→ AI 推荐主方法
- * → 击球价 = 推荐合理价值 ×（1 − 安全边际）。PE/股息率历史分位仅作参考，不作结论。
- *
- * 🟦 客观锚点由 valuation_fetch.py 提供（现价/股本/FCF/EPS/分红），🟨 各方法假设、
- * 推荐、安全边际与多空逻辑由 Cursor 综合后写入 data/valuation/{code}.json。
+ * 100% 由固定公式 + 已存客观财务指标（data/financials/{code}.json）计算，
+ * 不含 AI 推荐、不含主观多空分析、不存储估值结论。
  */
 export interface ValuationSummary {
   success: boolean;
@@ -571,32 +521,17 @@ export interface ValuationSummary {
   name: string;
   status: BusinessStatus;
   inPool: boolean;
-  /** 三种估值方法（不适用的也返回，applicable=false 并置灰） */
+  /** 四种估值方法的公式结果（不可计算的也返回，applicable=false 并置灰） */
   methods: ValuationMethod[];
-  /** AI 推荐主用的方法 */
-  recommendedMethod: ValuationMethodId;
-  /** 推荐理由 */
-  recommendationReason: string;
-  /** 推荐方法的合理价值（每股，元，固定单点值），用于击球区计算 */
-  fairValue: number | null;
-  /** 安全边际（0~1，如 0.25 表示 25%） */
+  /** 各可计算方法合理价值的中位数（纯公式聚合，作击球区参考中枢） */
+  medianFairValue: number | null;
+  /** 固定安全边际（0~1） */
   safetyMargin: number;
-  /** 击球价 = 合理价值 ×（1 − 安全边际） */
-  strikePrice: number | null;
-  /** 生成时的现价快照（线上无实时价时用作信号灯回退） */
+  /** 现价快照（线上无实时价时用作信号灯回退） */
   snapshotPrice: number | null;
-  /** 看多逻辑（3~5 条，综合各模块） */
-  bullPoints: string[];
-  /** 看空逻辑（3~5 条，综合各模块） */
-  bearPoints: string[];
-  /** PE 历史分位（仅参考，不作结论） */
-  pePercentile: number | null;
-  /** 滚动股息率（%，仅参考） */
-  dividendYield: number | null;
-  source: string;
-  confidence: 'high' | 'medium' | 'low';
+  /** 财务指标报告期 */
   reportPeriod: string | null;
-  generatedBy: GeneratedBy;
+  source: string;
   generatedAt: string | null;
 }
 
