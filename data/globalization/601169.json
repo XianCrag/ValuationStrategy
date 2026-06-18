@@ -1,0 +1,34 @@
+{
+  "code": "601169",
+  "name": "北京银行",
+  "annual": [
+    { "year": "2020", "totalRevenue": 643.0, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 662.75, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 662.76, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 667.11, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 699.17, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 680.36, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "京津冀及环渤海地区", "income": 536.56, "ratio": 78.9, "grossMargin": null },
+    { "name": "其他地区", "income": 74.35, "ratio": 10.9, "grossMargin": null },
+    { "name": "长三角地区", "income": 69.45, "ratio": 10.2, "grossMargin": null }
+  ],
+  "markets": ["境内（京津冀及环渤海为核心，长三角为重要补充）", "中荷人寿等少量参控股合资金融机构"],
+  "opportunities": [
+    "深耕京津冀协同发展国家战略，依托北京区域的政务、科创与产业资源扩大对公与零售份额。",
+    "向长三角、珠三角等经济活跃区域拓展异地分行，优化区域结构、寻找增量。"
+  ],
+  "risks": [
+    "几乎不存在境外业务，收入与资产高度集中于境内、尤其京津冀区域，区域经济波动直接传导至资产质量。",
+    "区域信贷集中度高，房地产与城投相关敞口受地方财政与地产周期影响较大。",
+    "缺乏海外布局意味着无法通过全球化分散单一经济体与利率周期风险。"
+  ],
+  "summary": "北京银行是典型的以境内市场为绝对主体的区域性城商行，几乎没有海外收入（年报未单列境外主营），经营版图集中于京津冀及环渤海地区（2025 年约占营收 79%），长三角与其他地区合计约两成。全球化并非其逻辑：成长与估值核心取决于北京及周边区域经济景气、对公/零售客群拓展与资产质量，而非海外扩张。投资判断应聚焦于其区域禀赋（首都政务/科创/对公资源）与盈利能力修复，而非第二增长曲线。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 北京银行 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

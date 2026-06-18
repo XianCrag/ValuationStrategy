@@ -1,0 +1,105 @@
+{
+  "code": "600926",
+  "name": "杭州银行",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0.0,
+      "netProfit": 35.06,
+      "revenue": 110.27,
+      "payoutRatio": null
+    },
+    {
+      "year": "2015",
+      "dividend": 0.0,
+      "netProfit": 37.04,
+      "revenue": 124.04,
+      "payoutRatio": null
+    },
+    {
+      "year": "2016",
+      "dividend": 7.85,
+      "netProfit": 40.21,
+      "revenue": 137.33,
+      "payoutRatio": 19.5
+    },
+    {
+      "year": "2017",
+      "dividend": 10.99,
+      "netProfit": 45.5,
+      "revenue": 141.22,
+      "payoutRatio": 24.2
+    },
+    {
+      "year": "2018",
+      "dividend": 12.83,
+      "netProfit": 54.12,
+      "revenue": 170.54,
+      "payoutRatio": 23.7
+    },
+    {
+      "year": "2019",
+      "dividend": 20.76,
+      "netProfit": 66.02,
+      "revenue": 214.09,
+      "payoutRatio": 31.4
+    },
+    {
+      "year": "2020",
+      "dividend": 20.76,
+      "netProfit": 71.36,
+      "revenue": 248.06,
+      "payoutRatio": 29.1
+    },
+    {
+      "year": "2021",
+      "dividend": 20.76,
+      "netProfit": 92.61,
+      "revenue": 293.61,
+      "payoutRatio": 22.4
+    },
+    {
+      "year": "2022",
+      "dividend": 23.72,
+      "netProfit": 116.79,
+      "revenue": 329.32,
+      "payoutRatio": 20.3
+    },
+    {
+      "year": "2023",
+      "dividend": 30.84,
+      "netProfit": 143.83,
+      "revenue": 350.16,
+      "payoutRatio": 21.4
+    },
+    {
+      "year": "2024",
+      "dividend": 42.49,
+      "netProfit": 169.83,
+      "revenue": 383.81,
+      "payoutRatio": 25.0
+    },
+    {
+      "year": "2025",
+      "dividend": 47.84,
+      "netProfit": 190.29,
+      "revenue": 387.99,
+      "payoutRatio": 25.1
+    }
+  ],
+  "mcapYi": 1138.82,
+  "currentDividendYield": 4.2,
+  "payoutRatioLatest": 25.1,
+  "consecutiveYears": 10,
+  "cumulativeDividend": 238.84,
+  "cumulativeToMcap": 21.0,
+  "dividendToRevenue": 12,
+  "buybackNote": "以现金分红为主，基本不依赖回购；分红绝对额随利润高增而稳步抬升，2025 年派现约 47.8 亿元，派息比例近年由约 20% 提升至 25% 并已实施中期分红，未来随核心一级资本约束缓解仍有提升空间。",
+  "rating": "moderate",
+  "summary": "股东回报稳步增强但分红率仍处行业偏低区间。自 2016 年上市以来连续 10 年现金分红，累计派现约 239 亿元、约为当前市值（约 1139 亿）的 21%，当前股息率约 4.2%。受高速扩表对资本金的消耗与核心一级资本充足率约束，派息比例长期维持在 20%~25%（低于国有大行 30% 与神华 75%~80% 的水平），更多利润留存用于支撑成长。但分红绝对额随归母净利双位数增长持续抬升（2021-2025 年派现从 20.8 亿增至 47.8 亿），派息比例自 2022 年低点 20% 回升至 25%，叠加成长带来的每股内在价值增厚，总回报质量较高、确定性强，属「成长补偿型」股东回报。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

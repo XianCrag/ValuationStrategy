@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "601169",
+  "name": "北京银行",
+  "snapshotPrice": 5.04,
+  "sharesYi": 211.43,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 554.88,
+      "netProfitYi": 200.02,
+      "ebitYi": 235.22,
+      "netMargin": 36.05
+    },
+    {
+      "year": "2019",
+      "revenueYi": 631.29,
+      "netProfitYi": 214.41,
+      "ebitYi": 251.47,
+      "netMargin": 33.96
+    },
+    {
+      "year": "2020",
+      "revenueYi": 642.99,
+      "netProfitYi": 214.84,
+      "ebitYi": 244.34,
+      "netMargin": 33.41
+    },
+    {
+      "year": "2021",
+      "revenueYi": 662.75,
+      "netProfitYi": 222.26,
+      "ebitYi": 251.78,
+      "netMargin": 33.54
+    },
+    {
+      "year": "2022",
+      "revenueYi": 662.76,
+      "netProfitYi": 247.6,
+      "ebitYi": 270.19,
+      "netMargin": 37.36
+    },
+    {
+      "year": "2023",
+      "revenueYi": 667.11,
+      "netProfitYi": 256.24,
+      "ebitYi": 280.17,
+      "netMargin": 38.41
+    },
+    {
+      "year": "2024",
+      "revenueYi": 704.2,
+      "netProfitYi": 263.34,
+      "ebitYi": 289.46,
+      "netMargin": 37.4
+    },
+    {
+      "year": "2025",
+      "revenueYi": 680.36,
+      "netProfitYi": 200.86,
+      "ebitYi": 207.14,
+      "netMargin": 29.52
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 0.306,
+  "dpsByYear": {
+    "2025": 0.278,
+    "2024": 0.32,
+    "2023": 0.32
+  },
+  "generatedAt": "2026-06-18T12:53:26+08:00"
+}

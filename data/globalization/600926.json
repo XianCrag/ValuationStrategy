@@ -1,0 +1,33 @@
+{
+  "code": "600926",
+  "name": "杭州银行",
+  "annual": [
+    { "year": "2020", "totalRevenue": 248.06, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 473.38, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 329.31, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 350.15, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 383.81, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 387.99, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "杭州", "income": 220.44, "ratio": 56.8, "grossMargin": 53.1 },
+    { "name": "其他地区", "income": 167.55, "ratio": 43.2, "grossMargin": 56.8 }
+  ],
+  "markets": ["浙江省内（杭州大本营 + 省内地市）", "长三角（上海、南京、宁波、合肥等异地分行）", "环渤海 / 珠三角 / 中西部重点城市分行"],
+  "opportunities": [
+    "立足杭州、深耕浙江并向长三角及全国重点城市辐射，区域经济活力与民营/科创/小微客群提供持续扩表空间。",
+    "异地分行（北京、上海、深圳、南京、合肥等）逐步成熟，打开省外二次增长曲线。"
+  ],
+  "risks": [
+    "无境外业务收入，全球化不是其成长逻辑，业绩高度绑定国内尤其长三角区域经济景气度。",
+    "收入对杭州本埠依赖度高（2025 年约 56.8%），区域地产或经济波动会放大集中度风险。",
+    "异地扩张面临当地龙头城商行与国有大行竞争，省外网点盈利能力与风控需持续验证。"
+  ],
+  "summary": "杭州银行是典型的区域型城商行，几乎不涉及境外业务，「全球化」对其并不适用——分地区构成中无境外收入项，营收 100% 来自境内。其地域逻辑是「立足杭州、深耕浙江、辐射长三角与全国重点城市」：2025 年杭州本埠贡献约 56.8%、其他地区约 43.2%，省外异地分行占比逐步抬升，构成区域扩张的第二增长曲线。投资判断应聚焦长三角区域经济景气、对公与小微/科创客群拓展及资产质量，而非出海。海外因素仅通过汇率与外贸景气间接影响其对公客户，边际影响很小。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 杭州银行 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

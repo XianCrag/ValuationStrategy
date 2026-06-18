@@ -1,0 +1,105 @@
+{
+  "code": "600036",
+  "name": "招商银行",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 168.97,
+      "netProfit": 559.11,
+      "revenue": 1658.63,
+      "payoutRatio": 30.2
+    },
+    {
+      "year": "2015",
+      "dividend": 174.02,
+      "netProfit": 576.96,
+      "revenue": 2014.71,
+      "payoutRatio": 30.2
+    },
+    {
+      "year": "2016",
+      "dividend": 186.63,
+      "netProfit": 620.81,
+      "revenue": 2097.2,
+      "payoutRatio": 30.1
+    },
+    {
+      "year": "2017",
+      "dividend": 211.85,
+      "netProfit": 701.5,
+      "revenue": 2208.97,
+      "payoutRatio": 30.2
+    },
+    {
+      "year": "2018",
+      "dividend": 237.07,
+      "netProfit": 805.6,
+      "revenue": 2485.55,
+      "payoutRatio": 29.4
+    },
+    {
+      "year": "2019",
+      "dividend": 302.64,
+      "netProfit": 928.67,
+      "revenue": 2697.03,
+      "payoutRatio": 32.6
+    },
+    {
+      "year": "2020",
+      "dividend": 316.0,
+      "netProfit": 973.42,
+      "revenue": 2904.82,
+      "payoutRatio": 32.5
+    },
+    {
+      "year": "2021",
+      "dividend": 383.85,
+      "netProfit": 1199.22,
+      "revenue": 3312.53,
+      "payoutRatio": 32.0
+    },
+    {
+      "year": "2022",
+      "dividend": 438.32,
+      "netProfit": 1380.12,
+      "revenue": 3447.83,
+      "payoutRatio": 31.8
+    },
+    {
+      "year": "2023",
+      "dividend": 497.34,
+      "netProfit": 1466.02,
+      "revenue": 3391.23,
+      "payoutRatio": 33.9
+    },
+    {
+      "year": "2024",
+      "dividend": 504.4,
+      "netProfit": 1483.91,
+      "revenue": 3374.88,
+      "payoutRatio": 34.0
+    },
+    {
+      "year": "2025",
+      "dividend": 508.43,
+      "netProfit": 1501.81,
+      "revenue": 3375.32,
+      "payoutRatio": 33.9
+    }
+  ],
+  "mcapYi": 9452.4,
+  "currentDividendYield": 5.4,
+  "payoutRatioLatest": 33.9,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 4523.29,
+  "cumulativeToMcap": 47.9,
+  "dividendToRevenue": 15,
+  "buybackNote": "以现金分红为主要回报方式，基本不依赖股份回购；2020 年起将派息比例稳定在约 32%~34%，2024 年起增设中期分红（每年两次派息），分红节奏与确定性进一步增强。",
+  "rating": "strong",
+  "summary": "股东回报力度强且高度稳健。连续 12 年现金分红，累计派现约 4523 亿元，相当于当前市值（约 9452 亿元）的约 48%。派息比例长期稳定在 30%~34% 区间，分红绝对额随归母净利润逐年增长而稳步抬升（由 2014 年的 169 亿元增至 2025 年的 508 亿元），从无下滑，与盈利的持续增长形成良性匹配。当前股息率约 5.4%，分红占营收比例稳定在 15% 左右；2024 年起落地中期分红，回报确定性在银行股中居前列，是典型的高股息稳健回报标的。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter / shareholder_fetch.py）/ 个股市值（push2）/ data/financials 交叉校验",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

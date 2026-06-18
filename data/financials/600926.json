@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "600926",
+  "name": "杭州银行",
+  "snapshotPrice": 15.71,
+  "sharesYi": 72.49,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 170.54,
+      "netProfitYi": 54.12,
+      "ebitYi": 57.92,
+      "netMargin": 31.73
+    },
+    {
+      "year": "2019",
+      "revenueYi": 214.09,
+      "netProfitYi": 66.02,
+      "ebitYi": 73.16,
+      "netMargin": 30.84
+    },
+    {
+      "year": "2020",
+      "revenueYi": 248.06,
+      "netProfitYi": 71.36,
+      "ebitYi": 80.46,
+      "netMargin": 28.77
+    },
+    {
+      "year": "2021",
+      "revenueYi": 293.61,
+      "netProfitYi": 92.61,
+      "ebitYi": 105.95,
+      "netMargin": 31.54
+    },
+    {
+      "year": "2022",
+      "revenueYi": 329.32,
+      "netProfitYi": 116.79,
+      "ebitYi": 130.03,
+      "netMargin": 35.47
+    },
+    {
+      "year": "2023",
+      "revenueYi": 350.16,
+      "netProfitYi": 143.83,
+      "ebitYi": 162.82,
+      "netMargin": 41.08
+    },
+    {
+      "year": "2024",
+      "revenueYi": 383.81,
+      "netProfitYi": 169.83,
+      "ebitYi": 192.26,
+      "netMargin": 44.25
+    },
+    {
+      "year": "2025",
+      "revenueYi": 387.99,
+      "netProfitYi": 190.29,
+      "ebitYi": 211.89,
+      "netMargin": 49.05
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 0.61,
+  "dpsByYear": {
+    "2025": 0.66,
+    "2024": 0.65,
+    "2023": 0.52
+  },
+  "generatedAt": "2026-06-18T12:53:29+08:00"
+}

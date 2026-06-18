@@ -1,0 +1,154 @@
+{
+  "code": "601838",
+  "name": "成都银行",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 91.31,
+      "netProfit": 35.48,
+      "revenueYoY": 29.19,
+      "netProfitYoY": 19.26,
+      "roe": 21.32,
+      "grossMargin": null,
+      "netMargin": 38.9,
+      "priceClose": null
+    },
+    {
+      "year": "2015",
+      "revenue": 89.59,
+      "netProfit": 28.16,
+      "revenueYoY": -1.89,
+      "netProfitYoY": -20.63,
+      "roe": 14.69,
+      "grossMargin": null,
+      "netMargin": 31.49,
+      "priceClose": null
+    },
+    {
+      "year": "2016",
+      "revenue": 86.1,
+      "netProfit": 25.77,
+      "revenueYoY": -3.89,
+      "netProfitYoY": -8.48,
+      "roe": 12.24,
+      "grossMargin": null,
+      "netMargin": 30.0,
+      "priceClose": null
+    },
+    {
+      "year": "2017",
+      "revenue": 96.54,
+      "netProfit": 39.09,
+      "revenueYoY": 12.12,
+      "netProfitYoY": 51.64,
+      "roe": 16.83,
+      "grossMargin": null,
+      "netMargin": 40.53,
+      "priceClose": null
+    },
+    {
+      "year": "2018",
+      "revenue": 115.9,
+      "netProfit": 46.49,
+      "revenueYoY": 20.05,
+      "netProfitYoY": 18.95,
+      "roe": 16.04,
+      "grossMargin": null,
+      "netMargin": 40.15,
+      "priceClose": 8.05
+    },
+    {
+      "year": "2019",
+      "revenue": 127.25,
+      "netProfit": 55.51,
+      "revenueYoY": 9.79,
+      "netProfitYoY": 19.4,
+      "roe": 16.63,
+      "grossMargin": null,
+      "netMargin": 43.66,
+      "priceClose": 9.07
+    },
+    {
+      "year": "2020",
+      "revenue": 146.0,
+      "netProfit": 60.25,
+      "revenueYoY": 14.73,
+      "netProfitYoY": 8.53,
+      "roe": 15.94,
+      "grossMargin": null,
+      "netMargin": 41.29,
+      "priceClose": 10.67
+    },
+    {
+      "year": "2021",
+      "revenue": 178.9,
+      "netProfit": 78.31,
+      "revenueYoY": 22.54,
+      "netProfitYoY": 29.98,
+      "roe": 17.6,
+      "grossMargin": null,
+      "netMargin": 43.77,
+      "priceClose": 12.0
+    },
+    {
+      "year": "2022",
+      "revenue": 202.41,
+      "netProfit": 100.42,
+      "revenueYoY": 13.14,
+      "netProfitYoY": 28.24,
+      "roe": 19.48,
+      "grossMargin": null,
+      "netMargin": 49.62,
+      "priceClose": 15.3
+    },
+    {
+      "year": "2023",
+      "revenue": 217.02,
+      "netProfit": 116.71,
+      "revenueYoY": 7.22,
+      "netProfitYoY": 16.22,
+      "roe": 18.78,
+      "grossMargin": null,
+      "netMargin": 53.78,
+      "priceClose": 11.26
+    },
+    {
+      "year": "2024",
+      "revenue": 229.82,
+      "netProfit": 128.58,
+      "revenueYoY": 5.89,
+      "netProfitYoY": 10.17,
+      "roe": 17.81,
+      "grossMargin": null,
+      "netMargin": 55.92,
+      "priceClose": 17.11
+    },
+    {
+      "year": "2025",
+      "revenue": 236.03,
+      "netProfit": 132.83,
+      "revenueYoY": 2.7,
+      "netProfitYoY": 3.31,
+      "roe": 15.39,
+      "grossMargin": null,
+      "netMargin": 56.28,
+      "priceClose": 16.12
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 78,
+  "summary": "弱周期成长股（城商行）。作为银行，业绩受区域经济景气与信用周期影响——营收随社融/信贷投放与净息差波动，资产质量随经济下行承压，故并非纯防御性资产；但成都银行依托成渝双城经济圈高景气区域，2018 年上市以来营收、归母净利近乎逐年高增长：营收从 2018 年 116 亿升至 2025 年 236 亿，归母净利从 46 亿升至 133 亿，期间几乎未出现负增长（仅 2015-2016 年行业不良暴露期短暂回落）。近年增速虽随行业净息差收窄而温和放缓（2025 营收同比 +2.7%、归母 +3.3%），但 ROE 长期维持 15%~19% 的城商行第一梯队水平、资产质量（不良率、拨备覆盖率）持续行业领先。整体表现为「弱周期 + 强成长 + 高质量」，周期波动显著小于强周期行业，当前处于规模扩张延续、盈利稳健增长的上行通道中段。",
+  "drivers": [
+    "成渝地区双城经济圈区域经济景气度与信贷需求 —— 最核心的成长变量",
+    "净息差（LPR 下行、存款挂牌利率调整、负债成本管控）",
+    "信用周期与资产质量（不良生成、地方政府与对公客群信用风险）",
+    "规模扩张节奏（生息资产增速）与资本充足率约束"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 年度股价（腾讯月线）/ 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

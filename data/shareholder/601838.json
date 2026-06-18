@@ -1,0 +1,105 @@
+{
+  "code": "601838",
+  "name": "成都银行",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0.0,
+      "netProfit": 35.48,
+      "revenue": 91.31,
+      "payoutRatio": null
+    },
+    {
+      "year": "2015",
+      "dividend": 0.0,
+      "netProfit": 28.16,
+      "revenue": 89.59,
+      "payoutRatio": null
+    },
+    {
+      "year": "2016",
+      "dividend": 0.0,
+      "netProfit": 25.77,
+      "revenue": 86.1,
+      "payoutRatio": null
+    },
+    {
+      "year": "2017",
+      "dividend": 10.11,
+      "netProfit": 39.09,
+      "revenue": 96.54,
+      "payoutRatio": 25.9
+    },
+    {
+      "year": "2018",
+      "dividend": 12.64,
+      "netProfit": 46.49,
+      "revenue": 115.9,
+      "payoutRatio": 27.2
+    },
+    {
+      "year": "2019",
+      "dividend": 15.17,
+      "netProfit": 55.51,
+      "revenue": 127.25,
+      "payoutRatio": 27.3
+    },
+    {
+      "year": "2020",
+      "dividend": 16.62,
+      "netProfit": 60.25,
+      "revenue": 146.0,
+      "payoutRatio": 27.6
+    },
+    {
+      "year": "2021",
+      "dividend": 22.76,
+      "netProfit": 78.31,
+      "revenue": 178.9,
+      "payoutRatio": 29.1
+    },
+    {
+      "year": "2022",
+      "dividend": 29.29,
+      "netProfit": 100.42,
+      "revenue": 202.41,
+      "payoutRatio": 29.2
+    },
+    {
+      "year": "2023",
+      "dividend": 34.2,
+      "netProfit": 116.71,
+      "revenue": 217.02,
+      "payoutRatio": 29.3
+    },
+    {
+      "year": "2024",
+      "dividend": 37.76,
+      "netProfit": 128.58,
+      "revenue": 229.82,
+      "payoutRatio": 29.4
+    },
+    {
+      "year": "2025",
+      "dividend": 39.04,
+      "netProfit": 132.83,
+      "revenue": 236.03,
+      "payoutRatio": 29.4
+    }
+  ],
+  "mcapYi": 792.16,
+  "currentDividendYield": 4.9,
+  "payoutRatioLatest": 29.4,
+  "consecutiveYears": 9,
+  "cumulativeDividend": 217.59,
+  "cumulativeToMcap": 27.5,
+  "dividendToRevenue": 17,
+  "buybackNote": "以现金分红为主，基本不依赖回购；2017 年上市次年起连续派现，派息比例长期稳定在约 26%~29%，随归母净利持续高增长，分红绝对额由 2017 年 10 亿元稳步提升至 2025 年约 39 亿元。投资者多次建议提高分红率并实施中期分红，公司表态在保证可持续发展前提下维持稳定股利政策，目前尚未实施中期分红。",
+  "rating": "moderate",
+  "summary": "股东回报稳健且持续增长，但派息比例偏保守。自 2017 年起连续 9 年现金分红，累计派现约 218 亿元，相当于当前市值（约 792 亿元）的约 27.5%；当前股息率约 4.9%，在银行板块具吸引力。区别于高分红资源股，成都银行派息比例长期稳定在约 29%（低于行业头部 30% 的常见水平），更多利润留存用于支撑生息资产快速扩张与资本补充，因此分红的成长性来自归母净利的高增长而非派息率提升。回报确定性高、绝对额持续增厚，但派息比例的提升空间与中期分红落地仍是后续催化点。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

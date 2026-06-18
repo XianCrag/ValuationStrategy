@@ -1,0 +1,34 @@
+{
+  "code": "000568",
+  "name": "泸州老窖",
+  "annual": [
+    { "year": "2014", "revenue": 53.53, "netProfit": 8.8, "revenueYoY": -48.68, "netProfitYoY": -74.41, "roe": 8.65, "grossMargin": 47.61, "netMargin": 18.23, "priceClose": 20.4 },
+    { "year": "2015", "revenue": 69.0, "netProfit": 14.73, "revenueYoY": 28.89, "netProfitYoY": 67.4, "roe": 14.67, "grossMargin": 49.42, "netMargin": 22.47, "priceClose": 27.12 },
+    { "year": "2016", "revenue": 86.27, "netProfit": 19.57, "revenueYoY": 25.02, "netProfitYoY": 32.89, "roe": 18.12, "grossMargin": 60.9, "netMargin": 22.94, "priceClose": 33.0 },
+    { "year": "2017", "revenue": 103.95, "netProfit": 25.58, "revenueYoY": 20.5, "netProfitYoY": 30.69, "roe": 20.3, "grossMargin": 71.93, "netMargin": 25.03, "priceClose": 66.0 },
+    { "year": "2018", "revenue": 130.55, "netProfit": 34.86, "revenueYoY": 25.6, "netProfitYoY": 36.27, "roe": 21.81, "grossMargin": 77.53, "netMargin": 26.89, "priceClose": 40.66 },
+    { "year": "2019", "revenue": 158.17, "netProfit": 46.42, "revenueYoY": 21.15, "netProfitYoY": 33.17, "roe": 25.5, "grossMargin": 80.62, "netMargin": 29.35, "priceClose": 86.68 },
+    { "year": "2020", "revenue": 166.53, "netProfit": 60.06, "revenueYoY": 5.28, "netProfitYoY": 29.38, "roe": 28.27, "grossMargin": 83.05, "netMargin": 35.78, "priceClose": 226.16 },
+    { "year": "2021", "revenue": 206.42, "netProfit": 79.56, "revenueYoY": 23.96, "netProfitYoY": 32.47, "roe": 31.15, "grossMargin": 85.7, "netMargin": 38.45, "priceClose": 253.87 },
+    { "year": "2022", "revenue": 251.24, "netProfit": 103.65, "revenueYoY": 21.71, "netProfitYoY": 30.29, "roe": 33.32, "grossMargin": 86.59, "netMargin": 41.44, "priceClose": 224.28 },
+    { "year": "2023", "revenue": 302.33, "netProfit": 132.46, "revenueYoY": 20.34, "netProfitYoY": 27.79, "roe": 35.07, "grossMargin": 88.3, "netMargin": 43.95, "priceClose": 179.42 },
+    { "year": "2024", "revenue": 311.96, "netProfit": 134.73, "revenueYoY": 3.19, "netProfitYoY": 1.71, "roe": 30.44, "grossMargin": 87.54, "netMargin": 43.27, "priceClose": 125.2 },
+    { "year": "2025", "revenue": 257.31, "netProfit": 108.31, "revenueYoY": -17.52, "netProfitYoY": -19.61, "roe": 22.66, "grossMargin": 86.62, "netMargin": 42.21, "priceClose": 116.22 }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "falling",
+  "positionScore": 22,
+  "summary": "弱周期（高端白酒消费）。波动主要来自宏观消费景气与渠道库存周期，而非典型商品周期：2014 年是上一轮（限制三公消费 + 塑化剂）行业调整的底部，营收同比 -48.7%、归母 -74.4%；随后 2015-2024 走出长达十年的量价齐升，归母从 8.8 亿增至 134.7 亿，ROE 从 8.6% 攀升至 30%+，是白酒板块成长性与盈利能力最突出的标的之一。2024 年起增速明显放缓，2025 年公司主动控量稳价、报表有序出清，营收同比 -17.5%、归母 -19.6%，进入新一轮去库存调整下行期，当前景气落入近年低位。",
+  "drivers": [
+    "高端及次高端白酒需求与宏观消费景气",
+    "国窖 1573 批价与渠道库存（动销与价盘）",
+    "白酒行业去库存 / 补库存周期",
+    "政策预期（消费税、三公消费、宴席与商务场景）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:20:00+08:00"
+}

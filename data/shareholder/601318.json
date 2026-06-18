@@ -1,0 +1,105 @@
+{
+  "code": "601318",
+  "name": "中国平安",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 65.49,
+      "netProfit": 392.79,
+      "revenue": 4628.82,
+      "payoutRatio": 16.7
+    },
+    {
+      "year": "2015",
+      "dividend": 96.89,
+      "netProfit": 542.03,
+      "revenue": 6199.9,
+      "payoutRatio": 17.9
+    },
+    {
+      "year": "2016",
+      "dividend": 137.1,
+      "netProfit": 623.94,
+      "revenue": 7124.53,
+      "payoutRatio": 22.0
+    },
+    {
+      "year": "2017",
+      "dividend": 274.2,
+      "netProfit": 890.88,
+      "revenue": 8908.82,
+      "payoutRatio": 30.8
+    },
+    {
+      "year": "2018",
+      "dividend": 314.42,
+      "netProfit": 1074.04,
+      "revenue": 9768.32,
+      "payoutRatio": 29.3
+    },
+    {
+      "year": "2019",
+      "dividend": 374.74,
+      "netProfit": 1494.07,
+      "revenue": 11688.67,
+      "payoutRatio": 25.1
+    },
+    {
+      "year": "2020",
+      "dividend": 402.17,
+      "netProfit": 1430.99,
+      "revenue": 12183.15,
+      "payoutRatio": 28.1
+    },
+    {
+      "year": "2021",
+      "dividend": 435.07,
+      "netProfit": 1016.18,
+      "revenue": 11804.44,
+      "payoutRatio": 42.8
+    },
+    {
+      "year": "2022",
+      "dividend": 442.38,
+      "netProfit": 1110.08,
+      "revenue": 8803.55,
+      "payoutRatio": 39.9
+    },
+    {
+      "year": "2023",
+      "dividend": 442.51,
+      "netProfit": 856.65,
+      "revenue": 9137.89,
+      "payoutRatio": 51.7
+    },
+    {
+      "year": "2024",
+      "dividend": 464.36,
+      "netProfit": 1266.07,
+      "revenue": 10289.25,
+      "payoutRatio": 36.7
+    },
+    {
+      "year": "2025",
+      "dividend": 488.91,
+      "netProfit": 1347.78,
+      "revenue": 10505.06,
+      "payoutRatio": 36.3
+    }
+  ],
+  "mcapYi": 9017.61,
+  "currentDividendYield": 5.4,
+  "payoutRatioLatest": 36.3,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 4216.32,
+  "cumulativeToMcap": 46.8,
+  "dividendToRevenue": 5,
+  "buybackNote": "以现金分红为主，基本不依赖回购；公司分红政策锚定『归母营运利润（OPAT）』而非会计净利润，故以净利润计的派息比例会因投资波动起伏，但每股股息（DPS）连续十余年稳步抬升、已启动中期分红。",
+  "rating": "strong",
+  "summary": "股东回报力度强且持续性高。连续 12 年现金分红，累计派现约 4216 亿元，约相当于当前市值（约 9018 亿）的 47%；每股股息从 2014 年逐年稳步提升，2025 年合计约 2.7 元、对应股息率约 5.4%。需注意保险公司派息比例口径：平安以归母营运利润（OPAT）为分红基准，故按会计净利润计算的 payoutRatio（近年约 36%、2023 年因利润低基数升至约 52%）会随投资收益波动，但 DPS 绝对额与回报确定性持续向好，是『低估值 + 高股息』配置逻辑的核心支撑。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）/ 财务交叉校验 financials/601318.json",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

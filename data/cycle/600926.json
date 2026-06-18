@@ -1,0 +1,154 @@
+{
+  "code": "600926",
+  "name": "杭州银行",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 110.27,
+      "netProfit": 35.06,
+      "revenueYoY": 12.81,
+      "netProfitYoY": -7.44,
+      "roe": 15.67,
+      "grossMargin": null,
+      "netMargin": 31.84,
+      "priceClose": null
+    },
+    {
+      "year": "2015",
+      "revenue": 124.04,
+      "netProfit": 37.04,
+      "revenueYoY": 12.49,
+      "netProfitYoY": 5.65,
+      "roe": 12.84,
+      "grossMargin": null,
+      "netMargin": 29.87,
+      "priceClose": null
+    },
+    {
+      "year": "2016",
+      "revenue": 137.33,
+      "netProfit": 40.21,
+      "revenueYoY": 10.71,
+      "netProfitYoY": 8.54,
+      "roe": 11.83,
+      "grossMargin": null,
+      "netMargin": 29.03,
+      "priceClose": 20.95
+    },
+    {
+      "year": "2017",
+      "revenue": 141.22,
+      "netProfit": 45.5,
+      "revenueYoY": 2.83,
+      "netProfitYoY": 13.17,
+      "roe": 11.34,
+      "grossMargin": null,
+      "netMargin": 32.22,
+      "priceClose": 11.53
+    },
+    {
+      "year": "2018",
+      "revenue": 170.54,
+      "netProfit": 54.12,
+      "revenueYoY": 20.77,
+      "netProfitYoY": 18.94,
+      "roe": 11.01,
+      "grossMargin": null,
+      "netMargin": 31.73,
+      "priceClose": 7.4
+    },
+    {
+      "year": "2019",
+      "revenue": 214.09,
+      "netProfit": 66.02,
+      "revenueYoY": 25.53,
+      "netProfitYoY": 21.99,
+      "roe": 12.15,
+      "grossMargin": null,
+      "netMargin": 30.84,
+      "priceClose": 9.16
+    },
+    {
+      "year": "2020",
+      "revenue": 248.06,
+      "netProfit": 71.36,
+      "revenueYoY": 15.87,
+      "netProfitYoY": 8.09,
+      "roe": 11.14,
+      "grossMargin": null,
+      "netMargin": 28.77,
+      "priceClose": 14.92
+    },
+    {
+      "year": "2021",
+      "revenue": 293.61,
+      "netProfit": 92.61,
+      "revenueYoY": 18.36,
+      "netProfitYoY": 29.77,
+      "roe": 12.33,
+      "grossMargin": null,
+      "netMargin": 31.54,
+      "priceClose": 12.82
+    },
+    {
+      "year": "2022",
+      "revenue": 329.32,
+      "netProfit": 116.79,
+      "revenueYoY": 12.16,
+      "netProfitYoY": 26.11,
+      "roe": 14.09,
+      "grossMargin": null,
+      "netMargin": 35.47,
+      "priceClose": 13.08
+    },
+    {
+      "year": "2023",
+      "revenue": 350.16,
+      "netProfit": 143.83,
+      "revenueYoY": 6.33,
+      "netProfitYoY": 23.15,
+      "roe": 15.57,
+      "grossMargin": null,
+      "netMargin": 41.08,
+      "priceClose": 10.01
+    },
+    {
+      "year": "2024",
+      "revenue": 383.81,
+      "netProfit": 169.83,
+      "revenueYoY": 9.61,
+      "netProfitYoY": 18.07,
+      "roe": 16.0,
+      "grossMargin": null,
+      "netMargin": 44.25,
+      "priceClose": 14.61
+    },
+    {
+      "year": "2025",
+      "revenue": 387.99,
+      "netProfit": 190.29,
+      "revenueYoY": 1.09,
+      "netProfitYoY": 12.05,
+      "roe": 14.65,
+      "grossMargin": null,
+      "netMargin": 49.05,
+      "priceClose": 15.28
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 82,
+  "summary": "弱周期成长型城商行。银行业整体盈利与区域经济景气、信用周期、利率（LPR/净息差）相关，但杭州银行依托长三角优质区位走出了独立于周期的高成长曲线：2016 年上市以来营收与归母净利连续多年双位数增长，归母净利从 2016 年 40 亿增至 2025 年 190 亿、近十年复合增速约 19%，ROE 自 2018 年低点 11% 持续抬升至 2024 年 16%。其穿越周期的核心在于资产质量行业领先——不良率长期低于 0.8%（处上市银行最低梯队）、拨备覆盖率长期高于 500%，资产质量安全垫极厚，使利润释放具备高确定性。当前虽面临行业性净息差收窄压力（2025 营收增速放缓至 1.1%），但拨备反哺下利润仍保持双位数高增，趋势明确向上、处于成长扩张通道。",
+  "drivers": [
+    "区域经济景气度（杭州/浙江/长三角，最核心的成长变量）",
+    "净息差与 LPR、存款利率调整（决定利息收入弹性）",
+    "信用周期与资产质量（不良生成、拨备计提，决定利润释放节奏）",
+    "信贷规模扩张（扩表速度）与对公/小微/科创客群拓展"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

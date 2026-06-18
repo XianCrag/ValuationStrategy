@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "600036",
+  "name": "招商银行",
+  "snapshotPrice": 37.44,
+  "sharesYi": 252.2,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 2485.55,
+      "netProfitYi": 805.6,
+      "ebitYi": 1064.97,
+      "netMargin": 32.41
+    },
+    {
+      "year": "2019",
+      "revenueYi": 2697.03,
+      "netProfitYi": 928.67,
+      "ebitYi": 1171.32,
+      "netMargin": 34.43
+    },
+    {
+      "year": "2020",
+      "revenueYi": 2904.82,
+      "netProfitYi": 973.42,
+      "ebitYi": 1224.4,
+      "netMargin": 33.51
+    },
+    {
+      "year": "2021",
+      "revenueYi": 3312.53,
+      "netProfitYi": 1199.22,
+      "ebitYi": 1481.73,
+      "netMargin": 36.2
+    },
+    {
+      "year": "2022",
+      "revenueYi": 3447.83,
+      "netProfitYi": 1380.12,
+      "ebitYi": 1651.13,
+      "netMargin": 40.03
+    },
+    {
+      "year": "2023",
+      "revenueYi": 3391.23,
+      "netProfitYi": 1466.02,
+      "ebitYi": 1766.18,
+      "netMargin": 43.23
+    },
+    {
+      "year": "2024",
+      "revenueYi": 3374.88,
+      "netProfitYi": 1483.91,
+      "ebitYi": 1786.52,
+      "netMargin": 43.97
+    },
+    {
+      "year": "2025",
+      "revenueYi": 3375.32,
+      "netProfitYi": 1501.81,
+      "ebitYi": 1789.93,
+      "netMargin": 44.49
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 1.996,
+  "dpsByYear": {
+    "2025": 2.016,
+    "2024": 2.0,
+    "2023": 1.972
+  },
+  "generatedAt": "2026-06-18T12:53:25+08:00"
+}

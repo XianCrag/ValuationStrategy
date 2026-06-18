@@ -1,0 +1,33 @@
+{
+  "code": "601838",
+  "name": "成都银行",
+  "annual": [
+    { "year": "2020", "totalRevenue": 146.0, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 178.9, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 202.41, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 217.02, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 229.82, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 236.02, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "成都", "income": 192.13, "ratio": 81.4, "grossMargin": 63.9 },
+    { "name": "其他地区", "income": 43.89, "ratio": 18.6, "grossMargin": 77.5 }
+  ],
+  "markets": ["几乎无境外业务，经营区域高度集中于成都本部及四川省内，省外仅设少量分支"],
+  "opportunities": [
+    "成渝地区双城经济圈国家战略下，本部成都及四川省内的信贷与对公需求持续扩张，是区域深耕的最大增量。",
+    "省外重庆、西安等成渝及周边节点城市分支机构异地展业，提供区域外延式增长空间。"
+  ],
+  "risks": [
+    "业务与资产高度集中于成都及四川单一区域，缺乏跨区域/全球化分散，区域经济或地方信用一旦走弱将直接冲击业绩。",
+    "几乎无境外收入，无法借助全球化平滑国内区域周期，营收来源单一。",
+    "异地展业受牌照与监管区域限制，向省外扩张速度与资产质量管控存在不确定性。"
+  ],
+  "summary": "成都银行是典型的区域型城商行，经营几乎完全集中于境内、且高度集中于成都本部与四川省内：2025 年分地区主营中成都本部贡献约 81.4%（约 192 亿元）、其他地区仅约 18.6%（约 44 亿元），且无可识别的境外收入。其「全球化」命题实质不成立，增长逻辑是「区域深耕 + 成渝双城经济圈红利」而非出海扩张。区域高度集中既带来扎根本地政务对公客群的高成长与高资产质量，也意味着风险分散不足——业绩与四川（尤其成都）的区域经济、地产与地方信用周期强绑定。投资判断应聚焦区域经济景气与异地展业的稳健性，而非全球化贡献。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 成都银行 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

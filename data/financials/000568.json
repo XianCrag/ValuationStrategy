@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "000568",
+  "name": "泸州老窖",
+  "snapshotPrice": 81.02,
+  "sharesYi": 14.72,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 130.55,
+      "netProfitYi": 34.86,
+      "ebitYi": 47.23,
+      "netMargin": 26.7
+    },
+    {
+      "year": "2019",
+      "revenueYi": 158.17,
+      "netProfitYi": 46.42,
+      "ebitYi": 62.43,
+      "netMargin": 29.35
+    },
+    {
+      "year": "2020",
+      "revenueYi": 166.53,
+      "netProfitYi": 60.06,
+      "ebitYi": 81.29,
+      "netMargin": 36.06
+    },
+    {
+      "year": "2021",
+      "revenueYi": 206.42,
+      "netProfitYi": 79.56,
+      "ebitYi": 107.46,
+      "netMargin": 38.54
+    },
+    {
+      "year": "2022",
+      "revenueYi": 251.24,
+      "netProfitYi": 103.65,
+      "ebitYi": 140.84,
+      "netMargin": 41.26
+    },
+    {
+      "year": "2023",
+      "revenueYi": 302.33,
+      "netProfitYi": 132.46,
+      "ebitYi": 182.94,
+      "netMargin": 43.81
+    },
+    {
+      "year": "2024",
+      "revenueYi": 311.96,
+      "netProfitYi": 134.73,
+      "ebitYi": 185.11,
+      "netMargin": 43.19
+    },
+    {
+      "year": "2025",
+      "revenueYi": 257.31,
+      "netProfitYi": 108.31,
+      "ebitYi": 148.11,
+      "netMargin": 42.09
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -247.07,
+  "minorityYi": 1.35,
+  "dpsAvg3y": 5.7084,
+  "dpsByYear": {
+    "2025": 5.775,
+    "2024": 5.95,
+    "2023": 5.4001
+  },
+  "generatedAt": "2026-06-18T13:15:42+08:00"
+}

@@ -1,0 +1,105 @@
+{
+  "code": "601169",
+  "name": "北京银行",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 26.4,
+      "netProfit": 156.23,
+      "revenue": 368.78,
+      "payoutRatio": 16.9
+    },
+    {
+      "year": "2015",
+      "dividend": 31.68,
+      "netProfit": 168.39,
+      "revenue": 440.81,
+      "payoutRatio": 18.8
+    },
+    {
+      "year": "2016",
+      "dividend": 38.02,
+      "netProfit": 178.02,
+      "revenue": 474.56,
+      "payoutRatio": 21.4
+    },
+    {
+      "year": "2017",
+      "dividend": 56.45,
+      "netProfit": 187.33,
+      "revenue": 503.53,
+      "payoutRatio": 30.1
+    },
+    {
+      "year": "2018",
+      "dividend": 60.47,
+      "netProfit": 200.02,
+      "revenue": 554.88,
+      "payoutRatio": 30.2
+    },
+    {
+      "year": "2019",
+      "dividend": 64.49,
+      "netProfit": 214.41,
+      "revenue": 631.29,
+      "payoutRatio": 30.1
+    },
+    {
+      "year": "2020",
+      "dividend": 63.43,
+      "netProfit": 214.84,
+      "revenue": 642.99,
+      "payoutRatio": 29.5
+    },
+    {
+      "year": "2021",
+      "dividend": 64.49,
+      "netProfit": 222.26,
+      "revenue": 662.75,
+      "payoutRatio": 29.0
+    },
+    {
+      "year": "2022",
+      "dividend": 65.54,
+      "netProfit": 247.6,
+      "revenue": 662.76,
+      "payoutRatio": 26.5
+    },
+    {
+      "year": "2023",
+      "dividend": 67.66,
+      "netProfit": 256.24,
+      "revenue": 667.11,
+      "payoutRatio": 26.4
+    },
+    {
+      "year": "2024",
+      "dividend": 67.66,
+      "netProfit": 263.34,
+      "revenue": 704.2,
+      "payoutRatio": 25.7
+    },
+    {
+      "year": "2025",
+      "dividend": 58.78,
+      "netProfit": 200.86,
+      "revenue": 680.36,
+      "payoutRatio": 29.3
+    }
+  ],
+  "mcapYi": 1067.72,
+  "currentDividendYield": 5.5,
+  "payoutRatioLatest": 29.3,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 774.12,
+  "cumulativeToMcap": 72.5,
+  "dividendToRevenue": 9,
+  "buybackNote": "以现金分红为主，基本不进行股份回购；2018 年起实施中期分红尝试，分红节奏稳定但派息比例长期维持在 26%~30% 的中等水平。",
+  "rating": "moderate",
+  "summary": "股东回报稳定但力度中等。连续 12 年现金分红，累计派现约 774 亿元，约相当于当前市值（约 1068 亿）的 72%，绝对回报可观，主要源于低估值（PB 显著破净）放大了股息率，当前股息率约 5.5%。但派息比例长期偏低，由 2014-2016 年的 17%~21% 提升至近年的 26%~30% 后即停滞，明显低于国有大行与部分优质城商行 30% 的水平；2025 年归母净利同比下滑导致分红额回落（58.78 亿）。回报确定性较高，但提升派息比例的空间与意愿是后续股东回报能否上台阶的关键。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter / shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

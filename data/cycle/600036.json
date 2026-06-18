@@ -1,0 +1,154 @@
+{
+  "code": "600036",
+  "name": "招商银行",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 1658.63,
+      "netProfit": 559.11,
+      "revenueYoY": 25.08,
+      "netProfitYoY": 8.06,
+      "roe": 19.28,
+      "grossMargin": null,
+      "netMargin": 33.79,
+      "priceClose": 16.59
+    },
+    {
+      "year": "2015",
+      "revenue": 2014.71,
+      "netProfit": 576.96,
+      "revenueYoY": 21.47,
+      "netProfitYoY": 3.19,
+      "roe": 17.09,
+      "grossMargin": null,
+      "netMargin": 28.8,
+      "priceClose": 17.99
+    },
+    {
+      "year": "2016",
+      "revenue": 2097.2,
+      "netProfit": 620.81,
+      "revenueYoY": 4.09,
+      "netProfitYoY": 7.6,
+      "roe": 16.27,
+      "grossMargin": null,
+      "netMargin": 29.74,
+      "priceClose": 17.6
+    },
+    {
+      "year": "2017",
+      "revenue": 2208.97,
+      "netProfit": 701.5,
+      "revenueYoY": 5.33,
+      "netProfitYoY": 13.0,
+      "roe": 16.54,
+      "grossMargin": null,
+      "netMargin": 31.98,
+      "priceClose": 29.02
+    },
+    {
+      "year": "2018",
+      "revenue": 2485.55,
+      "netProfit": 805.6,
+      "revenueYoY": 12.52,
+      "netProfitYoY": 14.84,
+      "roe": 16.57,
+      "grossMargin": null,
+      "netMargin": 32.52,
+      "priceClose": 25.2
+    },
+    {
+      "year": "2019",
+      "revenue": 2697.03,
+      "netProfit": 928.67,
+      "revenueYoY": 8.51,
+      "netProfitYoY": 15.28,
+      "roe": 16.84,
+      "grossMargin": null,
+      "netMargin": 34.64,
+      "priceClose": 37.58
+    },
+    {
+      "year": "2020",
+      "revenue": 2904.82,
+      "netProfit": 973.42,
+      "revenueYoY": 7.7,
+      "netProfitYoY": 4.82,
+      "roe": 15.73,
+      "grossMargin": null,
+      "netMargin": 33.72,
+      "priceClose": 43.95
+    },
+    {
+      "year": "2021",
+      "revenue": 3312.53,
+      "netProfit": 1199.22,
+      "revenueYoY": 14.04,
+      "netProfitYoY": 23.2,
+      "roe": 16.96,
+      "grossMargin": null,
+      "netMargin": 36.48,
+      "priceClose": 48.71
+    },
+    {
+      "year": "2022",
+      "revenue": 3447.83,
+      "netProfit": 1380.12,
+      "revenueYoY": 4.08,
+      "netProfitYoY": 15.08,
+      "roe": 17.06,
+      "grossMargin": null,
+      "netMargin": 40.4,
+      "priceClose": 37.26
+    },
+    {
+      "year": "2023",
+      "revenue": 3391.23,
+      "netProfit": 1466.02,
+      "revenueYoY": -1.64,
+      "netProfitYoY": 6.22,
+      "roe": 16.22,
+      "grossMargin": null,
+      "netMargin": 43.64,
+      "priceClose": 27.82
+    },
+    {
+      "year": "2024",
+      "revenue": 3374.88,
+      "netProfit": 1483.91,
+      "revenueYoY": -0.48,
+      "netProfitYoY": 1.22,
+      "roe": 14.49,
+      "grossMargin": null,
+      "netMargin": 44.32,
+      "priceClose": 39.3
+    },
+    {
+      "year": "2025",
+      "revenue": 3375.32,
+      "netProfit": 1501.81,
+      "revenueYoY": 0.01,
+      "netProfitYoY": 1.21,
+      "roe": 13.44,
+      "grossMargin": null,
+      "netMargin": 44.77,
+      "priceClose": 42.1
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 58,
+  "summary": "弱周期（银行）。招行盈利长期稳健向上，归母净利润由 2014 年的 559 亿元逐年增长至 2025 年的 1502 亿元，期间从未出现年度下滑，波动远小于商品周期股，因此不属于强周期标的。其温和的周期性主要来自信用周期与利率周期：2020 年疫情、2022-2023 年地产风险暴露使拨备与资产质量阶段性承压，2023 年起 LPR 与存量房贷利率下调推动净息差持续收窄，营收增速由两位数回落至近三年的零增长附近，ROE 也从 17% 高位回落至 2025 年的 13.44%。但净利润仍逐年小幅增长，反映其依靠拨备反哺与成本管控维持稳健。从近期看，2025 年四季度息差企稳回升、营收增速转正，研报普遍判断业绩底部明确，故当前位置判定为「触底企稳」。整体而言，招行盈利绝对值仍处历史高位，经营韧性与抗周期能力在银行中居前列。",
+  "drivers": [
+    "净息差（NIM）—— 受 LPR、存量房贷利率与存款定价影响，是营收最核心的变量",
+    "宏观信用周期与资产质量（不良率、地产/城投风险敞口与拨备计提）",
+    "财富管理与中间业务收入（手续费及佣金，受资本市场与居民理财需求影响）",
+    "货币与监管政策（货币政策、资本新规、地方化债节奏）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标 / cycle_fetch.py）/ 研报（国信·东海·太平洋等）/ 银行周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

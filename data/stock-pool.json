@@ -180,5 +180,18 @@
     "roePeriod": "2025",
     "strikeZone": "fair",
     "addedAt": "2026-06-18T04:52:41.808Z"
+  },
+  {
+    "code": "000568",
+    "name": "泸州老窖",
+    "industry": "白酒Ⅱ",
+    "price": 81.06,
+    "peTtm": 12,
+    "pePercentile": 2.3,
+    "dividendYield": 7.34,
+    "roe": 22.66,
+    "roePeriod": "2025",
+    "strikeZone": "undervalued",
+    "addedAt": "2026-06-18T05:07:11.327Z"
   }
 ]

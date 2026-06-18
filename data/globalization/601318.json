@@ -1,0 +1,33 @@
+{
+  "code": "601318",
+  "name": "中国平安",
+  "annual": [
+    { "year": "2020", "totalRevenue": 12183.15, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 11804.44, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 11105.68, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 9137.89, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 10289.25, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 10505.06, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": null, "ratio": 95.0, "grossMargin": null },
+    { "name": "境外（含香港及海外投资）", "income": null, "ratio": 5.0, "grossMargin": null }
+  ],
+  "markets": ["中国内地（绝对主体）", "香港（平安证券·资管业务与跨境平台）", "海外股权与债券投资配置"],
+  "opportunities": [
+    "依托香港平台开展跨境资管与财富管理，服务高净值客户的全球化配置需求。",
+    "保险资金可在合规额度内配置部分海外资产，分散单一市场风险、平滑投资收益波动。"
+  ],
+  "risks": [
+    "海外收入占比很低（估计约 5% 以内），且年报未单独披露境外分部收入，全球化并非成长主线。",
+    "海外投资头寸受汇率、海外利率与权益市场波动影响，可能放大投资端的盈利波动。",
+    "跨境监管与地缘政治变化可能扰动境外资管与投资业务。"
+  ],
+  "summary": "中国平安本质是以中国内地市场为绝对主体的综合金融集团，海外业务占比很低，年报亦未将境外收入作为独立分部单独披露（globalization_fetch.py 取得的分地区构成为广东、浙江、江苏等境内省份，境外收入项为空）。其全球化更多体现为香港平台的跨境资管/财富管理与保险资金的少量海外投资配置，而非自主出海扩张的第二增长曲线。全球化对其估值与业绩的边际影响有限，投资判断仍应聚焦境内寿险改革成效（NBV）、综合金融协同与投资端的盈利稳定性，海外业务可理解为分散风险与平滑投资波动的补充。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py，境外未单独披露）+ 平安 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

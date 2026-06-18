@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "601318",
+  "name": "中国平安",
+  "snapshotPrice": 50.03,
+  "sharesYi": 181.08,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 9768.32,
+      "netProfitYi": 1074.04,
+      "ebitYi": 1631.51,
+      "netMargin": 11.0
+    },
+    {
+      "year": "2019",
+      "revenueYi": 11688.67,
+      "netProfitYi": 1494.07,
+      "ebitYi": 1847.39,
+      "netMargin": 12.78
+    },
+    {
+      "year": "2020",
+      "revenueYi": 12183.15,
+      "netProfitYi": 1430.99,
+      "ebitYi": 1877.64,
+      "netMargin": 11.75
+    },
+    {
+      "year": "2021",
+      "revenueYi": 11804.44,
+      "netProfitYi": 1016.18,
+      "ebitYi": 1395.8,
+      "netMargin": 8.61
+    },
+    {
+      "year": "2022",
+      "revenueYi": 8803.55,
+      "netProfitYi": 1110.08,
+      "ebitYi": 1423.35,
+      "netMargin": 12.61
+    },
+    {
+      "year": "2023",
+      "revenueYi": 9137.89,
+      "netProfitYi": 856.65,
+      "ebitYi": 1201.17,
+      "netMargin": 9.37
+    },
+    {
+      "year": "2024",
+      "revenueYi": 10289.25,
+      "netProfitYi": 1266.07,
+      "ebitYi": 1704.95,
+      "netMargin": 12.3
+    },
+    {
+      "year": "2025",
+      "revenueYi": 10505.06,
+      "netProfitYi": 1347.78,
+      "ebitYi": 1855.9,
+      "netMargin": 12.83
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 2.56,
+  "dpsByYear": {
+    "2025": 2.7,
+    "2024": 2.55,
+    "2023": 2.43
+  },
+  "generatedAt": "2026-06-18T12:53:28+08:00"
+}

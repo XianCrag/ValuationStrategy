@@ -1,0 +1,154 @@
+{
+  "code": "601318",
+  "name": "中国平安",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 4628.82,
+      "netProfit": 392.79,
+      "revenueYoY": 27.65,
+      "netProfitYoY": 39.51,
+      "roe": 18.3,
+      "grossMargin": null,
+      "netMargin": 10.35,
+      "priceClose": 74.71
+    },
+    {
+      "year": "2015",
+      "revenue": 6199.9,
+      "netProfit": 542.03,
+      "revenueYoY": 33.94,
+      "netProfitYoY": 37.99,
+      "roe": 17.1,
+      "grossMargin": null,
+      "netMargin": 10.51,
+      "priceClose": 36.0
+    },
+    {
+      "year": "2016",
+      "revenue": 7124.53,
+      "netProfit": 623.94,
+      "revenueYoY": 14.91,
+      "netProfitYoY": 15.11,
+      "roe": 17.4,
+      "grossMargin": null,
+      "netMargin": 10.16,
+      "priceClose": 35.43
+    },
+    {
+      "year": "2017",
+      "revenue": 8908.82,
+      "netProfit": 890.88,
+      "revenueYoY": 25.04,
+      "netProfitYoY": 42.78,
+      "roe": 20.7,
+      "grossMargin": null,
+      "netMargin": 11.22,
+      "priceClose": 69.98
+    },
+    {
+      "year": "2018",
+      "revenue": 9768.32,
+      "netProfit": 1074.04,
+      "revenueYoY": 9.65,
+      "netProfitYoY": 20.56,
+      "roe": 20.9,
+      "grossMargin": null,
+      "netMargin": 12.33,
+      "priceClose": 56.1
+    },
+    {
+      "year": "2019",
+      "revenue": 11688.67,
+      "netProfit": 1494.07,
+      "revenueYoY": 19.66,
+      "netProfitYoY": 39.11,
+      "roe": 24.4,
+      "grossMargin": null,
+      "netMargin": 14.06,
+      "priceClose": 85.46
+    },
+    {
+      "year": "2020",
+      "revenue": 12183.15,
+      "netProfit": 1430.99,
+      "revenueYoY": 4.23,
+      "netProfitYoY": -4.22,
+      "roe": 20.0,
+      "grossMargin": null,
+      "netMargin": 13.08,
+      "priceClose": 86.98
+    },
+    {
+      "year": "2021",
+      "revenue": 11804.44,
+      "netProfit": 1016.18,
+      "revenueYoY": -3.11,
+      "netProfitYoY": -28.99,
+      "roe": 13.0,
+      "grossMargin": null,
+      "netMargin": 10.32,
+      "priceClose": 50.41
+    },
+    {
+      "year": "2022",
+      "revenue": 8803.55,
+      "netProfit": 1110.08,
+      "revenueYoY": -25.42,
+      "netProfitYoY": 9.24,
+      "roe": 13.2,
+      "grossMargin": null,
+      "netMargin": 15.31,
+      "priceClose": 47.0
+    },
+    {
+      "year": "2023",
+      "revenue": 9137.89,
+      "netProfit": 856.65,
+      "revenueYoY": 3.8,
+      "netProfitYoY": -22.83,
+      "roe": 9.7,
+      "grossMargin": null,
+      "netMargin": 11.96,
+      "priceClose": 40.3
+    },
+    {
+      "year": "2024",
+      "revenue": 10289.25,
+      "netProfit": 1266.07,
+      "revenueYoY": 12.6,
+      "netProfitYoY": 47.79,
+      "roe": 13.8,
+      "grossMargin": null,
+      "netMargin": 14.26,
+      "priceClose": 52.65
+    },
+    {
+      "year": "2025",
+      "revenue": 10505.06,
+      "netProfit": 1347.78,
+      "revenueYoY": 2.1,
+      "netProfitYoY": 6.45,
+      "roe": 14.0,
+      "grossMargin": null,
+      "netMargin": 15.07,
+      "priceClose": 68.4
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 60,
+  "summary": "中等周期的综合金融龙头。保险盈利并非典型经济强周期，但显著受投资收益与资本市场、利率、寿险新业务价值（NBV）三重影响而呈中等波动：2019 年权益牛市叠加寿险高景气，归母达 1494 亿、ROE 24% 的阶段高点；2021-2023 年寿险改革阵痛 + 地产敞口减值 + 资本市场低迷，利润与 ROE 大幅回落，2023 年归母仅 857 亿、ROE 降至 9.7% 的周期低位；2024 年起寿险改革成效兑现、NBV 高增、投资端修复，2024 归母 +47.8%、2025 归母 1348 亿再创近年新高、ROE 回升至 14%。当前盈利处于改善通道、约位于近年峰谷区间的中位偏上（约 60% 分位），趋势向上但仍受权益市场波动与利率下行（利差损担忧）制约。综合金融多板块对冲与寿险营运利润的相对平滑，使其波动小于纯财险或券商。",
+  "drivers": [
+    "权益市场表现与投资收益率 —— 利润波动的最主要来源",
+    "长端利率走势（影响负债成本、利差损担忧与准备金/折现率）",
+    "寿险新业务价值（NBV）与代理人/银保渠道改革进度",
+    "地产敞口风险与资产质量、综合金融各板块的盈利对冲"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

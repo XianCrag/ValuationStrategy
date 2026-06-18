@@ -1,0 +1,32 @@
+{
+  "code": "000568",
+  "name": "泸州老窖",
+  "annual": [
+    { "year": "2020", "totalRevenue": 166.53, "overseasIncome": 0.5, "overseasRatio": 0.3 },
+    { "year": "2021", "totalRevenue": 206.42, "overseasIncome": 0.83, "overseasRatio": 0.4 },
+    { "year": "2022", "totalRevenue": 251.23, "overseasIncome": 1.53, "overseasRatio": 0.6 },
+    { "year": "2023", "totalRevenue": 302.33, "overseasIncome": 1.77, "overseasRatio": 0.6 },
+    { "year": "2024", "totalRevenue": 311.96, "overseasIncome": 1.86, "overseasRatio": 0.6 },
+    { "year": "2025", "totalRevenue": 257.31, "overseasIncome": 1.97, "overseasRatio": 0.8 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 255.34, "ratio": 99.2, "grossMargin": 86.6 },
+    { "name": "境外", "income": 1.97, "ratio": 0.8, "grossMargin": 85.2 }
+  ],
+  "markets": ["东南亚 / 全球华人市场（少量）"],
+  "opportunities": [
+    "「让世界品味中国」等国际化品牌活动持续输出，逐步铺垫海外华人圈层与高端餐饮认知。",
+    "随中国文化影响力提升与白酒国际化趋势，高端浓香长期存在出海可选项，且海外占比虽小但逐年小幅抬升。"
+  ],
+  "risks": [
+    "年报按境内/境外披露，海外收入占比不足 1%，国际化对业绩与估值的边际影响极小。",
+    "白酒香型与饮用文化差异使海外渗透缓慢，全球化非投资逻辑核心。"
+  ],
+  "summary": "泸州老窖收入几乎全部来自国内，2025 年境外收入约 1.97 亿元、占比仅 0.8%，虽自 2020 年的 0.3% 逐年小幅提升，但绝对体量极小、非披露重点。国际化尚处品牌铺垫的早期阶段，对业绩与估值几乎没有边际影响。投资判断应聚焦国内高端浓香（国窖 1573）的需求、批价与渠道动销，全球化视为长期可选项。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py，按境内/境外披露）+ 泸州老窖 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:20:00+08:00"
+}

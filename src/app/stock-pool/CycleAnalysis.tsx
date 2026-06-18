@@ -127,9 +127,9 @@ export default function CycleAnalysis({ data, loading }: CycleAnalysisProps) {
     );
   }
 
-  const conf = CONFIDENCE_META[data.confidence];
-  const cyc = CYCLICALITY_META[data.cyclicality];
-  const pos = POSITION_META[data.position];
+  const conf = CONFIDENCE_META[data.confidence] ?? CONFIDENCE_META.low;
+  const cyc = CYCLICALITY_META[data.cyclicality] ?? CYCLICALITY_META.moderate;
+  const pos = POSITION_META[data.position] ?? POSITION_META.unknown;
 
   const chartData = data.annual.map((p) => ({
     year: p.year,

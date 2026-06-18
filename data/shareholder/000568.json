@@ -1,0 +1,33 @@
+{
+  "code": "000568",
+  "name": "泸州老窖",
+  "annual": [
+    { "year": "2014", "dividend": 11.22, "netProfit": 8.8, "revenue": 53.53, "payoutRatio": 127.5 },
+    { "year": "2015", "dividend": 11.22, "netProfit": 14.73, "revenue": 69.0, "payoutRatio": 76.2 },
+    { "year": "2016", "dividend": 13.46, "netProfit": 19.57, "revenue": 86.27, "payoutRatio": 68.8 },
+    { "year": "2017", "dividend": 18.31, "netProfit": 25.58, "revenue": 103.95, "payoutRatio": 71.6 },
+    { "year": "2018", "dividend": 22.7, "netProfit": 34.86, "revenue": 130.55, "payoutRatio": 65.1 },
+    { "year": "2019", "dividend": 23.29, "netProfit": 46.42, "revenue": 158.17, "payoutRatio": 50.2 },
+    { "year": "2020", "dividend": 30.04, "netProfit": 60.06, "revenue": 166.53, "payoutRatio": 50.0 },
+    { "year": "2021", "dividend": 47.74, "netProfit": 79.56, "revenue": 206.42, "payoutRatio": 60.0 },
+    { "year": "2022", "dividend": 62.19, "netProfit": 103.65, "revenue": 251.24, "payoutRatio": 60.0 },
+    { "year": "2023", "dividend": 79.49, "netProfit": 132.46, "revenue": 302.33, "payoutRatio": 60.0 },
+    { "year": "2024", "dividend": 87.58, "netProfit": 134.73, "revenue": 311.96, "payoutRatio": 65.0 },
+    { "year": "2025", "dividend": 85.0, "netProfit": 108.31, "revenue": 257.31, "payoutRatio": 78.5 }
+  ],
+  "mcapYi": 1192.68,
+  "currentDividendYield": 7.1,
+  "payoutRatioLatest": 78.5,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 605.61,
+  "cumulativeToMcap": 51,
+  "dividendToRevenue": 33.0,
+  "buybackNote": "以现金分红为主并持续提升分红率（由 50% 提升至 2024 年 65%、2025 年约 78.5%），公司承诺 2024-2026 年度现金分红比例不低于 65% 且每股不低于 8.5 元（含税），股东回报政策清晰、确定性强。",
+  "rating": "strong",
+  "summary": "高分红高端白酒龙头。连续 12 年分红，累计派现约 606 亿元（约当前市值 51%），派息比例由 50% 逐步提升至 2024 年 65%、2025 年约 78.5%，并明确 2024-2026 年分红比例不低于 65% 且每股不低于 8.5 元，当前股息率约 7.1%，处于高端白酒前列。2025 年盈利回落但分红金额维持约 85 亿元、派息比例进一步抬升，体现盈利下行期的「高比例刚性分红」，可持续性需结合后续盈利修复观察。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:20:00+08:00"
+}

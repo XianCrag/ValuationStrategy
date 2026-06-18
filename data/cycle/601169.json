@@ -1,0 +1,154 @@
+{
+  "code": "601169",
+  "name": "北京银行",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 368.78,
+      "netProfit": 156.23,
+      "revenueYoY": 20.28,
+      "netProfitYoY": 16.12,
+      "roe": 17.98,
+      "grossMargin": null,
+      "netMargin": 42.43,
+      "priceClose": 10.93
+    },
+    {
+      "year": "2015",
+      "revenue": 440.81,
+      "netProfit": 168.39,
+      "revenueYoY": 19.53,
+      "netProfitYoY": 7.78,
+      "roe": 16.26,
+      "grossMargin": null,
+      "netMargin": 38.3,
+      "priceClose": 10.53
+    },
+    {
+      "year": "2016",
+      "revenue": 474.56,
+      "netProfit": 178.02,
+      "revenueYoY": 7.66,
+      "netProfitYoY": 5.72,
+      "roe": 14.92,
+      "grossMargin": null,
+      "netMargin": 37.77,
+      "priceClose": 9.76
+    },
+    {
+      "year": "2017",
+      "revenue": 503.53,
+      "netProfit": 187.33,
+      "revenueYoY": 6.1,
+      "netProfitYoY": 5.23,
+      "roe": 13.77,
+      "grossMargin": null,
+      "netMargin": 37.5,
+      "priceClose": 7.15
+    },
+    {
+      "year": "2018",
+      "revenue": 554.88,
+      "netProfit": 200.02,
+      "revenueYoY": 10.2,
+      "netProfitYoY": 6.77,
+      "roe": 10.89,
+      "grossMargin": null,
+      "netMargin": 36.29,
+      "priceClose": 5.61
+    },
+    {
+      "year": "2019",
+      "revenue": 631.29,
+      "netProfit": 214.41,
+      "revenueYoY": 13.77,
+      "netProfitYoY": 7.19,
+      "roe": 11.45,
+      "grossMargin": null,
+      "netMargin": 34.2,
+      "priceClose": 5.68
+    },
+    {
+      "year": "2020",
+      "revenue": 642.99,
+      "netProfit": 214.84,
+      "revenueYoY": 1.85,
+      "netProfitYoY": 0.2,
+      "roe": 10.65,
+      "grossMargin": null,
+      "netMargin": 33.66,
+      "priceClose": 4.84
+    },
+    {
+      "year": "2021",
+      "revenue": 662.75,
+      "netProfit": 222.26,
+      "revenueYoY": 3.07,
+      "netProfitYoY": 3.45,
+      "roe": 10.29,
+      "grossMargin": null,
+      "netMargin": 33.79,
+      "priceClose": 4.44
+    },
+    {
+      "year": "2022",
+      "revenue": 662.76,
+      "netProfit": 247.6,
+      "revenueYoY": 0.0,
+      "netProfitYoY": 11.4,
+      "roe": 9.6,
+      "grossMargin": null,
+      "netMargin": 37.62,
+      "priceClose": 4.31
+    },
+    {
+      "year": "2023",
+      "revenue": 667.11,
+      "netProfit": 256.24,
+      "revenueYoY": 0.66,
+      "netProfitYoY": 3.49,
+      "roe": 9.32,
+      "grossMargin": null,
+      "netMargin": 38.57,
+      "priceClose": 4.53
+    },
+    {
+      "year": "2024",
+      "revenue": 704.2,
+      "netProfit": 263.34,
+      "revenueYoY": 5.56,
+      "netProfitYoY": 2.77,
+      "roe": 8.88,
+      "grossMargin": null,
+      "netMargin": 37.48,
+      "priceClose": 6.15
+    },
+    {
+      "year": "2025",
+      "revenue": 680.36,
+      "netProfit": 200.86,
+      "revenueYoY": -3.39,
+      "netProfitYoY": -23.73,
+      "roe": 6.11,
+      "grossMargin": null,
+      "netMargin": 29.59,
+      "priceClose": 5.48
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "falling",
+  "positionScore": 35,
+  "summary": "弱周期（城商行）。银行业绩不直接随商品价格波动，而是受区域经济、信用周期与利率/净息差中枢影响，呈现「弱周期 + 长期增速下台阶」特征。北京银行作为城商行龙头，资产规模长期居城商行第一，但成长性自 2017 年起明显放缓：营收增速由 2014-2016 年的双位数降至 2020-2023 年的近乎零增长，ROE 从 2014 年的约 18% 持续下滑至 2024 年的 8.9%、2025 年进一步降至约 6%。2025 年营收同比 -3.4%、归母净利同比 -23.7%，主要受净息差收窄与资产质量拨备压力拖累，盈利能力处于历史低位。当前体量大但「增长平缓、ROE 偏低」，需重点关注资产质量（不良/拨备）与盈利能力能否企稳修复。",
+  "drivers": [
+    "LPR 下行与净息差中枢收窄 —— 决定利息净收入的最核心变量",
+    "区域（京津冀及环渤海）经济景气与对公/零售信贷需求",
+    "信用周期与资产质量（不良生成、拨备计提与房地产/城投敞口）",
+    "存款成本与负债结构（活期占比、降息红利释放节奏）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标 / cycle_fetch.py）/ 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:10:00+08:00"
+}

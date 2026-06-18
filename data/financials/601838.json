@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "601838",
+  "name": "成都银行",
+  "snapshotPrice": 18.74,
+  "sharesYi": 42.38,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 115.9,
+      "netProfitYi": 46.49,
+      "ebitYi": 50.81,
+      "netMargin": 40.11
+    },
+    {
+      "year": "2019",
+      "revenueYi": 127.25,
+      "netProfitYi": 55.51,
+      "ebitYi": 62.27,
+      "netMargin": 43.62
+    },
+    {
+      "year": "2020",
+      "revenueYi": 146.0,
+      "netProfitYi": 60.25,
+      "ebitYi": 68.04,
+      "netMargin": 41.27
+    },
+    {
+      "year": "2021",
+      "revenueYi": 178.9,
+      "netProfitYi": 78.31,
+      "ebitYi": 87.9,
+      "netMargin": 43.77
+    },
+    {
+      "year": "2022",
+      "revenueYi": 202.41,
+      "netProfitYi": 100.42,
+      "ebitYi": 116.81,
+      "netMargin": 49.61
+    },
+    {
+      "year": "2023",
+      "revenueYi": 217.02,
+      "netProfitYi": 116.71,
+      "ebitYi": 138.92,
+      "netMargin": 53.78
+    },
+    {
+      "year": "2024",
+      "revenueYi": 229.82,
+      "netProfitYi": 128.58,
+      "ebitYi": 151.66,
+      "netMargin": 55.95
+    },
+    {
+      "year": "2025",
+      "revenueYi": 236.03,
+      "netProfitYi": 132.83,
+      "ebitYi": 156.68,
+      "netMargin": 56.28
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 0.9029,
+  "dpsByYear": {
+    "2025": 0.921,
+    "2024": 0.891,
+    "2023": 0.8968
+  },
+  "generatedAt": "2026-06-18T12:53:20+08:00"
+}
