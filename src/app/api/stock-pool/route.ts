@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
+import { computeValuation, strikeZoneOf, type FinancialMetrics } from '../stock-valuation-summary/compute';
 
 export const runtime = 'nodejs';
 
@@ -17,6 +18,7 @@ export const runtime = 'nodejs';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const POOL_FILE = path.join(DATA_DIR, 'stock-pool.json');
+const FIN_DIR = path.join(DATA_DIR, 'financials');
 
 interface PoolEntry {
   code: string;
@@ -47,8 +49,32 @@ async function writePool(items: PoolEntry[]): Promise<void> {
   await fs.writeFile(POOL_FILE, JSON.stringify(items, null, 2), 'utf-8');
 }
 
+async function readFinancials(code: string): Promise<FinancialMetrics | null> {
+  try {
+    const raw = await fs.readFile(path.join(FIN_DIR, `${code}.json`), 'utf-8');
+    return JSON.parse(raw) as FinancialMetrics;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 用「估值中枢」公式（四方法合理价中位 × 安全边际）按快照价重算击球区，
+ * 与详情页头部 / 估值总结模块口径一致。无 financials 时回退到存储值。
+ */
+async function withStrikeZone(items: PoolEntry[]): Promise<PoolEntry[]> {
+  return Promise.all(
+    items.map(async (it) => {
+      const fin = await readFinancials(it.code);
+      if (!fin) return it;
+      const { medianFairValue, safetyMargin } = computeValuation(fin);
+      return { ...it, strikeZone: strikeZoneOf(it.price, medianFairValue, safetyMargin) };
+    })
+  );
+}
+
 export async function GET() {
-  const items = await readPool();
+  const items = await withStrikeZone(await readPool());
   return NextResponse.json({ success: true, items });
 }
 

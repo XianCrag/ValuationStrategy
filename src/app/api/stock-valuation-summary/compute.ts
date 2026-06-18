@@ -1,4 +1,4 @@
-import type { ValuationMethod, ValuationMethodId } from '@/app/stock-pool/types';
+import type { StrikeZone, ValuationMethod, ValuationMethodId } from '@/app/stock-pool/types';
 
 /**
  * 估值「纯公式」计算（无任何主观判断 / AI 推荐 / 存储结论）。
@@ -183,6 +183,23 @@ export interface ComputedValuation {
   methods: ValuationMethod[];
   medianFairValue: number | null;
   safetyMargin: number;
+}
+
+/**
+ * 击球区判定（全局唯一口径）：
+ * 现价 ≤ 击球价（合理价值中枢 ×（1 − 安全边际）） → 低估；≤ 合理价值中枢 → 合理；否则高估。
+ * 列表卡片、详情头部、选股池快照统一调用，避免 PE 分位 / 估值中枢两套口径不一致。
+ */
+export function strikeZoneOf(
+  price: number | null | undefined,
+  medianFairValue: number | null | undefined,
+  safetyMargin: number | null | undefined,
+): StrikeZone {
+  if (price == null || price <= 0 || medianFairValue == null) return 'unknown';
+  const strike = medianFairValue * (1 - (safetyMargin ?? 0));
+  if (price <= strike) return 'undervalued';
+  if (price <= medianFairValue) return 'fair';
+  return 'overvalued';
 }
 
 /** 由客观财务指标计算四种方法（顺序固定 ①②③④）。 */

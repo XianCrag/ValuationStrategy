@@ -9,6 +9,7 @@ import MoatAnalysis from './MoatAnalysis';
 import GlobalizationAnalysis from './GlobalizationAnalysis';
 import Scorecard from './Scorecard';
 import ValuationSummary from './ValuationSummary';
+import { strikeZoneOf } from '@/app/api/stock-valuation-summary/compute';
 import type {
   BusinessAnalysis as BusinessAnalysisData,
   CycleAnalysis as CycleAnalysisData,
@@ -56,17 +57,11 @@ const STRIKE_ZONE_META: Record<StrikeZone, { label: string; dot: string; chip: s
 };
 
 /**
- * 击球区状态 = 下方估值模块的结论：
- * 现价 ≤ 击球价（中枢 ×（1−安全边际）） → 低估；≤ 合理价值中枢 → 合理；否则高估。
- * 与 ValuationSummary 的信号灯口径一致。
+ * 击球区状态 = 下方估值模块的结论（估值中枢口径）。
+ * 与列表卡片 / 选股池快照统一调用 strikeZoneOf，避免口径漂移。
  */
 function valuationZone(price: number | null | undefined, summary: ValuationSummaryData | null): StrikeZone {
-  const center = summary?.medianFairValue ?? null;
-  if (price == null || price <= 0 || center == null) return 'unknown';
-  const strike = center * (1 - (summary?.safetyMargin ?? 0));
-  if (price <= strike) return 'undervalued';
-  if (price <= center) return 'fair';
-  return 'overvalued';
+  return strikeZoneOf(price, summary?.medianFairValue ?? null, summary?.safetyMargin ?? 0);
 }
 
 export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, selection }: StockPoolClientProps) {
@@ -581,7 +576,7 @@ export default function StockPoolClient({ pooledCodes, pooledEntries, onAdd, sel
                 <span className={`w-2 h-2 rounded-full ${STRIKE_ZONE_META[snapshot.strikeZone].dot}`} />
                 {STRIKE_ZONE_META[snapshot.strikeZone].label}
               </span>
-              <div className="text-sm text-gray-400 mt-1">基于 PE 分位</div>
+              <div className="text-sm text-gray-400 mt-1">基于估值中枢</div>
             </OverviewCard>
           </div>
 
