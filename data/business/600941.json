@@ -1,0 +1,67 @@
+{
+  "code": "600941",
+  "name": "中国移动",
+  "segments": [
+    {
+      "name": "个人市场（C）",
+      "position": "核心主业",
+      "features": "全球最大移动用户基数，移动 ARPU 与 5G 渗透率领先；语音/流量等传统通信服务步入成熟期，收入增长承压，是收入压舱石但成长性趋弱"
+    },
+    {
+      "name": "家庭市场（H）",
+      "position": "稳健增长",
+      "features": "千兆宽带、智慧家庭（魔百和、HDICT、移动看家）拉动综合 ARPU 提升，宽带用户规模行业第一，增速快于个人市场"
+    },
+    {
+      "name": "政企市场（B）",
+      "position": "第二增长曲线",
+      "features": "面向政府与行业客户的专线、IDC、5G 行业应用与信息化解决方案，受益数字中国与企业上云，增速领先"
+    },
+    {
+      "name": "新兴市场（N）",
+      "position": "新动能",
+      "features": "含移动云、IDC、智算、国际业务与股权投资等；移动云高速放量、算力布局加速，是 AI+ 转型的核心增量来源"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "个人市场（C）",
+      "share": "~48%",
+      "shareYear": "2025",
+      "trend": "传统通信服务成熟承压，收入基本持平略降",
+      "trendDirection": "flat"
+    },
+    {
+      "source": "政企市场（B）",
+      "share": "~21%",
+      "shareYear": "2025",
+      "trend": "数字化转型驱动，保持较快增长",
+      "trendDirection": "up"
+    },
+    {
+      "source": "家庭市场（H）",
+      "share": "~14%",
+      "shareYear": "2025",
+      "trend": "千兆宽带与智慧家庭拉动综合 ARPU 提升",
+      "trendDirection": "up"
+    },
+    {
+      "source": "新兴市场（N，含移动云/IDC/智算）",
+      "share": "~6%",
+      "shareYear": "2025",
+      "trend": "移动云与算力高速放量，增速最快",
+      "trendDirection": "up"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "个人市场（移动通信服务）贡献近半营收且为利润核心；2025 全年营收 10502 亿、归母净利 1371 亿，营收同比 +0.9%、归母同比 -0.9%，整体平稳",
+    "share": "~48%",
+    "note": "传统个人通信进入存量饱和，增长引擎正由 C 端切换至政企（B）与新兴（N，移动云/智算）；高自由现金流 + 高分红提供确定性支撑，AI+ 与算力转型构成第二增长曲线"
+  },
+  "source": "2025 年报 / F10 公司概况·财务分析（business_fetch.py）/ 东财研报（国金·国信·民生等）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

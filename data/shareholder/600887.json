@@ -1,0 +1,105 @@
+{
+  "code": "600887",
+  "name": "伊利股份",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 24.51,
+      "netProfit": 41.44,
+      "revenue": 544.36,
+      "payoutRatio": 59.1
+    },
+    {
+      "year": "2015",
+      "dividend": 27.29,
+      "netProfit": 46.32,
+      "revenue": 603.6,
+      "payoutRatio": 58.9
+    },
+    {
+      "year": "2016",
+      "dividend": 36.47,
+      "netProfit": 56.62,
+      "revenue": 606.09,
+      "payoutRatio": 64.4
+    },
+    {
+      "year": "2017",
+      "dividend": 42.55,
+      "netProfit": 60.01,
+      "revenue": 680.58,
+      "payoutRatio": 70.9
+    },
+    {
+      "year": "2018",
+      "dividend": 42.55,
+      "netProfit": 64.4,
+      "revenue": 795.53,
+      "payoutRatio": 66.1
+    },
+    {
+      "year": "2019",
+      "dividend": 49.13,
+      "netProfit": 69.34,
+      "revenue": 902.23,
+      "payoutRatio": 70.9
+    },
+    {
+      "year": "2020",
+      "dividend": 49.88,
+      "netProfit": 70.78,
+      "revenue": 968.86,
+      "payoutRatio": 70.5
+    },
+    {
+      "year": "2021",
+      "dividend": 61.44,
+      "netProfit": 87.05,
+      "revenue": 1105.95,
+      "payoutRatio": 70.6
+    },
+    {
+      "year": "2022",
+      "dividend": 66.21,
+      "netProfit": 94.31,
+      "revenue": 1231.71,
+      "payoutRatio": 70.2
+    },
+    {
+      "year": "2023",
+      "dividend": 76.39,
+      "netProfit": 104.29,
+      "revenue": 1261.79,
+      "payoutRatio": 73.2
+    },
+    {
+      "year": "2024",
+      "dividend": 77.17,
+      "netProfit": 84.53,
+      "revenue": 1157.8,
+      "payoutRatio": 91.3
+    },
+    {
+      "year": "2025",
+      "dividend": 87.29,
+      "netProfit": 115.65,
+      "revenue": 1159.31,
+      "payoutRatio": 75.5
+    }
+  ],
+  "mcapYi": 1536.43,
+  "currentDividendYield": 5.7,
+  "payoutRatioLatest": 75.5,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 672.95,
+  "cumulativeToMcap": 43.8,
+  "dividendToRevenue": 7.5,
+  "buybackNote": "在高比例现金分红基础上辅以大额股份回购注销，并已实施中期分红；2024 年因利润下滑派息比例一度达 91%，体现强烈的股东回报意愿。",
+  "rating": "strong",
+  "summary": "股东回报力度强且持续提升。连续 12 年现金分红，累计派现约 673 亿元，相当于当前市值的约 44%。派息比例由 2014-2016 年的约 59%~64% 阶梯式提升至近年的 70%~75%（2024 利润承压年一度达 91%），当前股息率约 5.7%，并配合回购注销与中期分红进一步增厚回报。分红绝对额随利润小幅波动但占收入比例稳定在 7%~8%，叠加 20%+ 的高 ROE，现金回报确定性高，是高分红龙头属性的典型代表。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

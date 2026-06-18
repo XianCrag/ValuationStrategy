@@ -1,0 +1,154 @@
+{
+  "code": "002078",
+  "name": "太阳纸业",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 104.58,
+      "netProfit": 4.69,
+      "revenueYoY": -4.01,
+      "netProfitYoY": 64.71,
+      "roe": 8.94,
+      "grossMargin": 20.05,
+      "netMargin": 5.23,
+      "priceClose": 4.06
+    },
+    {
+      "year": "2015",
+      "revenue": 108.25,
+      "netProfit": 6.67,
+      "revenueYoY": 3.51,
+      "netProfitYoY": 42.2,
+      "roe": 10.34,
+      "grossMargin": 23.39,
+      "netMargin": 6.98,
+      "priceClose": 5.63
+    },
+    {
+      "year": "2016",
+      "revenue": 144.55,
+      "netProfit": 10.57,
+      "revenueYoY": 33.54,
+      "netProfitYoY": 58.52,
+      "roe": 14.12,
+      "grossMargin": 21.92,
+      "netMargin": 8.01,
+      "priceClose": 6.68
+    },
+    {
+      "year": "2017",
+      "revenue": 188.94,
+      "netProfit": 20.24,
+      "revenueYoY": 30.71,
+      "netProfitYoY": 91.55,
+      "roe": 22.65,
+      "grossMargin": 26.03,
+      "netMargin": 11.91,
+      "priceClose": 9.28
+    },
+    {
+      "year": "2018",
+      "revenue": 217.68,
+      "netProfit": 22.38,
+      "revenueYoY": 15.21,
+      "netProfitYoY": 10.54,
+      "roe": 19.54,
+      "grossMargin": 23.45,
+      "netMargin": 10.3,
+      "priceClose": 5.7
+    },
+    {
+      "year": "2019",
+      "revenue": 227.63,
+      "netProfit": 21.78,
+      "revenueYoY": 4.57,
+      "netProfitYoY": -2.66,
+      "roe": 16.12,
+      "grossMargin": 22.54,
+      "netMargin": 9.65,
+      "priceClose": 9.84
+    },
+    {
+      "year": "2020",
+      "revenue": 215.89,
+      "netProfit": 19.53,
+      "revenueYoY": -5.16,
+      "netProfitYoY": -10.33,
+      "roe": 12.79,
+      "grossMargin": 19.44,
+      "netMargin": 9.12,
+      "priceClose": 14.43
+    },
+    {
+      "year": "2021",
+      "revenue": 321.59,
+      "netProfit": 29.29,
+      "revenueYoY": 48.96,
+      "netProfitYoY": 49.99,
+      "roe": 16.83,
+      "grossMargin": 17.19,
+      "netMargin": 9.14,
+      "priceClose": 11.49
+    },
+    {
+      "year": "2022",
+      "revenue": 397.67,
+      "netProfit": 28.09,
+      "revenueYoY": 23.66,
+      "netProfitYoY": -4.12,
+      "roe": 13.43,
+      "grossMargin": 15.17,
+      "netMargin": 7.08,
+      "priceClose": 11.52
+    },
+    {
+      "year": "2023",
+      "revenue": 395.44,
+      "netProfit": 30.86,
+      "revenueYoY": -0.56,
+      "netProfitYoY": 9.86,
+      "roe": 12.59,
+      "grossMargin": 15.89,
+      "netMargin": 7.84,
+      "priceClose": 12.17
+    },
+    {
+      "year": "2024",
+      "revenue": 407.27,
+      "netProfit": 31.01,
+      "revenueYoY": 2.99,
+      "netProfitYoY": 0.5,
+      "roe": 11.38,
+      "grossMargin": 16.01,
+      "netMargin": 7.64,
+      "priceClose": 14.87
+    },
+    {
+      "year": "2025",
+      "revenue": 391.92,
+      "netProfit": 32.51,
+      "revenueYoY": -3.77,
+      "netProfitYoY": 4.82,
+      "roe": 10.93,
+      "grossMargin": 15.59,
+      "netMargin": 8.29,
+      "priceClose": 15.75
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 38,
+  "summary": "造纸属周期行业，盈利受纸价与木浆价格双重周期驱动。2016-2017 供给侧改革叠加涨价潮推动毛利率冲高至 26%、净利率近 12%，为周期峰值；2018-2020 纸价回落、毛利率降至 19% 左右；2021-2022 浆价高企压制盈利，毛利率进一步下探至 15% 的周期底部区域。但太阳纸业凭借林浆纸一体化（自供木浆 + 老挝低成本基地）与多纸种、生活用纸/特种纸结构，2022 年后盈利率先企稳：营收稳定在约 400 亿，归母净利由 2020 年 19.5 亿逐年回升至 2025 年 32.5 亿（创新高），2025 营收同比 -3.8% 而净利逆势 +4.8%。当前毛利率仍处历史低位、纸价底部确立，盈利绝对额却已创新高，叠加新产能集中投产，判断处于周期底部回升阶段。一体化运营使其波动明显小于纯造纸同行。",
+  "drivers": [
+    "成品纸价格（文化纸/白卡纸/箱板纸）—— 直接决定收入与毛利",
+    "木浆价格（阔叶浆/针叶浆）与自供浆比例 —— 一体化对冲的核心变量",
+    "下游需求（出版文化、包装、消费）与宏观景气度",
+    "新增产能投放节奏（广西/老挝/山东基地）带来的量增对冲价跌"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 造纸行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

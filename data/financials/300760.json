@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "300760",
+  "name": "迈瑞医疗",
+  "snapshotPrice": 140.81,
+  "sharesYi": 12.12,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 137.53,
+      "netProfitYi": 37.19,
+      "ebitYi": 42.81,
+      "netMargin": 27.04
+    },
+    {
+      "year": "2019",
+      "revenueYi": 165.56,
+      "netProfitYi": 46.81,
+      "ebitYi": 53.68,
+      "netMargin": 28.27
+    },
+    {
+      "year": "2020",
+      "revenueYi": 210.26,
+      "netProfitYi": 66.58,
+      "ebitYi": 74.38,
+      "netMargin": 31.66
+    },
+    {
+      "year": "2021",
+      "revenueYi": 252.7,
+      "netProfitYi": 80.02,
+      "ebitYi": 90.26,
+      "netMargin": 31.66
+    },
+    {
+      "year": "2022",
+      "revenueYi": 303.66,
+      "netProfitYi": 96.07,
+      "ebitYi": 109.64,
+      "netMargin": 31.64
+    },
+    {
+      "year": "2023",
+      "revenueYi": 349.32,
+      "netProfitYi": 115.82,
+      "ebitYi": 130.24,
+      "netMargin": 33.16
+    },
+    {
+      "year": "2024",
+      "revenueYi": 367.26,
+      "netProfitYi": 116.68,
+      "ebitYi": 130.39,
+      "netMargin": 31.77
+    },
+    {
+      "year": "2025",
+      "revenueYi": 332.82,
+      "netProfitYi": 81.36,
+      "ebitYi": 96.98,
+      "netMargin": 24.44
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -177.46,
+  "minorityYi": 47.35,
+  "dpsAvg3y": 5.4833,
+  "dpsByYear": {
+    "2025": 4.38,
+    "2024": 6.27,
+    "2023": 5.8
+  },
+  "generatedAt": "2026-06-18T13:42:01+08:00"
+}

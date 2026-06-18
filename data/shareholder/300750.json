@@ -1,0 +1,105 @@
+{
+  "code": "300750",
+  "name": "宁德时代",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0.0,
+      "netProfit": 0.54,
+      "revenue": 8.67,
+      "payoutRatio": null
+    },
+    {
+      "year": "2015",
+      "dividend": 0.0,
+      "netProfit": 9.31,
+      "revenue": 57.03,
+      "payoutRatio": null
+    },
+    {
+      "year": "2016",
+      "dividend": 0.0,
+      "netProfit": 28.52,
+      "revenue": 148.79,
+      "payoutRatio": null
+    },
+    {
+      "year": "2017",
+      "dividend": 0.0,
+      "netProfit": 38.78,
+      "revenue": 199.97,
+      "payoutRatio": null
+    },
+    {
+      "year": "2018",
+      "dividend": 3.12,
+      "netProfit": 33.87,
+      "revenue": 296.11,
+      "payoutRatio": 9.2
+    },
+    {
+      "year": "2019",
+      "dividend": 4.86,
+      "netProfit": 45.6,
+      "revenue": 457.88,
+      "payoutRatio": 10.7
+    },
+    {
+      "year": "2020",
+      "dividend": 5.59,
+      "netProfit": 55.83,
+      "revenue": 503.19,
+      "payoutRatio": 10.0
+    },
+    {
+      "year": "2021",
+      "dividend": 0.0,
+      "netProfit": 159.31,
+      "revenue": 1303.56,
+      "payoutRatio": null
+    },
+    {
+      "year": "2022",
+      "dividend": 77.48,
+      "netProfit": 307.29,
+      "revenue": 3285.94,
+      "payoutRatio": 25.2
+    },
+    {
+      "year": "2023",
+      "dividend": 88.46,
+      "netProfit": 441.21,
+      "revenue": 4009.17,
+      "payoutRatio": 20.0
+    },
+    {
+      "year": "2024",
+      "dividend": 200.49,
+      "netProfit": 507.45,
+      "revenue": 3620.13,
+      "payoutRatio": 39.5
+    },
+    {
+      "year": "2025",
+      "dividend": 363.44,
+      "netProfit": 722.01,
+      "revenue": 4237.02,
+      "payoutRatio": 50.3
+    }
+  ],
+  "mcapYi": 18273.79,
+  "currentDividendYield": 2.0,
+  "payoutRatioLatest": 50.3,
+  "consecutiveYears": 4,
+  "cumulativeDividend": 743.44,
+  "cumulativeToMcap": 4.1,
+  "dividendToRevenue": 8.6,
+  "buybackNote": "以现金分红为主，并辅以股份回购（用于股权激励/注销）；派息比例从上市初期的约 10% 持续提升，2024 年 39.5%、2025 年升至 50.3%，分红绝对额随利润高增快速放大。",
+  "rating": "moderate",
+  "summary": "股东回报处于「由弱转强、确定性提升」阶段。上市后早期派息比例仅约 10%、2021 年未分红，将资金优先投入高速扩张；随着盈利与现金流转好，2022 年起派息比例阶梯式抬升，2024-2025 年达 40%~50%，2025 年分红额达 363 亿、累计派现约 743 亿。当前股息率约 2.0%，仍低于成熟价值股，但派息比例与绝对额的快速提升、账面净现金充裕，使其回报趋势向上。整体定位为成长型龙头逐步加大回报，而非纯高股息标的。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py / 东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,33 @@
+{
+  "code": "002078",
+  "name": "太阳纸业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 215.88, "overseasIncome": 3.9, "overseasRatio": 1.8 },
+    { "year": "2021", "totalRevenue": 319.97, "overseasIncome": 4.85, "overseasRatio": 1.5 },
+    { "year": "2022", "totalRevenue": 397.67, "overseasIncome": 8.45, "overseasRatio": 2.1 },
+    { "year": "2023", "totalRevenue": 395.44, "overseasIncome": 9.84, "overseasRatio": 2.5 },
+    { "year": "2024", "totalRevenue": 407.26, "overseasIncome": 7.72, "overseasRatio": 1.9 },
+    { "year": "2025", "totalRevenue": 391.92, "overseasIncome": 14.14, "overseasRatio": 3.6 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 377.78, "ratio": 96.4, "grossMargin": 16.1 },
+    { "name": "境外", "income": 14.14, "ratio": 3.6, "grossMargin": 1.9 }
+  ],
+  "markets": ["老挝（林浆纸一体化海外基地）", "东南亚 / 「一带一路」沿线纸品与浆出口"],
+  "opportunities": [
+    "老挝基地坐拥低成本速生林与木浆资源，是公司成本护城河与海外产能扩张的支点，浆/纸产能持续投放。",
+    "依托老挝基地辐射东南亚市场，出口收入 2025 年同比近翻倍至约 14 亿元，外销有望成为新增量。"
+  ],
+  "risks": [
+    "境外收入占比常年仅 1.5%~3.6%，对整体业绩拉动有限，全球化尚非成长主线。",
+    "境外业务毛利率偏低（2025 约 1.9%），盈利贡献远小于收入贡献，受运价与汇率波动影响。",
+    "老挝等海外基地面临东道国政策、汇率、地缘与物流不确定性。"
+  ],
+  "summary": "太阳纸业本质仍是以国内市场为绝对主体的造纸龙头，境外收入占比长期在 2%~3.6% 区间（2025 年约 3.6%、约 14 亿元），主要来自老挝海外基地及对东南亚的纸品/浆出口。其「全球化」的核心价值不在于海外收入规模，而在于老挝低成本林浆基地对整体成本与林浆纸一体化护城河的支撑——海外更多是成本端布局而非营收第二曲线。2025 年出口收入同比近翻倍显示外销正成为边际增量，但境外毛利率仍低，投资判断仍应以国内一体化成本优势与产能成长为核心。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 太阳纸业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,62 @@
+{
+  "code": "600309",
+  "name": "万华化学",
+  "segments": [
+    {
+      "name": "聚氨酯（MDI/TDI/聚醚）",
+      "position": "核心主业",
+      "features": "全球 MDI 产能与市占率第一、TDI 领先，技术与成本壁垒最高；是公司利润的核心来源，贡献大部分毛利，景气随地产/家电/出口需求与价差波动"
+    },
+    {
+      "name": "石化",
+      "position": "一体化平台",
+      "features": "乙烯（C2/C3）一体化项目，向上配套丙烷脱氢、乙烯裂解，向下延伸 PVC、PO、丙烯酸等；营收体量大但毛利率偏低，为新材料与聚氨酯提供原料协同"
+    },
+    {
+      "name": "精细化学品及新材料",
+      "position": "成长引擎",
+      "features": "ADI、特种胺、PC、TPU、POE、锂电材料、可降解塑料、香精香料等高附加值新材料；增速快、毛利率较高，是平台型成长的第二曲线"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "石化",
+      "share": "~40%",
+      "shareYear": "2025",
+      "trend": "乙烯项目放量、营收增长，但价差承压、毛利率偏低",
+      "trendDirection": "up"
+    },
+    {
+      "source": "聚氨酯（MDI/TDI/聚醚）",
+      "share": "~37%",
+      "shareYear": "2025",
+      "trend": "量增价跌，价差处周期底部，利润贡献仍居首",
+      "trendDirection": "down"
+    },
+    {
+      "source": "精细化学品及新材料",
+      "share": "~15%",
+      "shareYear": "2025",
+      "trend": "新产能持续投产，收入快速放量",
+      "trendDirection": "up"
+    },
+    {
+      "source": "其他（贸易及其他）",
+      "share": "~8%",
+      "shareYear": "2025",
+      "trend": "占比较小，随经营波动",
+      "trendDirection": "flat"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "聚氨酯（以 MDI 为核心）虽营收占比约三分之一，却贡献公司大部分毛利与利润，是盈利的真正压舱石；2025 全年营收 2032 亿（创新高）、归母净利 125 亿（同比 -3.9%、连续四年回落）",
+    "share": "~37%",
+    "note": "业绩与 MDI/TDI 价差高度相关，是周期波动主因；石化与新材料贡献营收增量并平滑结构，新材料平台是长期成长主线"
+  },
+  "source": "2025 年报 / F10 公司概况·行业分析（business_fetch.py）/ 东财研报（国信·东吴·开源等）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

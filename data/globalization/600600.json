@@ -1,0 +1,33 @@
+{
+  "code": "600600",
+  "name": "青岛啤酒",
+  "annual": [
+    { "year": "2020", "totalRevenue": 277.61, "overseasIncome": 5.62, "overseasRatio": 2.0 },
+    { "year": "2021", "totalRevenue": 301.67, "overseasIncome": 6.44, "overseasRatio": 2.1 },
+    { "year": "2022", "totalRevenue": 321.72, "overseasIncome": 7.21, "overseasRatio": 2.2 },
+    { "year": "2023", "totalRevenue": 339.36, "overseasIncome": 7.17, "overseasRatio": 2.1 },
+    { "year": "2024", "totalRevenue": 321.38, "overseasIncome": 5.43, "overseasRatio": 1.7 },
+    { "year": "2025", "totalRevenue": 324.74, "overseasIncome": 5.81, "overseasRatio": 1.8 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内（山东+华北+华南+华东等）", "income": 318.93, "ratio": 98.2, "grossMargin": null },
+    { "name": "港澳及其他海外地区", "income": 5.81, "ratio": 1.8, "grossMargin": 32.9 }
+  ],
+  "markets": ["港澳市场", "东南亚 / 东北亚等出口市场", "欧美华人及精酿渠道"],
+  "opportunities": [
+    "「青岛啤酒」是中国最具国际认知度的啤酒品牌之一，出口已覆盖上百个国家和地区，海外品牌势能远高于其收入占比。",
+    "高端精酿、原浆等差异化产品在海外华人渠道与高端餐饮渠道具备溢价空间。"
+  ],
+  "risks": [
+    "海外收入占比常年仅 1.7%~2.2%，对整体业绩拉动有限，全球化并非成长主线。",
+    "出口受国际航运、关税与汇率波动影响，且海外啤酒市场被百威、喜力等国际巨头主导，扩张难度大。",
+    "地缘政治与各地消费偏好差异可能扰动出口节奏。"
+  ],
+  "summary": "青岛啤酒本质是以国内市场（尤其山东大本营）为绝对主体的内需型消费龙头，境外收入占比长期维持在 2% 左右（2025 年约 1.8%、约 5.8 亿元），且以港澳及出口贸易为主，并非自主出海扩张的成长逻辑。值得注意的是其品牌的海外认知度显著高于收入占比——「青岛啤酒」长期是中国啤酒出口第一品牌、海外华人与高端餐饮渠道知名度高，但这一品牌资产尚未转化为有意义的海外营收体量。投资判断仍应以国内高端化升级带来的吨价与盈利提升、以及高分红为核心，全球化更多是品牌叙事而非业绩驱动。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 青啤 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

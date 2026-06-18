@@ -1,0 +1,154 @@
+{
+  "code": "600660",
+  "name": "福耀玻璃",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 129.28,
+      "netProfit": 22.2,
+      "revenueYoY": 12.41,
+      "netProfitYoY": 15.76,
+      "roe": 27.07,
+      "grossMargin": 42.32,
+      "netMargin": 17.15,
+      "priceClose": 12.14
+    },
+    {
+      "year": "2015",
+      "revenue": 135.73,
+      "netProfit": 26.05,
+      "revenueYoY": 4.99,
+      "netProfitYoY": 17.37,
+      "roe": 18.88,
+      "grossMargin": 42.43,
+      "netMargin": 19.21,
+      "priceClose": 15.19
+    },
+    {
+      "year": "2016",
+      "revenue": 166.21,
+      "netProfit": 31.44,
+      "revenueYoY": 22.45,
+      "netProfitYoY": 20.68,
+      "roe": 18.62,
+      "grossMargin": 43.07,
+      "netMargin": 18.91,
+      "priceClose": 18.63
+    },
+    {
+      "year": "2017",
+      "revenue": 187.13,
+      "netProfit": 31.49,
+      "revenueYoY": 12.58,
+      "netProfitYoY": 0.14,
+      "roe": 17.16,
+      "grossMargin": 42.75,
+      "netMargin": 16.82,
+      "priceClose": 29.0
+    },
+    {
+      "year": "2018",
+      "revenue": 202.25,
+      "netProfit": 41.2,
+      "revenueYoY": 8.08,
+      "netProfitYoY": 30.86,
+      "roe": 20.81,
+      "grossMargin": 42.63,
+      "netMargin": 20.31,
+      "priceClose": 22.78
+    },
+    {
+      "year": "2019",
+      "revenue": 211.04,
+      "netProfit": 28.98,
+      "revenueYoY": 4.35,
+      "netProfitYoY": -29.66,
+      "roe": 14.11,
+      "grossMargin": 37.46,
+      "netMargin": 13.73,
+      "priceClose": 23.99
+    },
+    {
+      "year": "2020",
+      "revenue": 199.07,
+      "netProfit": 26.01,
+      "revenueYoY": -5.67,
+      "netProfitYoY": -10.27,
+      "roe": 12.06,
+      "grossMargin": 36.5,
+      "netMargin": 13.05,
+      "priceClose": 48.05
+    },
+    {
+      "year": "2021",
+      "revenue": 236.03,
+      "netProfit": 31.46,
+      "revenueYoY": 18.57,
+      "netProfitYoY": 20.97,
+      "roe": 12.96,
+      "grossMargin": 35.9,
+      "netMargin": 13.32,
+      "priceClose": 47.14
+    },
+    {
+      "year": "2022",
+      "revenue": 280.99,
+      "netProfit": 47.56,
+      "revenueYoY": 19.05,
+      "netProfitYoY": 51.16,
+      "roe": 17.65,
+      "grossMargin": 34.03,
+      "netMargin": 16.91,
+      "priceClose": 35.07
+    },
+    {
+      "year": "2023",
+      "revenue": 331.61,
+      "netProfit": 56.29,
+      "revenueYoY": 18.02,
+      "netProfitYoY": 18.37,
+      "roe": 18.97,
+      "grossMargin": 35.39,
+      "netMargin": 16.98,
+      "priceClose": 37.39
+    },
+    {
+      "year": "2024",
+      "revenue": 392.52,
+      "netProfit": 74.98,
+      "revenueYoY": 18.37,
+      "netProfitYoY": 33.2,
+      "roe": 22.72,
+      "grossMargin": 36.23,
+      "netMargin": 19.12,
+      "priceClose": 62.4
+    },
+    {
+      "year": "2025",
+      "revenue": 457.87,
+      "netProfit": 93.12,
+      "revenueYoY": 16.65,
+      "netProfitYoY": 24.2,
+      "roe": 25.56,
+      "grossMargin": 37.27,
+      "netMargin": 20.35,
+      "priceClose": 64.77
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 80,
+  "summary": "弱～中周期成长股。收入与利润随全球汽车产销周期波动，但波幅明显小于多数汽车零部件——2019-2020 年受车市下行 + 美国工厂爬坡 + 疫情冲击，归母从 41 亿回落至 26 亿、ROE 降至约 12%，为近年低点；2021 年起伴随全球份额扩张、高附加值产品（HUD/天幕/镀膜）放量与海外工厂盈利改善，营收连续 5 年双位数增长，2025 营收 457.9 亿、归母 93.1 亿均创历史新高，ROE 回升至 25.6%、净利率 20.3%。成长属性（份额 + ASP 升级）强于周期 beta，长期成长稳健，当前处于盈利与景气上行阶段、尚无明显见顶信号。",
+  "drivers": [
+    "全球汽车产销量与单车玻璃用量（天幕/全景化趋势提升用量）",
+    "高附加值产品渗透（HUD、调光、镀膜隔热、包边集成件）带动 ASP 与毛利",
+    "全球市占率持续提升（替代海外竞争对手份额）",
+    "纯碱、天然气等原材料/能源成本及人民币汇率（海外收入占比高）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

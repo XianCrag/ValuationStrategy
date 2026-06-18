@@ -1,0 +1,33 @@
+{
+  "code": "603605",
+  "name": "珀莱雅",
+  "annual": [
+    { "year": "2020", "totalRevenue": 37.51, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 46.33, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 63.87, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 89.05, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 107.78, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 105.98, "overseasIncome": 2.98, "overseasRatio": 2.8 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内（中国大陆）", "income": 103.0, "ratio": 97.2, "grossMargin": null },
+    { "name": "中国香港及境外", "income": 2.98, "ratio": 2.8, "grossMargin": 75.5 }
+  ],
+  "markets": ["中国香港及境外（起步阶段）", "东南亚等线上跨境渠道试水"],
+  "opportunities": [
+    "国货美妆出海正处早期，依托抖音/TikTok 等跨境电商可低成本试水东南亚等市场。",
+    "彩棠、Off&Relax 等差异化品牌具备走向海外华人及亚洲市场的潜力。"
+  ],
+  "risks": [
+    "海外收入占比仅约 2.8%，全球化尚未成为成长主线，对整体业绩拉动有限。",
+    "海外美妆由欧莱雅、雅诗兰黛等国际巨头主导，品牌认知与渠道壁垒高，出海难度大。",
+    "跨境合规（功效宣称、备案、关税）与汇率波动增加海外经营不确定性。"
+  ],
+  "summary": "珀莱雅当前是以国内市场为绝对主体的国货美妆龙头，境外收入占比仅约 2.8%（2025 年约 3 亿元，主要来自中国香港及境外），全球化仍处起步试水阶段，并非估值与业绩的核心驱动。其增长逻辑立足国内可选消费升级与国货渗透率提升，海外更多是依托跨境电商的长期可选项而非第二增长曲线。投资判断应以国内多品牌矩阵的成长性与盈利质量为核心，海外业务作为远期期权看待。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 珀莱雅 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

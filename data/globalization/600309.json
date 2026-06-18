@@ -1,0 +1,36 @@
+{
+  "code": "600309",
+  "name": "万华化学",
+  "annual": [
+    { "year": "2020", "totalRevenue": 734.33, "overseasIncome": 358.85, "overseasRatio": 48.9 },
+    { "year": "2021", "totalRevenue": 1455.38, "overseasIncome": 708.32, "overseasRatio": 48.7 },
+    { "year": "2022", "totalRevenue": 1655.65, "overseasIncome": 812.32, "overseasRatio": 49.1 },
+    { "year": "2023", "totalRevenue": 1753.61, "overseasIncome": 792.06, "overseasRatio": 45.2 },
+    { "year": "2024", "totalRevenue": 1820.69, "overseasIncome": 775.78, "overseasRatio": 42.6 },
+    { "year": "2025", "totalRevenue": 2032.34, "overseasIncome": 963.21, "overseasRatio": 47.4 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 1060.61, "ratio": 52.2, "grossMargin": 15.4 },
+    { "name": "境外", "income": 963.21, "ratio": 47.4, "grossMargin": 11.5 },
+    { "name": "其他（补充）", "income": 8.52, "ratio": 0.4, "grossMargin": 24.4 }
+  ],
+  "markets": ["欧洲（匈牙利 BC 公司 MDI 基地）", "北美", "亚太及一带一路", "中东与拉美等出口市场"],
+  "opportunities": [
+    "收购匈牙利 BorsodChem（BC 公司）获得欧洲 MDI/TDI 产能与渠道，实现「中欧双基地」全球化制造布局，是国内化工出海最成功的案例之一。",
+    "MDI/TDI 等核心产品具全球定价与稳定供应能力，海外占比常年 45%~49%，是真正的全球供应商而非内需企业。",
+    "新材料（POE、PC、TPU、可降解塑料等）随海外产能与客户拓展打开增量出口空间。",
+    "地缘冲突下部分海外同行装置受限，公司凭一体化成本与稳定供应承接全球份额转移。"
+  ],
+  "risks": [
+    "海外业务受全球经济与制造业景气、海运及关税、汇率波动影响，2025 年境外毛利率 11.5% 低于境内。",
+    "欧洲能源成本高企抬升 BC 公司运营成本，区域盈利承压。",
+    "国际贸易摩擦、反倾销与各国产业政策可能扰动出口与海外建厂节奏。"
+  ],
+  "summary": "万华化学是中国化工出海的标杆，全球化是其核心竞争力而非补充：海外收入常年占比约 45%~49%（2025 年约 47.4%、约 963 亿元），通过收购匈牙利 BC 公司形成横跨中欧的 MDI/TDI 双基地，并以稳定全球供应能力主导聚氨酯定价。海外是公司穿越国内地产周期的重要支撑，地缘冲突下还可能承接海外同行的份额转移；但境外毛利率（11.5%）低于境内、且受欧洲能源成本、汇率与贸易政策扰动。整体看，全球化是万华区别于一般内需型化工企业的关键阿尔法，应作为成长与估值的重要支柱来评估。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 万华 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

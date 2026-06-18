@@ -1,0 +1,105 @@
+{
+  "code": "002594",
+  "name": "比亚迪",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 0.0,
+      "netProfit": 4.34,
+      "revenue": 581.96,
+      "payoutRatio": null
+    },
+    {
+      "year": "2015",
+      "dividend": 0.0,
+      "netProfit": 28.23,
+      "revenue": 800.09,
+      "payoutRatio": null
+    },
+    {
+      "year": "2016",
+      "dividend": 14.87,
+      "netProfit": 50.52,
+      "revenue": 1034.7,
+      "payoutRatio": 29.4
+    },
+    {
+      "year": "2017",
+      "dividend": 3.85,
+      "netProfit": 40.66,
+      "revenue": 1059.15,
+      "payoutRatio": 9.5
+    },
+    {
+      "year": "2018",
+      "dividend": 5.57,
+      "netProfit": 27.8,
+      "revenue": 1300.55,
+      "payoutRatio": 20.0
+    },
+    {
+      "year": "2019",
+      "dividend": 1.64,
+      "netProfit": 16.14,
+      "revenue": 1277.39,
+      "payoutRatio": 10.2
+    },
+    {
+      "year": "2020",
+      "dividend": 4.23,
+      "netProfit": 42.34,
+      "revenue": 1565.98,
+      "payoutRatio": 10.0
+    },
+    {
+      "year": "2021",
+      "dividend": 3.06,
+      "netProfit": 30.45,
+      "revenue": 2161.42,
+      "payoutRatio": 10.0
+    },
+    {
+      "year": "2022",
+      "dividend": 33.25,
+      "netProfit": 166.22,
+      "revenue": 4240.61,
+      "payoutRatio": 20.0
+    },
+    {
+      "year": "2023",
+      "dividend": 90.12,
+      "netProfit": 300.41,
+      "revenue": 6023.15,
+      "payoutRatio": 30.0
+    },
+    {
+      "year": "2024",
+      "dividend": 218.36,
+      "netProfit": 402.54,
+      "revenue": 7771.02,
+      "payoutRatio": 54.2
+    },
+    {
+      "year": "2025",
+      "dividend": 32.64,
+      "netProfit": 326.19,
+      "revenue": 8039.65,
+      "payoutRatio": 10.0
+    }
+  ],
+  "mcapYi": 8049.57,
+  "currentDividendYield": 0.4,
+  "payoutRatioLatest": 10.0,
+  "consecutiveYears": 10,
+  "cumulativeDividend": 408.83,
+  "cumulativeToMcap": 5.1,
+  "dividendToRevenue": 0.4,
+  "buybackNote": "以再投资扩张为主、分红为辅；除 2024 年因利润高增一次性提升派息比例至 54% 外，多数年份派息比例仅 10%~30%，2025 年回落至 10%，回购非主要回报方式。",
+  "rating": "weak",
+  "summary": "股东现金回报力度偏弱，与高成长再投资战略相匹配。连续 10 年分红但金额与比例波动大，多数年份派息比例仅 10%~30%，2024 年随利润高增一次性升至 54%、2025 年又回落至 10%；累计派现约 409 亿元，仅相当于当前市值的约 5%，当前股息率不足 0.5%。公司将绝大部分现金流投入产能、研发与全球化扩张，回报形式以股价成长（资本利得）为主而非分红，适合成长型而非股息型投资者。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py / 东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

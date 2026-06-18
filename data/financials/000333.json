@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "000333",
+  "name": "美的集团",
+  "snapshotPrice": 78.59,
+  "sharesYi": 76.13,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 2618.2,
+      "netProfitYi": 202.31,
+      "ebitYi": 264.77,
+      "netMargin": 7.73
+    },
+    {
+      "year": "2019",
+      "revenueYi": 2793.81,
+      "netProfitYi": 242.11,
+      "ebitYi": 308.1,
+      "netMargin": 8.67
+    },
+    {
+      "year": "2020",
+      "revenueYi": 2857.1,
+      "netProfitYi": 272.23,
+      "ebitYi": 329.69,
+      "netMargin": 9.53
+    },
+    {
+      "year": "2021",
+      "revenueYi": 3433.61,
+      "netProfitYi": 285.74,
+      "ebitYi": 350.75,
+      "netMargin": 8.32
+    },
+    {
+      "year": "2022",
+      "revenueYi": 3457.09,
+      "netProfitYi": 295.54,
+      "ebitYi": 367.87,
+      "netMargin": 8.55
+    },
+    {
+      "year": "2023",
+      "revenueYi": 3737.1,
+      "netProfitYi": 337.2,
+      "ebitYi": 430.85,
+      "netMargin": 9.02
+    },
+    {
+      "year": "2024",
+      "revenueYi": 4090.84,
+      "netProfitYi": 385.37,
+      "ebitYi": 491.43,
+      "netMargin": 9.42
+    },
+    {
+      "year": "2025",
+      "revenueYi": 4585.02,
+      "netProfitYi": 439.45,
+      "ebitYi": 552.97,
+      "netMargin": 9.58
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -381.98,
+  "minorityYi": 131.33,
+  "dpsAvg3y": 3.6,
+  "dpsByYear": {
+    "2025": 4.3,
+    "2024": 3.5,
+    "2023": 3.0
+  },
+  "generatedAt": "2026-06-18T13:41:55+08:00"
+}

@@ -1,0 +1,154 @@
+{
+  "code": "000333",
+  "name": "美的集团",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 1423.11,
+      "netProfit": 105.02,
+      "revenueYoY": 17.36,
+      "netProfitYoY": 97.5,
+      "roe": 29.49,
+      "grossMargin": 25.41,
+      "netMargin": 8.22,
+      "priceClose": 27.44
+    },
+    {
+      "year": "2015",
+      "revenue": 1393.47,
+      "netProfit": 127.07,
+      "revenueYoY": -2.08,
+      "netProfitYoY": 20.99,
+      "roe": 29.06,
+      "grossMargin": 25.84,
+      "netMargin": 9.84,
+      "priceClose": 32.82
+    },
+    {
+      "year": "2016",
+      "revenue": 1598.42,
+      "netProfit": 146.84,
+      "revenueYoY": 14.71,
+      "netProfitYoY": 15.56,
+      "roe": 26.88,
+      "grossMargin": 27.31,
+      "netMargin": 9.97,
+      "priceClose": 28.17
+    },
+    {
+      "year": "2017",
+      "revenue": 2419.19,
+      "netProfit": 172.84,
+      "revenueYoY": 51.35,
+      "netProfitYoY": 17.7,
+      "roe": 25.88,
+      "grossMargin": 25.03,
+      "netMargin": 7.73,
+      "priceClose": 55.43
+    },
+    {
+      "year": "2018",
+      "revenue": 2618.2,
+      "netProfit": 202.31,
+      "revenueYoY": 8.23,
+      "netProfitYoY": 17.05,
+      "roe": 25.66,
+      "grossMargin": 27.54,
+      "netMargin": 8.34,
+      "priceClose": 36.86
+    },
+    {
+      "year": "2019",
+      "revenue": 2793.81,
+      "netProfit": 242.11,
+      "revenueYoY": 6.71,
+      "netProfitYoY": 19.68,
+      "roe": 26.43,
+      "grossMargin": 28.86,
+      "netMargin": 9.09,
+      "priceClose": 58.25
+    },
+    {
+      "year": "2020",
+      "revenue": 2857.1,
+      "netProfit": 272.23,
+      "revenueYoY": 2.27,
+      "netProfitYoY": 12.44,
+      "roe": 24.95,
+      "grossMargin": 23.72,
+      "netMargin": 9.68,
+      "priceClose": 98.44
+    },
+    {
+      "year": "2021",
+      "revenue": 3433.61,
+      "netProfit": 285.74,
+      "revenueYoY": 20.18,
+      "netProfitYoY": 4.96,
+      "roe": 24.09,
+      "grossMargin": 22.48,
+      "netMargin": 8.5,
+      "priceClose": 73.81
+    },
+    {
+      "year": "2022",
+      "revenue": 3457.09,
+      "netProfit": 295.54,
+      "revenueYoY": 0.68,
+      "netProfitYoY": 3.43,
+      "roe": 22.21,
+      "grossMargin": 24.24,
+      "netMargin": 8.67,
+      "priceClose": 51.8
+    },
+    {
+      "year": "2023",
+      "revenue": 3737.1,
+      "netProfit": 337.2,
+      "revenueYoY": 8.1,
+      "netProfitYoY": 14.1,
+      "roe": 22.23,
+      "grossMargin": 25.7,
+      "netMargin": 9.07,
+      "priceClose": 54.63
+    },
+    {
+      "year": "2024",
+      "revenue": 4090.84,
+      "netProfit": 385.37,
+      "revenueYoY": 9.47,
+      "netProfitYoY": 14.29,
+      "roe": 21.29,
+      "grossMargin": 26.42,
+      "netMargin": 9.52,
+      "priceClose": 75.22
+    },
+    {
+      "year": "2025",
+      "revenue": 4585.02,
+      "netProfit": 439.45,
+      "revenueYoY": 12.08,
+      "netProfitYoY": 14.03,
+      "roe": 19.7,
+      "grossMargin": 26.39,
+      "netMargin": 9.75,
+      "priceClose": 78.15
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 82,
+  "summary": "弱周期·长期稳健成长（白电消费 + 地产后周期）。盈利不随商品价格大起大落，主要受地产竣工后周期、原材料成本与消费景气小幅扰动：2014-2025 年营收从 1423 亿稳步增至 4585 亿、归母净利从 105 亿增至 439 亿，几乎逐年创新高，仅 2015、2022 因地产/疫情扰动出现增速放缓但仍正增长。毛利率随原材料波动在 22%~29% 区间，ROE 长期维持在 20%~29% 的高位。2025 年营收同比 +12%、归母 +14%，在高基数下仍录得双位数增长，景气处于历史高位且趋势向上，国补、高端化、ToB 与海外 OBM 共同支撑成长延续。周期属性弱，更接近持续成长的龙头白马。",
+  "drivers": [
+    "地产竣工后周期与家电更新换代需求（含以旧换新国补）",
+    "原材料（铜、铝、钢、塑料）成本与汇率波动 —— 影响毛利率",
+    "消费景气与高端化升级（COLMO / 东芝等高端品牌放量）",
+    "ToB（楼宇科技 / 工业技术 / 机器人）与海外 OBM 的第二曲线成长"
+  ],
+  "source": "近 12 年年报（cycle_fetch.py / 东财 F10 主要指标）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

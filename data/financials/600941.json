@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600941",
+  "name": "中国移动",
+  "snapshotPrice": 91.64,
+  "sharesYi": 216.79,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 7368.19,
+      "netProfitYi": 1166.99,
+      "ebitYi": 1529.57,
+      "netMargin": 15.84
+    },
+    {
+      "year": "2019",
+      "revenueYi": 7459.17,
+      "netProfitYi": 1063.25,
+      "ebitYi": 1450.63,
+      "netMargin": 14.25
+    },
+    {
+      "year": "2020",
+      "revenueYi": 7680.7,
+      "netProfitYi": 1078.37,
+      "ebitYi": 1453.49,
+      "netMargin": 14.04
+    },
+    {
+      "year": "2021",
+      "revenueYi": 8482.58,
+      "netProfitYi": 1159.37,
+      "ebitYi": 1546.52,
+      "netMargin": 13.67
+    },
+    {
+      "year": "2022",
+      "revenueYi": 9372.59,
+      "netProfitYi": 1254.59,
+      "ebitYi": 1652.02,
+      "netMargin": 13.39
+    },
+    {
+      "year": "2023",
+      "revenueYi": 10093.09,
+      "netProfitYi": 1317.66,
+      "ebitYi": 1742.61,
+      "netMargin": 13.06
+    },
+    {
+      "year": "2024",
+      "revenueYi": 10407.59,
+      "netProfitYi": 1383.73,
+      "ebitYi": 1816.62,
+      "netMargin": 13.3
+    },
+    {
+      "year": "2025",
+      "revenueYi": 10501.87,
+      "netProfitYi": 1370.95,
+      "ebitYi": 1792.65,
+      "netMargin": 13.05
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -2427.98,
+  "minorityYi": 43.38,
+  "dpsAvg3y": 4.5946,
+  "dpsByYear": {
+    "2025": 4.7037,
+    "2024": 4.6705,
+    "2023": 4.4096
+  },
+  "generatedAt": "2026-06-18T13:42:00+08:00"
+}

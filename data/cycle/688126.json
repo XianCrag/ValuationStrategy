@@ -1,0 +1,132 @@
+{
+  "code": "688126",
+  "name": "沪硅产业",
+  "annual": [
+    {
+      "year": "2016",
+      "revenue": 2.7,
+      "netProfit": -0.87,
+      "revenueYoY": null,
+      "netProfitYoY": null,
+      "roe": null,
+      "grossMargin": 13.83,
+      "netMargin": -33.72,
+      "priceClose": null
+    },
+    {
+      "year": "2017",
+      "revenue": 6.94,
+      "netProfit": 2.24,
+      "revenueYoY": 156.9,
+      "netProfitYoY": 355.7,
+      "roe": null,
+      "grossMargin": 23.08,
+      "netMargin": 31.37,
+      "priceClose": null
+    },
+    {
+      "year": "2018",
+      "revenue": 10.1,
+      "netProfit": 0.11,
+      "revenueYoY": 45.64,
+      "netProfitYoY": -94.99,
+      "roe": null,
+      "grossMargin": 21.99,
+      "netMargin": 0.96,
+      "priceClose": null
+    },
+    {
+      "year": "2019",
+      "revenue": 14.93,
+      "netProfit": -0.9,
+      "revenueYoY": 47.71,
+      "netProfitYoY": -902.4,
+      "roe": -2.06,
+      "grossMargin": 14.55,
+      "netMargin": -6.78,
+      "priceClose": null
+    },
+    {
+      "year": "2020",
+      "revenue": 18.11,
+      "netProfit": 0.87,
+      "revenueYoY": 21.36,
+      "netProfitYoY": 196.84,
+      "roe": 1.14,
+      "grossMargin": 13.1,
+      "netMargin": 4.97,
+      "priceClose": 33.12
+    },
+    {
+      "year": "2021",
+      "revenue": 24.67,
+      "netProfit": 1.46,
+      "revenueYoY": 36.19,
+      "netProfitYoY": 67.81,
+      "roe": 1.47,
+      "grossMargin": 15.96,
+      "netMargin": 5.9,
+      "priceClose": 25.82
+    },
+    {
+      "year": "2022",
+      "revenue": 36.0,
+      "netProfit": 3.25,
+      "revenueYoY": 45.95,
+      "netProfitYoY": 122.45,
+      "roe": 2.29,
+      "grossMargin": 22.72,
+      "netMargin": 9.57,
+      "priceClose": 17.61
+    },
+    {
+      "year": "2023",
+      "revenue": 31.9,
+      "netProfit": 1.87,
+      "revenueYoY": -11.39,
+      "netProfitYoY": -42.61,
+      "roe": 1.27,
+      "grossMargin": 16.46,
+      "netMargin": 5.04,
+      "priceClose": 17.32
+    },
+    {
+      "year": "2024",
+      "revenue": 33.88,
+      "netProfit": -9.71,
+      "revenueYoY": 6.18,
+      "netProfitYoY": -620.28,
+      "roe": -7.07,
+      "grossMargin": -8.98,
+      "netMargin": -33.11,
+      "priceClose": 18.82
+    },
+    {
+      "year": "2025",
+      "revenue": 37.16,
+      "netProfit": -15.08,
+      "revenueYoY": 9.69,
+      "netProfitYoY": -55.33,
+      "roe": -12.68,
+      "grossMargin": -17.06,
+      "netMargin": -48.71,
+      "priceClose": 21.64
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "strong",
+  "position": "rising",
+  "positionScore": 30,
+  "summary": "典型强周期成长股（半导体大硅片）。盈利与下游晶圆厂资本开支、稼动率及硅片价格高度绑定：2017 年上行期一度盈利、净利率超 30%，2020-2022 半导体景气推动营收翻倍、2022 归母净利达 3.25 亿的阶段高点；2023 年起行业下行叠加价格战，盈利大幅恶化，2024、2025 连续两年录得历史级亏损（-9.71 亿、-15.08 亿），毛利率转负、ROE -12.7%。当前营收虽逐季攀升、创历史新高（以量补价 + 300mm 放量），但单价低迷、新产能折旧高企使利润仍在探底，盈利尚处周期谷底（约 30% 分位）。判断行业出货量与稼动率正从底部回升、价格筑底，处于复苏初期但盈利拐点未确认。波动远大于成熟制造业，且盈利薄、对价格极度敏感。",
+  "drivers": [
+    "下游晶圆厂资本开支与稼动率（半导体景气周期）—— 最核心的需求变量",
+    "半导体硅片价格（300mm/200mm 单价走势与价格战）",
+    "300mm 国产替代放量节奏与产能爬坡、折旧压力",
+    "全球库存周期与逻辑/存储/功率等终端需求复苏"
+  ],
+  "source": "近 10 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 半导体行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,105 @@
+{
+  "code": "600309",
+  "name": "万华化学",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 6.49,
+      "netProfit": 24.19,
+      "revenue": 220.88,
+      "payoutRatio": 26.8
+    },
+    {
+      "year": "2015",
+      "dividend": 4.32,
+      "netProfit": 16.1,
+      "revenue": 194.92,
+      "payoutRatio": 26.8
+    },
+    {
+      "year": "2016",
+      "dividend": 11.39,
+      "netProfit": 36.79,
+      "revenue": 301.0,
+      "payoutRatio": 31.0
+    },
+    {
+      "year": "2017",
+      "dividend": 41.01,
+      "netProfit": 111.35,
+      "revenue": 531.23,
+      "payoutRatio": 36.8
+    },
+    {
+      "year": "2018",
+      "dividend": 62.79,
+      "netProfit": 155.66,
+      "revenue": 728.37,
+      "payoutRatio": 40.3
+    },
+    {
+      "year": "2019",
+      "dividend": 40.82,
+      "netProfit": 101.3,
+      "revenue": 680.51,
+      "payoutRatio": 40.3
+    },
+    {
+      "year": "2020",
+      "dividend": 40.82,
+      "netProfit": 100.41,
+      "revenue": 734.33,
+      "payoutRatio": 40.7
+    },
+    {
+      "year": "2021",
+      "dividend": 78.49,
+      "netProfit": 246.49,
+      "revenue": 1455.38,
+      "payoutRatio": 31.8
+    },
+    {
+      "year": "2022",
+      "dividend": 50.24,
+      "netProfit": 162.34,
+      "revenue": 1655.65,
+      "payoutRatio": 30.9
+    },
+    {
+      "year": "2023",
+      "dividend": 51.02,
+      "netProfit": 168.16,
+      "revenue": 1753.61,
+      "payoutRatio": 30.3
+    },
+    {
+      "year": "2024",
+      "dividend": 39.25,
+      "netProfit": 130.33,
+      "revenue": 1820.69,
+      "payoutRatio": 30.1
+    },
+    {
+      "year": "2025",
+      "dividend": 39.13,
+      "netProfit": 125.27,
+      "revenue": 2032.35,
+      "payoutRatio": 31.2
+    }
+  ],
+  "mcapYi": 2161.59,
+  "currentDividendYield": 1.8,
+  "payoutRatioLatest": 31.2,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 541.54,
+  "cumulativeToMcap": 25.1,
+  "dividendToRevenue": 2,
+  "buybackNote": "现金分红与股份回购并重：连续多年现金分红，并实施股份回购增强股东回报与员工激励（公司按月披露回购进展）。派息比例总体稳定在 30%~40%，成长期保留较多利润用于再投资。",
+  "rating": "moderate",
+  "summary": "股东回报稳健但非高股息逻辑。连续 12 年现金分红，累计派现约 541.6 亿元，约相当于当前市值的 25%；派息比例长期维持在 30%~40%（成长高峰期约 30%、行业平稳期约 40%），并辅以股份回购。受周期下行影响，2024-2025 年分红绝对额随利润回落至约 39 亿，当前股息率约 1.8%、分红占收入比约 2%。作为仍处扩张期的成长型化工龙头，公司更倾向将现金投入新材料与一体化产能，回报确定性中等，核心看点在成长兑现而非股息。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py，东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

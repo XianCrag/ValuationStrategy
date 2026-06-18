@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600600",
+  "name": "青岛啤酒",
+  "snapshotPrice": 54.08,
+  "sharesYi": 13.64,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 265.75,
+      "netProfitYi": 14.22,
+      "ebitYi": 23.93,
+      "netMargin": 5.35
+    },
+    {
+      "year": "2019",
+      "revenueYi": 279.84,
+      "netProfitYi": 18.52,
+      "ebitYi": 27.41,
+      "netMargin": 6.62
+    },
+    {
+      "year": "2020",
+      "revenueYi": 277.6,
+      "netProfitYi": 22.01,
+      "ebitYi": 32.53,
+      "netMargin": 7.93
+    },
+    {
+      "year": "2021",
+      "revenueYi": 301.67,
+      "netProfitYi": 31.55,
+      "ebitYi": 45.02,
+      "netMargin": 10.46
+    },
+    {
+      "year": "2022",
+      "revenueYi": 321.72,
+      "netProfitYi": 37.11,
+      "ebitYi": 50.15,
+      "netMargin": 11.53
+    },
+    {
+      "year": "2023",
+      "revenueYi": 339.37,
+      "netProfitYi": 42.68,
+      "ebitYi": 57.63,
+      "netMargin": 12.58
+    },
+    {
+      "year": "2024",
+      "revenueYi": 321.38,
+      "netProfitYi": 43.45,
+      "ebitYi": 59.03,
+      "netMargin": 13.52
+    },
+    {
+      "year": "2025",
+      "revenueYi": 324.73,
+      "netProfitYi": 45.88,
+      "ebitYi": 63.03,
+      "netMargin": 14.13
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -228.62,
+  "minorityYi": 8.45,
+  "dpsAvg3y": 2.1833,
+  "dpsByYear": {
+    "2025": 2.35,
+    "2024": 2.2,
+    "2023": 2.0
+  },
+  "generatedAt": "2026-06-18T13:42:06+08:00"
+}

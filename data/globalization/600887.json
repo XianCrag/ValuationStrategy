@@ -1,0 +1,36 @@
+{
+  "code": "600887",
+  "name": "伊利股份",
+  "annual": [
+    { "year": "2020", "totalRevenue": 965.24, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 1101.43, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 1226.97, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 1257.57, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 1153.94, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 1156.36, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "华北", "income": 324.66, "ratio": 28.1, "grossMargin": 34.4 },
+    { "name": "华南", "income": 280.23, "ratio": 24.2, "grossMargin": 36.6 },
+    { "name": "华中", "income": 212.31, "ratio": 18.4, "grossMargin": 37.3 },
+    { "name": "华东", "income": 164.32, "ratio": 14.2, "grossMargin": 34.8 },
+    { "name": "其他", "income": 163.93, "ratio": 14.2, "grossMargin": 27.0 }
+  ],
+  "markets": ["东南亚（泰国 Chomthana 冰淇淋 / Joyday）", "新西兰（大洋洲乳业生产研发基地）", "印尼等东南亚乳品市场"],
+  "opportunities": [
+    "东南亚冰淇淋（泰国 Chomthana、Joyday 品牌）持续渗透，借力当地渠道复制国内冷饮龙头打法。",
+    "依托新西兰双核心奶源与大洋洲基地，保障优质奶源并支撑奶酪/乳脂等深加工出海。"
+  ],
+  "risks": [
+    "海外收入占比很低（年报未单列分地区境外口径），全球化对整体业绩拉动有限，并非当前成长主线。",
+    "东南亚等新兴市场竞争激烈、品牌认知度待建立，盈利贡献尚小且爬坡较慢。",
+    "跨境经营受汇率、当地政策与供应链波动影响。"
+  ],
+  "summary": "伊利本质是以国内市场为绝对主体的内需型乳业龙头，海外业务占比很低（年报未单独披露分地区境外收入，规模与占比有限），出海以东南亚冰淇淋（泰国 Chomthana / Joyday）和新西兰大洋洲奶源基地为主要抓手。全球化目前更多是奶源保障与品类外延的补充，而非第二增长曲线；2025 年收入仍高度集中于华北、华南、华中等国内区域（合计超七成），各区域毛利率介于 27%~37%。投资判断仍应以国内乳品需求复苏、原奶价格周期与高分红为核心，海外布局是长期可选项而非当前估值主线。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 伊利 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

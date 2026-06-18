@@ -1,0 +1,154 @@
+{
+  "code": "600900",
+  "name": "长江电力",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 268.98,
+      "netProfit": 118.3,
+      "revenueYoY": 18.5,
+      "netProfitYoY": 31.54,
+      "roe": 16.3,
+      "grossMargin": 63.1,
+      "netMargin": 43.98,
+      "priceClose": 10.67
+    },
+    {
+      "year": "2015",
+      "revenue": 474.35,
+      "netProfit": 182.35,
+      "revenueYoY": 76.35,
+      "netProfitYoY": 54.14,
+      "roe": 15.56,
+      "grossMargin": 61.81,
+      "netMargin": 44.51,
+      "priceClose": 13.56
+    },
+    {
+      "year": "2016",
+      "revenue": 489.39,
+      "netProfit": 207.81,
+      "revenueYoY": 3.17,
+      "netProfitYoY": 13.97,
+      "roe": 16.88,
+      "grossMargin": 60.69,
+      "netMargin": 42.78,
+      "priceClose": 12.66
+    },
+    {
+      "year": "2017",
+      "revenue": 501.46,
+      "netProfit": 222.61,
+      "revenueYoY": 2.46,
+      "netProfitYoY": 7.12,
+      "roe": 16.91,
+      "grossMargin": 61.21,
+      "netMargin": 44.42,
+      "priceClose": 15.59
+    },
+    {
+      "year": "2018",
+      "revenue": 512.14,
+      "netProfit": 226.11,
+      "revenueYoY": 2.13,
+      "netProfitYoY": 1.57,
+      "roe": 16.31,
+      "grossMargin": 62.89,
+      "netMargin": 44.21,
+      "priceClose": 15.88
+    },
+    {
+      "year": "2019",
+      "revenue": 498.74,
+      "netProfit": 215.43,
+      "revenueYoY": -2.62,
+      "netProfitYoY": -4.72,
+      "roe": 14.77,
+      "grossMargin": 62.51,
+      "netMargin": 43.24,
+      "priceClose": 18.38
+    },
+    {
+      "year": "2020",
+      "revenue": 577.83,
+      "netProfit": 262.98,
+      "revenueYoY": 15.86,
+      "netProfitYoY": 22.07,
+      "roe": 16.71,
+      "grossMargin": 63.4,
+      "netMargin": 45.87,
+      "priceClose": 19.16
+    },
+    {
+      "year": "2021",
+      "revenue": 556.46,
+      "netProfit": 262.73,
+      "revenueYoY": -3.7,
+      "netProfitYoY": -0.09,
+      "roe": 14.92,
+      "grossMargin": 62.06,
+      "netMargin": 47.6,
+      "priceClose": 22.7
+    },
+    {
+      "year": "2022",
+      "revenue": 688.63,
+      "netProfit": 237.26,
+      "revenueYoY": 23.75,
+      "netProfitYoY": -9.69,
+      "roe": 9.32,
+      "grossMargin": 57.13,
+      "netMargin": 36.45,
+      "priceClose": 21.0
+    },
+    {
+      "year": "2023",
+      "revenue": 781.44,
+      "netProfit": 272.45,
+      "revenueYoY": 13.48,
+      "netProfitYoY": 14.83,
+      "roe": 13.52,
+      "grossMargin": 57.82,
+      "netMargin": 35.79,
+      "priceClose": 23.34
+    },
+    {
+      "year": "2024",
+      "revenue": 844.92,
+      "netProfit": 324.96,
+      "revenueYoY": 8.12,
+      "netProfitYoY": 19.28,
+      "roe": 15.71,
+      "grossMargin": 59.13,
+      "netMargin": 38.97,
+      "priceClose": 29.55
+    },
+    {
+      "year": "2025",
+      "revenue": 862.42,
+      "netProfit": 345.03,
+      "revenueYoY": 2.07,
+      "netProfitYoY": 6.17,
+      "roe": 15.9,
+      "grossMargin": 61.67,
+      "netMargin": 40.52,
+      "priceClose": 27.19
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 72,
+  "summary": "弱周期、极稳定的公用事业龙头。盈利主要受梯级电站「来水量」自然波动影响（如 2022 年长江流域大旱导致归母同比 -9.7%），而非宏观商品周期，且六库联调与超低边际成本平滑了波动。2016-2025 年归母净利长期稳定在 200 亿以上、净利率维持 35%~48% 的高位；2021-2022 年完成乌东德、白鹤滩注入后装机与发电量跃升，2023-2025 年营收与利润连续创历史新高（2025 归母 345 亿、ROE 15.9%）。当前处于资产注入红利释放 + 丰水周期叠加的盈利上行阶段，绝对值居历史峰值区间，故 position 取 rising、约 72 分位。永续经营、来水均值回归与高分红使其本质更接近「类债」而非周期股。",
+  "drivers": [
+    "梯级电站来水量（长江上游降水/水文）—— 最核心的盈利变量",
+    "六库联调优化调度，提升发电量与枯水期出力",
+    "电价市场化与外送电消纳（云电外送、电力市场化交易）",
+    "财务费用与利率走势（高负债资产，利率下行直接增厚利润、且高股息受益）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

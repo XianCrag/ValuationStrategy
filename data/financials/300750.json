@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "300750",
+  "name": "宁德时代",
+  "snapshotPrice": 395.19,
+  "sharesYi": 46.27,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 296.11,
+      "netProfitYi": 33.87,
+      "ebitYi": 44.09,
+      "netMargin": 11.44
+    },
+    {
+      "year": "2019",
+      "revenueYi": 457.88,
+      "netProfitYi": 45.6,
+      "ebitYi": 60.5,
+      "netMargin": 9.96
+    },
+    {
+      "year": "2020",
+      "revenueYi": 503.19,
+      "netProfitYi": 55.83,
+      "ebitYi": 76.23,
+      "netMargin": 11.1
+    },
+    {
+      "year": "2021",
+      "revenueYi": 1303.56,
+      "netProfitYi": 159.31,
+      "ebitYi": 210.48,
+      "netMargin": 12.22
+    },
+    {
+      "year": "2022",
+      "revenueYi": 3285.94,
+      "netProfitYi": 307.29,
+      "ebitYi": 388.05,
+      "netMargin": 9.35
+    },
+    {
+      "year": "2023",
+      "revenueYi": 4009.17,
+      "netProfitYi": 441.21,
+      "ebitYi": 573.61,
+      "netMargin": 11.01
+    },
+    {
+      "year": "2024",
+      "revenueYi": 3620.13,
+      "netProfitYi": 507.45,
+      "ebitYi": 670.61,
+      "netMargin": 14.02
+    },
+    {
+      "year": "2025",
+      "revenueYi": 4237.02,
+      "netProfitYi": 722.01,
+      "ebitYi": 922.61,
+      "netMargin": 17.04
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -2858.66,
+  "minorityYi": 369.7,
+  "dpsAvg3y": 4.8427,
+  "dpsByYear": {
+    "2025": 7.964,
+    "2024": 4.553,
+    "2023": 2.011
+  },
+  "generatedAt": "2026-06-18T13:41:57+08:00"
+}

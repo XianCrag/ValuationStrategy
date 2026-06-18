@@ -1,0 +1,154 @@
+{
+  "code": "600030",
+  "name": "中信证券",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 291.98,
+      "netProfit": 113.37,
+      "revenueYoY": 81.18,
+      "netProfitYoY": 116.2,
+      "roe": 12.18,
+      "grossMargin": null,
+      "netMargin": 40.63,
+      "priceClose": 33.9
+    },
+    {
+      "year": "2015",
+      "revenue": 560.13,
+      "netProfit": 198.0,
+      "revenueYoY": 91.84,
+      "netProfitYoY": 74.64,
+      "roe": 16.63,
+      "grossMargin": null,
+      "netMargin": 36.35,
+      "priceClose": 19.35
+    },
+    {
+      "year": "2016",
+      "revenue": 380.02,
+      "netProfit": 103.65,
+      "revenueYoY": -32.16,
+      "netProfitYoY": -47.65,
+      "roe": 7.36,
+      "grossMargin": null,
+      "netMargin": 28.9,
+      "priceClose": 16.06
+    },
+    {
+      "year": "2017",
+      "revenue": 432.92,
+      "netProfit": 114.33,
+      "revenueYoY": 13.92,
+      "netProfitYoY": 10.3,
+      "roe": 7.82,
+      "grossMargin": null,
+      "netMargin": 27.67,
+      "priceClose": 18.1
+    },
+    {
+      "year": "2018",
+      "revenue": 372.21,
+      "netProfit": 93.9,
+      "revenueYoY": -14.02,
+      "netProfitYoY": -17.87,
+      "roe": 6.2,
+      "grossMargin": null,
+      "netMargin": 26.53,
+      "priceClose": 16.01
+    },
+    {
+      "year": "2019",
+      "revenue": 431.4,
+      "netProfit": 122.29,
+      "revenueYoY": 15.9,
+      "netProfitYoY": 30.23,
+      "roe": 7.76,
+      "grossMargin": null,
+      "netMargin": 29.32,
+      "priceClose": 25.3
+    },
+    {
+      "year": "2020",
+      "revenue": 543.83,
+      "netProfit": 149.02,
+      "revenueYoY": 26.06,
+      "netProfitYoY": 21.86,
+      "roe": 8.43,
+      "grossMargin": null,
+      "netMargin": 28.53,
+      "priceClose": 29.4
+    },
+    {
+      "year": "2021",
+      "revenue": 765.24,
+      "netProfit": 231.0,
+      "revenueYoY": 40.71,
+      "netProfitYoY": 55.01,
+      "roe": 12.07,
+      "grossMargin": null,
+      "netMargin": 31.37,
+      "priceClose": 26.41
+    },
+    {
+      "year": "2022",
+      "revenue": 651.09,
+      "netProfit": 213.17,
+      "revenueYoY": -14.92,
+      "netProfitYoY": -7.72,
+      "roe": 8.67,
+      "grossMargin": null,
+      "netMargin": 34.05,
+      "priceClose": 19.91
+    },
+    {
+      "year": "2023",
+      "revenue": 600.68,
+      "netProfit": 197.21,
+      "revenueYoY": -7.74,
+      "netProfitYoY": -7.49,
+      "roe": 7.81,
+      "grossMargin": null,
+      "netMargin": 34.19,
+      "priceClose": 20.37
+    },
+    {
+      "year": "2024",
+      "revenue": 581.19,
+      "netProfit": 217.04,
+      "revenueYoY": -3.24,
+      "netProfitYoY": 10.06,
+      "roe": 8.09,
+      "grossMargin": null,
+      "netMargin": 38.87,
+      "priceClose": 29.17
+    },
+    {
+      "year": "2025",
+      "revenue": 748.54,
+      "netProfit": 300.76,
+      "revenueYoY": 28.79,
+      "netProfitYoY": 38.58,
+      "roe": 10.59,
+      "grossMargin": null,
+      "netMargin": 41.42,
+      "priceClose": 28.71
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "strong",
+  "position": "rising",
+  "positionScore": 78,
+  "summary": "典型强 β 周期（证券）。盈利随股市牛熊大幅波动：2014-2015 大牛市业绩翻倍（2015 归母 198 亿、ROE 16.6% 为周期高点），2016-2018 熊市与去杠杆下利润腰斩、2018 归母仅 93.9 亿、ROE 跌至 6.2% 的周期底部；2019-2021 随注册制与市场回暖逐级修复，2022-2023 再度回落，2024 起重新向上。2025 年市场成交活跃 + 指数走强 + 国际业务发力，营收同比 +28.8%、归母净利 300.8 亿创历史新高、ROE 回升至 10.6%，2026Q1 归母净利同比再增 55%，盈利处于明确的上行周期。但 ROE 绝对水平仍低于 2015 年高点，且高度依赖资本市场景气，一旦市场转冷弹性将快速逆转。",
+  "drivers": [
+    "A 股市场成交量与指数走势（牛熊周期）—— 经纪与自营的最核心变量",
+    "权益/固收市场涨跌与波动率，决定自营投资收益弹性",
+    "股权与债券融资节奏、注册制及并购重组政策（投行业务）",
+    "市场风险偏好与两融杠杆需求（信用业务），以及行业费率与监管政策"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

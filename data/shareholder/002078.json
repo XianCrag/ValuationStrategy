@@ -1,0 +1,33 @@
+{
+  "code": "002078",
+  "name": "太阳纸业",
+  "annual": [
+    { "year": "2014", "dividend": 1.27, "netProfit": 4.69, "revenue": 104.58, "payoutRatio": 27.1 },
+    { "year": "2015", "dividend": 1.27, "netProfit": 6.67, "revenue": 108.25, "payoutRatio": 19.0 },
+    { "year": "2016", "dividend": 1.27, "netProfit": 10.57, "revenue": 144.55, "payoutRatio": 12.0 },
+    { "year": "2017", "dividend": 2.59, "netProfit": 20.24, "revenue": 188.94, "payoutRatio": 12.8 },
+    { "year": "2018", "dividend": 2.59, "netProfit": 22.38, "revenue": 217.68, "payoutRatio": 11.6 },
+    { "year": "2019", "dividend": 2.59, "netProfit": 21.78, "revenue": 227.63, "payoutRatio": 11.9 },
+    { "year": "2020", "dividend": 2.62, "netProfit": 19.53, "revenue": 215.89, "payoutRatio": 13.4 },
+    { "year": "2021", "dividend": 5.37, "netProfit": 29.29, "revenue": 321.59, "payoutRatio": 18.3 },
+    { "year": "2022", "dividend": 5.59, "netProfit": 28.09, "revenue": 397.67, "payoutRatio": 19.9 },
+    { "year": "2023", "dividend": 8.38, "netProfit": 30.86, "revenue": 395.44, "payoutRatio": 27.2 },
+    { "year": "2024", "dividend": 8.38, "netProfit": 31.01, "revenue": 407.27, "payoutRatio": 27.0 },
+    { "year": "2025", "dividend": 8.38, "netProfit": 32.51, "revenue": 391.92, "payoutRatio": 25.8 }
+  ],
+  "mcapYi": 349.32,
+  "currentDividendYield": 2.4,
+  "payoutRatioLatest": 25.8,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 57.5,
+  "cumulativeToMcap": 16.5,
+  "dividendToRevenue": 2,
+  "buybackNote": "以现金分红为主，回购非主要回报方式；近年每股派息稳定在 0.3 元，2023 年起年度分红额提升至约 8.4 亿元并保持稳定。",
+  "rating": "moderate",
+  "summary": "股东回报稳健但力度温和。连续 12 年现金分红，累计派现约 57.5 亿元，约相当于当前市值 349 亿的 16.5%。派息比例由 2016-2020 年的约 12%~13% 阶梯提升至近年的 26%~27%，当前股息率约 2.4%，分红绝对额随盈利同步增长、回报确定性较高。但派息比例与股息率整体仍处中等水平，公司处于林浆纸一体化产能扩张期，资本开支较大、留存利润用于成长，回报弹性弱于高分红的资源型龙头。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "000895",
+  "name": "双汇发展",
+  "snapshotPrice": 22.83,
+  "sharesYi": 34.65,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 488.92,
+      "netProfitYi": 49.12,
+      "ebitYi": 64.79,
+      "netMargin": 10.05
+    },
+    {
+      "year": "2019",
+      "revenueYi": 603.48,
+      "netProfitYi": 54.38,
+      "ebitYi": 69.61,
+      "netMargin": 9.01
+    },
+    {
+      "year": "2020",
+      "revenueYi": 739.35,
+      "netProfitYi": 62.56,
+      "ebitYi": 80.72,
+      "netMargin": 8.46
+    },
+    {
+      "year": "2021",
+      "revenueYi": 667.98,
+      "netProfitYi": 48.66,
+      "ebitYi": 63.47,
+      "netMargin": 7.28
+    },
+    {
+      "year": "2022",
+      "revenueYi": 627.31,
+      "netProfitYi": 56.21,
+      "ebitYi": 72.94,
+      "netMargin": 8.96
+    },
+    {
+      "year": "2023",
+      "revenueYi": 600.97,
+      "netProfitYi": 50.53,
+      "ebitYi": 68.27,
+      "netMargin": 8.41
+    },
+    {
+      "year": "2024",
+      "revenueYi": 597.15,
+      "netProfitYi": 49.89,
+      "ebitYi": 68.46,
+      "netMargin": 8.35
+    },
+    {
+      "year": "2025",
+      "revenueYi": 594.6,
+      "netProfitYi": 51.05,
+      "ebitYi": 68.22,
+      "netMargin": 8.58
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 71.4,
+  "minorityYi": 2.07,
+  "dpsAvg3y": 1.4367,
+  "dpsByYear": {
+    "2025": 1.45,
+    "2024": 1.41,
+    "2023": 1.45
+  },
+  "generatedAt": "2026-06-18T13:41:54+08:00"
+}

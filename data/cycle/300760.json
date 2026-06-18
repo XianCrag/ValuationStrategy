@@ -1,0 +1,154 @@
+{
+  "code": "300760",
+  "name": "迈瑞医疗",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 78.36,
+      "netProfit": 13.6,
+      "revenueYoY": null,
+      "netProfitYoY": null,
+      "roe": 15.0,
+      "grossMargin": 63.43,
+      "netMargin": 17.8,
+      "priceClose": null
+    },
+    {
+      "year": "2015",
+      "revenue": 80.13,
+      "netProfit": 9.1,
+      "revenueYoY": 2.26,
+      "netProfitYoY": -33.08,
+      "roe": 10.0,
+      "grossMargin": 62.22,
+      "netMargin": 11.74,
+      "priceClose": null
+    },
+    {
+      "year": "2016",
+      "revenue": 90.32,
+      "netProfit": 16.0,
+      "revenueYoY": 12.71,
+      "netProfitYoY": 75.9,
+      "roe": 27.63,
+      "grossMargin": 64.62,
+      "netMargin": 17.85,
+      "priceClose": null
+    },
+    {
+      "year": "2017",
+      "revenue": 111.74,
+      "netProfit": 25.89,
+      "revenueYoY": 23.72,
+      "netProfitYoY": 61.78,
+      "roe": 46.72,
+      "grossMargin": 67.03,
+      "netMargin": 23.28,
+      "priceClose": null
+    },
+    {
+      "year": "2018",
+      "revenue": 137.53,
+      "netProfit": 37.19,
+      "revenueYoY": 23.09,
+      "netProfitYoY": 43.65,
+      "roe": 42.16,
+      "grossMargin": 66.57,
+      "netMargin": 27.09,
+      "priceClose": 109.22
+    },
+    {
+      "year": "2019",
+      "revenue": 165.56,
+      "netProfit": 46.81,
+      "revenueYoY": 20.38,
+      "netProfitYoY": 25.85,
+      "roe": 27.91,
+      "grossMargin": 65.24,
+      "netMargin": 28.3,
+      "priceClose": 181.9
+    },
+    {
+      "year": "2020",
+      "revenue": 210.26,
+      "netProfit": 66.58,
+      "revenueYoY": 27.0,
+      "netProfitYoY": 42.24,
+      "roe": 32.29,
+      "grossMargin": 64.97,
+      "netMargin": 31.67,
+      "priceClose": 426.0
+    },
+    {
+      "year": "2021",
+      "revenue": 252.7,
+      "netProfit": 80.02,
+      "revenueYoY": 20.18,
+      "netProfitYoY": 20.19,
+      "roe": 31.92,
+      "grossMargin": 65.01,
+      "netMargin": 31.67,
+      "priceClose": 380.8
+    },
+    {
+      "year": "2022",
+      "revenue": 303.66,
+      "netProfit": 96.07,
+      "revenueYoY": 20.17,
+      "netProfitYoY": 20.07,
+      "roe": 33.38,
+      "grossMargin": 64.15,
+      "netMargin": 31.65,
+      "priceClose": 315.97
+    },
+    {
+      "year": "2023",
+      "revenue": 349.32,
+      "netProfit": 115.82,
+      "revenueYoY": 15.04,
+      "netProfitYoY": 20.56,
+      "roe": 33.64,
+      "grossMargin": 64.18,
+      "netMargin": 33.15,
+      "priceClose": 290.6
+    },
+    {
+      "year": "2024",
+      "revenue": 367.26,
+      "netProfit": 116.68,
+      "revenueYoY": 5.14,
+      "netProfitYoY": 0.74,
+      "roe": 32.58,
+      "grossMargin": 63.11,
+      "netMargin": 31.97,
+      "priceClose": 255.0
+    },
+    {
+      "year": "2025",
+      "revenue": 332.82,
+      "netProfit": 81.36,
+      "revenueYoY": -9.38,
+      "netProfitYoY": -30.28,
+      "roe": 21.58,
+      "grossMargin": 60.32,
+      "netMargin": 25.39,
+      "priceClose": 190.45
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "trough",
+  "positionScore": 35,
+  "summary": "医疗器械龙头，属典型弱周期高成长资产。2014-2024 年营收从 78 亿增至 367 亿、归母净利从 14 亿增至 117 亿，连续多年保持 15%~25% 的稳健增长，ROE 长期维持在 30% 以上，毛利率稳定在 63%~67%，体现极强的内生成长性与盈利质量。其需求来自刚性的医疗诊疗，与宏观经济周期相关性弱，但 2023 年下半年起的医疗反腐、设备招标延后与高基数效应形成短期扰动，2025 年营收同比 -9.4%、归母 -30.3%、ROE 回落至 21.6%，出现上市以来首次年度下滑，当前正处于政策扰动下的业绩低点。随着国内招标恢复、海外占比升至 53%、新兴业务放量，2026 年增长有望重回正轨，整体判断为弱周期、当前位于阶段性低谷。",
+  "drivers": [
+    "国内医疗反腐与设备招标节奏（短期最关键扰动变量）",
+    "医疗新基建、设备更新与分级诊疗带来的院端采购需求",
+    "海外本地化装机与高端客户突破（IVD/超声出海）",
+    "国产替代进程与新兴业务（微创外科/动物医疗等）放量"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "603605",
+  "name": "珀莱雅",
+  "snapshotPrice": 64.39,
+  "sharesYi": 3.96,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 23.61,
+      "netProfitYi": 2.87,
+      "ebitYi": 3.97,
+      "netMargin": 12.16
+    },
+    {
+      "year": "2019",
+      "revenueYi": 31.24,
+      "netProfitYi": 3.93,
+      "ebitYi": 4.65,
+      "netMargin": 12.57
+    },
+    {
+      "year": "2020",
+      "revenueYi": 37.52,
+      "netProfitYi": 4.76,
+      "ebitYi": 5.57,
+      "netMargin": 12.69
+    },
+    {
+      "year": "2021",
+      "revenueYi": 46.33,
+      "netProfitYi": 5.76,
+      "ebitYi": 6.78,
+      "netMargin": 12.43
+    },
+    {
+      "year": "2022",
+      "revenueYi": 63.85,
+      "netProfitYi": 8.17,
+      "ebitYi": 10.67,
+      "netMargin": 12.8
+    },
+    {
+      "year": "2023",
+      "revenueYi": 89.05,
+      "netProfitYi": 11.94,
+      "ebitYi": 15.14,
+      "netMargin": 13.41
+    },
+    {
+      "year": "2024",
+      "revenueYi": 107.78,
+      "netProfitYi": 15.52,
+      "ebitYi": 19.2,
+      "netMargin": 14.4
+    },
+    {
+      "year": "2025",
+      "revenueYi": 105.97,
+      "netProfitYi": 14.98,
+      "ebitYi": 19.07,
+      "netMargin": 14.13
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -41.55,
+  "minorityYi": 1.42,
+  "dpsAvg3y": 1.4933,
+  "dpsByYear": {
+    "2025": 2.0,
+    "2024": 1.19,
+    "2023": 1.29
+  },
+  "generatedAt": "2026-06-18T13:42:04+08:00"
+}

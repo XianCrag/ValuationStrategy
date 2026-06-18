@@ -1,0 +1,33 @@
+{
+  "code": "603605",
+  "name": "珀莱雅",
+  "annual": [
+    { "year": "2014", "dividend": 0.0, "netProfit": 1.58, "revenue": 17.4, "payoutRatio": null },
+    { "year": "2015", "dividend": 0.0, "netProfit": 1.44, "revenue": 16.45, "payoutRatio": null },
+    { "year": "2016", "dividend": 0.0, "netProfit": 1.54, "revenue": 16.23, "payoutRatio": null },
+    { "year": "2017", "dividend": 0.62, "netProfit": 2.01, "revenue": 17.83, "payoutRatio": 30.8 },
+    { "year": "2018", "dividend": 0.87, "netProfit": 2.87, "revenue": 23.61, "payoutRatio": 30.3 },
+    { "year": "2019", "dividend": 1.19, "netProfit": 3.93, "revenue": 31.24, "payoutRatio": 30.3 },
+    { "year": "2020", "dividend": 1.45, "netProfit": 4.76, "revenue": 37.52, "payoutRatio": 30.5 },
+    { "year": "2021", "dividend": 1.73, "netProfit": 5.76, "revenue": 46.33, "payoutRatio": 30.0 },
+    { "year": "2022", "dividend": 2.47, "netProfit": 8.17, "revenue": 63.85, "payoutRatio": 30.2 },
+    { "year": "2023", "dividend": 5.12, "netProfit": 11.94, "revenue": 89.05, "payoutRatio": 42.9 },
+    { "year": "2024", "dividend": 4.72, "netProfit": 15.52, "revenue": 107.78, "payoutRatio": 30.4 },
+    { "year": "2025", "dividend": 7.92, "netProfit": 14.98, "revenue": 105.97, "payoutRatio": 52.9 }
+  ],
+  "mcapYi": 255.36,
+  "currentDividendYield": 3.1,
+  "payoutRatioLatest": 52.9,
+  "consecutiveYears": 9,
+  "cumulativeDividend": 26.09,
+  "cumulativeToMcap": 10.2,
+  "dividendToRevenue": 7.5,
+  "buybackNote": "以现金分红为主，分红比例随成长阶段提升（2017-2022 年稳定约 30%，2023 年起提升、2025 年达 52.9%）；2025-2026 年实施集中竞价股份回购（截至 2026-05-31 累计回购 202.4 万股、约 1.29 亿元），叠加员工持股计划，股东回报方式趋于多元。",
+  "rating": "moderate",
+  "summary": "成长股属性的中等股东回报。上市后连续 9 年现金分红，累计派现约 26 亿元，约为当前市值的 10%。分红比例长期维持在约 30%（把利润留存用于高速扩张），2023 年起随业绩成熟逐步提升至 2025 年的 52.9%，分红绝对额随利润增长稳步上行（2025 年派息 7.92 亿）；当前股息率约 3%。近年新增股份回购与员工持股计划，回报力度增强但仍以成长再投资为主，确定性中等。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,33 @@
+{
+  "code": "000333",
+  "name": "美的集团",
+  "annual": [
+    { "year": "2014", "dividend": 42.16, "netProfit": 105.02, "revenue": 1423.11, "payoutRatio": 40.1 },
+    { "year": "2015", "dividend": 51.21, "netProfit": 127.07, "revenue": 1393.47, "payoutRatio": 40.3 },
+    { "year": "2016", "dividend": 64.66, "netProfit": 146.84, "revenue": 1598.42, "payoutRatio": 44.0 },
+    { "year": "2017", "dividend": 79.01, "netProfit": 172.84, "revenue": 2419.19, "payoutRatio": 45.7 },
+    { "year": "2018", "dividend": 86.14, "netProfit": 202.31, "revenue": 2618.2, "payoutRatio": 42.6 },
+    { "year": "2019", "dividend": 111.77, "netProfit": 242.11, "revenue": 2793.81, "payoutRatio": 46.2 },
+    { "year": "2020", "dividend": 112.76, "netProfit": 272.23, "revenue": 2857.1, "payoutRatio": 41.4 },
+    { "year": "2021", "dividend": 119.01, "netProfit": 285.74, "revenue": 3433.61, "payoutRatio": 41.6 },
+    { "year": "2022", "dividend": 175.55, "netProfit": 295.54, "revenue": 3457.09, "payoutRatio": 59.4 },
+    { "year": "2023", "dividend": 209.26, "netProfit": 337.2, "revenue": 3737.1, "payoutRatio": 62.1 },
+    { "year": "2024", "dividend": 268.7, "netProfit": 385.37, "revenue": 4090.84, "payoutRatio": 69.7 },
+    { "year": "2025", "dividend": 327.35, "netProfit": 439.45, "revenue": 4585.02, "payoutRatio": 74.5 }
+  ],
+  "mcapYi": 5977.31,
+  "currentDividendYield": 5.5,
+  "payoutRatioLatest": 74.5,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 1681.31,
+  "cumulativeToMcap": 28.1,
+  "dividendToRevenue": 7,
+  "buybackNote": "现金分红与回购双轮并举：连续多年实施大额股份回购并将回购股份全额注销，叠加 2025 年提高派息，进一步增厚每股回报；以真金白银分红为主，回购注销为辅。",
+  "rating": "strong",
+  "summary": "股东回报力度强且持续提升。连续 12 年现金分红，累计派现约 1681 亿元，相当于当前市值的约 28%。派息比例从 2014-2021 年的约 40%~46% 阶梯式提升至 2022 年起的 59%→62%→70%→74.5%，分红绝对额随利润增长逐年抬升（2025 年达 327 亿），当前股息率约 5.5%。叠加持续回购注销，在维持约 20% 高 ROE 的同时把成长红利稳定回馈股东，回报确定性与成长性兼具。",
+  "source": "近 12 年年报 + 分红明细（shareholder_fetch.py / 东财 datacenter）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

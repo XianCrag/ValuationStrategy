@@ -1,0 +1,34 @@
+{
+  "code": "688126",
+  "name": "沪硅产业",
+  "annual": [
+    { "year": "2020", "totalRevenue": 18.11, "overseasIncome": 11.78, "overseasRatio": 65.0 },
+    { "year": "2021", "totalRevenue": 24.67, "overseasIncome": 13.04, "overseasRatio": 52.9 },
+    { "year": "2022", "totalRevenue": 36.0, "overseasIncome": 15.16, "overseasRatio": 42.1 },
+    { "year": "2023", "totalRevenue": 31.9, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 33.87, "overseasIncome": 10.12, "overseasRatio": 29.9 },
+    { "year": "2025", "totalRevenue": 37.16, "overseasIncome": 10.06, "overseasRatio": 27.1 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "中国境内", "income": 26.73, "ratio": 71.9, "grossMargin": -15.2 },
+    { "name": "其他国家和地区", "income": 10.06, "ratio": 27.1, "grossMargin": -24.6 }
+  ],
+  "markets": ["欧洲（芬兰 Okmetic 子公司）", "日本 / 韩国 / 中国台湾等海外晶圆厂客户", "全球半导体硅片市场"],
+  "opportunities": [
+    "通过收购芬兰 Okmetic 获得特色硅片（SOI、传感器/MEMS 用片）技术与欧洲产能、品牌及全球客户渠道。",
+    "海外子公司具备先进技术积累，反哺国内 300mm 与特色衬底研发，加速平台化布局。",
+    "国产替代背景下，境内客户份额提升将逐步补足海外收入占比下降的缺口。"
+  ],
+  "risks": [
+    "海外收入占比由 2020 年的 65% 持续降至 2025 年约 27%，主因国内放量稀释，海外贸易本身增长有限。",
+    "境内外业务毛利率均为负（境内 -15.2%、境外 -24.6%），全球化未带来盈利改善，仍受行业价格战拖累。",
+    "出口退税政策调整、地缘政治与半导体出口管制可能扰动跨境销售与海外供应链。"
+  ],
+  "summary": "沪硅产业是少数具备实质海外布局的国产硅片厂，通过收购芬兰 Okmetic 获得 SOI/特色硅片技术、欧洲产能与全球客户，早期海外收入占比一度高达 65%。但随着国内 300mm 放量，境内收入快速扩张、海外占比逐年回落至 2025 年约 27%（约 10 亿元）。当前境内外业务毛利率均为负，全球化更多体现为技术与渠道的协同价值，而非盈利贡献。投资判断仍应以国内半导体大硅片国产替代的放量节奏与价格周期为核心，海外子公司是技术补强与远期看点。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 沪硅产业 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

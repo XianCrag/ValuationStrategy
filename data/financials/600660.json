@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600660",
+  "name": "福耀玻璃",
+  "snapshotPrice": 50.18,
+  "sharesYi": 26.1,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 202.25,
+      "netProfitYi": 41.2,
+      "ebitYi": 53.29,
+      "netMargin": 20.37
+    },
+    {
+      "year": "2019",
+      "revenueYi": 211.04,
+      "netProfitYi": 28.98,
+      "ebitYi": 36.64,
+      "netMargin": 13.73
+    },
+    {
+      "year": "2020",
+      "revenueYi": 199.07,
+      "netProfitYi": 26.01,
+      "ebitYi": 34.64,
+      "netMargin": 13.06
+    },
+    {
+      "year": "2021",
+      "revenueYi": 236.03,
+      "netProfitYi": 31.46,
+      "ebitYi": 41.38,
+      "netMargin": 13.33
+    },
+    {
+      "year": "2022",
+      "revenueYi": 280.99,
+      "netProfitYi": 47.56,
+      "ebitYi": 58.67,
+      "netMargin": 16.92
+    },
+    {
+      "year": "2023",
+      "revenueYi": 331.61,
+      "netProfitYi": 56.29,
+      "ebitYi": 70.04,
+      "netMargin": 16.98
+    },
+    {
+      "year": "2024",
+      "revenueYi": 392.52,
+      "netProfitYi": 74.98,
+      "ebitYi": 92.79,
+      "netMargin": 19.1
+    },
+    {
+      "year": "2025",
+      "revenueYi": 457.87,
+      "netProfitYi": 93.12,
+      "ebitYi": 114.83,
+      "netMargin": 20.34
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": -15.03,
+  "minorityYi": -0.03,
+  "dpsAvg3y": 1.7333,
+  "dpsByYear": {
+    "2025": 2.1,
+    "2024": 1.8,
+    "2023": 1.3
+  },
+  "generatedAt": "2026-06-18T13:41:52+08:00"
+}

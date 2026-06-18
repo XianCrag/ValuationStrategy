@@ -1,0 +1,110 @@
+{
+  "code": "600941",
+  "name": "中国移动",
+  "annual": [
+    {
+      "year": "2018",
+      "revenue": 7368.19,
+      "netProfit": 1166.99,
+      "revenueYoY": null,
+      "netProfitYoY": null,
+      "roe": 11.74,
+      "grossMargin": 32.64,
+      "netMargin": 15.86,
+      "priceClose": null
+    },
+    {
+      "year": "2019",
+      "revenue": 7459.17,
+      "netProfit": 1063.25,
+      "revenueYoY": 1.23,
+      "netProfitYoY": -8.89,
+      "roe": 10.2,
+      "grossMargin": 31.25,
+      "netMargin": 14.27,
+      "priceClose": null
+    },
+    {
+      "year": "2020",
+      "revenue": 7680.7,
+      "netProfit": 1078.37,
+      "revenueYoY": 2.97,
+      "netProfitYoY": 1.42,
+      "roe": 9.8,
+      "grossMargin": 30.57,
+      "netMargin": 14.08,
+      "priceClose": null
+    },
+    {
+      "year": "2021",
+      "revenue": 8482.58,
+      "netProfit": 1159.37,
+      "revenueYoY": 10.44,
+      "netProfitYoY": 7.51,
+      "roe": 10.1,
+      "grossMargin": 28.81,
+      "netMargin": 13.69,
+      "priceClose": null
+    },
+    {
+      "year": "2022",
+      "revenue": 9372.59,
+      "netProfit": 1254.59,
+      "revenueYoY": 10.49,
+      "netProfitYoY": 8.21,
+      "roe": 10.1,
+      "grossMargin": 27.78,
+      "netMargin": 13.4,
+      "priceClose": 67.67
+    },
+    {
+      "year": "2023",
+      "revenue": 10093.09,
+      "netProfit": 1317.66,
+      "revenueYoY": 7.69,
+      "netProfitYoY": 5.03,
+      "roe": 10.2,
+      "grossMargin": 28.23,
+      "netMargin": 13.07,
+      "priceClose": 99.48
+    },
+    {
+      "year": "2024",
+      "revenue": 10407.59,
+      "netProfit": 1383.73,
+      "revenueYoY": 3.12,
+      "netProfitYoY": 5.01,
+      "roe": 10.4,
+      "grossMargin": 29.02,
+      "netMargin": 13.31,
+      "priceClose": 118.16
+    },
+    {
+      "year": "2025",
+      "revenue": 10501.87,
+      "netProfit": 1370.95,
+      "revenueYoY": 0.91,
+      "netProfitYoY": -0.92,
+      "roe": 9.9,
+      "grossMargin": 28.87,
+      "netMargin": 13.07,
+      "priceClose": 101.05
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 60,
+  "summary": "弱周期、强稳健的公用事业型成长。作为全球最大电信运营商，收入与盈利常年单边温和向上：营收从 2018 年 7368 亿稳步增至 2025 年 10502 亿（已突破万亿），归母净利从 1167 亿增至 1371 亿，ROE 长期稳定在 10% 上下，毛利率/净利率波动极小。盈利几乎不随宏观经济短周期大起大落，更多由用户与流量基数、5G/算力资本开支节奏与政企/新兴业务放量驱动。2025 年传统个人通信进入存量饱和、营收增速放缓至 +0.9%、归母小幅 -0.9%，但增长引擎正切换至政企（B）与移动云/智算（N），叠加高股息提供下行缓冲，整体处于稳健增长（rising）通道而非周期顶部。",
+  "drivers": [
+    "移动用户与宽带/家庭客户基数及综合 ARPU 走势",
+    "5G-A、算力（智算/IDC）与移动云的资本开支与商业化进度",
+    "政企数字化（数字中国、企业上云、AI+）需求景气度",
+    "提速降费等行政定价政策与行业竞争格局（电信/联通）"
+  ],
+  "source": "近 8 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

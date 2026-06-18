@@ -1,0 +1,105 @@
+{
+  "code": "600660",
+  "name": "福耀玻璃",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 18.32,
+      "netProfit": 22.2,
+      "revenue": 129.28,
+      "payoutRatio": 82.5
+    },
+    {
+      "year": "2015",
+      "dividend": 18.81,
+      "netProfit": 26.05,
+      "revenue": 135.73,
+      "payoutRatio": 72.2
+    },
+    {
+      "year": "2016",
+      "dividend": 18.81,
+      "netProfit": 31.44,
+      "revenue": 166.21,
+      "payoutRatio": 59.8
+    },
+    {
+      "year": "2017",
+      "dividend": 18.81,
+      "netProfit": 31.49,
+      "revenue": 187.13,
+      "payoutRatio": 59.7
+    },
+    {
+      "year": "2018",
+      "dividend": 28.85,
+      "netProfit": 41.2,
+      "revenue": 202.25,
+      "payoutRatio": 70.0
+    },
+    {
+      "year": "2019",
+      "dividend": 18.81,
+      "netProfit": 28.98,
+      "revenue": 211.04,
+      "payoutRatio": 64.9
+    },
+    {
+      "year": "2020",
+      "dividend": 19.57,
+      "netProfit": 26.01,
+      "revenue": 199.07,
+      "payoutRatio": 75.2
+    },
+    {
+      "year": "2021",
+      "dividend": 26.1,
+      "netProfit": 31.46,
+      "revenue": 236.03,
+      "payoutRatio": 83.0
+    },
+    {
+      "year": "2022",
+      "dividend": 32.62,
+      "netProfit": 47.56,
+      "revenue": 280.99,
+      "payoutRatio": 68.6
+    },
+    {
+      "year": "2023",
+      "dividend": 33.93,
+      "netProfit": 56.29,
+      "revenue": 331.61,
+      "payoutRatio": 60.3
+    },
+    {
+      "year": "2024",
+      "dividend": 46.98,
+      "netProfit": 74.98,
+      "revenue": 392.52,
+      "payoutRatio": 62.7
+    },
+    {
+      "year": "2025",
+      "dividend": 54.8,
+      "netProfit": 93.12,
+      "revenue": 457.87,
+      "payoutRatio": 58.8
+    }
+  ],
+  "mcapYi": 1308.79,
+  "currentDividendYield": 4.2,
+  "payoutRatioLatest": 58.8,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 391.42,
+  "cumulativeToMcap": 29.9,
+  "dividendToRevenue": 12,
+  "buybackNote": "以高比例现金分红为主（长期派息率约 60%~80%），并已实施中期分红；A 股以分红为主要回报方式，回购相对较少。",
+  "rating": "strong",
+  "summary": "股东回报力度强且持续。连续 12 年现金分红，累计派现约 391 亿元，约相当于当前市值的 30%。派息比例长期维持在 60%~80% 的高位（近两年随利润高增、派息额提升至 47 亿、55 亿，派息率回落至约 59%但绝对额创新高），当前股息率约 4.2%。与典型高股息「类债」标的不同，福耀在维持高分红的同时仍保持营收利润双位数增长，属「成长 + 高分红」兼具型，回报确定性高。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

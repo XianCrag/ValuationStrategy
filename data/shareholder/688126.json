@@ -1,0 +1,91 @@
+{
+  "code": "688126",
+  "name": "沪硅产业",
+  "annual": [
+    {
+      "year": "2016",
+      "dividend": 0.0,
+      "netProfit": -0.87,
+      "revenue": 2.7,
+      "payoutRatio": null
+    },
+    {
+      "year": "2017",
+      "dividend": 0.0,
+      "netProfit": 2.24,
+      "revenue": 6.94,
+      "payoutRatio": null
+    },
+    {
+      "year": "2018",
+      "dividend": 0.0,
+      "netProfit": 0.11,
+      "revenue": 10.1,
+      "payoutRatio": null
+    },
+    {
+      "year": "2019",
+      "dividend": 0.0,
+      "netProfit": -0.9,
+      "revenue": 14.93,
+      "payoutRatio": null
+    },
+    {
+      "year": "2020",
+      "dividend": 0.0,
+      "netProfit": 0.87,
+      "revenue": 18.11,
+      "payoutRatio": null
+    },
+    {
+      "year": "2021",
+      "dividend": 0.0,
+      "netProfit": 1.46,
+      "revenue": 24.67,
+      "payoutRatio": null
+    },
+    {
+      "year": "2022",
+      "dividend": 0.0,
+      "netProfit": 3.25,
+      "revenue": 36.0,
+      "payoutRatio": null
+    },
+    {
+      "year": "2023",
+      "dividend": 1.1,
+      "netProfit": 1.87,
+      "revenue": 31.9,
+      "payoutRatio": 58.8
+    },
+    {
+      "year": "2024",
+      "dividend": 0.0,
+      "netProfit": -9.71,
+      "revenue": 33.88,
+      "payoutRatio": null
+    },
+    {
+      "year": "2025",
+      "dividend": 0.0,
+      "netProfit": -15.08,
+      "revenue": 37.16,
+      "payoutRatio": null
+    }
+  ],
+  "mcapYi": 1069.18,
+  "currentDividendYield": 0.0,
+  "payoutRatioLatest": 0.0,
+  "consecutiveYears": 0,
+  "cumulativeDividend": 1.1,
+  "cumulativeToMcap": 0.1,
+  "dividendToRevenue": 0,
+  "buybackNote": "历史上仅 2023 年派现一次（约 1.1 亿元），2024、2025 因连续亏损未分红；无持续回购计划，2026 年有过高管增持但金额接近承诺下限，象征意义大于实质。",
+  "rating": "weak",
+  "summary": "股东回报极弱且不具持续性。上市以来仅 2023 年派息一次（约 1.1 亿元、派息率 58.8%），其余年份均未分红，累计派现仅约 1.1 亿元，相当于当前市值的约 0.1%，当前股息率约 0%。公司处于产能扩张与持续亏损阶段，自由现金流为净流出，资金需优先投入 300mm 扩产，短期不具备稳定分红能力。该标的属典型「高估值成长科技股」，回报逻辑在于国产替代成长与股价弹性，而非现金分红。",
+  "source": "近 10 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

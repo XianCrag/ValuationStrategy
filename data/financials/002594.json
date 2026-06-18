@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "002594",
+  "name": "比亚迪",
+  "snapshotPrice": 88.26,
+  "sharesYi": 91.17,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 1300.55,
+      "netProfitYi": 27.8,
+      "ebitYi": 75.04,
+      "netMargin": 2.14
+    },
+    {
+      "year": "2019",
+      "revenueYi": 1277.39,
+      "netProfitYi": 16.14,
+      "ebitYi": 59.19,
+      "netMargin": 1.26
+    },
+    {
+      "year": "2020",
+      "revenueYi": 1565.98,
+      "netProfitYi": 42.34,
+      "ebitYi": 100.06,
+      "netMargin": 2.7
+    },
+    {
+      "year": "2021",
+      "revenueYi": 2161.42,
+      "netProfitYi": 30.45,
+      "ebitYi": 64.26,
+      "netMargin": 1.41
+    },
+    {
+      "year": "2022",
+      "revenueYi": 4240.61,
+      "netProfitYi": 166.22,
+      "ebitYi": 223.96,
+      "netMargin": 3.92
+    },
+    {
+      "year": "2023",
+      "revenueYi": 6023.15,
+      "netProfitYi": 300.41,
+      "ebitYi": 390.96,
+      "netMargin": 4.99
+    },
+    {
+      "year": "2024",
+      "revenueYi": 7771.02,
+      "netProfitYi": 402.54,
+      "ebitYi": 517.74,
+      "netMargin": 5.18
+    },
+    {
+      "year": "2025",
+      "revenueYi": 8039.65,
+      "netProfitYi": 326.19,
+      "ebitYi": 423.05,
+      "netMargin": 4.06
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 148.09,
+  "minorityYi": 122.04,
+  "dpsAvg3y": 2.4766,
+  "dpsByYear": {
+    "2025": 0.358,
+    "2024": 3.974,
+    "2023": 3.0978
+  },
+  "generatedAt": "2026-06-18T13:41:49+08:00"
+}

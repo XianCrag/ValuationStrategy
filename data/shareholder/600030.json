@@ -1,0 +1,105 @@
+{
+  "code": "600030",
+  "name": "中信证券",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 34.15,
+      "netProfit": 113.37,
+      "revenue": 291.98,
+      "payoutRatio": 30.1
+    },
+    {
+      "year": "2015",
+      "dividend": 60.58,
+      "netProfit": 198.0,
+      "revenue": 560.13,
+      "payoutRatio": 30.6
+    },
+    {
+      "year": "2016",
+      "dividend": 42.41,
+      "netProfit": 103.65,
+      "revenue": 380.02,
+      "payoutRatio": 40.9
+    },
+    {
+      "year": "2017",
+      "dividend": 48.47,
+      "netProfit": 114.33,
+      "revenue": 432.92,
+      "payoutRatio": 42.4
+    },
+    {
+      "year": "2018",
+      "dividend": 42.41,
+      "netProfit": 93.9,
+      "revenue": 372.21,
+      "payoutRatio": 45.2
+    },
+    {
+      "year": "2019",
+      "dividend": 64.63,
+      "netProfit": 122.29,
+      "revenue": 431.4,
+      "payoutRatio": 52.8
+    },
+    {
+      "year": "2020",
+      "dividend": 51.71,
+      "netProfit": 149.02,
+      "revenue": 543.83,
+      "payoutRatio": 34.7
+    },
+    {
+      "year": "2021",
+      "dividend": 80.03,
+      "netProfit": 231.0,
+      "revenue": 765.24,
+      "payoutRatio": 34.6
+    },
+    {
+      "year": "2022",
+      "dividend": 72.62,
+      "netProfit": 213.17,
+      "revenue": 651.09,
+      "payoutRatio": 34.1
+    },
+    {
+      "year": "2023",
+      "dividend": 70.4,
+      "netProfit": 197.21,
+      "revenue": 600.68,
+      "payoutRatio": 35.7
+    },
+    {
+      "year": "2024",
+      "dividend": 77.07,
+      "netProfit": 217.04,
+      "revenue": 581.19,
+      "payoutRatio": 35.5
+    },
+    {
+      "year": "2025",
+      "dividend": 103.74,
+      "netProfit": 300.76,
+      "revenue": 748.54,
+      "payoutRatio": 34.5
+    }
+  ],
+  "mcapYi": 3946.71,
+  "currentDividendYield": 2.6,
+  "payoutRatioLatest": 34.5,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 991.38,
+  "cumulativeToMcap": 25.1,
+  "dividendToRevenue": 14,
+  "buybackNote": "以现金分红为主，回购非主要回报方式；派息比例近年稳定在约 34%~35%，2025 年随业绩创新高分红绝对额提升至 103.7 亿元。",
+  "rating": "moderate",
+  "summary": "股东回报稳定但力度中等。连续 12 年现金分红，累计派现约 991 亿元，约相当于当前市值的 25%。派息比例从 2014-2019 年的 30%~53% 回落并稳定在近年的约 34%~35%，绝对额随盈利周期同向波动（2018 年低谷仅 42 亿、2025 年新高 104 亿）。当前股息率约 2.6%，回报确定性受资本市场景气与盈利波动影响，整体属「稳定派息、弹性中等」的成长型龙头，而非高股息类债资产。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

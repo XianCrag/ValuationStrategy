@@ -1,0 +1,154 @@
+{
+  "code": "002594",
+  "name": "比亚迪",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 581.96,
+      "netProfit": 4.34,
+      "revenueYoY": 10.09,
+      "netProfitYoY": -21.61,
+      "roe": 1.84,
+      "grossMargin": 15.55,
+      "netMargin": 1.27,
+      "priceClose": 38.15
+    },
+    {
+      "year": "2015",
+      "revenue": 800.09,
+      "netProfit": 28.23,
+      "revenueYoY": 37.48,
+      "netProfitYoY": 551.28,
+      "roe": 10.22,
+      "grossMargin": 16.87,
+      "netMargin": 3.92,
+      "priceClose": 64.4
+    },
+    {
+      "year": "2016",
+      "revenue": 1034.7,
+      "netProfit": 50.52,
+      "revenueYoY": 29.32,
+      "netProfitYoY": 78.94,
+      "roe": 12.91,
+      "grossMargin": 20.36,
+      "netMargin": 5.3,
+      "priceClose": 49.68
+    },
+    {
+      "year": "2017",
+      "revenue": 1059.15,
+      "netProfit": 40.66,
+      "revenueYoY": 2.36,
+      "netProfitYoY": -19.51,
+      "roe": 7.76,
+      "grossMargin": 19.01,
+      "netMargin": 4.64,
+      "priceClose": 65.05
+    },
+    {
+      "year": "2018",
+      "revenue": 1300.55,
+      "netProfit": 27.8,
+      "revenueYoY": 22.79,
+      "netProfitYoY": -31.63,
+      "roe": 4.96,
+      "grossMargin": 16.4,
+      "netMargin": 2.73,
+      "priceClose": 51.0
+    },
+    {
+      "year": "2019",
+      "revenue": 1277.39,
+      "netProfit": 16.14,
+      "revenueYoY": -1.78,
+      "netProfitYoY": -41.93,
+      "roe": 2.62,
+      "grossMargin": 16.29,
+      "netMargin": 1.66,
+      "priceClose": 47.67
+    },
+    {
+      "year": "2020",
+      "revenue": 1565.98,
+      "netProfit": 42.34,
+      "revenueYoY": 22.59,
+      "netProfitYoY": 162.27,
+      "roe": 7.43,
+      "grossMargin": 19.38,
+      "netMargin": 3.84,
+      "priceClose": 194.3
+    },
+    {
+      "year": "2021",
+      "revenue": 2161.42,
+      "netProfit": 30.45,
+      "revenueYoY": 38.02,
+      "netProfitYoY": -28.08,
+      "roe": 3.73,
+      "grossMargin": 13.02,
+      "netMargin": 1.84,
+      "priceClose": 268.12
+    },
+    {
+      "year": "2022",
+      "revenue": 4240.61,
+      "netProfit": 166.22,
+      "revenueYoY": 96.2,
+      "netProfitYoY": 445.86,
+      "roe": 16.14,
+      "grossMargin": 17.04,
+      "netMargin": 4.18,
+      "priceClose": 256.97
+    },
+    {
+      "year": "2023",
+      "revenue": 6023.15,
+      "netProfit": 300.41,
+      "revenueYoY": 42.04,
+      "netProfitYoY": 80.72,
+      "roe": 24.4,
+      "grossMargin": 18.58,
+      "netMargin": 5.2,
+      "priceClose": 198.0
+    },
+    {
+      "year": "2024",
+      "revenue": 7771.02,
+      "netProfit": 402.54,
+      "revenueYoY": 29.02,
+      "netProfitYoY": 34.0,
+      "roe": 26.05,
+      "grossMargin": 19.44,
+      "netMargin": 5.35,
+      "priceClose": 282.66
+    },
+    {
+      "year": "2025",
+      "revenue": 8039.65,
+      "netProfit": 326.19,
+      "revenueYoY": 3.46,
+      "netProfitYoY": -18.97,
+      "roe": 15.31,
+      "grossMargin": 17.74,
+      "netMargin": 4.2,
+      "priceClose": 97.72
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 70,
+  "summary": "汽车行业本身具周期属性，但比亚迪处于新能源渗透率提升 + 全球化扩张的高成长赛道，成长性显著强于行业周期性，故综合判定为中等周期。复盘看，2019 年补贴退坡导致利润见底（归母仅 16 亿、ROE 2.6%），2020 起插混 DM-i + 纯电高速放量，2022-2024 营收从 4241 亿增至 7771 亿、归母从 166 亿增至 403 亿，ROE 升至 26%。2025 营收续创新高至 8040 亿，但国内价格战与汇兑拖累净利同比 -19%、降至 326 亿，单车盈利承压；同期出口高增（海外占比升至约 39%）成为利润修复主力。当前销量与营收仍处上行通道、盈利能力随出口与高端化逐步回稳，判断处于上行中段。",
+  "drivers": [
+    "新能源汽车渗透率与国内/海外销量（最核心的成长变量）",
+    "单车盈利：价格战强度、产品结构高端化与原材料（碳酸锂）价格",
+    "出口与海外产能落地节奏（关税与本地化是关键）",
+    "垂直整合（电池/半导体/电机）带来的成本与规模优势"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标 / cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

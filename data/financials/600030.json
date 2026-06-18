@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "code": "600030",
+  "name": "中信证券",
+  "snapshotPrice": 26.64,
+  "sharesYi": 148.21,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 372.21,
+      "netProfitYi": 93.9,
+      "ebitYi": 124.66,
+      "netMargin": 25.23
+    },
+    {
+      "year": "2019",
+      "revenueYi": 431.4,
+      "netProfitYi": 122.29,
+      "ebitYi": 169.95,
+      "netMargin": 28.35
+    },
+    {
+      "year": "2020",
+      "revenueYi": 543.83,
+      "netProfitYi": 149.02,
+      "ebitYi": 204.7,
+      "netMargin": 27.4
+    },
+    {
+      "year": "2021",
+      "revenueYi": 765.24,
+      "netProfitYi": 231.0,
+      "ebitYi": 318.94,
+      "netMargin": 30.19
+    },
+    {
+      "year": "2022",
+      "revenueYi": 651.09,
+      "netProfitYi": 213.17,
+      "ebitYi": 289.5,
+      "netMargin": 32.74
+    },
+    {
+      "year": "2023",
+      "revenueYi": 600.68,
+      "netProfitYi": 197.21,
+      "ebitYi": 261.85,
+      "netMargin": 32.83
+    },
+    {
+      "year": "2024",
+      "revenueYi": 581.19,
+      "netProfitYi": 217.04,
+      "ebitYi": 284.18,
+      "netMargin": 37.34
+    },
+    {
+      "year": "2025",
+      "revenueYi": 748.54,
+      "netProfitYi": 300.76,
+      "ebitYi": 398.23,
+      "netMargin": 40.18
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "dpsAvg3y": 0.565,
+  "dpsByYear": {
+    "2025": 0.7,
+    "2024": 0.52,
+    "2023": 0.475
+  },
+  "generatedAt": "2026-06-18T13:42:09+08:00"
+}

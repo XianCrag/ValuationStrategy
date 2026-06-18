@@ -1,0 +1,67 @@
+{
+  "code": "603605",
+  "name": "珀莱雅",
+  "segments": [
+    {
+      "name": "护肤（主品牌珀莱雅）",
+      "position": "核心主业",
+      "features": "以「大单品」策略为核心（双抗精华、红宝石面霜、源力系列等），早C晚A概念打透，是收入与利润的绝对压舱石，占整体营收约八成"
+    },
+    {
+      "name": "彩妆（彩棠 Timage）",
+      "position": "第二增长曲线",
+      "features": "国货专业彩妆代表，三色修容盘等大单品驱动，受益国货彩妆崛起，增速领先于主品牌"
+    },
+    {
+      "name": "洗护（Off&Relax）",
+      "position": "高增新品类",
+      "features": "高端头皮护理/洗护品牌，2024-2025 年放量明显，成为增速最快的子品牌之一，打开第二品类空间"
+    },
+    {
+      "name": "其他子品牌（悦芙媞 / 花知晓等）",
+      "position": "品牌矩阵补充",
+      "features": "悦芙媞主打平价功效护肤；2026 年收购花知晓补强彩妆/IP 联名，完善多品牌、多价位带矩阵"
+    }
+  ],
+  "revenues": [
+    {
+      "source": "护肤（主品牌珀莱雅）",
+      "share": "~80%",
+      "shareYear": "2025",
+      "trend": "大单品稳健，2025 年增速放缓略承压",
+      "trendDirection": "flat"
+    },
+    {
+      "source": "彩妆（彩棠）",
+      "share": "~10%",
+      "shareYear": "2025",
+      "trend": "国货彩妆景气，保持较快增长",
+      "trendDirection": "up"
+    },
+    {
+      "source": "洗护（Off&Relax）",
+      "share": "~6%",
+      "shareYear": "2025",
+      "trend": "高端洗护放量，增速最快",
+      "trendDirection": "up"
+    },
+    {
+      "source": "其他子品牌",
+      "share": "~4%",
+      "shareYear": "2025",
+      "trend": "矩阵补充，培育期占比小",
+      "trendDirection": "up"
+    }
+  ],
+  "dependency": {
+    "topN": 1,
+    "detail": "主品牌珀莱雅护肤贡献约八成营收，是利润核心；2025 全年营收 105.97 亿、归母净利 14.98 亿，自上市以来首次小幅回落（营收 -1.7%、归母 -3.5%）",
+    "share": "~80%",
+    "note": "业绩高度依赖主品牌护肤大单品的持续性与线上流量成本；彩棠、Off&Relax 等第二曲线高增与多品牌矩阵正逐步降低单一品牌依赖，平滑增长波动"
+  },
+  "source": "2025 年报 / F10 公司概况·财务分析·行业分析（business_fetch.py）/ 东财研报（国信·东吴·国金等）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

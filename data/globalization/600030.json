@@ -1,0 +1,34 @@
+{
+  "code": "600030",
+  "name": "中信证券",
+  "annual": [
+    { "year": "2020", "totalRevenue": 1023.22, "overseasIncome": 64.46, "overseasRatio": 6.3 },
+    { "year": "2021", "totalRevenue": 1457.28, "overseasIncome": 73.23, "overseasRatio": 5.0 },
+    { "year": "2022", "totalRevenue": 1220.25, "overseasIncome": 81.93, "overseasRatio": 6.7 },
+    { "year": "2023", "totalRevenue": 1107.31, "overseasIncome": 94.04, "overseasRatio": 8.5 },
+    { "year": "2024", "totalRevenue": 1166.3, "overseasIncome": 109.48, "overseasRatio": 9.4 },
+    { "year": "2025", "totalRevenue": 1341.91, "overseasIncome": 155.19, "overseasRatio": 11.6 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": 593.36, "ratio": 79.3, "grossMargin": 51.2 },
+    { "name": "境外", "income": 155.19, "ratio": 20.7, "grossMargin": 63.0 }
+  ],
+  "markets": ["中国香港及亚太资本市场", "中信证券国际 / 中信里昂证券（CLSA）全球网络", "跨境衍生品、海外股权债券承销与机构经纪"],
+  "opportunities": [
+    "依托中信证券国际与中信里昂证券（CLSA）的全球网络，承接中资企业跨境融资、海外并购与跨境衍生品需求，国际业务步入收获期。",
+    "2025 年拟向中信金控发行 H 股补充资本，中长期有望进一步提升国际竞争力与跨境资本中介能力。",
+    "境外收入占比由 2020 年约 6% 提升至 2025 年约 11.6%，毛利率高于境内，是相对同业更清晰的第二成长曲线。"
+  ],
+  "risks": [
+    "海外业务受全球市场波动、海外利率与汇率变化影响，投资与做市收益不稳定。",
+    "跨境监管趋严与地缘政治摩擦可能限制中资券商的海外展业空间。",
+    "国际业务规模仍以亚太为主，全球化深度与国际投行（高盛/摩根士丹利）仍有差距，绝对体量占比尚未过半。"
+  ],
+  "summary": "中信证券是 A 股券商中国际化程度领先的龙头：境外收入占比从 2020 年约 6% 持续提升至 2025 年约 11.6%（约 155 亿元），且境外毛利率（约 63%）高于境内，国际业务（中信证券国际 / 中信里昂证券 CLSA）正步入收获期。相较纯内需型同业，全球化已成为其相对清晰的第二成长曲线，2025 年拟发行 H 股补充资本亦旨在强化跨境竞争力。但海外业务整体仍以亚太为主、占比尚未过半，受全球市场波动与跨境监管影响较大，全球化是估值的边际加分项而非绝对主导逻辑。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 中信证券 2025 年报 + 国信/东吴 H 股定增点评研报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

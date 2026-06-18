@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600887",
+  "name": "伊利股份",
+  "snapshotPrice": 24.3,
+  "sharesYi": 63.25,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 795.53,
+      "netProfitYi": 64.4,
+      "ebitYi": 77.09,
+      "netMargin": 8.09
+    },
+    {
+      "year": "2019",
+      "revenueYi": 902.23,
+      "netProfitYi": 69.34,
+      "ebitYi": 84.67,
+      "netMargin": 7.69
+    },
+    {
+      "year": "2020",
+      "revenueYi": 968.86,
+      "netProfitYi": 70.78,
+      "ebitYi": 86.44,
+      "netMargin": 7.31
+    },
+    {
+      "year": "2021",
+      "revenueYi": 1105.95,
+      "netProfitYi": 87.05,
+      "ebitYi": 109.22,
+      "netMargin": 7.87
+    },
+    {
+      "year": "2022",
+      "revenueYi": 1231.71,
+      "netProfitYi": 94.31,
+      "ebitYi": 120.33,
+      "netMargin": 7.66
+    },
+    {
+      "year": "2023",
+      "revenueYi": 1261.79,
+      "netProfitYi": 104.29,
+      "ebitYi": 139.14,
+      "netMargin": 8.26
+    },
+    {
+      "year": "2024",
+      "revenueYi": 1157.8,
+      "netProfitYi": 84.53,
+      "ebitYi": 119.46,
+      "netMargin": 7.3
+    },
+    {
+      "year": "2025",
+      "revenueYi": 1159.31,
+      "netProfitYi": 115.65,
+      "ebitYi": 143.6,
+      "netMargin": 9.98
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 420.82,
+  "minorityYi": 38.96,
+  "dpsAvg3y": 1.2667,
+  "dpsByYear": {
+    "2025": 1.38,
+    "2024": 1.22,
+    "2023": 1.2
+  },
+  "generatedAt": "2026-06-18T13:41:58+08:00"
+}

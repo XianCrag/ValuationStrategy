@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "002078",
+  "name": "太阳纸业",
+  "snapshotPrice": 12.49,
+  "sharesYi": 27.95,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 217.68,
+      "netProfitYi": 22.38,
+      "ebitYi": 33.82,
+      "netMargin": 10.28
+    },
+    {
+      "year": "2019",
+      "revenueYi": 227.63,
+      "netProfitYi": 21.78,
+      "ebitYi": 31.5,
+      "netMargin": 9.57
+    },
+    {
+      "year": "2020",
+      "revenueYi": 215.89,
+      "netProfitYi": 19.53,
+      "ebitYi": 29.03,
+      "netMargin": 9.05
+    },
+    {
+      "year": "2021",
+      "revenueYi": 321.59,
+      "netProfitYi": 29.29,
+      "ebitYi": 39.5,
+      "netMargin": 9.11
+    },
+    {
+      "year": "2022",
+      "revenueYi": 397.67,
+      "netProfitYi": 28.09,
+      "ebitYi": 38.04,
+      "netMargin": 7.06
+    },
+    {
+      "year": "2023",
+      "revenueYi": 395.44,
+      "netProfitYi": 30.86,
+      "ebitYi": 39.87,
+      "netMargin": 7.8
+    },
+    {
+      "year": "2024",
+      "revenueYi": 407.27,
+      "netProfitYi": 31.01,
+      "ebitYi": 41.82,
+      "netMargin": 7.61
+    },
+    {
+      "year": "2025",
+      "revenueYi": 391.92,
+      "netProfitYi": 32.51,
+      "ebitYi": 43.36,
+      "netMargin": 8.29
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 193.08,
+  "minorityYi": 1.14,
+  "dpsAvg3y": 0.3,
+  "dpsByYear": {
+    "2025": 0.3,
+    "2024": 0.3,
+    "2023": 0.3
+  },
+  "generatedAt": "2026-06-18T13:42:08+08:00"
+}

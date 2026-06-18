@@ -1,0 +1,33 @@
+{
+  "code": "600900",
+  "name": "长江电力",
+  "annual": [
+    { "year": "2020", "totalRevenue": 577.83, "overseasIncome": null, "overseasRatio": 2.0 },
+    { "year": "2021", "totalRevenue": 556.46, "overseasIncome": null, "overseasRatio": 2.2 },
+    { "year": "2022", "totalRevenue": 688.63, "overseasIncome": null, "overseasRatio": 2.5 },
+    { "year": "2023", "totalRevenue": 781.44, "overseasIncome": null, "overseasRatio": 2.3 },
+    { "year": "2024", "totalRevenue": 844.92, "overseasIncome": null, "overseasRatio": 2.2 },
+    { "year": "2025", "totalRevenue": 862.42, "overseasIncome": null, "overseasRatio": 2.2 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境内", "income": null, "ratio": 97.8, "grossMargin": null },
+    { "name": "境外", "income": null, "ratio": 2.2, "grossMargin": null }
+  ],
+  "markets": ["秘鲁（Luz del Sur 配电、秘鲁路德斯发电）", "巴西（输电特许经营资产）", "巴基斯坦（电力投资参与）"],
+  "opportunities": [
+    "通过秘鲁 Luz del Sur 等海外配售电资产获取稳定的特许经营现金流，复制国内「类债」运营模式。",
+    "「一带一路」沿线水电/输配电工程与运营输出，为长期海外布局提供潜在增量。"
+  ],
+  "risks": [
+    "海外收入占比常年约 2% 左右，对整体业绩拉动有限，全球化并非成长主线。",
+    "境外资产以配电/输电特许经营为主，受当地监管、汇率与政治环境波动影响。",
+    "东财 F10 未单独披露分地区收入构成，境外占比为依据公开资料的估算值。"
+  ],
+  "summary": "长江电力本质是以国内长江流域梯级水电为绝对主体的内需型公用事业央企，境外业务（秘鲁 Luz del Sur 配电、巴西输电、巴基斯坦电力投资等）占整体收入比例长期仅约 2%，且以海外配售电/输电的特许经营运营为主，并非自主出海扩张的成长逻辑。东财 F10 未单独披露分地区主营构成，故海外占比为估算。全球化对其估值与业绩的边际影响很小，更应理解为对「类债」现金流模式的海外复制与战略卡位，而非第二增长曲线。投资判断仍应以国内水电运营的极强盈利稳定性与高分红为核心。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py，未单独披露境外）+ 长电 2025 年报及海外资产公开资料",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

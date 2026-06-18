@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "688126",
+  "name": "沪硅产业",
+  "snapshotPrice": 32.39,
+  "sharesYi": 33.05,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 10.1,
+      "netProfitYi": 0.11,
+      "ebitYi": 0.85,
+      "netMargin": 1.11
+    },
+    {
+      "year": "2019",
+      "revenueYi": 14.93,
+      "netProfitYi": -0.9,
+      "ebitYi": 0.09,
+      "netMargin": -6.02
+    },
+    {
+      "year": "2020",
+      "revenueYi": 18.11,
+      "netProfitYi": 0.87,
+      "ebitYi": 1.87,
+      "netMargin": 4.81
+    },
+    {
+      "year": "2021",
+      "revenueYi": 24.67,
+      "netProfitYi": 1.46,
+      "ebitYi": 2.28,
+      "netMargin": 5.92
+    },
+    {
+      "year": "2022",
+      "revenueYi": 36.0,
+      "netProfitYi": 3.25,
+      "ebitYi": 4.88,
+      "netMargin": 9.03
+    },
+    {
+      "year": "2023",
+      "revenueYi": 31.9,
+      "netProfitYi": 1.87,
+      "ebitYi": 2.53,
+      "netMargin": 5.85
+    },
+    {
+      "year": "2024",
+      "revenueYi": 33.88,
+      "netProfitYi": -9.71,
+      "ebitYi": -9.93,
+      "netMargin": -28.65
+    },
+    {
+      "year": "2025",
+      "revenueYi": 37.16,
+      "netProfitYi": -15.08,
+      "ebitYi": -16.62,
+      "netMargin": -40.57
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 32.17,
+  "minorityYi": 32.92,
+  "dpsAvg3y": 0.0133,
+  "dpsByYear": {
+    "2025": 0.0,
+    "2024": 0.0,
+    "2023": 0.04
+  },
+  "generatedAt": "2026-06-18T13:41:50+08:00"
+}

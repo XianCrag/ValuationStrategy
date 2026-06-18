@@ -1,0 +1,36 @@
+{
+  "code": "000333",
+  "name": "美的集团",
+  "annual": [
+    { "year": "2020", "totalRevenue": 2842.21, "overseasIncome": 1210.81, "overseasRatio": 42.6 },
+    { "year": "2021", "totalRevenue": 3412.33, "overseasIncome": 1376.54, "overseasRatio": 40.3 },
+    { "year": "2022", "totalRevenue": 3439.18, "overseasIncome": 1426.45, "overseasRatio": 41.5 },
+    { "year": "2023", "totalRevenue": 3720.38, "overseasIncome": 1509.06, "overseasRatio": 40.6 },
+    { "year": "2024", "totalRevenue": 4071.49, "overseasIncome": 1690.34, "overseasRatio": 41.5 },
+    { "year": "2025", "totalRevenue": 4564.52, "overseasIncome": 1959.48, "overseasRatio": 42.9 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "国内", "income": 2605.04, "ratio": 57.1, "grossMargin": 26.2 },
+    { "name": "海外", "income": 1959.48, "ratio": 42.9, "grossMargin": 26.6 }
+  ],
+  "markets": ["东南亚 / 南亚", "欧洲", "北美", "中东 / 非洲", "拉美"],
+  "opportunities": [
+    "海外业务从「产品出海（OEM 代工）」向「品牌出海（OBM）」转型，自有品牌占比提升将显著改善溢价与盈利质量。",
+    "通过并购与合资加速 OBM 布局：2025 年收购欧洲品牌 Teka，2026 年与伊莱克斯在北美成立合资公司，补齐渠道与品牌短板。",
+    "加大海外基础设施、渠道网络与本地化制造投入，新兴市场（东南亚/南亚/中东非洲/拉美）渗透空间广阔。",
+    "ToB（楼宇科技、库卡机器人、工业技术）海外工业客户拓展打开第二成长曲线。"
+  ],
+  "risks": [
+    "海外代工（OEM/ODM）占比仍高，议价权与毛利低于自主品牌，OBM 转型需要时间与持续投入。",
+    "全球贸易摩擦、关税与地缘政治可能扰动海外产销布局与供应链。",
+    "汇率波动直接影响海外收入折算与盈利；不同区域竞争与渠道格局差异大。",
+    "海外并购（Teka 等）短期摊薄利润、整合存在不确定性。"
+  ],
+  "summary": "美的是中国家电出海最彻底的全球化龙头：海外收入常年稳定在总营收的 40%~43%（2025 年约 1959 亿元、占比 42.9%），且海外毛利率（26.6%）已与国内（26.2%）基本持平，全球化是实打实的业绩主线而非概念。当前正处于从「产品出海」向「品牌出海（OBM）」的关键升级期，通过自建渠道 + 并购合资（Teka、与伊莱克斯北美合资）双管齐下提升自有品牌占比，叠加 ToB 工业技术出海，全球化既是收入半壁江山，也是未来溢价与成长的核心看点。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 美的 2025 年报及业绩说明会",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

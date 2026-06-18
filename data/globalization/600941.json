@@ -1,0 +1,30 @@
+{
+  "code": "600941",
+  "name": "中国移动",
+  "annual": [
+    { "year": "2018", "totalRevenue": 7368.19, "overseasIncome": 72.19, "overseasRatio": 1.0 },
+    { "year": "2019", "totalRevenue": 7459.17, "overseasIncome": 94.88, "overseasRatio": 1.3 },
+    { "year": "2020", "totalRevenue": 7680.7, "overseasIncome": 110.61, "overseasRatio": 1.4 }
+  ],
+  "latestYear": "2020",
+  "latestBreakdown": [
+    { "name": "境内", "income": 7570.09, "ratio": 98.6, "grossMargin": null },
+    { "name": "境外", "income": 110.61, "ratio": 1.4, "grossMargin": null }
+  ],
+  "markets": ["港澳地区（CMHK 等）", "国际数据/语音批发与海缆资源", "「一带一路」沿线信息化与云网服务"],
+  "opportunities": [
+    "依托国际海缆、互联网数据专线与 IDC 资源开展国际批发及跨境云网服务。",
+    "「一带一路」沿线数字基建与企业出海需求，可能带来云网/信息化解决方案的长期增量。"
+  ],
+  "risks": [
+    "海外收入占比常年仅 1%~1.5%，对整体业绩拉动极其有限，全球化并非成长主线。",
+    "境外业务以批发互联与港澳零售为主，受国际运价、汇率与监管影响，规模天花板低。",
+    "地缘政治与数据跨境合规要求可能限制国际业务拓展空间。"
+  ],
+  "summary": "中国移动本质是以国内市场为绝对主体的内需型通信央企，境外收入占比长期不足 2%（可得数据中 2020 年约 1.4%、约 111 亿元），且以港澳业务、国际批发互联与海缆资源为主，并非自主出海扩张的成长逻辑。全球化对其估值与业绩的边际影响很小，更应理解为对国内主业的补充，而非第二增长曲线。投资判断仍应锚定国内个人/家庭/政企/新兴四大市场的盈利稳定性、AI+ 算力转型与高分红。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 中国移动年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

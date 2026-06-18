@@ -1,0 +1,154 @@
+{
+  "code": "600600",
+  "name": "青岛啤酒",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 290.49,
+      "netProfit": 19.9,
+      "revenueYoY": 2.68,
+      "netProfitYoY": 0.85,
+      "roe": 13.53,
+      "grossMargin": 38.38,
+      "netMargin": 6.95,
+      "priceClose": 41.78
+    },
+    {
+      "year": "2015",
+      "revenue": 276.35,
+      "netProfit": 17.13,
+      "revenueYoY": -4.87,
+      "netProfitYoY": -13.92,
+      "roe": 10.76,
+      "grossMargin": 37.79,
+      "netMargin": 5.83,
+      "priceClose": 33.2
+    },
+    {
+      "year": "2016",
+      "revenue": 261.06,
+      "netProfit": 10.43,
+      "revenueYoY": -5.53,
+      "netProfitYoY": -39.09,
+      "roe": 6.43,
+      "grossMargin": 41.53,
+      "netMargin": 4.24,
+      "priceClose": 29.44
+    },
+    {
+      "year": "2017",
+      "revenue": 262.77,
+      "netProfit": 12.63,
+      "revenueYoY": 0.65,
+      "netProfitYoY": 21.04,
+      "roe": 7.55,
+      "grossMargin": 40.55,
+      "netMargin": 5.26,
+      "priceClose": 39.33
+    },
+    {
+      "year": "2018",
+      "revenue": 265.75,
+      "netProfit": 14.22,
+      "revenueYoY": 1.13,
+      "netProfitYoY": 12.6,
+      "roe": 8.1,
+      "grossMargin": 37.7,
+      "netMargin": 5.87,
+      "priceClose": 34.86
+    },
+    {
+      "year": "2019",
+      "revenue": 279.84,
+      "netProfit": 18.52,
+      "revenueYoY": 5.3,
+      "netProfitYoY": 30.23,
+      "roe": 9.97,
+      "grossMargin": 38.96,
+      "netMargin": 6.89,
+      "priceClose": 51.0
+    },
+    {
+      "year": "2020",
+      "revenue": 277.6,
+      "netProfit": 22.01,
+      "revenueYoY": -0.8,
+      "netProfitYoY": 18.86,
+      "roe": 11.13,
+      "grossMargin": 35.33,
+      "netMargin": 8.38,
+      "priceClose": 99.4
+    },
+    {
+      "year": "2021",
+      "revenue": 301.67,
+      "netProfit": 31.55,
+      "revenueYoY": 8.67,
+      "netProfitYoY": 43.34,
+      "roe": 14.47,
+      "grossMargin": 36.71,
+      "netMargin": 10.79,
+      "priceClose": 99.0
+    },
+    {
+      "year": "2022",
+      "revenue": 321.72,
+      "netProfit": 37.11,
+      "revenueYoY": 6.65,
+      "netProfitYoY": 17.59,
+      "roe": 15.3,
+      "grossMargin": 36.85,
+      "netMargin": 11.83,
+      "priceClose": 107.5
+    },
+    {
+      "year": "2023",
+      "revenue": 339.37,
+      "netProfit": 42.68,
+      "revenueYoY": 5.49,
+      "netProfitYoY": 15.02,
+      "roe": 16.12,
+      "grossMargin": 38.66,
+      "netMargin": 12.81,
+      "priceClose": 74.75
+    },
+    {
+      "year": "2024",
+      "revenue": 321.38,
+      "netProfit": 43.45,
+      "revenueYoY": -5.3,
+      "netProfitYoY": 1.81,
+      "roe": 15.38,
+      "grossMargin": 40.23,
+      "netMargin": 13.98,
+      "priceClose": 80.92
+    },
+    {
+      "year": "2025",
+      "revenue": 324.73,
+      "netProfit": 45.88,
+      "revenueYoY": 1.04,
+      "netProfitYoY": 5.6,
+      "roe": 15.5,
+      "grossMargin": 41.84,
+      "netMargin": 14.53,
+      "priceClose": 61.2
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 60,
+  "summary": "典型消费弱周期（啤酒）。营收 12 年维持在 260~340 亿区间窄幅波动，行业销量已过总量高峰、整体平盘，并不存在大开大合的强周期。真正的成长来自「量平价升」的结构性高端化：净利率从 2016 年的 4.2%（行业去库存低谷）持续抬升至 2025 年的 14.5%，归母净利由 10.4 亿一路升至 45.9 亿、连创新高，毛利率亦升至 41.8%。需求端受天气、消费景气与即饮/餐饮场景影响，成本端受大麦、包材（玻瓶、铝罐）价格扰动，但波动远小于上游周期品。当前处于盈利能力持续改善的上行阶段，但收入端受销量见顶与消费偏弱制约，提价与结构升级的弹性边际放缓。",
+  "drivers": [
+    "高端化结构升级（青岛经典/纯生/白啤/1903 占比提升）—— 吨价与毛利率的核心驱动",
+    "啤酒销量与即饮/餐饮消费景气、天气（旺季气温）",
+    "原材料成本（进口大麦、玻瓶、铝材、包材）波动对毛利率的影响",
+    "行业竞争格局与提价节奏（龙头默契提价对盈利的平滑作用）"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标 cycle_fetch）/ 研报 / 啤酒行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

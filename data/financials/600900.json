@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "code": "600900",
+  "name": "长江电力",
+  "snapshotPrice": 26.67,
+  "sharesYi": 244.68,
+  "annual": [
+    {
+      "year": "2018",
+      "revenueYi": 512.14,
+      "netProfitYi": 226.11,
+      "ebitYi": 329.29,
+      "netMargin": 44.15
+    },
+    {
+      "year": "2019",
+      "revenueYi": 498.74,
+      "netProfitYi": 215.43,
+      "ebitYi": 318.28,
+      "netMargin": 43.2
+    },
+    {
+      "year": "2020",
+      "revenueYi": 577.83,
+      "netProfitYi": 262.98,
+      "ebitYi": 376.22,
+      "netMargin": 45.51
+    },
+    {
+      "year": "2021",
+      "revenueYi": 556.46,
+      "netProfitYi": 262.73,
+      "ebitYi": 372.12,
+      "netMargin": 47.21
+    },
+    {
+      "year": "2022",
+      "revenueYi": 688.63,
+      "netProfitYi": 237.26,
+      "ebitYi": 395.67,
+      "netMargin": 34.45
+    },
+    {
+      "year": "2023",
+      "revenueYi": 781.44,
+      "netProfitYi": 272.45,
+      "ebitYi": 451.66,
+      "netMargin": 34.86
+    },
+    {
+      "year": "2024",
+      "revenueYi": 844.92,
+      "netProfitYi": 324.96,
+      "ebitYi": 501.9,
+      "netMargin": 38.46
+    },
+    {
+      "year": "2025",
+      "revenueYi": 862.42,
+      "netProfitYi": 345.03,
+      "ebitYi": 512.49,
+      "netMargin": 40.01
+    }
+  ],
+  "reportPeriod": "2025-12-31",
+  "netDebtYi": 2816.0,
+  "minorityYi": 119.14,
+  "dpsAvg3y": 0.921,
+  "dpsByYear": {
+    "2025": 1.0,
+    "2024": 0.943,
+    "2023": 0.82
+  },
+  "generatedAt": "2026-06-18T13:41:59+08:00"
+}

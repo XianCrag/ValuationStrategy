@@ -1,0 +1,154 @@
+{
+  "code": "603605",
+  "name": "珀莱雅",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 17.4,
+      "netProfit": 1.58,
+      "revenueYoY": 21.7,
+      "netProfitYoY": -11.21,
+      "roe": 37.43,
+      "grossMargin": 63.26,
+      "netMargin": 9.09,
+      "priceClose": null
+    },
+    {
+      "year": "2015",
+      "revenue": 16.45,
+      "netProfit": 1.44,
+      "revenueYoY": -5.45,
+      "netProfitYoY": -9.14,
+      "roe": 43.08,
+      "grossMargin": 63.86,
+      "netMargin": 8.74,
+      "priceClose": null
+    },
+    {
+      "year": "2016",
+      "revenue": 16.23,
+      "netProfit": 1.54,
+      "revenueYoY": -1.33,
+      "netProfitYoY": 6.87,
+      "roe": 31.76,
+      "grossMargin": 61.96,
+      "netMargin": 9.46,
+      "priceClose": null
+    },
+    {
+      "year": "2017",
+      "revenue": 17.83,
+      "netProfit": 2.01,
+      "revenueYoY": 9.83,
+      "netProfitYoY": 30.7,
+      "roe": 27.93,
+      "grossMargin": 61.73,
+      "netMargin": 11.26,
+      "priceClose": 28.72
+    },
+    {
+      "year": "2018",
+      "revenue": 23.61,
+      "netProfit": 2.87,
+      "revenueYoY": 32.43,
+      "netProfitYoY": 43.03,
+      "roe": 18.28,
+      "grossMargin": 64.03,
+      "netMargin": 12.14,
+      "priceClose": 44.07
+    },
+    {
+      "year": "2019",
+      "revenue": 31.24,
+      "netProfit": 3.93,
+      "revenueYoY": 32.28,
+      "netProfitYoY": 36.73,
+      "roe": 21.24,
+      "grossMargin": 63.96,
+      "netMargin": 11.73,
+      "priceClose": 88.05
+    },
+    {
+      "year": "2020",
+      "revenue": 37.52,
+      "netProfit": 4.76,
+      "revenueYoY": 20.13,
+      "netProfitYoY": 21.22,
+      "roe": 21.82,
+      "grossMargin": 63.55,
+      "netMargin": 12.04,
+      "priceClose": 178.0
+    },
+    {
+      "year": "2021",
+      "revenue": 46.33,
+      "netProfit": 5.76,
+      "revenueYoY": 23.47,
+      "netProfitYoY": 21.03,
+      "roe": 22.25,
+      "grossMargin": 66.46,
+      "netMargin": 12.02,
+      "priceClose": 208.31
+    },
+    {
+      "year": "2022",
+      "revenue": 63.85,
+      "netProfit": 8.17,
+      "revenueYoY": 37.82,
+      "netProfitYoY": 41.88,
+      "roe": 25.95,
+      "grossMargin": 69.7,
+      "netMargin": 13.02,
+      "priceClose": 167.48
+    },
+    {
+      "year": "2023",
+      "revenue": 89.05,
+      "netProfit": 11.94,
+      "revenueYoY": 39.45,
+      "netProfitYoY": 46.06,
+      "roe": 29.94,
+      "grossMargin": 69.93,
+      "netMargin": 13.82,
+      "priceClose": 99.4
+    },
+    {
+      "year": "2024",
+      "revenue": 107.78,
+      "netProfit": 15.52,
+      "revenueYoY": 21.04,
+      "netProfitYoY": 30.0,
+      "roe": 32.53,
+      "grossMargin": 71.39,
+      "netMargin": 14.71,
+      "priceClose": 84.7
+    },
+    {
+      "year": "2025",
+      "revenue": 105.97,
+      "netProfit": 14.98,
+      "revenueYoY": -1.68,
+      "netProfitYoY": -3.5,
+      "roe": 25.8,
+      "grossMargin": 73.26,
+      "netMargin": 14.56,
+      "priceClose": 68.48
+    }
+  ],
+  "isCyclical": false,
+  "cyclicality": "weak",
+  "position": "rising",
+  "positionScore": 70,
+  "summary": "弱周期高成长消费股（国货美妆）。盈利不随商品周期大起大落，而由品牌势能、大单品迭代与线上渠道运营驱动：2018-2024 年营收从 24 亿增至 108 亿、归母从 2.9 亿增至 15.5 亿，复合增速近 30%，毛利率持续抬升至 73%、ROE 升至 30%+，是典型的成长曲线而非周期曲线。2025 年受高基数、行业竞争与流量成本上行影响，营收/归母首次小幅回落（-1.7% / -3.5%），属成长中继的阶段性调整而非周期下行。彩棠、Off&Relax 等第二曲线高增与多品牌矩阵打开新空间，判断仍处长期上行通道中、当前为蓄力复苏阶段。需求与可选消费景气、流量成本相关，但与宏观商品周期相关性弱。",
+  "drivers": [
+    "主品牌大单品的迭代与生命周期管理（双抗、红宝石、源力等）",
+    "线上渠道（抖音/天猫/拼多多）运营效率与流量成本",
+    "彩棠、Off&Relax 等第二曲线及新子品牌的放量节奏",
+    "可选消费景气度与国货美妆渗透率提升趋势"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标，cycle_fetch.py）/ 研报 / 行业成长性判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

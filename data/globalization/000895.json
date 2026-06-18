@@ -1,0 +1,33 @@
+{
+  "code": "000895",
+  "name": "双汇发展",
+  "annual": [
+    { "year": "2020", "totalRevenue": 738.63, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2021", "totalRevenue": 666.82, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2022", "totalRevenue": 625.76, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2023", "totalRevenue": 598.93, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2024", "totalRevenue": 595.61, "overseasIncome": null, "overseasRatio": null },
+    { "year": "2025", "totalRevenue": 592.74, "overseasIncome": null, "overseasRatio": null }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "长江以北地区", "income": 368.06, "ratio": 62.1, "grossMargin": 18.3 },
+    { "name": "长江以南地区", "income": 224.68, "ratio": 37.9, "grossMargin": 17.6 }
+  ],
+  "markets": ["国内市场（按长江南北分区经营）", "依托控股集团万洲国际（WH Group）全球协同：美国 Smithfield 低价猪肉进口"],
+  "opportunities": [
+    "背靠万洲国际全球第一大猪肉企业，可经集团协同进口美洲低价分割肉/冻品，平滑国内猪价波动、稳定成本端。",
+    "全球供应链与采购规模优势为肉制品成本与品质提供长期支撑，间接增厚毛利。"
+  ],
+  "risks": [
+    "A 股上市主体双汇发展自身收入几乎全部来自国内，并无独立的海外营收占比，全球化并非其成长主线。",
+    "进口猪肉受国际猪价、海运、汇率及中美贸易/关税政策影响，成本红利存在不确定性。",
+    "非洲猪瘟等跨境动物疫病与各国进口检疫政策可能扰动全球采购节奏。"
+  ],
+  "summary": "双汇发展本质是以国内市场为绝对主体的必需消费龙头，A 股上市主体自身无独立披露的海外营收（年报按长江南北分区披露主营），全球化属性主要体现在「成本端」而非「收入端」：作为万洲国际（WH Group）控股的核心资产，可依托集团全球供应链协同进口美国 Smithfield 等低价猪肉，平滑国内生猪周期、稳定原料成本。因此全球化对其意义在于供应链对冲与成本优势，而非第二增长曲线，投资判断仍应以国内肉制品盈利稳定性与高分红为核心。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 双汇 2025 年报 + 万洲国际/Smithfield 公开资料",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,33 @@
+{
+  "code": "300760",
+  "name": "迈瑞医疗",
+  "annual": [
+    { "year": "2014", "dividend": 0.0, "netProfit": 13.6, "revenue": 78.36, "payoutRatio": null },
+    { "year": "2015", "dividend": 0.0, "netProfit": 9.1, "revenue": 80.13, "payoutRatio": null },
+    { "year": "2016", "dividend": 0.0, "netProfit": 16.0, "revenue": 90.32, "payoutRatio": null },
+    { "year": "2017", "dividend": 0.0, "netProfit": 25.89, "revenue": 111.74, "payoutRatio": null },
+    { "year": "2018", "dividend": 12.16, "netProfit": 37.19, "revenue": 137.53, "payoutRatio": 32.7 },
+    { "year": "2019", "dividend": 18.24, "netProfit": 46.81, "revenue": 165.56, "payoutRatio": 39.0 },
+    { "year": "2020", "dividend": 30.39, "netProfit": 66.58, "revenue": 210.26, "payoutRatio": 45.6 },
+    { "year": "2021", "dividend": 42.44, "netProfit": 80.02, "revenue": 252.7, "payoutRatio": 53.0 },
+    { "year": "2022", "dividend": 54.56, "netProfit": 96.07, "revenue": 303.66, "payoutRatio": 56.8 },
+    { "year": "2023", "dividend": 70.32, "netProfit": 115.82, "revenue": 349.32, "payoutRatio": 60.7 },
+    { "year": "2024", "dividend": 76.02, "netProfit": 116.68, "revenue": 367.26, "payoutRatio": 65.2 },
+    { "year": "2025", "dividend": 53.1, "netProfit": 81.36, "revenue": 332.82, "payoutRatio": 65.3 }
+  ],
+  "mcapYi": 1700.93,
+  "currentDividendYield": 3.1,
+  "payoutRatioLatest": 65.3,
+  "consecutiveYears": 8,
+  "cumulativeDividend": 357.23,
+  "cumulativeToMcap": 21.0,
+  "dividendToRevenue": 16,
+  "buybackNote": "以现金分红为主，并配合回购用于股权激励/注销；自 2018 年上市起连续分红，派息比例由 33% 阶梯式提升至 65%，分红政策持续加码。",
+  "rating": "moderate",
+  "summary": "股东回报呈「持续加码」特征。公司上市以来连续 8 年现金分红，累计派现约 357 亿元，占当前市值约 21%；派息比例从 2018 年的 33% 稳步提升至 2025 年的 65%，分红绝对额随利润增长由 12 亿增至高峰 76 亿（2025 因利润下滑回落至 53 亿）。当前股息率约 3.1%，相对偏低，回报核心仍来自高 ROE（长期 30%+，2025 因业绩承压回落至 21.6%）驱动的内生成长与净资产增厚，而非高股息本身。综合判定为中等偏强的股东回报。",
+  "source": "上市以来年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,105 @@
+{
+  "code": "600900",
+  "name": "长江电力",
+  "annual": [
+    {
+      "year": "2014",
+      "dividend": 62.55,
+      "netProfit": 118.3,
+      "revenue": 268.98,
+      "payoutRatio": 52.9
+    },
+    {
+      "year": "2015",
+      "dividend": 28.48,
+      "netProfit": 182.35,
+      "revenue": 474.35,
+      "payoutRatio": 15.6
+    },
+    {
+      "year": "2016",
+      "dividend": 159.5,
+      "netProfit": 207.81,
+      "revenue": 489.39,
+      "payoutRatio": 76.8
+    },
+    {
+      "year": "2017",
+      "dividend": 149.6,
+      "netProfit": 222.61,
+      "revenue": 501.46,
+      "payoutRatio": 67.2
+    },
+    {
+      "year": "2018",
+      "dividend": 149.6,
+      "netProfit": 226.11,
+      "revenue": 512.14,
+      "payoutRatio": 66.2
+    },
+    {
+      "year": "2019",
+      "dividend": 149.6,
+      "netProfit": 215.43,
+      "revenue": 498.74,
+      "payoutRatio": 69.4
+    },
+    {
+      "year": "2020",
+      "dividend": 159.19,
+      "netProfit": 262.98,
+      "revenue": 577.83,
+      "payoutRatio": 60.5
+    },
+    {
+      "year": "2021",
+      "dividend": 185.41,
+      "netProfit": 262.73,
+      "revenue": 556.46,
+      "payoutRatio": 70.6
+    },
+    {
+      "year": "2022",
+      "dividend": 208.79,
+      "netProfit": 237.26,
+      "revenue": 688.63,
+      "payoutRatio": 88.0
+    },
+    {
+      "year": "2023",
+      "dividend": 200.64,
+      "netProfit": 272.45,
+      "revenue": 781.44,
+      "payoutRatio": 73.6
+    },
+    {
+      "year": "2024",
+      "dividend": 230.74,
+      "netProfit": 324.96,
+      "revenue": 844.92,
+      "payoutRatio": 71.0
+    },
+    {
+      "year": "2025",
+      "dividend": 244.68,
+      "netProfit": 345.03,
+      "revenue": 862.42,
+      "payoutRatio": 70.9
+    }
+  ],
+  "mcapYi": 6523.23,
+  "currentDividendYield": 3.8,
+  "payoutRatioLatest": 70.9,
+  "consecutiveYears": 12,
+  "cumulativeDividend": 2264.16,
+  "cumulativeToMcap": 34.7,
+  "dividendToRevenue": 28,
+  "buybackNote": "以高比例现金分红为主，基本不依赖回购；公司章程承诺 2021-2025 年每年现金分红不低于当年可分配利润的 70%，并明确 2026 年起按不低于当年净利润 70% 派息，确定性极高。",
+  "rating": "strong",
+  "summary": "股东回报力度强、确定性极高，是 A 股高股息「类债」标杆。连续 12 年现金分红，累计派现约 2264 亿元，相当于当前市值的约 35%。派息比例自 2016 年起稳定在 65%~88%（近年约 70%~71%），并以章程形式锁定「不低于 70%」的承诺，2025 年每股派息 1.0 元、对应股息率约 3.8%。分红绝对额随发电量稳步抬升、分红占收入比例稳定在 28% 左右，叠加来水均值回归特性，回报可预测性显著强于一般周期股。",
+  "source": "近 12 年年报 + 分红明细（东财 datacenter，shareholder_fetch.py）/ 个股市值（push2）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

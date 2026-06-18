@@ -1,0 +1,155 @@
+{
+  "code": "300750",
+  "name": "宁德时代",
+  "annual": [
+    {
+      "year": "2014",
+      "revenue": 8.67,
+      "netProfit": 0.54,
+      "revenueYoY": null,
+      "netProfitYoY": null,
+      "roe": 23.72,
+      "grossMargin": 25.73,
+      "netMargin": 6.41,
+      "priceClose": null
+    },
+    {
+      "year": "2015",
+      "revenue": 57.03,
+      "netProfit": 9.31,
+      "revenueYoY": 557.93,
+      "netProfitYoY": 1609.94,
+      "roe": 130.37,
+      "grossMargin": 38.64,
+      "netMargin": 16.67,
+      "priceClose": null
+    },
+    {
+      "year": "2016",
+      "revenue": 148.79,
+      "netProfit": 28.52,
+      "revenueYoY": 160.9,
+      "netProfitYoY": 206.43,
+      "roe": 69.55,
+      "grossMargin": 43.7,
+      "netMargin": 19.61,
+      "priceClose": null
+    },
+    {
+      "year": "2017",
+      "revenue": 199.97,
+      "netProfit": 38.78,
+      "revenueYoY": 34.4,
+      "netProfitYoY": 35.98,
+      "roe": 18.99,
+      "grossMargin": 36.29,
+      "netMargin": 20.97,
+      "priceClose": null
+    },
+    {
+      "year": "2018",
+      "revenue": 296.11,
+      "netProfit": 33.87,
+      "revenueYoY": 48.08,
+      "netProfitYoY": -12.66,
+      "roe": 11.75,
+      "grossMargin": 32.79,
+      "netMargin": 12.62,
+      "priceClose": 73.8
+    },
+    {
+      "year": "2019",
+      "revenue": 457.88,
+      "netProfit": 45.6,
+      "revenueYoY": 54.63,
+      "netProfitYoY": 34.64,
+      "roe": 12.78,
+      "grossMargin": 29.06,
+      "netMargin": 10.95,
+      "priceClose": 106.4
+    },
+    {
+      "year": "2020",
+      "revenue": 503.19,
+      "netProfit": 55.83,
+      "revenueYoY": 9.9,
+      "netProfitYoY": 22.43,
+      "roe": 11.27,
+      "grossMargin": 27.76,
+      "netMargin": 12.13,
+      "priceClose": 351.11
+    },
+    {
+      "year": "2021",
+      "revenue": 1303.56,
+      "netProfit": 159.31,
+      "revenueYoY": 159.06,
+      "netProfitYoY": 185.34,
+      "roe": 21.52,
+      "grossMargin": 26.28,
+      "netMargin": 13.7,
+      "priceClose": 588.0
+    },
+    {
+      "year": "2022",
+      "revenue": 3285.94,
+      "netProfit": 307.29,
+      "revenueYoY": 152.07,
+      "netProfitYoY": 92.89,
+      "roe": 24.67,
+      "grossMargin": 20.25,
+      "netMargin": 10.18,
+      "priceClose": 393.42
+    },
+    {
+      "year": "2023",
+      "revenue": 4009.17,
+      "netProfit": 441.21,
+      "revenueYoY": 22.01,
+      "netProfitYoY": 43.58,
+      "roe": 24.04,
+      "grossMargin": 19.19,
+      "netMargin": 11.66,
+      "priceClose": 163.26
+    },
+    {
+      "year": "2024",
+      "revenue": 3620.13,
+      "netProfit": 507.45,
+      "revenueYoY": -9.7,
+      "netProfitYoY": 15.01,
+      "roe": 24.13,
+      "grossMargin": 24.44,
+      "netMargin": 14.92,
+      "priceClose": 266.0
+    },
+    {
+      "year": "2025",
+      "revenue": 4237.02,
+      "netProfit": 722.01,
+      "revenueYoY": 17.04,
+      "netProfitYoY": 42.28,
+      "roe": 24.91,
+      "grossMargin": 26.27,
+      "netMargin": 18.12,
+      "priceClose": 367.26
+    }
+  ],
+  "isCyclical": true,
+  "cyclicality": "moderate",
+  "position": "rising",
+  "positionScore": 72,
+  "summary": "成长与周期叠加的高端制造龙头。2015-2021 年伴随全球新能源车爆发，营收从 57 亿飙升至 1304 亿，呈典型超高速成长；2022 年因碳酸锂价格暴涨带动营收冲至 3286 亿，但毛利率被原材料挤压至 20%。2023-2024 年随碳酸锂价格回落与行业去库，营收一度小幅下滑（2024 年 -9.7%），盈利质量却逆势改善（净利率回升、ROE 稳定在 24%）。2025 年营收重回增长（+17% 至 4237 亿）、归母净利创纪录 722 亿、净利率升至 18%，量利齐升、份额稳中有升。当前处于碳酸锂周期底部企稳、出货量与盈利重新向上的阶段，故判定为「上行」，行业仍受新能源车与储能渗透率提升驱动，但增速较早年明显放缓。",
+  "drivers": [
+    "全球新能源车销量与渗透率（动力电池需求最核心变量）",
+    "全球储能装机需求（第二增长曲线）",
+    "碳酸锂等上游原材料价格周期（影响营收口径与毛利率）",
+    "行业产能利用率与价格竞争格局、龙头份额变化",
+    "海外（欧洲/北美）渗透与本土化建厂进度"
+  ],
+  "source": "近 12 年年报（东财 F10 主要指标 cycle_fetch.py）/ 研报 / 行业周期判断",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

@@ -1,0 +1,34 @@
+{
+  "code": "300760",
+  "name": "迈瑞医疗",
+  "annual": [
+    { "year": "2020", "totalRevenue": 210.26, "overseasIncome": 99.16, "overseasRatio": 47.2 },
+    { "year": "2021", "totalRevenue": 252.69, "overseasIncome": 100.1, "overseasRatio": 39.6 },
+    { "year": "2022", "totalRevenue": 303.65, "overseasIncome": 116.98, "overseasRatio": 38.5 },
+    { "year": "2023", "totalRevenue": 349.32, "overseasIncome": 135.5, "overseasRatio": 38.8 },
+    { "year": "2024", "totalRevenue": 367.26, "overseasIncome": 164.34, "overseasRatio": 44.7 },
+    { "year": "2025", "totalRevenue": 332.82, "overseasIncome": 176.5, "overseasRatio": 53.0 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "境外", "income": 176.5, "ratio": 53.0, "grossMargin": null },
+    { "name": "境内", "income": 156.32, "ratio": 47.0, "grossMargin": null }
+  ],
+  "markets": ["北美 / 欧洲发达市场（高端医院突破）", "亚非拉等新兴市场（IVD/监护/超声本地化装机）", "全球疫情后高端客户群持续渗透"],
+  "opportunities": [
+    "海外高端突破：监护、超声、IVD 加速进入欧美高端医院与战略客户，由「性价比替代」升级为高端正面竞争。",
+    "本地化建设：海外建厂、本地仓储与售后服务网络完善，IVD 海外装机带动后续试剂耗材的高黏性复购。",
+    "新兴市场国产替代空间大，医疗基建需求旺盛，迈瑞凭借全产品线与成本优势持续抢占 GE/飞利浦/西门子份额。"
+  ],
+  "risks": [
+    "地缘政治与贸易摩擦（关税、出口管制、医疗设备本地化采购要求）可能扰动海外拓展节奏。",
+    "汇率波动影响海外收入与毛利的报表表现。",
+    "海外高端市场竞争激烈，品牌与渠道仍需长期投入，本地化合规成本较高。"
+  ],
+  "summary": "全球化已成为迈瑞最重要的成长主线。海外收入占比从 2022 年的约 38% 持续提升至 2025 年的 53%（约 176.5 亿元），海外收入首次超越国内，是 2025 年国内招标承压背景下支撑整体业绩的关键力量。其出海逻辑已从早期的性价比替代，升级为在欧美高端医院与战略客户的正面突破，叠加 IVD「装机—试剂」闭环带来的海外耗材复购，全球化兼具成长性与盈利持续性。海外本地化建设与新兴市场国产替代仍有广阔空间，是未来估值的核心增量来源，但需关注地缘政治、关税与汇率扰动。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 迈瑞 2025 年报",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}

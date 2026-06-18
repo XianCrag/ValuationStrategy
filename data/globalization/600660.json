@@ -1,0 +1,36 @@
+{
+  "code": "600660",
+  "name": "福耀玻璃",
+  "annual": [
+    { "year": "2020", "totalRevenue": 199.06, "overseasIncome": 89.81, "overseasRatio": 45.1 },
+    { "year": "2021", "totalRevenue": 236.03, "overseasIncome": 110.71, "overseasRatio": 46.9 },
+    { "year": "2022", "totalRevenue": 280.99, "overseasIncome": 128.35, "overseasRatio": 45.7 },
+    { "year": "2023", "totalRevenue": 331.61, "overseasIncome": 147.92, "overseasRatio": 44.6 },
+    { "year": "2024", "totalRevenue": 392.51, "overseasIncome": 175.55, "overseasRatio": 44.7 },
+    { "year": "2025", "totalRevenue": 457.88, "overseasIncome": 208.57, "overseasRatio": 45.6 }
+  ],
+  "latestYear": "2025",
+  "latestBreakdown": [
+    { "name": "国内", "income": 242.41, "ratio": 52.9, "grossMargin": 40.4 },
+    { "name": "国外", "income": 208.57, "ratio": 45.6, "grossMargin": 32.6 },
+    { "name": "其他(补充)", "income": 6.9, "ratio": 1.5, "grossMargin": 67.5 }
+  ],
+  "markets": ["北美（美国俄亥俄/伊利诺伊工厂）", "欧洲（德国/俄罗斯及匈牙利、斯洛伐克后道基地）", "全球 OEM 主机厂配套 + AGR 售后"],
+  "opportunities": [
+    "海外收入占比常年约 45%，是真正的全球化龙头；通过在美国、欧洲、俄罗斯本地建厂贴近主机厂，规避贸易壁垒与运费、绑定全球客户。",
+    "美国工厂经多年爬坡后盈利显著改善，规模效应释放打开海外利润弹性。",
+    "欧洲采用「1+N」运营模式（国内临港基地统一供货 + 德国/匈牙利/斯洛伐克本地后道加工），增强客户黏性并应对欧盟原产地相关法规。",
+    "全球份额持续替代旭硝子（AGC）、板硝子（NSG）等竞争对手，海外是份额扩张主战场。"
+  ],
+  "risks": [
+    "海外占比高，人民币与美元/欧元汇率波动直接影响收入与利润。",
+    "海外工厂运营受当地劳工成本、能源价格与贸易政策（关税、原产地要求）影响。",
+    "全球汽车产销景气下行会同步冲击海内外需求。"
+  ],
+  "summary": "福耀是中国制造业全球化的标杆，海外收入占比长期稳定在约 45%（2025 年约 208.6 亿、占比 45.6%），并非贸易出口而是以北美、欧洲、俄罗斯的本地化工厂直接配套全球主机厂，全球汽车玻璃市占率约 1/3。全球化是其核心成长看点与估值支撑：一方面通过贴近客户建厂规避关税与物流劣势、绑定全球 OEM；另一方面持续替代日系（AGC/NSG）份额。需关注的是境外毛利率（约 32.6%）低于境内（约 40.4%），且汇率与海外能源/劳工成本、欧盟原产地等贸易政策构成主要不确定性。总体看，全球化是福耀区别于普通汽零的第二增长曲线与护城河来源。",
+  "source": "东财 F10 分地区主营构成（globalization_fetch.py）+ 福耀 2025 年报、投资者互动（F10 业内点评）",
+  "confidence": "medium",
+  "reportPeriod": "2025-12-31",
+  "generatedBy": "cursor-dev",
+  "generatedAt": "2026-06-18T13:45:00+08:00"
+}
